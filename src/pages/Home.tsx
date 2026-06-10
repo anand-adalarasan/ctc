@@ -5,6 +5,7 @@ import {
   HandHeart,
   Heart,
   Home as HomeIcon,
+  MapPin,
   Sprout,
   UsersRound
 } from "lucide-react";
@@ -12,7 +13,7 @@ import heroSanctuary from "../assets/images/hero-sanctuary.jpg";
 import storyPrayer from "../assets/images/story-prayer.jpg";
 import FeatureRows from "../components/FeatureRows";
 import SectionHeader from "../components/SectionHeader";
-import { eventPromos, ministries, pastors, quickLinks } from "../data/site";
+import { eventPromos, ministries, quickLinks } from "../data/site";
 
 export default function Home() {
   const featuredEvent = eventPromos.find((event) => event.featured) ?? eventPromos[0];
@@ -33,7 +34,7 @@ export default function Home() {
             <Link className="button primary" to="/visit">
               Plan Your Visit
             </Link>
-            <Link className="button secondary" to="/visit">
+            <Link className="button secondary" to="/worship">
               Learn More About Us
             </Link>
           </div>
@@ -66,7 +67,7 @@ export default function Home() {
               <span className="event-category">{featuredEvent.category}</span>
               <h3>{featuredEvent.title}</h3>
               <p>
-                Open the Events page to view the full flyer and contact the
+                Open the Connect page to view the full flyer and contact the
                 church if you are interested in attending.
               </p>
               <div className="event-actions">
@@ -259,26 +260,31 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section pastors-section">
-        <SectionHeader eyebrow="Our leaders" title="Meet Our Pastors" />
-        <div className="pastor-list">
-          {pastors.map((pastor) => (
-            <article className="pastor-card" key={pastor.name}>
-              <div
-                className="pastor-photo"
-                style={{ backgroundImage: `url(${pastor.image})` }}
-                aria-hidden="true"
-              />
-              <div>
-                <h3>{pastor.name}</h3>
-                <small>{pastor.role}</small>
-                <p>{pastor.text}</p>
-                <Link className="text-link" to="/pastors">
-                  Read profile
-                </Link>
-              </div>
-            </article>
-          ))}
+      <section className="events-visitor-cta" aria-labelledby="home-visitor-title">
+        <div>
+          <span className="eyebrow">First time visitor</span>
+          <h2 id="home-visitor-title">Joining us for the first time?</h2>
+          <p>
+            We would love to welcome you and your family. Plan your visit, get
+            directions, and stay connected with upcoming events.
+          </p>
+        </div>
+        <div className="events-cta-actions">
+          <Link className="button gold" to="/visit">
+            Plan Your Visit
+          </Link>
+          <a
+            className="button outline-light"
+            href="https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MapPin size={17} aria-hidden="true" />
+            Get Directions
+          </a>
+          <Link className="button outline-light" to="/contact">
+            Subscribe for Updates
+          </Link>
         </div>
       </section>
     </>

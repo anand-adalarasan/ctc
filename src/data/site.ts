@@ -20,14 +20,23 @@ import ministryPrayer from "../assets/images/ministry-prayer.jpg";
 import ministrySchool from "../assets/images/ministry-school.jpg";
 import ministrySermon from "../assets/images/ministry-sermon.jpg";
 import ministryTestimony from "../assets/images/ministry-testimony.jpg";
-import pastorGodwin from "../assets/images/pastor-godwin.jpg";
 import pastorJagan from "../assets/images/pastor-jagan.jpg";
 
 export const navItems = [
   { label: "Home", href: "/" },
-  { label: "Visit", href: "/visit" },
   { label: "Worship", href: "/worship" },
-  { label: "Grow", href: "/grow" },
+  { label: "Connect", href: "/connect" },
+  {
+    label: "Grow",
+    href: "/grow",
+    children: [
+      { label: "Bible Study / Prayer", href: "/grow/bible-study-prayer" },
+      { label: "Sunday School - B.L.A.S.T.", href: "/grow/sunday-school" },
+      { label: "Kids Circle", href: "/grow/kids-circle" },
+      { label: "Audio Sermons", href: "/sermons" }
+      // TODO: Add Blog / Clay Pot here only after a real blog route exists.
+    ]
+  },
   { label: "Serve", href: "/serve" },
   { label: "Contact", href: "/contact" }
 ];
@@ -45,7 +54,7 @@ export const quickLinks = [
     title: "Location",
     detail: "We are located in the heart of Chicago and would love to welcome you in person.",
     meta: "1330, 63rd St Downers Grove, IL-60516",
-    metaSecond: "Get Directions ->",
+    metaHref: "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516",
     href: "/visit",
     icon: MapPin
   },
@@ -75,7 +84,7 @@ export const nextSteps = [
   {
     title: "Join Fellowship",
     text: "Build relationships through fellowship hour, groups, and shared meals.",
-    href: "/events",
+    href: "/connect",
     icon: HandHeart
   },
   {
@@ -104,7 +113,7 @@ export const ministries = [
   {
     title: "Kids Circle",
     text: "A fun and safe place for children to learn about God's love.",
-    href: "/grow",
+    href: "/grow/kids-circle",
     icon: Users,
     image: ministryKids
   },
@@ -118,7 +127,7 @@ export const ministries = [
   {
     title: "Sunday School",
     text: "Bible-based teaching to help children grow in their faith.",
-    href: "/grow",
+    href: "/grow/sunday-school",
     icon: School,
     image: ministrySchool
   },
@@ -139,7 +148,7 @@ export const ministries = [
   {
     title: "Fellowship",
     text: "Building relationships and sharing life together during fellowship hour.",
-    href: "/events",
+    href: "/connect",
     icon: HandHeart,
     image: ministryFellowship
   }
@@ -149,19 +158,19 @@ export const growItems = [
   {
     title: "Bible Study & Prayer",
     text: "Midweek Scripture study and prayer for spiritual formation.",
-    href: "/grow",
+    href: "/grow/bible-study-prayer",
     icon: BookOpen
   },
   {
     title: "Sunday School",
-    text: "Foundational Bible teaching for children and youth.",
-    href: "/grow",
+    text: "B.L.A.S.T. helps children experience the gospel through Bible Learning And Spiritual Training.",
+    href: "/grow/sunday-school",
     icon: School
   },
   {
     title: "Kids Circle",
     text: "A joyful ministry for children during the Sunday gathering rhythm.",
-    href: "/grow",
+    href: "/grow/kids-circle",
     icon: Users
   },
   {
@@ -202,7 +211,7 @@ export const eventPromos = [
     category: "Guest Speaker",
     flyer: guestSpeakerSamReeves,
     featured: true,
-    href: "/events"
+    href: "/connect"
   }
 ];
 
@@ -233,12 +242,6 @@ export const pastors = [
     role: "Pastor",
     text: "Rev. Jagan Samuelraj serves as our pastor. He has a heart for teaching God's Word and shepherding His people.",
     image: pastorJagan
-  },
-  {
-    name: "Rev. Godwin Kanaka Raj",
-    role: "Founder, Honorary Pastor",
-    text: "Rev. Godwin Kanaka Raj founded Christ Tamil Church Chicago in 2015 and has served faithfully for many years.",
-    image: pastorGodwin
   }
 ];
 
@@ -312,9 +315,9 @@ export const pageSummaries = [
     icon: MicVocal
   },
   {
-    title: "Events",
+    title: "Connect",
     text: "Upcoming gatherings, fellowship, and retreat information.",
-    href: "/events",
+    href: "/connect",
     icon: CalendarDays
   }
 ];

@@ -7,6 +7,7 @@ export type FeatureItem = {
   detail?: string;
   meta?: string;
   metaSecond?: string;
+  metaHref?: string;
   href?: string;
   icon: LucideIcon;
   image?: string;
@@ -22,6 +23,22 @@ export default function FeatureRows({ items, variant = "light" }: FeatureRowsPro
     <div className={`feature-rows ${variant}`}>
       {items.map((item) => {
         const Icon = item.icon;
+        const metaContent = item.metaHref ? (
+          <a
+            className="feature-meta map-link"
+            href={item.metaHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${item.title} in Google Maps`}
+          >
+            <strong>{item.meta}</strong>
+          </a>
+        ) : (
+          <span className="feature-meta">
+            <strong>{item.meta}</strong>
+            {item.metaSecond ? <span>{item.metaSecond}</span> : null}
+          </span>
+        );
         const infoContent = (
           <>
             <span className="feature-icon">
@@ -31,10 +48,7 @@ export default function FeatureRows({ items, variant = "light" }: FeatureRowsPro
               <strong>{item.title}</strong>
               <span>{item.text ?? item.detail}</span>
             </span>
-            <span className="feature-meta">
-              <strong>{item.meta}</strong>
-              {item.metaSecond ? <span>{item.metaSecond}</span> : null}
-            </span>
+            {metaContent}
           </>
         );
         const content = variant === "info" ? infoContent : (
@@ -55,7 +69,7 @@ export default function FeatureRows({ items, variant = "light" }: FeatureRowsPro
           </>
         );
 
-        return item.href ? (
+        return item.href && !(variant === "info" && item.metaHref) ? (
           <Link className="feature-row" key={item.title} to={item.href}>
             {content}
           </Link>

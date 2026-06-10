@@ -171,7 +171,7 @@ textarea {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: clamp(16px, 2vw, 28px);
   color: var(--primary-dark);
   font-size: 0.78rem;
   font-weight: 760;
@@ -190,6 +190,68 @@ textarea {
 
 .site-nav a.active {
   border-bottom: 2px solid var(--primary);
+}
+
+.site-nav a.active:not(.nav-cta) {
+  font-weight: 850;
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 50%;
+  display: grid;
+  min-width: 238px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.nav-dropdown-menu a {
+  display: block;
+  border-bottom: 0;
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: var(--primary-dark);
+  font-size: 0.8rem;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.site-nav .nav-dropdown-menu a.active {
+  border-bottom: 0;
+  background: var(--sage-soft);
+  color: var(--primary);
+  font-weight: 850;
+}
+
+.nav-dropdown-menu a:hover {
+  background: var(--warm-band);
 }
 
 .nav-cta {
@@ -327,6 +389,26 @@ textarea {
 .button.secondary:hover {
   border-color: var(--primary);
   background: var(--sage-soft);
+}
+
+.button.gold {
+  background: var(--gold);
+  color: var(--primary-dark);
+}
+
+.button.gold:hover {
+  background: #c99d4c;
+}
+
+.button.outline-light {
+  border-color: rgba(255, 255, 255, 0.62);
+  background: transparent;
+  color: #fff;
+}
+
+.button.outline-light:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .hero-media {
@@ -969,6 +1051,18 @@ textarea {
 
 .feature-meta span {
   color: var(--primary);
+}
+
+.feature-meta.map-link {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.feature-meta.map-link:hover {
+  background: rgba(237, 243, 234, 0.6);
 }
 
 .feature-row:hover {
@@ -1637,6 +1731,433 @@ textarea {
   padding-bottom: clamp(48px, 7vw, 96px);
 }
 
+.worship-hero {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(320px, 0.54fr);
+  align-items: center;
+  gap: clamp(42px, 7vw, 108px);
+  width: min(1120px, calc(100% - 80px));
+  margin-inline: auto;
+  padding: clamp(72px, 8vw, 112px) 0 clamp(58px, 7vw, 92px);
+  animation: fade-up 700ms ease both;
+}
+
+.worship-hero-copy h1 {
+  max-width: 760px;
+  margin: 0;
+  color: #1a211d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.2rem, 5.2vw, 5rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: 0;
+}
+
+.worship-hero-copy p {
+  max-width: 560px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.worship-hero-card {
+  justify-self: end;
+  width: min(100%, 360px);
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.worship-card-icon,
+.worship-flow-icon,
+.worship-generation-icon,
+.worship-cta-icon {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.worship-card-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  background: var(--primary);
+  color: #fff;
+}
+
+.worship-hero-card h2 {
+  margin: 0 0 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.62rem;
+  line-height: 1.14;
+}
+
+.worship-detail-list {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 24px;
+  padding: 0;
+  color: var(--text);
+  list-style: none;
+}
+
+.worship-detail-list li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  font-size: 0.92rem;
+}
+
+.worship-detail-list svg {
+  color: var(--primary);
+}
+
+.worship-hero-card .button,
+.worship-cta-actions .button {
+  width: 100%;
+}
+
+.worship-expect-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.56fr);
+  align-items: center;
+  gap: clamp(28px, 6vw, 92px);
+  width: 100%;
+  padding: 28px max(40px, calc((100% - 1120px) / 2));
+  border-top: 1px solid rgba(16, 37, 27, 0.08);
+  border-bottom: 1px solid rgba(16, 37, 27, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.worship-expect-copy {
+  max-width: 640px;
+  border-left: 3px solid var(--gold);
+  padding-left: 24px;
+}
+
+.worship-expect-copy .eyebrow {
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 0.78rem;
+}
+
+.worship-expect-copy .eyebrow::after {
+  display: none;
+}
+
+.worship-expect-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.72;
+}
+
+.worship-expect-image {
+  overflow: hidden;
+  align-self: stretch;
+  min-height: 174px;
+  border-radius: 8px;
+}
+
+.worship-expect-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.worship-flow-band {
+  width: 100%;
+  padding: var(--section-y) max(40px, calc((100% - var(--container)) / 2));
+  background:
+    radial-gradient(circle at 18% 0, rgba(185, 144, 69, 0.12), transparent 34%),
+    linear-gradient(135deg, #0e3b2b 0%, var(--primary) 58%, #09281e 100%);
+  color: #fff;
+}
+
+.worship-flow-inner {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+}
+
+.worship-flow-band .section-header h2 {
+  color: #fff;
+}
+
+.worship-flow-layout {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.34fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.worship-image-stack {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+}
+
+.worship-image-stack img {
+  width: 100%;
+  height: 132px;
+  object-fit: cover;
+}
+
+.worship-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.worship-flow-card {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  min-height: 116px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.worship-flow-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(185, 144, 69, 0.62);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.worship-flow-icon {
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(185, 144, 69, 0.72);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--gold);
+}
+
+.worship-flow-card h3,
+.worship-generation-card h3,
+.worship-horizontal-card h3,
+.worship-cta h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.12;
+}
+
+.worship-flow-card h3 {
+  color: #fff;
+  font-size: 1.28rem;
+}
+
+.worship-flow-card p {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.9rem;
+  line-height: 1.42;
+}
+
+.worship-generation-section {
+  width: min(1120px, calc(100% - 80px));
+  margin-inline: auto;
+  padding-block: var(--section-y);
+}
+
+.worship-generation-section .section-header {
+  margin-bottom: 24px;
+}
+
+.worship-generation-section .section-header h2 {
+  position: relative;
+  display: inline-block;
+}
+
+.worship-generation-section .section-header h2::after {
+  content: "";
+  display: block;
+  width: 108px;
+  height: 2px;
+  margin: 10px auto 0;
+  background: var(--gold);
+}
+
+.worship-generation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.worship-generation-card {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: 222px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 16px 34px rgba(16, 37, 27, 0.08);
+}
+
+.worship-generation-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0 52%, rgba(255, 255, 255, 0.3));
+  pointer-events: none;
+}
+
+.worship-generation-card img {
+  position: absolute;
+  inset: auto 0 0;
+  width: 100%;
+  height: 92px;
+  object-fit: cover;
+}
+
+.worship-generation-icon,
+.worship-generation-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.worship-generation-icon {
+  justify-self: center;
+  width: 48px;
+  height: 48px;
+  margin-top: 20px;
+  background: var(--primary);
+  color: #fff;
+}
+
+.worship-generation-copy {
+  display: grid;
+  gap: 7px;
+  justify-items: center;
+  align-self: start;
+  padding: 12px 22px 104px;
+  text-align: center;
+}
+
+.worship-generation-card h3 {
+  color: var(--primary-dark);
+  font-size: 1.08rem;
+}
+
+.worship-generation-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.48;
+}
+
+.worship-horizontal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.worship-horizontal-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.52fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 34px rgba(16, 37, 27, 0.08);
+}
+
+.worship-horizontal-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 172px;
+  object-fit: cover;
+}
+
+.worship-horizontal-card div {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  padding: 26px;
+}
+
+.worship-horizontal-card h3 {
+  color: var(--primary-dark);
+  font-size: 1.5rem;
+}
+
+.worship-horizontal-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.worship-cta {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) minmax(300px, auto);
+  align-items: center;
+  gap: 24px;
+  width: min(1120px, calc(100% - 80px));
+  margin: 0 auto var(--home-section-y);
+  border-radius: 8px;
+  padding: 28px 32px;
+  background:
+    radial-gradient(circle at 0 50%, rgba(185, 144, 69, 0.2), transparent 32%),
+    var(--primary);
+  color: #fff;
+  box-shadow: 0 18px 42px rgba(16, 37, 27, 0.12);
+}
+
+.worship-cta-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gold);
+  color: #fff;
+}
+
+.worship-cta h2 {
+  color: #fff;
+  font-size: clamp(1.9rem, 3vw, 2.55rem);
+}
+
+.worship-cta p {
+  max-width: 520px;
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.worship-cta-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+.worship-cta-actions.single {
+  grid-template-columns: minmax(180px, 220px);
+}
+
+.worship-cta-actions .button {
+  gap: 8px;
+}
+
 .map-panel {
   display: grid;
   min-height: 360px;
@@ -1721,6 +2242,1610 @@ textarea {
   width: 100%;
   max-width: 500px;
   background: #fff;
+}
+
+.events-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.56fr);
+  gap: clamp(36px, 6vw, 86px);
+  align-items: center;
+  width: min(var(--container), calc(100% - 80px));
+  margin-inline: auto;
+  padding-block: clamp(68px, 8vw, 112px) clamp(52px, 7vw, 92px);
+  background: var(--bg);
+  animation: fade-up 700ms ease both;
+}
+
+.events-hero-copy {
+  max-width: 760px;
+}
+
+.events-hero-copy h1 {
+  max-width: 780px;
+  margin: 0;
+  color: #1a211d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.25rem, 5vw, 4.9rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: 0;
+}
+
+.events-hero-copy p {
+  max-width: 600px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.events-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.events-hero-stats span {
+  display: grid;
+  min-width: 104px;
+  border: 1px solid rgba(21, 61, 43, 0.12);
+  border-radius: 8px;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 28px rgba(16, 37, 27, 0.06);
+}
+
+.events-hero-stats strong {
+  color: var(--primary);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.events-hero-card {
+  display: grid;
+  gap: 20px;
+  justify-self: end;
+  width: min(100%, 460px);
+  border: 1px solid rgba(21, 61, 43, 0.12);
+  border-radius: 8px;
+  padding: clamp(24px, 3vw, 34px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(237, 243, 234, 0.9)),
+    var(--surface);
+  box-shadow: 0 28px 68px rgba(16, 37, 27, 0.14);
+}
+
+.events-card-icon,
+.events-featured-icon,
+.events-connect-icon,
+.events-card-top span,
+.events-annual-card > span {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--sage-soft);
+  color: var(--primary);
+}
+
+.events-card-icon {
+  width: 58px;
+  height: 58px;
+  background: var(--primary);
+  color: #fff;
+}
+
+.events-hero-card h2 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 2.4vw, 2.35rem);
+  line-height: 1.08;
+}
+
+.events-hero-card ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.events-hero-card li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  border-bottom: 1px solid rgba(16, 37, 27, 0.08);
+  padding-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.events-hero-card li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.events-hero-card li svg {
+  margin-top: 2px;
+  color: var(--gold);
+}
+
+.events-hero-card li > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.events-hero-event-title {
+  color: var(--primary-dark);
+  font-size: 0.98rem;
+}
+
+.events-hero-card .button {
+  justify-self: start;
+  margin-top: 4px;
+}
+
+.events-featured-section,
+.events-list-section,
+.events-flyer-section,
+.events-annual-section {
+  padding-block: var(--section-y);
+}
+
+.events-featured-grid,
+.events-connect-grid,
+.events-grid,
+.events-flyer-grid,
+.events-annual-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.events-featured-grid,
+.events-grid,
+.events-flyer-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.events-featured-card,
+.events-card,
+.events-flyer-card,
+.events-annual-card {
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(251, 250, 246, 0.94)),
+    var(--surface);
+  box-shadow: 0 16px 38px rgba(16, 37, 27, 0.07);
+  overflow-wrap: anywhere;
+}
+
+.events-featured-card,
+.events-card {
+  display: grid;
+  align-content: start;
+  gap: 15px;
+  min-height: 100%;
+  padding: 28px;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.events-featured-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.events-featured-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--gold);
+}
+
+.events-featured-card:hover,
+.events-card:hover,
+.events-flyer-card:hover,
+.events-annual-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 61, 43, 0.24);
+  box-shadow: 0 22px 54px rgba(16, 37, 27, 0.12);
+}
+
+.events-featured-icon {
+  width: 58px;
+  height: 58px;
+  margin-bottom: 4px;
+  background: var(--primary);
+  color: #fff;
+}
+
+.events-featured-card small,
+.events-card small,
+.events-annual-card p,
+.events-flyer-copy strong {
+  color: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.events-featured-card h3,
+.events-card h3,
+.events-connect-card h3,
+.events-flyer-copy h3,
+.events-annual-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.12;
+}
+
+.events-featured-card h3 {
+  font-size: clamp(1.75rem, 2.2vw, 2.35rem);
+}
+
+.events-featured-meta {
+  display: grid;
+  gap: 4px;
+  border-radius: 8px;
+  padding: 14px;
+  background: var(--warm-band);
+}
+
+.events-featured-meta strong {
+  color: var(--primary-dark);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.events-featured-meta span {
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.events-featured-card p,
+.events-card p,
+.events-connect-card p,
+.events-flyer-copy p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.events-featured-card .text-link,
+.events-card .text-link {
+  align-self: end;
+  margin-top: 4px;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.events-featured-card .text-link:hover,
+.events-card .text-link:hover {
+  color: var(--gold);
+  transform: translateX(2px);
+}
+
+.events-connect-section {
+  width: 100%;
+  max-width: none;
+  padding: var(--section-y) max(40px, calc((100% - var(--container)) / 2));
+  background:
+    linear-gradient(180deg, rgba(16, 37, 27, 0.97), rgba(21, 61, 43, 0.97)),
+    var(--primary);
+  color: #fff;
+}
+
+.events-connect-inner {
+  width: min(var(--container), 100%);
+  margin-inline: auto;
+}
+
+.events-connect-section .section-header h2,
+.events-connect-section .section-header p {
+  color: #fff;
+}
+
+.events-connect-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.events-connect-card {
+  display: grid;
+  gap: 14px;
+  min-height: 230px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.events-connect-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(185, 144, 69, 0.46);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.events-connect-icon {
+  width: 54px;
+  height: 54px;
+  background: rgba(185, 144, 69, 0.18);
+  color: var(--gold);
+}
+
+.events-connect-card h3 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.events-connect-card p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.events-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.events-card-top span {
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+}
+
+.events-card-top small {
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: rgba(185, 144, 69, 0.12);
+  text-align: right;
+}
+
+.events-card h3 {
+  font-size: 1.55rem;
+}
+
+.events-card-category {
+  color: var(--primary);
+  font-size: 0.84rem;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.events-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.events-card dl div {
+  border-radius: 8px;
+  padding: 13px;
+  background: var(--warm-band);
+}
+
+.events-card dt {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.events-card dd {
+  margin: 4px 0 0;
+  color: var(--primary-dark);
+  font-size: 0.94rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.events-flyer-card {
+  display: grid;
+  grid-template-rows: 300px minmax(0, 1fr);
+  overflow: hidden;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.events-flyer-media {
+  display: grid;
+  min-height: 0;
+  padding: 0;
+  background:
+    linear-gradient(135deg, rgba(237, 243, 234, 0.8), rgba(255, 255, 255, 0.94)),
+    var(--sage-soft);
+}
+
+.events-flyer-media img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  background: #fff;
+  transition: transform 520ms ease;
+}
+
+.events-flyer-card:hover .events-flyer-media img {
+  transform: scale(1.025);
+}
+
+.events-flyer-placeholder {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 100%;
+  border: 1px dashed rgba(21, 61, 43, 0.24);
+  border-radius: 0;
+  color: var(--primary);
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.events-flyer-copy {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 24px;
+}
+
+.events-flyer-copy h3 {
+  font-size: clamp(1.65rem, 2.3vw, 2.15rem);
+}
+
+.events-flyer-details {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.events-flyer-details div {
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--warm-band);
+}
+
+.events-flyer-details dt {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.events-flyer-details dd {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  min-width: 0;
+  margin: 4px 0 0;
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.events-flyer-details dd svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.events-flyer-copy .button {
+  align-self: end;
+  justify-self: start;
+  margin-top: 8px;
+}
+
+.events-flyer-card .button:hover,
+.events-hero-card .button:hover,
+.events-cta-actions .button:hover {
+  box-shadow: 0 10px 22px rgba(16, 37, 27, 0.12);
+}
+
+.events-annual-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.events-annual-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  min-height: 126px;
+  padding: 22px;
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.events-annual-card > span {
+  width: 48px;
+  height: 48px;
+  background: var(--primary);
+  color: #fff;
+}
+
+.events-annual-card h3 {
+  font-size: 1.38rem;
+}
+
+.events-annual-card p {
+  margin: 6px 0 0;
+}
+
+.events-visitor-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+  width: min(var(--container), calc(100% - 80px));
+  margin: var(--home-section-y-tight) auto var(--section-y);
+  border-radius: 8px;
+  padding: clamp(38px, 5.6vw, 64px) clamp(28px, 5vw, 52px) clamp(28px, 5vw, 52px);
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+  box-shadow: 0 24px 64px rgba(16, 37, 27, 0.18);
+}
+
+.events-visitor-cta .eyebrow {
+  color: var(--gold);
+}
+
+.events-visitor-cta h2 {
+  margin: 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  line-height: 1.08;
+}
+
+.events-visitor-cta p {
+  max-width: 660px;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.7;
+}
+
+.events-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  min-width: min(100%, 430px);
+}
+
+.events-cta-actions .button {
+  gap: 8px;
+}
+
+.bible-study-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 0.42fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.bible-study-hero-copy p {
+  max-width: 620px;
+}
+
+.bible-study-hero-card,
+.bible-study-intro-card,
+.bible-study-card,
+.bible-study-related-card {
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.bible-study-hero-card {
+  display: grid;
+  gap: 16px;
+  justify-self: end;
+  width: min(100%, 390px);
+  padding: clamp(24px, 3vw, 34px);
+}
+
+.bible-study-card-icon,
+.bible-study-card span,
+.bible-study-related-card > span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.bible-study-card-icon,
+.bible-study-card span {
+  background: var(--sage-soft);
+  color: var(--primary);
+}
+
+.bible-study-hero-card h2,
+.bible-study-intro-card h2,
+.bible-study-card h3,
+.bible-study-related-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.08;
+}
+
+.bible-study-hero-card h2 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+}
+
+.bible-study-hero-card ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bible-study-hero-card li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  color: var(--primary-dark);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.bible-study-hero-card li svg {
+  color: var(--gold);
+  margin-top: 1px;
+}
+
+.bible-study-intro-section {
+  padding-top: 22px;
+}
+
+.bible-study-intro-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 46px);
+}
+
+.bible-study-intro-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: var(--gold);
+}
+
+.bible-study-intro-card h2 {
+  max-width: 860px;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+}
+
+.bible-study-intro-card p,
+.bible-study-card p,
+.bible-study-related-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.66;
+}
+
+.bible-study-intro-card p {
+  max-width: 850px;
+  margin-top: 18px;
+}
+
+.bible-study-card-grid,
+.bible-study-rhythm-grid,
+.bible-study-related-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.bible-study-card-grid,
+.bible-study-related-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bible-study-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 230px;
+  padding: 24px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.bible-study-card:hover,
+.bible-study-related-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 61, 43, 0.24);
+  box-shadow: 0 20px 46px rgba(16, 37, 27, 0.1);
+}
+
+.bible-study-card h3 {
+  font-size: 1.48rem;
+}
+
+.bible-study-band {
+  width: 100%;
+  max-width: none;
+  padding: var(--section-y) max(40px, calc((100% - var(--container)) / 2));
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+}
+
+.bible-study-band-inner {
+  width: min(var(--container), 100%);
+  margin-inline: auto;
+}
+
+.bible-study-band .section-header h2,
+.bible-study-band .section-header p {
+  color: #fff;
+}
+
+.bible-study-rhythm-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.bible-study-rhythm-card {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-height: 110px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-weight: 760;
+  line-height: 1.4;
+}
+
+.bible-study-rhythm-card svg {
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.bible-study-related-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 24px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.bible-study-related-card > span {
+  background: var(--primary);
+  color: #fff;
+}
+
+.bible-study-related-card h3 {
+  font-size: 1.45rem;
+}
+
+.bible-study-related-card p {
+  margin-top: 8px;
+}
+
+.sunday-school-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 0.42fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.sunday-school-hero-copy p {
+  max-width: 620px;
+}
+
+.blast-hero-card,
+.blast-intro-card,
+.blast-schedule-card,
+.blast-related-card {
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.blast-hero-card {
+  display: grid;
+  gap: 16px;
+  justify-self: end;
+  width: min(100%, 390px);
+  padding: clamp(24px, 3vw, 34px);
+}
+
+.blast-card-icon,
+.blast-schedule-icon,
+.blast-experience-card span,
+.blast-related-card > span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.blast-card-icon,
+.blast-schedule-icon {
+  background: var(--sage-soft);
+  color: var(--primary);
+}
+
+.blast-hero-card h2,
+.blast-intro-card h2,
+.blast-schedule-card h3,
+.blast-parent-cta h2,
+.blast-acronym-card h3,
+.blast-experience-card h3,
+.blast-related-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.08;
+}
+
+.blast-hero-card h2 {
+  font-size: clamp(2.3rem, 4vw, 3.35rem);
+}
+
+.blast-hero-card p,
+.blast-intro-card p,
+.blast-schedule-card p,
+.blast-parent-cta p,
+.blast-acronym-card p,
+.blast-experience-card p,
+.blast-related-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.66;
+}
+
+.blast-hero-card ul,
+.blast-parent-panel ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.blast-hero-card li,
+.blast-parent-panel li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  color: var(--primary-dark);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.blast-hero-card li svg,
+.blast-parent-panel li svg {
+  color: var(--gold);
+  margin-top: 1px;
+}
+
+.sunday-school-intro-section {
+  padding-top: 22px;
+}
+
+.blast-intro-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 46px);
+}
+
+.blast-intro-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: var(--gold);
+}
+
+.blast-intro-card h2 {
+  max-width: 860px;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+}
+
+.blast-intro-card p {
+  max-width: 850px;
+  margin-top: 18px;
+}
+
+.blast-acronym-grid,
+.blast-experience-grid,
+.blast-related-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.blast-acronym-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.blast-acronym-card {
+  display: grid;
+  gap: 18px;
+  min-height: 270px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 24px;
+  background: var(--surface);
+  box-shadow: 0 16px 34px rgba(16, 37, 27, 0.06);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.blast-acronym-card:hover,
+.blast-related-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 61, 43, 0.24);
+  box-shadow: 0 20px 46px rgba(16, 37, 27, 0.1);
+}
+
+.blast-acronym-card > span {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 1px solid rgba(185, 144, 69, 0.3);
+  border-radius: 999px;
+  background: var(--warm-band);
+  color: var(--gold);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.15rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.blast-acronym-card h3 {
+  font-size: 1.55rem;
+}
+
+.blast-experience-band {
+  width: 100%;
+  max-width: none;
+  padding: var(--section-y) max(40px, calc((100% - var(--container)) / 2));
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+}
+
+.blast-experience-inner {
+  width: min(var(--container), 100%);
+  margin-inline: auto;
+}
+
+.blast-experience-band .section-header h2,
+.blast-experience-band .section-header p {
+  color: #fff;
+}
+
+.blast-experience-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.blast-experience-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 260px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+}
+
+.blast-experience-card span {
+  background: rgba(251, 250, 246, 0.94);
+  color: var(--gold);
+}
+
+.blast-experience-card h3 {
+  color: #fff;
+  font-size: 1.45rem;
+}
+
+.blast-experience-card p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.blast-schedule-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  gap: 24px;
+  align-items: center;
+  padding: clamp(24px, 4vw, 36px);
+}
+
+.blast-schedule-card > div {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.blast-schedule-card h3 {
+  font-size: 1.7rem;
+}
+
+.blast-schedule-card strong {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.blast-parent-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(330px, 0.7fr);
+  gap: clamp(24px, 5vw, 56px);
+  align-items: center;
+  width: min(var(--container), calc(100% - 80px));
+  margin: 0 auto var(--home-section-y);
+  border-radius: 8px;
+  padding: clamp(32px, 5vw, 56px);
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+  box-shadow: 0 24px 64px rgba(16, 37, 27, 0.18);
+}
+
+.blast-parent-cta h2 {
+  color: #fff;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+}
+
+.blast-parent-cta p {
+  max-width: 680px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.blast-parent-panel {
+  display: grid;
+  gap: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.blast-parent-panel li {
+  color: #fff;
+}
+
+.blast-parent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.blast-parent-actions .button {
+  gap: 8px;
+}
+
+.blast-related-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.blast-related-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 24px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.blast-related-card > span {
+  background: var(--primary);
+  color: #fff;
+}
+
+.blast-related-card h3 {
+  font-size: 1.45rem;
+}
+
+.blast-related-card p {
+  margin-top: 8px;
+}
+
+.kids-circle-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 0.42fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.kids-circle-hero-copy p {
+  max-width: 620px;
+}
+
+.kids-hero-card,
+.kids-intro-card,
+.kids-experience-card,
+.kids-blast-layout,
+.kids-related-card {
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.kids-hero-card {
+  display: grid;
+  gap: 16px;
+  justify-self: end;
+  width: min(100%, 390px);
+  padding: clamp(24px, 3vw, 34px);
+}
+
+.kids-card-icon,
+.kids-experience-card span,
+.kids-service-card span,
+.kids-related-card > span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.kids-card-icon,
+.kids-experience-card span {
+  background: var(--sage-soft);
+  color: var(--primary);
+}
+
+.kids-hero-card h2,
+.kids-intro-card h2,
+.kids-experience-card h3,
+.kids-service-card h3,
+.kids-blast-layout h2,
+.kids-parent-cta h2,
+.kids-related-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.08;
+}
+
+.kids-hero-card h2 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+}
+
+.kids-hero-card ul,
+.kids-parent-panel ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kids-hero-card li,
+.kids-parent-panel li {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  color: var(--primary-dark);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.kids-hero-card li svg,
+.kids-parent-panel li svg {
+  color: var(--gold);
+  margin-top: 1px;
+}
+
+.kids-intro-section {
+  padding-top: 22px;
+}
+
+.kids-intro-card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(28px, 4vw, 46px);
+}
+
+.kids-intro-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: var(--gold);
+}
+
+.kids-intro-card h2,
+.kids-blast-layout h2 {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+}
+
+.kids-intro-card p,
+.kids-experience-card p,
+.kids-service-card p,
+.kids-blast-layout p,
+.kids-parent-cta p,
+.kids-related-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.66;
+}
+
+.kids-intro-card p,
+.kids-blast-layout p {
+  max-width: 850px;
+  margin-top: 18px;
+}
+
+.kids-experience-grid,
+.kids-service-grid,
+.kids-related-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.kids-experience-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.kids-experience-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 230px;
+  padding: 24px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.kids-experience-card:hover,
+.kids-related-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 61, 43, 0.24);
+  box-shadow: 0 20px 46px rgba(16, 37, 27, 0.1);
+}
+
+.kids-experience-card h3 {
+  font-size: 1.48rem;
+}
+
+.kids-service-band {
+  width: 100%;
+  max-width: none;
+  padding: var(--section-y) max(40px, calc((100% - var(--container)) / 2));
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+}
+
+.kids-service-inner {
+  width: min(var(--container), 100%);
+  margin-inline: auto;
+}
+
+.kids-service-band .section-header h2,
+.kids-service-band .section-header p {
+  color: #fff;
+}
+
+.kids-service-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.kids-service-card {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-height: 230px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+}
+
+.kids-service-card span {
+  background: rgba(251, 250, 246, 0.94);
+  color: var(--gold);
+}
+
+.kids-service-card h3 {
+  color: #fff;
+  font-size: 1.48rem;
+}
+
+.kids-service-card p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.kids-blast-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+  gap: clamp(24px, 5vw, 56px);
+  align-items: center;
+  padding: clamp(28px, 5vw, 48px);
+}
+
+.kids-blast-layout .button {
+  margin-top: 24px;
+}
+
+.kids-blast-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.kids-blast-strip span {
+  display: grid;
+  min-height: 88px;
+  place-items: center;
+  border: 1px solid rgba(185, 144, 69, 0.28);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--warm-band);
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.kids-parent-cta {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(330px, 0.7fr);
+  gap: clamp(24px, 5vw, 56px);
+  align-items: center;
+  width: min(var(--container), calc(100% - 80px));
+  margin: 0 auto var(--home-section-y);
+  border-radius: 8px;
+  padding: clamp(32px, 5vw, 56px);
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+  box-shadow: 0 24px 64px rgba(16, 37, 27, 0.18);
+}
+
+.kids-parent-cta h2 {
+  color: #fff;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+}
+
+.kids-parent-cta p {
+  max-width: 680px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.kids-parent-panel {
+  display: grid;
+  gap: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.kids-parent-panel li {
+  color: #fff;
+}
+
+.kids-parent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.kids-related-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.kids-related-card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 24px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.kids-related-card > span {
+  background: var(--primary);
+  color: #fff;
+}
+
+.kids-related-card h3 {
+  font-size: 1.45rem;
+}
+
+.kids-related-card p {
+  margin-top: 8px;
+}
+
+.grow-hub-hero p {
+  max-width: 680px;
+}
+
+.grow-pathway-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.grow-pathway-card {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 18px;
+  align-content: start;
+  min-height: 250px;
+  border: 1px solid rgba(16, 37, 27, 0.1);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 34px rgba(16, 37, 27, 0.06);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.grow-pathway-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(21, 61, 43, 0.24);
+  box-shadow: 0 20px 46px rgba(16, 37, 27, 0.1);
+}
+
+.grow-pathway-icon,
+.grow-cta-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 999px;
+}
+
+.grow-pathway-icon {
+  background: var(--primary);
+  color: #fff;
+}
+
+.grow-pathway-card h3,
+.grow-hub-cta h2 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.08;
+}
+
+.grow-pathway-card h3 {
+  font-size: 1.55rem;
+}
+
+.grow-pathway-card p,
+.grow-hub-cta p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.66;
+}
+
+.grow-pathway-arrow {
+  grid-column: 2;
+  align-self: end;
+  color: var(--gold);
+  font-size: 1.4rem;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.grow-hub-cta {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  width: min(var(--container), calc(100% - 80px));
+  margin: 0 auto var(--section-y);
+  border-radius: 8px;
+  padding: clamp(30px, 5vw, 48px);
+  background:
+    linear-gradient(135deg, rgba(21, 61, 43, 0.98), rgba(16, 37, 27, 0.98)),
+    var(--primary);
+  color: #fff;
+  box-shadow: 0 24px 64px rgba(16, 37, 27, 0.18);
+}
+
+.grow-cta-icon {
+  background: rgba(251, 250, 246, 0.94);
+  color: var(--gold);
+}
+
+.grow-hub-cta h2 {
+  color: #fff;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+}
+
+.grow-hub-cta p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.grow-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  min-width: min(100%, 330px);
+}
+
+.grow-cta-actions .button {
+  gap: 8px;
 }
 
 .footer {
@@ -1827,11 +3952,58 @@ textarea {
     display: flex;
   }
 
+  .nav-dropdown {
+    display: grid;
+    gap: 10px;
+  }
+
+  .nav-dropdown > a {
+    justify-content: space-between;
+  }
+
+  .nav-dropdown-menu {
+    position: static;
+    display: grid;
+    min-width: 0;
+    border-radius: 6px;
+    padding: 8px;
+    background: var(--warm-band);
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu {
+    transform: none;
+  }
+
+  .nav-dropdown-menu a {
+    white-space: normal;
+  }
+
   .hero,
   .split-section,
   .media-feature,
-  .contact-section {
+  .contact-section,
+  .worship-hero,
+  .worship-expect-section,
+  .worship-flow-layout,
+  .worship-cta {
     grid-template-columns: 1fr;
+  }
+
+  .worship-hero-card {
+    justify-self: start;
+  }
+
+  .worship-image-stack {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .worship-image-stack img {
+    height: 160px;
   }
 
   .belief-home-layout {
@@ -1892,8 +4064,13 @@ textarea {
   .event-feature-card,
   .event-feature-page,
   .event-promo-grid,
-  .facebook-section {
+  .facebook-section,
+  .worship-horizontal-grid {
     grid-template-columns: 1fr;
+  }
+
+  .worship-cta-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .event-feature-image img {
@@ -1909,8 +4086,28 @@ textarea {
   .hero,
   .section,
   .split-section,
-  .scripture-section {
+  .scripture-section,
+  .worship-hero,
+  .worship-generation-section,
+  .worship-cta {
     width: min(100% - 56px, var(--container));
+  }
+
+  .worship-hero {
+    gap: 34px;
+    padding-top: 56px;
+  }
+
+  .worship-hero-copy h1 {
+    font-size: clamp(3rem, 5vw, 4rem);
+  }
+
+  .worship-flow-band {
+    padding-inline: 28px;
+  }
+
+  .worship-horizontal-card {
+    grid-template-columns: minmax(160px, 0.46fr) minmax(0, 1fr);
   }
 
   .hero {
@@ -1996,16 +4193,105 @@ textarea {
   .split-section,
   .media-feature,
   .contact-section,
-  .scripture-section {
+  .scripture-section,
+  .worship-hero,
+  .worship-generation-section,
+  .worship-cta {
     width: min(100% - 32px, 1180px);
   }
 
   .section.sage,
   .green-band,
   .quick-info-section,
-  .scripture-section {
+  .scripture-section,
+  .worship-expect-section,
+  .worship-flow-band {
     width: 100%;
     padding-inline: 16px;
+  }
+
+  .worship-hero {
+    padding-block: 56px 42px;
+  }
+
+  .worship-hero-copy h1 {
+    font-size: 3rem;
+  }
+
+  .worship-hero-card {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .worship-expect-section {
+    gap: 22px;
+    padding-block: 32px;
+  }
+
+  .worship-expect-copy {
+    padding-left: 18px;
+  }
+
+  .worship-expect-image {
+    min-height: 160px;
+  }
+
+  .worship-flow-band {
+    padding-block: var(--section-y-mobile);
+  }
+
+  .worship-image-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .worship-image-stack img {
+    height: 118px;
+  }
+
+  .worship-flow-grid,
+  .worship-generation-grid,
+  .worship-horizontal-grid,
+  .worship-cta-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .worship-flow-card {
+    grid-template-columns: 52px minmax(0, 1fr);
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .worship-flow-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .worship-generation-section {
+    padding-block: var(--section-y-mobile);
+  }
+
+  .worship-horizontal-card {
+    grid-template-columns: 1fr;
+  }
+
+  .worship-horizontal-card img {
+    height: 178px;
+    min-height: 0;
+  }
+
+  .worship-horizontal-card div {
+    padding: 22px;
+  }
+
+  .worship-cta {
+    justify-items: start;
+    margin-bottom: var(--section-y-mobile);
+    padding: 24px;
+  }
+
+  .worship-cta-actions,
+  .worship-cta-actions .button {
+    width: 100%;
   }
 
   .ministry-band {
@@ -2285,6 +4571,386 @@ textarea {
   }
 }
 
+@media (max-width: 1100px) {
+  .bible-study-card-grid,
+  .bible-study-related-grid,
+  .bible-study-rhythm-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grow-pathway-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grow-hub-cta {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .grow-cta-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .kids-experience-grid,
+  .kids-related-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kids-service-grid,
+  .kids-blast-layout,
+  .kids-parent-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .kids-blast-strip {
+    grid-template-columns: repeat(5, minmax(90px, 1fr));
+  }
+
+  .blast-acronym-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .blast-experience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .blast-schedule-card,
+  .blast-parent-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .blast-schedule-card .button {
+    justify-self: start;
+  }
+
+  .events-featured-grid,
+  .events-connect-grid,
+  .events-grid,
+  .events-flyer-grid,
+  .events-annual-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .events-visitor-cta {
+    grid-template-columns: 1fr;
+  }
+
+  .events-cta-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 860px) {
+  .bible-study-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .bible-study-hero-card {
+    justify-self: start;
+  }
+
+  .kids-circle-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .kids-hero-card {
+    justify-self: start;
+  }
+
+  .kids-parent-cta {
+    width: min(100% - 56px, var(--container));
+  }
+
+  .sunday-school-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .blast-hero-card {
+    justify-self: start;
+  }
+
+  .blast-parent-cta {
+    width: min(100% - 56px, var(--container));
+  }
+
+  .events-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .events-hero-card {
+    justify-self: start;
+  }
+
+  .events-hero {
+    width: min(100% - 56px, var(--container));
+  }
+
+  .events-connect-section {
+    padding-inline: 28px;
+  }
+
+  .events-flyer-media {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .bible-study-hero {
+    width: min(100% - 32px, 1180px);
+    padding-block: 56px 42px;
+  }
+
+  .bible-study-hero h1 {
+    font-size: 2.68rem;
+  }
+
+  .bible-study-hero-card,
+  .bible-study-intro-card,
+  .bible-study-card,
+  .bible-study-rhythm-card,
+  .bible-study-related-card {
+    padding: 20px;
+  }
+
+  .bible-study-card-grid,
+  .bible-study-rhythm-grid,
+  .bible-study-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bible-study-card,
+  .bible-study-rhythm-card {
+    min-height: auto;
+  }
+
+  .bible-study-related-card {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .grow-hub-cta {
+    grid-template-columns: 1fr;
+    width: min(100% - 32px, 1180px);
+    margin-bottom: var(--section-y-mobile);
+    padding: 30px 24px 24px;
+  }
+
+  .grow-pathway-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grow-pathway-card {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .grow-cta-actions {
+    grid-column: auto;
+    width: 100%;
+  }
+
+  .grow-cta-actions .button {
+    width: 100%;
+  }
+
+  .kids-circle-hero,
+  .kids-parent-cta {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .kids-circle-hero {
+    padding-block: 56px 42px;
+  }
+
+  .kids-circle-hero h1,
+  .kids-parent-cta h2 {
+    font-size: 2.68rem;
+  }
+
+  .kids-hero-card,
+  .kids-intro-card,
+  .kids-experience-card,
+  .kids-service-card,
+  .kids-blast-layout,
+  .kids-parent-panel,
+  .kids-related-card {
+    padding: 20px;
+  }
+
+  .kids-experience-grid,
+  .kids-service-grid,
+  .kids-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kids-experience-card,
+  .kids-service-card {
+    min-height: auto;
+  }
+
+  .kids-blast-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .kids-blast-strip span {
+    min-height: 54px;
+  }
+
+  .kids-parent-actions,
+  .kids-parent-actions .button {
+    width: 100%;
+  }
+
+  .kids-parent-cta {
+    margin-bottom: var(--section-y-mobile);
+    padding: 30px 24px 24px;
+  }
+
+  .kids-related-card {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .sunday-school-hero,
+  .blast-parent-cta {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .sunday-school-hero {
+    padding-block: 56px 42px;
+  }
+
+  .sunday-school-hero h1,
+  .blast-parent-cta h2 {
+    font-size: 2.68rem;
+  }
+
+  .blast-hero-card,
+  .blast-intro-card,
+  .blast-schedule-card,
+  .blast-parent-panel,
+  .blast-related-card {
+    padding: 20px;
+  }
+
+  .blast-acronym-grid,
+  .blast-experience-grid,
+  .blast-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blast-acronym-card,
+  .blast-experience-card {
+    min-height: auto;
+  }
+
+  .blast-schedule-card .button,
+  .blast-parent-actions,
+  .blast-parent-actions .button {
+    width: 100%;
+  }
+
+  .blast-parent-cta {
+    margin-bottom: var(--section-y-mobile);
+    padding: 30px 24px 24px;
+  }
+
+  .blast-related-card {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .events-hero,
+  .events-visitor-cta {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .events-hero {
+    padding-block: 56px 42px;
+  }
+
+  .events-hero-copy h1 {
+    font-size: 2.68rem;
+  }
+
+  .events-hero-card {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .events-hero-stats span {
+    min-width: min(104px, 100%);
+    flex: 1 1 92px;
+  }
+
+  .events-featured-section,
+  .events-list-section,
+  .events-flyer-section,
+  .events-annual-section {
+    padding-block: var(--section-y-mobile);
+  }
+
+  .events-featured-grid,
+  .events-connect-grid,
+  .events-grid,
+  .events-flyer-grid,
+  .events-annual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .events-connect-section {
+    padding: var(--section-y-mobile) 16px;
+  }
+
+  .events-featured-card,
+  .events-card,
+  .events-connect-card {
+    padding: 20px;
+  }
+
+  .events-card dl {
+    grid-template-columns: 1fr;
+  }
+
+  .events-card-top {
+    align-items: flex-start;
+  }
+
+  .events-card-top small {
+    text-align: left;
+  }
+
+  .events-flyer-media {
+    min-height: 0;
+  }
+
+  .events-flyer-copy {
+    padding: 24px;
+  }
+
+  .events-flyer-card {
+    grid-template-rows: 240px minmax(0, 1fr);
+  }
+
+  .events-flyer-details {
+    grid-template-columns: 1fr;
+  }
+
+  .events-flyer-copy .button,
+  .events-hero-card .button,
+  .events-cta-actions,
+  .events-cta-actions .button {
+    width: 100%;
+  }
+
+  .events-cta-actions {
+    min-width: 0;
+  }
+
+  .events-visitor-cta {
+    margin-top: 32px;
+    margin-bottom: var(--section-y-mobile);
+    padding: 30px 24px 24px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -2300,6 +4966,9 @@ textarea {
   .event-feature-card:hover,
   .event-feature-card:hover .event-feature-image img,
   .event-promo-card:hover,
+  .events-featured-card:hover,
+  .events-card:hover,
+  .events-annual-card:hover,
   .feature-rows.info .feature-row:hover,
   .ministry-card:hover,
   .ministry-feature-card:hover,

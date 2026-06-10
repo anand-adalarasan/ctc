@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { navItems } from "../data/site";
@@ -14,7 +14,7 @@ export default function Layout({ children }: LayoutProps) {
   useEffect(() => {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>(
-        ".hero, .page-hero, main > .section, main > .split-section, main > .media-feature, main > .contact-section, main > .facebook-section"
+        ".hero, .page-hero, main > .section, main > .split-section, main > .media-feature, main > .contact-section, main > .facebook-section, main > .blast-experience-band, main > .kids-service-band, main > .bible-study-band, main > .grow-hub-cta, main > .blast-parent-cta, main > .kids-parent-cta"
       )
     );
 
@@ -70,18 +70,52 @@ export default function Layout({ children }: LayoutProps) {
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
 
-        <nav className={`site-nav ${open ? "is-open" : ""}`}>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.href}
-              to={item.href}
-              end={item.href === "/"}
-              onClick={() => setOpen(false)}
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              {item.label}
-            </NavLink>
-          ))}
+        <nav className={`site-nav ${open ? "is-open" : ""}`} aria-label="Primary navigation">
+          {navItems.map((item) => {
+            const isGrowSection =
+              item.href === "/grow" &&
+              (location.pathname.startsWith("/grow") || location.pathname === "/sermons");
+            const children = "children" in item ? item.children : undefined;
+
+            return children?.length ? (
+              <div
+                className={`nav-dropdown ${isGrowSection ? "active" : ""}`}
+                key={item.href}
+              >
+                <NavLink
+                  to={item.href}
+                  end
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) => (isActive || isGrowSection ? "active" : "")}
+                >
+                  <span>{item.label}</span>
+                  <ChevronDown size={14} aria-hidden="true" />
+                </NavLink>
+                <div className="nav-dropdown-menu" aria-label={`${item.label} pages`}>
+                  {children.map((child) => (
+                    <NavLink
+                      key={child.href}
+                      to={child.href}
+                      onClick={() => setOpen(false)}
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
+                      {child.label}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <NavLink
+                key={item.href}
+                to={item.href}
+                end={item.href === "/"}
+                onClick={() => setOpen(false)}
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                {item.label}
+              </NavLink>
+            );
+          })}
           <Link className="nav-cta" to="/visit" onClick={() => setOpen(false)}>
             Plan a Visit
           </Link>
@@ -107,16 +141,16 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <div>
             <h3>Quick Links</h3>
-            <p>Visit</p>
-            <p>Worship</p>
-            <p>Grow</p>
-            <p>Serve</p>
-            <p>Contact</p>
+            <p><Link to="/visit">Visit</Link></p>
+            <p><Link to="/worship">Worship</Link></p>
+            <p><Link to="/grow">Grow</Link></p>
+            <p><Link to="/serve">Serve</Link></p>
+            <p><Link to="/contact">Contact</Link></p>
           </div>
           <div>
             <h3>Service Time</h3>
             <p>Sunday Worship</p>
-            <p>11:00 AM</p>
+            <p>10.30 AM</p>
             <p>Bible Study</p>
             <p>Wednesday 7:30 PM</p>
           </div>
