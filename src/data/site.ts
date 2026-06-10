@@ -5,22 +5,21 @@ import {
   HandHeart,
   HeartHandshake,
   MapPin,
+  Megaphone,
   MicVocal,
   Music,
   Phone,
   School,
+  Sparkles,
   Users
 } from "lucide-react";
-import guestSpeakerSamReeves from "../assets/images/guest-speaker-sam-reeves.jpeg";
 import ministryCommunion from "../assets/images/ministry-communion.jpg";
 import ministryFellowship from "../assets/images/ministry-fellowship.jpg";
 import ministryKids from "../assets/images/ministry-kids.jpg";
-import ministryMusic from "../assets/images/ministry-music.jpg";
-import ministryPrayer from "../assets/images/ministry-prayer.jpg";
 import ministrySchool from "../assets/images/ministry-school.jpg";
-import ministrySermon from "../assets/images/ministry-sermon.jpg";
 import ministryTestimony from "../assets/images/ministry-testimony.jpg";
 import pastorJagan from "../assets/images/pastor-jagan.jpg";
+import { siteImages } from "./images";
 
 export const navItems = [
   { label: "Home", href: "/" },
@@ -97,18 +96,11 @@ export const nextSteps = [
 
 export const ministries = [
   {
-    title: "Music",
-    text: "Lift your voice in worship and praise to our God through songs and music.",
-    href: "/worship",
-    icon: Music,
-    image: ministryMusic
-  },
-  {
-    title: "Testimony",
-    text: "Be encouraged as we hear how God is working in the lives of His people.",
-    href: "/worship",
-    icon: MicVocal,
-    image: ministryTestimony
+    title: "Sunday School",
+    text: "Bible-based teaching to help children grow in their faith.",
+    href: "/grow/sunday-school",
+    icon: School,
+    image: ministrySchool
   },
   {
     title: "Kids Circle",
@@ -118,39 +110,46 @@ export const ministries = [
     image: ministryKids
   },
   {
+    title: "Bible Study",
+    text: "Midweek Scripture study and prayer for spiritual formation.",
+    href: "/grow/bible-study-prayer",
+    icon: BookOpen,
+    image: siteImages.bibleStudy.src
+  },
+  {
     title: "Prayer",
     text: "We believe in the power of prayer and love praying for one another.",
     href: "/contact",
     icon: HeartHandshake,
-    image: ministryPrayer
+    image: siteImages.prayer.src
   },
   {
-    title: "Sunday School",
-    text: "Bible-based teaching to help children grow in their faith.",
-    href: "/grow/sunday-school",
-    icon: School,
-    image: ministrySchool
-  },
-  {
-    title: "Sermon",
-    text: "Expository Bible teaching that is practical and life-transforming.",
-    href: "/sermons",
-    icon: BookOpen,
-    image: ministrySermon
-  },
-  {
-    title: "Holy Communion",
-    text: "Remembering Christ's sacrifice and celebrating His love.",
+    title: "Worship",
+    text: "Lift your voice in worship and praise to our God through songs and music.",
     href: "/worship",
-    icon: Church,
-    image: ministryCommunion
+    icon: Music,
+    image: siteImages.worship.src
   },
   {
-    title: "Fellowship",
-    text: "Building relationships and sharing life together during fellowship hour.",
+    title: "Women's Fellowship",
+    text: "A gathering for women to worship, learn, pray, and encourage one another in faith.",
     href: "/connect",
-    icon: HandHeart,
+    icon: Sparkles,
     image: ministryFellowship
+  },
+  {
+    title: "Men's Fellowship",
+    text: "A time for men to grow in faith, encourage one another, and build Christ-centered relationships.",
+    href: "/connect",
+    icon: Users,
+    image: ministryTestimony
+  },
+  {
+    title: "Community Outreach",
+    text: "Serving neighbors through compassion, prayer, and practical care.",
+    href: "/serve",
+    icon: Megaphone,
+    image: ministryCommunion
   }
 ];
 
@@ -181,37 +180,248 @@ export const growItems = [
   }
 ];
 
-export const events = [
+export type ChurchEvent = {
+  title: string;
+  frequency: string;
+  time?: string;
+  category: string;
+  description: string;
+  cadence: "Weekly" | "Monthly" | "Annual" | "Seasonal" | "Periodic";
+  date: string;
+  location: string;
+  image: string | null;
+  flyerImage: string | null;
+  ctaText: string;
+  ctaLink: string;
+  isFeatured: boolean;
+  isAnnual: boolean;
+  isRecurring: boolean;
+  showOnHome?: boolean;
+  homeFeatured?: boolean;
+};
+
+// Church admin/developer note:
+// Add or update future events here. Home intentionally previews only events
+// marked showOnHome, while Connect can display the full list.
+export const churchEvents: ChurchEvent[] = [
+  {
+    title: "Sunday Worship Service",
+    frequency: "Every Sunday",
+    time: "10:30 AM",
+    category: "Tamil & English Worship",
+    description:
+      "Join us for Tamil and English worship, prayer, Scripture, sermon, children's ministry, communion, and fellowship.",
+    cadence: "Weekly",
+    date: "Every Sunday",
+    location: "Christ Tamil Church",
+    image: siteImages.hero.src,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: false,
+    isRecurring: true,
+    showOnHome: true,
+    homeFeatured: true
+  },
+  {
+    title: "Sunday School",
+    frequency: "Every Sunday",
+    time: "During worship",
+    category: "Children's Ministry",
+    description:
+      "Bible-based learning for children to grow in faith through age-appropriate lessons and activities.",
+    cadence: "Weekly",
+    date: "Every Sunday",
+    location: "Children's Ministry Area",
+    image: ministrySchool,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: false,
+    isRecurring: true
+  },
+  {
+    title: "Prayer Conference",
+    frequency: "Monday to Thursday",
+    time: "7:00 PM",
+    category: "Prayer Gathering",
+    description:
+      "Join us during the week for prayer, encouragement, and spiritual strengthening as a church family.",
+    cadence: "Weekly",
+    date: "Monday to Thursday",
+    location: "Christ Tamil Church",
+    image: siteImages.prayer.src,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: true,
+    isAnnual: false,
+    isRecurring: true
+  },
   {
     title: "Bible Study & Prayer",
-    date: "Every Wednesday",
-    text: "Gather around Scripture and pray for the church, families, and city."
+    frequency: "Wednesday",
+    time: "7:30 PM",
+    category: "Midweek Bible Study",
+    description:
+      "Grow deeper in God's Word through midweek Bible study and prayer.",
+    cadence: "Weekly",
+    date: "Wednesday",
+    location: "Christ Tamil Church",
+    image: siteImages.bibleStudy.src,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/grow/bible-study-prayer",
+    isFeatured: false,
+    isAnnual: false,
+    isRecurring: true,
+    showOnHome: true
+  },
+  {
+    title: "Fasting Prayer",
+    frequency: "First Saturday of every month",
+    time: "10:30 AM",
+    category: "Prayer & Fasting",
+    description:
+      "A dedicated time of prayer, fasting, worship, and seeking God together.",
+    cadence: "Monthly",
+    date: "First Saturday of every month",
+    location: "Christ Tamil Church",
+    image: siteImages.prayer.src,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: true,
+    isAnnual: false,
+    isRecurring: true
+  },
+  {
+    title: "Men's Fellowship",
+    frequency: "Periodic Gathering",
+    time: "Time To Be Announced",
+    category: "Men's Ministry",
+    description:
+      "A time for men to grow in faith, encourage one another, and build Christ-centered relationships.",
+    cadence: "Periodic",
+    date: "Periodic Gathering",
+    location: "Christ Tamil Church",
+    image: ministryFellowship,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: false,
+    isRecurring: true
+  },
+  {
+    title: "Women's Conference",
+    frequency: "Annual / Periodic Gathering",
+    time: "Time To Be Announced",
+    category: "Women's Ministry",
+    description:
+      "A gathering for women to worship, learn, pray, and encourage one another in faith.",
+    cadence: "Annual",
+    date: "Annual / Periodic Gathering",
+    location: "Christ Tamil Church",
+    image: ministryFellowship,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: true,
+    isRecurring: true
+  },
+  {
+    title: "Outreach",
+    frequency: "Seasonal / As Scheduled",
+    time: "First Saturday of every month 4:30 PM",
+    category: "Community Outreach",
+    description:
+      "Serving our community through love, care, prayer, and practical support.",
+    cadence: "Seasonal",
+    date: "Seasonal / As Scheduled",
+    location: "Chicago Area",
+    image: siteImages.events.src,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: true,
+    isRecurring: true,
+    showOnHome: true
+  },
+  {
+    title: "Vacation Bible School",
+    frequency: "Every Summer",
+    time: "Time To Be Announced",
+    category: "Children's Summer Ministry",
+    description:
+      "A joyful summer program where children learn God's Word through Bible stories, songs, games, crafts, and activities.",
+    cadence: "Annual",
+    date: "Every Summer",
+    location: "Christ Tamil Church",
+    image: ministryKids,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: true,
+    isRecurring: true
+  },
+  {
+    title: "Church Picnic",
+    frequency: "Every June",
+    time: "Time To Be Announced",
+    category: "Family Fellowship",
+    description:
+      "A yearly outdoor gathering for food, fellowship, games, and community as a church family.",
+    cadence: "Annual",
+    date: "Every June",
+    location: "Location To Be Announced",
+    image: ministryFellowship,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: true,
+    isRecurring: true
+  },
+  {
+    title: "Family Camp",
+    frequency: "Labor Day Weekend Every Year",
+    category: "Family Retreat",
+    description:
+      "A yearly family retreat for worship, teaching, fellowship, rest, and spiritual renewal.",
+    cadence: "Annual",
+    date: "Labor Day Weekend Every Year",
+    location: "Retreat Location To Be Announced",
+    image: ministryFellowship,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: true,
+    isAnnual: true,
+    isRecurring: true
   },
   {
     title: "Fellowship Hour",
+    frequency: "After Sunday Worship",
+    time: "After Service",
+    category: "Fellowship Hall",
+    description:
+      "Stay after worship to connect, encourage one another, and share life together.",
+    cadence: "Weekly",
     date: "After Sunday Worship",
-    text: "Stay after worship for conversation, encouragement, and community."
-  },
-  {
-    title: "Annual Church Retreat",
-    date: "Seasonal",
-    text: "A dedicated time for worship, teaching, rest, and church family connection."
-  },
-  {
-    title: "Community Outreach",
-    date: "Throughout the year",
-    text: "Opportunities to serve neighbors and support local needs in Chicago."
-  }
-];
-
-export const eventPromos = [
-  {
-    title: "Sunday Service with Rev. Dr. Sam J Reeves",
-    dateLabel: "Jun 14",
-    category: "Guest Speaker",
-    flyer: guestSpeakerSamReeves,
-    featured: true,
-    href: "/connect"
+    location: "Fellowship Hall",
+    image: ministryFellowship,
+    flyerImage: null,
+    ctaText: "Learn More",
+    ctaLink: "/contact",
+    isFeatured: false,
+    isAnnual: false,
+    isRecurring: true
   }
 ];
 
