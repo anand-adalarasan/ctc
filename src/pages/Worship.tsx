@@ -123,7 +123,7 @@ export default function Worship() {
           <ul className="worship-detail-list">
             <li>
               <Clock size={18} aria-hidden="true" />
-              <span>10.30 AM</span>
+              <span>12:30 PM</span>
             </li>
             <li>
               <Globe2 size={18} aria-hidden="true" />

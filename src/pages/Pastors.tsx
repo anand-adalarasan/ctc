@@ -17,7 +17,7 @@ export default function Pastors() {
         <div className="pastor-list">
           {pastors.map((pastor) => (
             <article className="pastor-card" key={pastor.name}>
-              <div className="pastor-photo" aria-hidden="true" />
+              <img className="pastor-photo" src={pastor.image} alt={pastor.name} />
               <div>
                 <h3>{pastor.name}</h3>
                 <small>{pastor.role}</small>

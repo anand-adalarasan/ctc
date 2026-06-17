@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 type LayoutProps = {
   children: ReactNode;
@@ -17,6 +18,7 @@ const primaryNavItems = [
 export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const footerRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
 
   useEffect(() => {
     setOpen(false);
@@ -93,9 +95,9 @@ export default function Layout({ children }: LayoutProps) {
 
       <main id="main-content">{children}</main>
 
-      <footer className="footer">
+      <footer className="footer reveal" ref={footerRef}>
         <div className="footer-grid">
-          <div className="footer-brand-column">
+          <div className="footer-brand-column" data-reveal-child>
             <Link className="footer-brand" to="/">
               <span className="brand-mark" aria-hidden="true">+</span>
               <span>Christ Tamil Church Chicago</span>
@@ -114,18 +116,18 @@ export default function Layout({ children }: LayoutProps) {
               <Link to="/connect">Updates</Link>
             </div>
           </div>
-          <div>
+          <div data-reveal-child>
             <h3>Worship</h3>
             <p>Sunday Worship</p>
             <p>12:30 PM</p>
             <p>1330 63rd St, Downers Grove, IL</p>
           </div>
-          <div>
+          <div data-reveal-child>
             <h3>Contact</h3>
             <p><a href="tel:+17739363697">(773) 936-3697</a></p>
             <p><a href="mailto:ctcchicago@gmail.com">ctcchicago@gmail.com</a></p>
           </div>
-          <div>
+          <div data-reveal-child>
             <h3>Quick Links</h3>
             <p><Link to="/visit">Plan Your Visit</Link></p>
             <p><Link to="/worship">Worship</Link></p>
@@ -134,7 +136,7 @@ export default function Layout({ children }: LayoutProps) {
             <p><Link to="/contact">Contact</Link></p>
           </div>
         </div>
-        <div className="footer-bottom">
+        <div className="footer-bottom" data-reveal-child>
           <span>(c) 2025 Christ Tamil Church Chicago. All rights reserved.</span>
           <span>Sunday Worship 12:30 PM</span>
           <span>1330 63rd St, Downers Grove, IL</span>

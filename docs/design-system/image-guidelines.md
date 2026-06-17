@@ -133,9 +133,11 @@ No business meeting stock photos that feel unrelated to church.
 
 ### Hero
 
-Use one large image only.
+Use one large full-background image only.
 
-- Large rounded image
+- Full-bleed or full-section background image
+- `object-fit: cover`
+- Warm ivory overlay for readable text
 - Natural light
 - Warm family/community moment
 - No busy collage

@@ -85,9 +85,11 @@ Also avoid:
   --motion-fast: 160ms;
   --motion-base: 260ms;
   --motion-slow: 520ms;
+  --motion-cinematic: 900ms;
 
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 }
 ```
@@ -216,28 +218,39 @@ Recommended order:
 1. Label
 2. Heading
 3. Supporting text
-4. Buttons
-5. Image
+4. Identity line
+5. Buttons
+6. Worship and location details
+7. Floating Sunday Worship card
+8. Gateway tiles
 
 ```css
 .hero-label {
-  animation: heroFadeUp 420ms var(--ease-soft) both;
+  animation: heroFadeUp 650ms var(--ease-premium) 220ms both;
 }
 
 .hero-title {
-  animation: heroFadeUp 520ms var(--ease-soft) 80ms both;
+  animation: heroFadeUp 650ms var(--ease-premium) 330ms both;
 }
 
 .hero-copy {
-  animation: heroFadeUp 520ms var(--ease-soft) 160ms both;
+  animation: heroFadeUp 650ms var(--ease-premium) 440ms both;
+}
+
+.hero-identity {
+  animation: heroFadeUp 650ms var(--ease-premium) 550ms both;
 }
 
 .hero-actions {
-  animation: heroFadeUp 520ms var(--ease-soft) 240ms both;
+  animation: heroFadeUp 650ms var(--ease-premium) 660ms both;
 }
 
-.hero-visual {
-  animation: heroImageIn 700ms var(--ease-soft) 180ms both;
+.hero-details {
+  animation: heroFadeUp 650ms var(--ease-premium) 780ms both;
+}
+
+.home-cinematic-bg {
+  animation: heroImageIn 1200ms var(--ease-premium) both;
 }
 
 @keyframes heroFadeUp {
@@ -273,6 +286,7 @@ The hook should:
 
 - Use IntersectionObserver
 - Add class `is-visible` when an element enters viewport
+- Support optional staggered children with `data-reveal-child`
 - Use threshold around `0.12`
 - Use rootMargin like `0px 0px -80px 0px`
 - Disconnect cleanly

@@ -64,7 +64,7 @@ A visitor should feel:
 
 ## 4. Color System
 
-Quiet Grace Minimal uses soft, premium, neutral colors with a calm blue-gray and warm clay accent. The palette should not rely on heavy green or gold.
+Quiet Grace Minimal uses soft, premium, warm neutrals with a restrained deep green, sage, sand, muted clay, and quiet gold palette. This is the approved previous palette and should feel calm, church-centered, and premium, not traditional or heavy.
 
 ### CSS Tokens
 
@@ -74,27 +74,34 @@ Quiet Grace Minimal uses soft, premium, neutral colors with a calm blue-gray and
   --qgm-surface: #FFFFFF;
   --qgm-surface-soft: #F7F8F4;
 
-  --qgm-primary: #1F2320;
-  --qgm-primary-soft: #3A2E28;
+  --qgm-primary: #0D4B43;
+  --qgm-primary-dark: #07352F;
+  --qgm-primary-muted: #6F9386;
+  --qgm-green-mobile: #14564D;
+  --qgm-green-mobile-soft: #1C645A;
+  --qgm-green-mobile-muted: #2D6F64;
 
   --qgm-text: #142824;
   --qgm-muted: #687872;
   --qgm-muted-light: #8C9A95;
 
-  --qgm-canvas: #F1EEE7;
-  --qgm-mist: #E7E5DE;
-  --qgm-blue-mist: #DCE5E8;
+  --qgm-canvas: #FAF7EE;
+  --qgm-sage: #E7EFE9;
+  --qgm-sage-soft: #F3F7F4;
+  --qgm-sand: #FAF3E7;
 
-  --qgm-accent: #C46645;
-  --qgm-accent-soft: #F3D4C2;
+  --qgm-clay: #B97455;
+  --qgm-clay-dark: #9B5F43;
+  --qgm-clay-soft: #F4E4DB;
 
-  --qgm-olive-muted: #8A8F7A;
+  --qgm-gold: #D4B76A;
+  --qgm-gold-soft: #F5EBCF;
 
-  --qgm-line: rgba(31, 35, 32, 0.10);
-  --qgm-line-soft: rgba(31, 35, 32, 0.06);
+  --qgm-line: rgba(13, 75, 67, 0.10);
+  --qgm-line-soft: rgba(13, 75, 67, 0.07);
 
-  --qgm-shadow-sm: 0 8px 24px rgba(31, 35, 32, 0.06);
-  --qgm-shadow-md: 0 20px 60px rgba(31, 35, 32, 0.10);
+  --qgm-shadow-sm: 0 8px 24px rgba(13, 75, 67, 0.06);
+  --qgm-shadow-md: 0 18px 50px rgba(13, 75, 67, 0.09);
 }
 ```
 
@@ -104,37 +111,62 @@ Quiet Grace Minimal uses soft, premium, neutral colors with a calm blue-gray and
 |---|---:|---|
 | Warm White | `#FFFEFA` | Main page background |
 | Pure White | `#FFFFFF` | Cards, navigation, surfaces |
-| Soft Canvas | `#F1EEE7` | Welcome/about section background |
-| Light Mist | `#E7E5DE` | Event section background |
-| Blue Mist | `#DCE5E8` | Optional calm section background |
-| Deep Ink | `#1F2320` | Headings, nav text, footer |
-| Warm Charcoal | `#3A2E28` | Secondary dark text |
-| Clay Orange | `#C46645` | Primary CTA, event badges, key accents |
-| Soft Peach | `#F3D4C2` | Visitor section, soft highlight panels |
-| Muted Olive | `#8A8F7A` | Small icons, quiet natural accent |
+| Deep Green | `#0D4B43` | Headings, strong active states, icon accents |
+| Green Ink | `#07352F` | Headings, footer, hover states |
+| Soft Sage | `#E7EFE9` | Calm section backgrounds and supporting surfaces |
+| Sage Soft | `#F3F7F4` | Light cards, icon wells, mobile nav hover |
+| Soft Canvas | `#FAF7EE` | Warm hero and section canvas |
+| Sand | `#FAF3E7` | Warm supporting backgrounds |
+| Muted Clay | `#B97455` | Sitewide buttons, primary CTAs, and subtle warmth |
+| Quiet Gold | `#D4B76A` | Small labels, active dots, fine highlights |
+| Gold Soft | `#F5EBCF` | Soft highlight surfaces |
 | Stone Text | `#687872` | Paragraphs and metadata |
 
 ### Color Usage Rules
 
 Use warm white and white as the primary experience.
 
-Use clay orange only for:
+Use deep green for:
 
-- Primary CTA buttons
-- Event date badges
+- Headings and strong text accents
+- Strong active states
+
+Use quiet gold only for:
+
 - Small labels
-- Important active states
+- Active dots or hairlines
+- Event date badges
+- Fine highlights
 
-Use muted olive only for:
+Use muted clay for:
 
-- Small icons
-- Soft visual balance
-- Minimal supporting accents
+- Sitewide buttons and primary CTAs
+- Secondary warmth
+- Small supporting accents
+- Hover arrow/icon color
+
+### Mobile Color Balance
+
+On mobile, large dark-green areas should use softer green tokens so the site
+feels warmer and less heavy:
+
+```css
+:root {
+  --green-ink: #07352F;
+  --green-mobile: #14564D;
+  --green-mobile-soft: #1C645A;
+  --green-mobile-muted: #2D6F64;
+}
+```
+
+Use mobile green only inside mobile media queries. Keep the mobile menu warm
+white and use green for small active indicators, icons, and footer backgrounds.
+Footer backgrounds should use a soft green gradient, not a flat dark block.
 
 Do not use:
 
-- Heavy gold
-- Heavy green
+- Heavy saturated green
+- Heavy metallic gold
 - Full-page beige
 - Too many colored cards
 - Dark hero as the main homepage look
@@ -146,14 +178,14 @@ The website should not use one flat background everywhere. Use subtle section ch
 | Section | Background |
 |---|---|
 | Navigation | Warm White or White |
-| Hero | Warm White |
+| Hero | Full-background warm human photo with warm ivory readability overlay |
 | Service highlight | White card on Warm White |
-| Welcome/About | Soft Canvas |
-| Events | Light Mist |
+| Welcome/About | Soft Canvas or Soft Sage |
+| Events | Soft Sage or Sand |
 | Ministries | Warm White |
 | Sermons | White |
-| First-time visitor | Soft Peach or Soft Canvas |
-| Footer | Deep Ink |
+| First-time visitor | Warm White / Soft Canvas / Sage Soft layered gradient with near-white panel |
+| Footer | Green Ink |
 
 ```css
 .section {
@@ -172,16 +204,20 @@ The website should not use one flat background everywhere. Use subtle section ch
   background: var(--qgm-canvas);
 }
 
-.section--mist {
-  background: var(--qgm-mist);
+.section--sage {
+  background: var(--qgm-sage-soft);
 }
 
-.section--peach {
-  background: var(--qgm-accent-soft);
+.section--sand {
+  background: var(--qgm-sand);
+}
+
+.section--clay-soft {
+  background: var(--qgm-clay-soft);
 }
 
 .section--ink {
-  background: var(--qgm-primary);
+  background: var(--qgm-primary-dark);
   color: var(--qgm-bg);
 }
 
@@ -194,11 +230,11 @@ The website should not use one flat background everywhere. Use subtle section ch
 
 ## 6. Typography System
 
-Quiet Grace Minimal uses a modern editorial typography system.
+Quiet Grace Minimal uses a modern, clean sans-serif typography system.
 
 ### Recommended Font Pairing
 
-- **Headings:** Fraunces or Playfair Display
+- **Headings:** Plus Jakarta Sans
 - **Body:** Inter
 - **Navigation/buttons:** Inter SemiBold
 
@@ -207,14 +243,14 @@ Quiet Grace Minimal uses a modern editorial typography system.
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 ```
 
 ### Typography Tokens
 
 ```css
 :root {
-  --font-heading: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-heading: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 ```
@@ -240,8 +276,8 @@ Quiet Grace Minimal uses a modern editorial typography system.
 
 | Element | Font | Size | Weight | Line height |
 |---|---|---:|---:|---:|
-| Hero H1 | Fraunces | 64–80px | 600/700 | 0.95–1.05 |
-| Section H2 | Fraunces | 40–52px | 600 | 1.05 |
+| Hero H1 | Plus Jakarta Sans | 54-78px | 800 | 1.02-1.08 |
+| Section H2 | Plus Jakarta Sans | 40-52px | 700/800 | 1.08 |
 | Card title | Inter | 18–22px | 700 | 1.25 |
 | Body | Inter | 16–18px | 400 | 1.65 |
 | Navigation | Inter | 14–15px | 600 | 1 |
@@ -368,7 +404,7 @@ Avoid:
   padding: 0 24px;
   border-radius: var(--radius-pill);
   border: 1px solid transparent;
-  background: var(--qgm-accent);
+  background: var(--qgm-clay);
   color: #FFFFFF;
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -380,7 +416,7 @@ Avoid:
 }
 
 .btn-primary:hover {
-  background: #A94F35;
+  background: var(--qgm-clay-dark);
   transform: translateY(-1px);
 }
 ```
@@ -396,9 +432,9 @@ Avoid:
   min-height: 48px;
   padding: 0 24px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(31, 35, 32, 0.18);
+  border: 1px solid rgba(185, 116, 85, 0.32);
   background: transparent;
-  color: var(--qgm-primary);
+  color: var(--qgm-clay-dark);
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
@@ -410,20 +446,20 @@ Avoid:
 }
 
 .btn-secondary:hover {
-  background: rgba(31, 35, 32, 0.04);
+  background: var(--qgm-clay-soft);
   transform: translateY(-1px);
 }
 ```
 
 ### Button Rules
 
-Use one primary CTA per section.
+Use one primary CTA per section. Sitewide buttons use the muted clay palette.
 
 Avoid:
 
 - Too many buttons together
-- Gold buttons
-- Green buttons
+- Gold primary buttons
+- Multiple competing button colors
 - Square buttons
 
 ## 11. Navigation
@@ -441,13 +477,11 @@ Avoid:
 ### Navigation Structure
 
 ```text
-Home
+Visit
 Worship
-Grow
 Connect
-Sermons
-About
-Contact
+Grow
+Serve
 ```
 
 ### Nav CSS Guidance
@@ -477,7 +511,7 @@ Contact
   bottom: -8px;
   width: 100%;
   height: 2px;
-  background: var(--qgm-accent);
+  background: var(--qgm-gold);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 220ms ease;
@@ -491,19 +525,39 @@ Contact
 
 ## 12. Homepage Structure
 
-The homepage should be spacious and easy to scan.
+The current approved homepage is **Quiet Grace 2026: Full-Background Cinematic Hero**.
 
 Recommended order:
 
 1. Sticky navigation
-2. Spacious hero
-3. Service essentials band
-4. Welcome/about section
-5. Upcoming events preview
-6. Ministries preview
-7. Latest sermon/watch online
-8. First-time visitor section
-9. Footer
+2. One full-background cinematic hero image with left-aligned content
+3. Compact icon gateway tiles for Visit, Worship, Connect, Grow, and Serve
+4. Welcome to Christ Tamil Church
+5. A Place for You
+6. First-Time Visitor
+7. Footer
+
+Gateway tiles should use one subtle lucide line icon per tile, not number labels. Keep the title, short description, and small arrow affordance.
+
+Keep full event, ministry, sermon, and deeper visitor-detail content on inner pages unless the church explicitly asks to expand the homepage again.
+
+## 12.1 Inner Page Structure
+
+All non-home pages should use the homepage design language in a quieter form:
+
+- Warm white / sage / canvas hero bands
+- Large Plus Jakarta Sans page titles
+- Left-aligned editorial copy
+- One calm glass-like information panel when useful
+- Subtle icon wells instead of decorative graphics
+- Spacious card grids with soft borders
+- Deep green for primary CTAs
+- Clay only for small accents and hover warmth
+- Quiet scroll/entrance motion that respects reduced motion
+
+Inner pages should not look like separate templates. Visit, Worship, Connect,
+Grow, Serve, Sermons, Faith, Pastors, and Contact should feel like members of
+the same system as the homepage.
 
 ## 13. Accessibility
 
@@ -525,7 +579,7 @@ Recommended order:
 
 ```css
 :focus-visible {
-  outline: 3px solid rgba(196, 102, 69, 0.45);
+  outline: 3px solid rgba(212, 183, 106, 0.72);
   outline-offset: 4px;
 }
 ```
@@ -540,12 +594,13 @@ Recommended order:
 - Use clear CTAs.
 - Use soft section backgrounds.
 - Use minimal icons.
-- Use serif headings carefully.
+- Use clean sans-serif headings consistently.
 - Keep the homepage focused.
+- Use the green/sage/gold palette with restraint.
 
 ### Don’t
 
-- Use green/gold as the main palette.
+- Use heavy, saturated green or metallic gold.
 - Show all ministries on the homepage.
 - Show too many events at once.
 - Add decorative leaves everywhere.

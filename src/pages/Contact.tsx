@@ -38,8 +38,8 @@ export default function Contact() {
         <span className="eyebrow">Contact</span>
         <h1>Send a message or prayer request.</h1>
         <p>
-          A future AWS Lambda or third-party form service can deliver these
-          messages to the church inbox.
+          We would love to hear from you, pray with you, and help your family
+          plan a visit.
         </p>
       </section>
       <section className="contact-section">
@@ -69,8 +69,10 @@ export default function Contact() {
         <aside className="contact-card">
           <h2>Christ Tamil Church Chicago</h2>
           <p>Sunday Worship</p>
-          <p>Chicago, Illinois</p>
-          <p>Email and phone details can be added here.</p>
+          <p>12:30 PM</p>
+          <p>1330 63rd St, Downers Grove, IL 60516</p>
+          <p><a href="tel:+17739363697">(773) 936-3697</a></p>
+          <p><a href="mailto:ctcchicago@gmail.com">ctcchicago@gmail.com</a></p>
         </aside>
       </section>
       <section className="facebook-section">
