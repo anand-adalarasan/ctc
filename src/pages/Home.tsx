@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { PlayCircle, type LucideIcon } from "lucide-react";
 import { siteImages } from "../data/images";
 import { churchEvents, ministries, sermons } from "../data/site";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 const directionsUrl =
   "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
@@ -53,6 +54,12 @@ const isHomeMinistry = (ministry: HomeMinistry | undefined): ministry is HomeMin
   Boolean(ministry);
 
 export default function Home() {
+  const serviceRevealRef = useRevealOnScroll<HTMLElement>();
+  const welcomeRevealRef = useRevealOnScroll<HTMLElement>();
+  const eventsRevealRef = useRevealOnScroll<HTMLElement>();
+  const ministriesRevealRef = useRevealOnScroll<HTMLElement>();
+  const sermonRevealRef = useRevealOnScroll<HTMLElement>();
+  const visitorRevealRef = useRevealOnScroll<HTMLElement>();
   const homeEventPreview = churchEvents.filter((event) => event.showOnHome).slice(0, 3);
   const featuredEvent =
     homeEventPreview.find((event) => event.homeFeatured) ?? homeEventPreview[0];
@@ -73,15 +80,15 @@ export default function Home() {
     <>
       <section className="home-hero section--main" aria-labelledby="home-hero-title">
         <div className="home-hero-copy">
-          <span className="home-label">Welcome to Christ Tamil Church</span>
-          <h1 id="home-hero-title">
+          <span className="home-label hero-label">Welcome to Christ Tamil Church</span>
+          <h1 className="hero-title" id="home-hero-title">
             A Tamil church family rooted in Christ, love, and community
           </h1>
-          <p>
+          <p className="hero-copy">
             Join us for worship, God's Word, prayer, and fellowship as we grow
             together as one family in Christ.
           </p>
-          <div className="home-hero-actions">
+          <div className="home-hero-actions hero-actions">
             <Link className="button primary" to="/visit">
               Plan Your Visit
             </Link>
@@ -96,7 +103,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="home-hero-visual">
+        <div className="home-hero-visual hero-visual">
           <img
             src={siteImages.hero.src}
             alt={siteImages.hero.alt}
@@ -115,17 +122,25 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-service-band section--main" aria-labelledby="home-service-title">
+      <section
+        className="home-service-band section--main reveal"
+        aria-labelledby="home-service-title"
+        ref={serviceRevealRef}
+      >
         <h2 className="sr-only" id="home-service-title">Service essentials</h2>
         {serviceEssentials.map((item) => (
-          <div className="home-service-item" key={item.title}>
+          <div className="home-service-item hover-lift" key={item.title}>
             <span>{item.title}</span>
             <h3>{item.text}</h3>
           </div>
         ))}
       </section>
 
-      <section className="home-welcome-section section--white" aria-labelledby="home-welcome-title">
+      <section
+        className="home-welcome-section section--white reveal"
+        aria-labelledby="home-welcome-title"
+        ref={welcomeRevealRef}
+      >
         <div className="home-welcome-image">
           <img
             src={siteImages.worship.src}
@@ -152,7 +167,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-events-section section--sage" aria-labelledby="home-events-title">
+      <section
+        className="home-events-section section--sage reveal"
+        aria-labelledby="home-events-title"
+        ref={eventsRevealRef}
+      >
         <div className="home-section-heading">
           <div>
             <span className="home-label">Coming Up</span>
@@ -170,7 +189,7 @@ export default function Home() {
 
             return (
             <article
-              className={`home-event-card ${event.homeFeatured ? "featured" : ""} ${hasFlyer ? "flyer" : ""}`}
+              className={`home-event-card hover-lift ${event.homeFeatured ? "featured" : ""} ${hasFlyer ? "flyer" : ""}`}
               key={event.title}
             >
               <img
@@ -204,7 +223,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-ministries-section section--main" aria-labelledby="home-ministries-title">
+      <section
+        className="home-ministries-section section--main reveal"
+        aria-labelledby="home-ministries-title"
+        ref={ministriesRevealRef}
+      >
         <div className="home-section-heading center">
           <div>
             <span className="home-label">Grow Together</span>
@@ -221,7 +244,7 @@ export default function Home() {
             const MinistryIcon = ministry.icon;
 
             return (
-            <Link className="home-ministry-card" key={ministry.title} to={ministry.href}>
+            <Link className="home-ministry-card hover-lift" key={ministry.title} to={ministry.href}>
               <span className="home-ministry-icon" aria-hidden="true">
                 <MinistryIcon size={22} strokeWidth={2} />
               </span>
@@ -236,7 +259,11 @@ export default function Home() {
         </Link>
       </section>
 
-      <section className="home-sermon-section section--sand" aria-labelledby="home-sermon-title">
+      <section
+        className="home-sermon-section section--sand reveal"
+        aria-labelledby="home-sermon-title"
+        ref={sermonRevealRef}
+      >
         <article className="home-sermon-card">
           <div className="home-sermon-media">
             <img
@@ -268,7 +295,11 @@ export default function Home() {
         </article>
       </section>
 
-      <section className="home-visitor-section section--sage" aria-labelledby="home-visitor-title">
+      <section
+        className="home-visitor-section section--sage reveal"
+        aria-labelledby="home-visitor-title"
+        ref={visitorRevealRef}
+      >
         <div className="home-visitor-inner">
           <div className="home-visitor-intro">
             <span className="home-label">First-Time Visitor</span>

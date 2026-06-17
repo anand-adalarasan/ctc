@@ -49,45 +49,6 @@ export default function Layout({ children }: LayoutProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
-  useEffect(() => {
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".hero, .page-hero, main > .section, main > .split-section, main > .media-feature, main > .contact-section, main > .facebook-section, main > .blast-experience-band, main > .kids-service-band, main > .bible-study-band, main > .grow-hub-cta, main > .blast-parent-cta, main > .kids-parent-cta"
-      )
-    );
-
-    if (!("IntersectionObserver" in window)) {
-      sections.forEach((section) => section.classList.add("is-visible"));
-      return;
-    }
-
-    sections.forEach((section) => {
-      section.classList.remove("is-visible");
-      section.classList.add("reveal-section");
-    });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        rootMargin: "0px 0px -12% 0px",
-        threshold: 0.12
-      }
-    );
-
-    requestAnimationFrame(() => {
-      sections.forEach((section) => observer.observe(section));
-    });
-
-    return () => observer.disconnect();
-  }, [location.pathname]);
-
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main-content">
@@ -134,7 +95,9 @@ export default function Layout({ children }: LayoutProps) {
                   end
                   onClick={() => setOpen(false)}
                   aria-haspopup="true"
-                  className={({ isActive }) => (isActive || isGrowSection ? "active" : "")}
+                  className={({ isActive }) =>
+                    `nav-link ${isActive || isGrowSection ? "active" : ""}`
+                  }
                 >
                   <span>{item.label}</span>
                   <ChevronDown size={14} aria-hidden="true" />
@@ -145,7 +108,7 @@ export default function Layout({ children }: LayoutProps) {
                       key={child.href}
                       to={child.href}
                       onClick={() => setOpen(false)}
-                      className={({ isActive }) => (isActive ? "active" : "")}
+                      className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
                     >
                       {child.label}
                     </NavLink>
@@ -158,13 +121,13 @@ export default function Layout({ children }: LayoutProps) {
                 to={item.href}
                 end={item.href === "/"}
                 onClick={() => setOpen(false)}
-                className={({ isActive }) => (isActive ? "active" : "")}
+                className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
               >
                 {item.label}
               </NavLink>
             );
           })}
-          <Link className="nav-cta" to="/visit" onClick={() => setOpen(false)}>
+          <Link className="nav-cta nav-link" to="/visit" onClick={() => setOpen(false)}>
             Plan a Visit
           </Link>
         </nav>
