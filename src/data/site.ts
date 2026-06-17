@@ -44,7 +44,7 @@ export const quickLinks = [
   {
     title: "Sunday Worship",
     detail: "Join us every Sunday for inspiring worship, Bible teaching, and a time of fellowship.",
-    meta: "Sunday at 10.30 AM",
+    meta: "Sunday at 12:30 PM",
     metaSecond: "Everyone is welcome!",
     href: "/worship",
     icon: CalendarDays
@@ -207,7 +207,7 @@ export const churchEvents: ChurchEvent[] = [
   {
     title: "Sunday Worship Service",
     frequency: "Every Sunday",
-    time: "10:30 AM",
+    time: "12:30 PM",
     category: "Tamil & English Worship",
     description:
       "Join us for Tamil and English worship, prayer, Scripture, sermon, children's ministry, communion, and fellowship.",

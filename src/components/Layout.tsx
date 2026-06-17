@@ -1,28 +1,17 @@
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { navItems } from "../data/site";
 
 type LayoutProps = {
   children: ReactNode;
 };
 
-const growNavItem = navItems.find(
-  (item): item is Extract<(typeof navItems)[number], { children: unknown }> =>
-    item.href === "/grow" && "children" in item
-);
-
 const primaryNavItems = [
-  { label: "Home", href: "/" },
+  { label: "Visit", href: "/visit" },
   { label: "Worship", href: "/worship" },
-  {
-    label: "Grow",
-    href: "/grow",
-    children: growNavItem?.children.filter((child) => child.href !== "/sermons")
-  },
   { label: "Connect", href: "/connect" },
-  { label: "Sermons", href: "/sermons" },
-  { label: "Contact", href: "/contact" }
+  { label: "Grow", href: "/grow" },
+  { label: "Serve", href: "/serve" }
 ];
 
 export default function Layout({ children }: LayoutProps) {
@@ -79,56 +68,25 @@ export default function Layout({ children }: LayoutProps) {
           className={`site-nav ${open ? "is-open" : ""}`}
           aria-label="Primary navigation"
         >
-          {primaryNavItems.map((item) => {
-            const isGrowSection =
-              item.href === "/grow" &&
-              location.pathname.startsWith("/grow");
-            const children = "children" in item ? item.children : undefined;
-
-            return children?.length ? (
-              <div
-                className={`nav-dropdown ${isGrowSection ? "active" : ""}`}
-                key={item.href}
-              >
-                <NavLink
-                  to={item.href}
-                  end
-                  onClick={() => setOpen(false)}
-                  aria-haspopup="true"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive || isGrowSection ? "active" : ""}`
-                  }
-                >
-                  <span>{item.label}</span>
-                  <ChevronDown size={14} aria-hidden="true" />
-                </NavLink>
-                <div className="nav-dropdown-menu" aria-label={`${item.label} pages`}>
-                  {children.map((child) => (
-                    <NavLink
-                      key={child.href}
-                      to={child.href}
-                      onClick={() => setOpen(false)}
-                      className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-                    >
-                      {child.label}
-                    </NavLink>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <NavLink
-                key={item.href}
-                to={item.href}
-                end={item.href === "/"}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-              >
-                {item.label}
-              </NavLink>
-            );
-          })}
+          {primaryNavItems.map((item) => (
+            <NavLink
+              key={item.href}
+              to={item.href}
+              end={item.href === "/"}
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `nav-link ${
+                  isActive || (item.href === "/grow" && location.pathname.startsWith("/grow"))
+                    ? "active"
+                    : ""
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
           <Link className="nav-cta nav-link" to="/visit" onClick={() => setOpen(false)}>
-            Plan a Visit
+            Plan Your Visit
           </Link>
         </nav>
       </header>
@@ -159,7 +117,7 @@ export default function Layout({ children }: LayoutProps) {
           <div>
             <h3>Worship</h3>
             <p>Sunday Worship</p>
-            <p>10:30 AM</p>
+            <p>12:30 PM</p>
             <p>1330 63rd St, Downers Grove, IL</p>
           </div>
           <div>
@@ -178,7 +136,7 @@ export default function Layout({ children }: LayoutProps) {
         </div>
         <div className="footer-bottom">
           <span>(c) 2025 Christ Tamil Church Chicago. All rights reserved.</span>
-          <span>Sunday Worship 10:30 AM</span>
+          <span>Sunday Worship 12:30 PM</span>
           <span>1330 63rd St, Downers Grove, IL</span>
         </div>
       </footer>

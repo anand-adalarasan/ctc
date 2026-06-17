@@ -13,14 +13,14 @@ const utm = "utm_source=christ_tamil_church&utm_medium=referral";
 
 export const siteImages = {
   hero: {
-    id: "masa-hu-stone-church",
-    src: "https://images.unsplash.com/photo-1712786922257-4c899c36659a?auto=format&fit=crop&w=1800&q=80",
-    alt: "Stone church with a steeple surrounded by grass in bright sunlight",
-    creditName: "Masa Hu",
-    creditUrl: `https://unsplash.com/@masahu?${utm}`,
-    unsplashUrl: "https://unsplash.com/photos/a-stone-church-with-a-steeple-surrounded-by-grass-gyLBJdTcPDQ",
+    id: "edwin-andrade-church-community",
+    src: "https://images.unsplash.com/photo-1478147427282-58a87a120781?auto=format&fit=crop&w=1800&q=80",
+    alt: "Warm church community gathered together and greeting one another",
+    creditName: "Edwin Andrade",
+    creditUrl: `https://unsplash.com/@theunsteady5?${utm}`,
+    unsplashUrl: "https://unsplash.com/s/photos/church-community",
     usage: "Homepage hero",
-    objectPosition: "center 48%"
+    objectPosition: "center 42%"
   },
   worship: {
     id: "small-group-network-community",
