@@ -470,7 +470,7 @@ Avoid:
 - Sticky at top
 - Minimal logo
 - Simple nav links
-- One clear CTA: Plan Your Visit
+- One clear CTA: I'm New
 - No heavy nav background
 - No crowded menu
 

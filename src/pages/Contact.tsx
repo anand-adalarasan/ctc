@@ -39,14 +39,14 @@ export default function Contact() {
         <h1>Send a message or prayer request.</h1>
         <p>
           We would love to hear from you, pray with you, and help your family
-          plan a visit.
+          feel at home this Sunday.
         </p>
       </section>
       <section className="contact-section">
         <div>
           <SectionHeader
             title="Get in touch"
-            text="Use this form for questions, prayer requests, or visit planning."
+            text="Use this form for questions, prayer requests, or your first Sunday with us."
           />
           <form className="contact-form" onSubmit={(event) => event.preventDefault()}>
             <label>

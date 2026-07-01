@@ -137,7 +137,7 @@ export function ParentFamilyCta({
         </ul>
         <div className={actionsClassName}>
           <Link className="button gold" to="/visit">
-            Plan Your Visit
+            I'm New
           </Link>
           <Link className="button outline-light" to="/contact">
             Contact Us

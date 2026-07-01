@@ -93,7 +93,7 @@ export default function Grow() {
             Contact Us
           </Link>
           <Link className="button outline-light" to="/visit">
-            Plan Your Visit
+            I'm New
           </Link>
         </div>
       </section>

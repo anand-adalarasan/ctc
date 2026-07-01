@@ -128,7 +128,7 @@ export default function KidsCircle() {
             { icon: Heart, text: "Biblical values" },
             { icon: ShieldCheck, text: "Safe, loving, child-friendly" }
           ]}
-          buttonText="Plan Your Visit"
+          buttonText="I'm New"
           buttonHref="/visit"
         />
       </section>

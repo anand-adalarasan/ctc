@@ -1,5 +1,7 @@
+import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { siteImages } from "../data/images";
 
 const directionsUrl =
   "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
@@ -324,48 +326,86 @@ export default function Home() {
         Sunday - 12:30 - Downers Grove
       </div>
       <div className="josh-hud josh-hud-actions">
-        <Link to="/sermons">Watch</Link>
-        <Link className="go" to="/visit">Plan a visit</Link>
+        <Link className="go" to="/visit">I'm New</Link>
       </div>
 
-      <section className="josh-stage josh-stage-open is-lit" id="open" aria-labelledby="home-title">
-        <svg className="josh-star" viewBox="0 0 200 200" aria-hidden="true">
-          <defs>
-            <radialGradient id="josh-gl" cx="50%" cy="50%" r="50%">
-              <stop stopColor="#8CC63F" stopOpacity=".36" />
-              <stop offset="1" stopColor="#8CC63F" stopOpacity="0" />
-            </radialGradient>
-            <linearGradient id="josh-ry" x1="100" y1="6" x2="100" y2="194" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#EAF8D9" stopOpacity="0" />
-              <stop offset=".5" stopColor="#8CC63E" />
-              <stop offset="1" stopColor="#8CC63E" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="josh-rx" x1="6" y1="100" x2="194" y2="100" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#C7C8C9" stopOpacity="0" />
-              <stop offset=".5" stopColor="#AEB0B2" stopOpacity=".82" />
-              <stop offset="1" stopColor="#C7C8C9" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <circle cx="100" cy="100" r="92" fill="url(#josh-gl)" />
-          <g className="josh-star-spin">
-            <path d="M100 12 L106 100 L100 188 L94 100 Z" fill="url(#josh-ry)" />
-            <path d="M12 100 L100 95 L188 100 L100 105 Z" fill="url(#josh-rx)" opacity=".74" />
-            <path d="M40 40 L100 96 L160 160 L100 104 Z" fill="url(#josh-ry)" opacity=".25" />
-            <path d="M160 40 L104 100 L40 160 L96 100 Z" fill="url(#josh-ry)" opacity=".25" />
-          </g>
-          <circle className="josh-star-core" cx="100" cy="100" r="7" fill="#FAFFF2" />
-        </svg>
-        <h1 className="josh-greet" id="home-title" aria-label="Vanakkam - Welcome home">
-          <span className="josh-greet-ta" lang="ta">வணக்கம்</span>
-          <span className="josh-greet-en">Welcome <em>home.</em></span>
-        </h1>
-        <p className="josh-tag">
-          <strong>A Tamil church in Chicagoland.</strong> Wherever you've been,
-          there's a light on for you.
-        </p>
-        <div className="josh-scrollcue" aria-hidden="true">
-          <span />
-          Follow the light
+      <section className="josh-stage josh-stage-open josh-hero is-lit" id="open" aria-labelledby="home-title">
+        <div className="josh-hero-copy">
+          <span className="josh-kicker josh-hero-kicker">
+            <span lang="ta">என்னிடத்தில் வாருங்கள்</span>
+            <small>Matthew 11:28</small>
+          </span>
+          <h1 className="josh-hero-title" id="home-title">
+            A Tamil church family in Chicagoland
+          </h1>
+          <p className="josh-hero-lede">
+            New to church, new to the area, or visiting for the first time?
+            We'll help you feel at home this Sunday.
+          </p>
+          <div className="josh-hero-details" aria-label="Sunday worship and location">
+            <span>
+              <CalendarDays size={18} aria-hidden="true" />
+              Sunday Worship - 12:30 PM
+            </span>
+            <span>
+              <MapPin size={18} aria-hidden="true" />
+              1330 63rd St, Downers Grove, IL
+            </span>
+          </div>
+          <div className="josh-hero-actions">
+            <Link className="go" to="/visit">
+              I'm New
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="josh-scrollcue" aria-hidden="true">
+            <span />
+            Follow the light
+          </div>
+        </div>
+
+        <div className="josh-hero-visual" aria-label="Christ Tamil Church community">
+          <svg className="josh-star" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <radialGradient id="josh-gl" cx="50%" cy="50%" r="50%">
+                <stop stopColor="#8CC63F" stopOpacity=".36" />
+                <stop offset="1" stopColor="#8CC63F" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient id="josh-ry" x1="100" y1="6" x2="100" y2="194" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#EAF8D9" stopOpacity="0" />
+                <stop offset=".5" stopColor="#8CC63E" />
+                <stop offset="1" stopColor="#8CC63E" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="josh-rx" x1="6" y1="100" x2="194" y2="100" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#C7C8C9" stopOpacity="0" />
+                <stop offset=".5" stopColor="#AEB0B2" stopOpacity=".82" />
+                <stop offset="1" stopColor="#C7C8C9" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="92" fill="url(#josh-gl)" />
+            <g className="josh-star-spin">
+              <path d="M100 12 L106 100 L100 188 L94 100 Z" fill="url(#josh-ry)" />
+              <path d="M12 100 L100 95 L188 100 L100 105 Z" fill="url(#josh-rx)" opacity=".74" />
+              <path d="M40 40 L100 96 L160 160 L100 104 Z" fill="url(#josh-ry)" opacity=".25" />
+              <path d="M160 40 L104 100 L40 160 L96 100 Z" fill="url(#josh-ry)" opacity=".25" />
+            </g>
+            <circle className="josh-star-core" cx="100" cy="100" r="7" fill="#FAFFF2" />
+          </svg>
+          <img
+            src={siteImages.hero.src}
+            alt={siteImages.hero.alt}
+            width="900"
+            height="660"
+            style={{ objectPosition: siteImages.hero.objectPosition }}
+          />
+          <aside className="josh-hero-card" aria-label="Sunday worship details">
+            <span>This Sunday</span>
+            <strong>12:30 PM</strong>
+            <a href={directionsUrl} target="_blank" rel="noreferrer">
+              Get directions
+              <ArrowRight size={14} aria-hidden="true" />
+            </a>
+          </aside>
         </div>
       </section>
 

@@ -57,7 +57,7 @@ Use white as the dominant experience. Use gray for structure and copy. Use lime 
 - White and warm white are the main page backgrounds.
 - `#6D6E70` grounds body text, metadata, and dividers.
 - `#8CC63E` is the light-path accent: timeline rail, active section dots, small icons, active nav, and subtle hover states.
-- `#F99D37` is the action color: Plan Your Visit, Get Directions, Watch Online emphasis, and key CTA moments.
+- `#F99D37` is the action color: "I'm New", Get Directions, and key first-time visitor CTA moments.
 - Use dark ink for headings so the page feels premium and readable.
 
 ## Typography
@@ -103,13 +103,37 @@ Respect `prefers-reduced-motion` by disabling transforms and showing content imm
 
 For the leader-approved Follow the Light homepage direction, use the Josh reference section flow translated into a light theme:
 
-1. Opening: animated light mark, Tamil/English greeting, and "Follow the light" cue.
+1. Opening: animated light mark, Tamil scripture invitation, first-time visitor message, and "Follow the light" cue.
 2. Sunday: large worship rhythm/time treatment.
 3. Ways to Belong: editorial ministry list with luminous row hover.
 4. Mission + Verse: two-column mission statement and scripture.
 5. Visit: "Come home" ending with address, directions, and contact actions.
+6. Footer: light closing footer with church identity, worship details, contact, and quick links.
 
 This homepage intentionally does not use the earlier gateway/welcome/place/visitor section set.
+
+## Hero Composition
+
+The opening section should be visitor-clear before it is experimental.
+
+Use a cinematic two-column welcome scene:
+
+- Left side: Tamil scripture invitation, English headline, short visitor copy, Sunday details, and one primary CTA.
+- Right side: one warm church/community image with the animated light mark layered as an accent.
+- The headline should communicate the church clearly: "A Tamil church family in Chicagoland."
+- The first hero phrase should be `என்னிடத்தில் வாருங்கள்` with a small Matthew 11:28 reference.
+- Use one primary hero CTA: "I'm New". Do not pair it with "Watch Online" in the hero.
+- The CTA belongs directly under the message, not only in fixed chrome.
+- Keep Sunday worship time and location visible above the fold.
+
+The animated light system should guide attention toward the message and visit actions. It should not replace human warmth, church identity, or visitor clarity.
+
+## Footer
+
+For the light Follow the Light homepage, the footer should stay bright and calm.
+Use white/warm-white surfaces, a subtle lime/orange glow, and a quiet continuation
+of the left light rail. Avoid dropping into a heavy dark-green footer on this
+homepage because it interrupts the white + brand pop direction.
 
 ## Atmosphere Animations
 

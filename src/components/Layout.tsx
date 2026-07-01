@@ -88,7 +88,7 @@ export default function Layout({ children }: LayoutProps) {
             </NavLink>
           ))}
           <Link className="nav-cta nav-link" to="/visit" onClick={() => setOpen(false)}>
-            Plan Your Visit
+            I'm New
           </Link>
         </nav>
       </header>
@@ -130,7 +130,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           <div data-reveal-child>
             <h3>Quick Links</h3>
-            <p><Link to="/visit">Plan Your Visit</Link></p>
+            <p><Link to="/visit">I'm New</Link></p>
             <p><Link to="/worship">Worship</Link></p>
             <p><Link to="/grow">Grow</Link></p>
             <p><Link to="/sermons">Sermons</Link></p>

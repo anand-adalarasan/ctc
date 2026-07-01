@@ -7,8 +7,8 @@ The Christ Tamil Church homepage should act as a warm digital front door. It sho
 - Who Christ Tamil Church is
 - When Sunday worship happens
 - Where the church is located
-- How to plan a visit
-- How to watch online
+- What to expect as a first-time visitor
+- How to access sermons and online worship
 - How families and children can connect
 - What events and ministries are available
 - How to access sermons and contact the church
@@ -22,7 +22,7 @@ The approved homepage direction is **Quiet Grace 2026: Full-Background Cinematic
 Use one major cinematic hero section with:
 
 - A strong church identity message
-- Plan Your Visit and Watch Worship CTAs
+- One clear "I'm New" CTA with compact Sunday worship time and location details
 - Compact Sunday worship time and location details
 - One large warm human photo filling the hero background
 - A warm ivory overlay that keeps text highly readable
@@ -48,8 +48,8 @@ A visitor should be able to answer these questions within a few seconds:
 - What kind of church is this?
 - When is worship?
 - Where is it?
-- How do I visit?
-- Can I watch online?
+- What should I expect if I am new?
+- Where can I find sermons or online worship?
 
 ### 4. Warm Human Photography
 
@@ -134,10 +134,9 @@ Identity line:
 Rooted in Christ. United in Love. Sent to Serve.
 ```
 
-Buttons:
+Primary button:
 
-- Plan Your Visit
-- Watch Online
+- I'm New
 
 ### Visual
 
@@ -311,7 +310,7 @@ Content:
 - Subtitle: Trusting God in Every Season
 - Pastor/date line
 - Short description
-- Watch Online button
+- Watch Online or Browse Sermons button
 - Browse Sermons button
 
 Do not show a sermon grid on the homepage.
@@ -362,7 +361,7 @@ We’d love to meet you. Here’s what you can expect when you visit.
 
 CTA:
 
-- Plan Your Visit
+- I'm New
 
 ## Footer
 
@@ -400,8 +399,8 @@ Priority order:
 1. Church identity
 2. Sunday worship time
 3. Location
-4. Plan Your Visit
-5. Watch Worship
+4. I'm New
+5. Sermons or online worship access
 6. Gateway navigation to Visit, Worship, Connect, Grow, and Serve
 7. Warm human photography
 8. Clear path to inner pages for events, ministries, sermons, and visitor details
