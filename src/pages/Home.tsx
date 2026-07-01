@@ -1,293 +1,463 @@
-import {
-  ArrowRight,
-  BookOpen,
-  CalendarDays,
-  Church,
-  HandHeart,
-  HeartHandshake,
-  Home as HomeIcon,
-  MapPin,
-  PlayCircle,
-  Sparkles,
-  Users
-} from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { siteImages } from "../data/images";
-import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 const directionsUrl =
   "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
 
-const gatewayTiles = [
+const ministries = [
   {
-    icon: MapPin,
-    title: "Visit",
-    text: "Get to know our church family",
-    href: "/visit"
-  },
-  {
-    icon: Church,
+    number: "i",
     title: "Worship",
-    text: "Join us this Sunday",
+    meta: "Tamil & English - Sundays",
     href: "/worship"
   },
   {
-    icon: Users,
-    title: "Connect",
-    text: "Events and fellowship",
+    number: "ii",
+    title: "Sunday School - B.L.A.S.T.",
+    meta: "Bible learning for kids and teens",
+    href: "/grow/sunday-school"
+  },
+  {
+    number: "iii",
+    title: "Kids Circle",
+    meta: "During Sunday worship",
+    href: "/grow/kids-circle"
+  },
+  {
+    number: "iv",
+    title: "Bible Study & Prayer",
+    meta: "Growing through God's Word",
+    href: "/grow/bible-study-prayer"
+  },
+  {
+    number: "v",
+    title: "Fellowship Hour",
+    meta: "Food, family, and friends",
     href: "/connect"
   },
   {
-    icon: BookOpen,
-    title: "Grow",
-    text: "Bible study, sermons, and kids",
-    href: "/grow"
-  },
-  {
-    icon: HandHeart,
-    title: "Serve",
-    text: "Community outreach",
+    number: "vi",
+    title: "Care & Outreach",
+    meta: "Prayer and community service",
     href: "/serve"
   }
 ];
 
-const serviceDetails = [
-  {
-    label: "Sunday Worship",
-    value: "12:30 PM",
-    icon: CalendarDays
-  },
-  {
-    label: "Location",
-    value: "1330 63rd St, Downers Grove, IL 60516",
-    icon: MapPin
-  }
-];
-
-const welcomeChips = [
-  "Christ-centered worship",
-  "Tamil Christian fellowship",
-  "Family & community"
-];
-
-const placeBlocks = [
-  {
-    title: "For Families",
-    text: "A warm place for children, youth, parents, and elders to worship and grow together.",
-    icon: Users
-  },
-  {
-    title: "For New Visitors",
-    text: "A simple, friendly path to learn about the church, join worship, and feel at home.",
-    icon: HomeIcon
-  },
-  {
-    title: "For Every Season",
-    text: "A community for prayer, encouragement, fellowship, and spiritual growth.",
-    icon: Sparkles
-  }
-];
-
-const visitorSteps = [
-  {
-    title: "Arrive",
-    text: "Come as you are. We'll welcome you."
-  },
-  {
-    title: "Worship",
-    text: "Experience uplifting worship and biblical teaching."
-  },
-  {
-    title: "Connect",
-    text: "Meet our team and find your place."
-  }
-];
-
 export default function Home() {
-  const welcomeRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
-  const placeForYouRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
-  const visitorRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
+  const cometRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    const canvas = canvasRef.current;
+    const cursor = cursorRef.current;
+    const comet = cometRef.current;
+
+    if (!root || !canvas || !cursor || !comet) {
+      return;
+    }
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const context = canvas.getContext("2d");
+    let animationFrame = 0;
+    let cursorFrame = 0;
+    let running = true;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let mouseX = -9999;
+    let mouseY = -9999;
+
+    type Particle = {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      alpha: number;
+      twinkle: number;
+    };
+
+    let particles: Particle[] = [];
+
+    const sprite = document.createElement("canvas");
+    const spriteRadius = 40;
+    sprite.width = spriteRadius * 2;
+    sprite.height = spriteRadius * 2;
+    const spriteContext = sprite.getContext("2d");
+
+    if (spriteContext) {
+      const gradient = spriteContext.createRadialGradient(
+        spriteRadius,
+        spriteRadius,
+        0,
+        spriteRadius,
+        spriteRadius,
+        spriteRadius
+      );
+      gradient.addColorStop(0, "rgba(140, 198, 62, 0.78)");
+      gradient.addColorStop(0.42, "rgba(140, 198, 62, 0.24)");
+      gradient.addColorStop(1, "rgba(140, 198, 62, 0)");
+      spriteContext.fillStyle = gradient;
+      spriteContext.beginPath();
+      spriteContext.arc(spriteRadius, spriteRadius, spriteRadius, 0, Math.PI * 2);
+      spriteContext.fill();
+    }
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth * dpr;
+      height = window.innerHeight * dpr;
+      canvas.width = width;
+      canvas.height = height;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+
+      const count = Math.min(92, Math.round((window.innerWidth * window.innerHeight) / 21000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.12 * dpr,
+        vy: (-0.05 - Math.random() * 0.16) * dpr,
+        radius: (Math.random() * 2 + 0.6) * dpr,
+        alpha: Math.random() * 0.45 + 0.14,
+        twinkle: Math.random() * Math.PI * 2
+      }));
+    };
+
+    const draw = () => {
+      if (!context) {
+        return;
+      }
+
+      context.clearRect(0, 0, width, height);
+      context.globalCompositeOperation = "lighter";
+
+      particles.forEach((particle) => {
+        if (mouseX > -9000) {
+          const dx = mouseX - particle.x;
+          const dy = mouseY - particle.y;
+          const distanceSquared = dx * dx + dy * dy;
+
+          if (distanceSquared < 90000 * dpr * dpr) {
+            const force = 0.00015;
+            particle.vx += dx * force;
+            particle.vy += dy * force;
+          }
+        }
+
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vx *= 0.992;
+        particle.vy *= 0.992;
+        particle.twinkle += 0.02;
+
+        if (particle.y < -40) particle.y = height + 40;
+        if (particle.y > height + 40) particle.y = -40;
+        if (particle.x < -40) particle.x = width + 40;
+        if (particle.x > width + 40) particle.x = -40;
+
+        const twinkle = Math.sin(particle.twinkle) * 0.3 + 0.7;
+        const size = particle.radius * 7 * twinkle;
+        context.globalAlpha = particle.alpha * twinkle;
+        context.drawImage(sprite, particle.x - size / 2, particle.y - size / 2, size, size);
+      });
+
+      context.globalAlpha = 1;
+      context.globalCompositeOperation = "source-over";
+      animationFrame = window.requestAnimationFrame(draw);
+    };
+
+    const paintStaticField = () => {
+      if (!context) {
+        return;
+      }
+
+      context.clearRect(0, 0, width, height);
+      context.globalCompositeOperation = "lighter";
+      particles.forEach((particle) => {
+        const size = particle.radius * 7;
+        context.globalAlpha = particle.alpha;
+        context.drawImage(sprite, particle.x - size / 2, particle.y - size / 2, size, size);
+      });
+      context.globalAlpha = 1;
+      context.globalCompositeOperation = "source-over";
+    };
+
+    const handlePointerMove = (event: MouseEvent) => {
+      mouseX = event.clientX * dpr;
+      mouseY = event.clientY * dpr;
+      cursor.style.opacity = "1";
+    };
+
+    const animateCursor = () => {
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+
+      const handleMove = (event: MouseEvent) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+      };
+
+      window.addEventListener("mousemove", handleMove);
+
+      const loop = () => {
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+        cursor.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        cursorFrame = window.requestAnimationFrame(loop);
+      };
+
+      loop();
+
+      return () => window.removeEventListener("mousemove", handleMove);
+    };
+
+    const updateComet = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      comet.style.transform = `translateY(${progress * window.innerHeight}px)`;
+    };
+
+    let scrollTicking = false;
+    const handleScroll = () => {
+      if (scrollTicking) {
+        return;
+      }
+
+      scrollTicking = true;
+      window.requestAnimationFrame(() => {
+        updateComet();
+        scrollTicking = false;
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.16 }
+    );
+
+    const stageObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-lit", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.36 }
+    );
+
+    resize();
+
+    const cleanupCursorLoop = finePointer && !reduceMotion ? animateCursor() : undefined;
+
+    if (finePointer) {
+      window.addEventListener("mousemove", handlePointerMove);
+    }
+
+    window.addEventListener("resize", resize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    updateComet();
+
+    if (reduceMotion) {
+      paintStaticField();
+      root.querySelectorAll(".josh-reveal, .josh-stage").forEach((element) => {
+        element.classList.add("is-visible", "is-lit");
+      });
+    } else {
+      draw();
+      root.querySelectorAll(".josh-reveal").forEach((element) => revealObserver.observe(element));
+      root.querySelectorAll(".josh-stage").forEach((element) => stageObserver.observe(element));
+    }
+
+    const handleVisibilityChange = () => {
+      if (reduceMotion) {
+        return;
+      }
+
+      if (document.hidden) {
+        window.cancelAnimationFrame(animationFrame);
+        running = false;
+      } else if (!running) {
+        running = true;
+        draw();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.cancelAnimationFrame(cursorFrame);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handlePointerMove);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      cleanupCursorLoop?.();
+      revealObserver.disconnect();
+      stageObserver.disconnect();
+    };
+  }, []);
 
   return (
-    <>
-      <section className="home-cinematic" aria-labelledby="home-hero-title">
-        <img
-          className="home-cinematic-bg"
-          src={siteImages.hero.src}
-          alt=""
-          width="1800"
-          height="1100"
-          aria-hidden="true"
-          style={{ objectPosition: siteImages.hero.objectPosition }}
-        />
-        <div className="home-hero-hub">
-          <div className="home-hero-message">
-            <span className="home-kicker hero-label">Welcome to Christ Tamil Church</span>
-            <h1 className="home-hero-title hero-title" id="home-hero-title">
-              A Tamil church family rooted in Christ, love, and community
-            </h1>
-            <p className="home-hero-lede hero-copy">
-              Join us for worship, God's Word, prayer, and fellowship as we grow
-              together as one family in Christ.
-            </p>
-            <p className="home-identity-line hero-identity">
-              Rooted in Christ. United in Love. Sent to Serve.
-            </p>
+    <div className="josh-home" ref={rootRef}>
+      <canvas className="josh-field" ref={canvasRef} aria-hidden="true" />
+      <div className="josh-vignette" aria-hidden="true" />
+      <div className="josh-grain" aria-hidden="true" />
+      <div className="josh-cursor" ref={cursorRef} aria-hidden="true" />
+      <div className="josh-spine" aria-hidden="true" />
+      <div className="josh-comet" ref={cometRef} aria-hidden="true" />
 
-            <div className="home-hero-actions hero-actions">
-              <Link className="button primary" to="/visit">
-                Plan Your Visit
-                <ArrowRight size={17} aria-hidden="true" />
-              </Link>
-              <Link className="button secondary" to="/sermons">
-                <PlayCircle size={18} aria-hidden="true" />
-                Watch Online
-              </Link>
-            </div>
+      <div className="josh-hud josh-hud-status" aria-hidden="true">
+        <span />
+        Sunday - 12:30 - Downers Grove
+      </div>
+      <div className="josh-hud josh-hud-actions">
+        <Link to="/sermons">Watch</Link>
+        <Link className="go" to="/visit">Plan a visit</Link>
+      </div>
 
-            <div className="home-service-strip hero-details" aria-label="Sunday worship and location">
-              {serviceDetails.map((item) => {
-                const DetailIcon = item.icon;
-
-                return (
-                  <div className="home-service-detail" key={item.label}>
-                    <span className="home-service-icon" aria-hidden="true">
-                      <DetailIcon size={17} strokeWidth={2} />
-                    </span>
-                    <span>{item.label}</span>
-                    <strong>{item.value}</strong>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <aside className="home-floating-card worship" aria-label="Sunday worship details">
-            <span>Sunday Worship</span>
-            <strong>12:30 PM</strong>
-            <p>1330 63rd St, Downers Grove, IL</p>
-            <a href={directionsUrl} target="_blank" rel="noreferrer">
-              Get Directions
-              <ArrowRight size={14} aria-hidden="true" />
-            </a>
-          </aside>
+      <section className="josh-stage josh-stage-open is-lit" id="open" aria-labelledby="home-title">
+        <svg className="josh-star" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <radialGradient id="josh-gl" cx="50%" cy="50%" r="50%">
+              <stop stopColor="#8CC63F" stopOpacity=".36" />
+              <stop offset="1" stopColor="#8CC63F" stopOpacity="0" />
+            </radialGradient>
+            <linearGradient id="josh-ry" x1="100" y1="6" x2="100" y2="194" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#EAF8D9" stopOpacity="0" />
+              <stop offset=".5" stopColor="#8CC63E" />
+              <stop offset="1" stopColor="#8CC63E" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="josh-rx" x1="6" y1="100" x2="194" y2="100" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#C7C8C9" stopOpacity="0" />
+              <stop offset=".5" stopColor="#AEB0B2" stopOpacity=".82" />
+              <stop offset="1" stopColor="#C7C8C9" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="100" r="92" fill="url(#josh-gl)" />
+          <g className="josh-star-spin">
+            <path d="M100 12 L106 100 L100 188 L94 100 Z" fill="url(#josh-ry)" />
+            <path d="M12 100 L100 95 L188 100 L100 105 Z" fill="url(#josh-rx)" opacity=".74" />
+            <path d="M40 40 L100 96 L160 160 L100 104 Z" fill="url(#josh-ry)" opacity=".25" />
+            <path d="M160 40 L104 100 L40 160 L96 100 Z" fill="url(#josh-ry)" opacity=".25" />
+          </g>
+          <circle className="josh-star-core" cx="100" cy="100" r="7" fill="#FAFFF2" />
+        </svg>
+        <h1 className="josh-greet" id="home-title" aria-label="Vanakkam - Welcome home">
+          <span className="josh-greet-ta" lang="ta">வணக்கம்</span>
+          <span className="josh-greet-en">Welcome <em>home.</em></span>
+        </h1>
+        <p className="josh-tag">
+          <strong>A Tamil church in Chicagoland.</strong> Wherever you've been,
+          there's a light on for you.
+        </p>
+        <div className="josh-scrollcue" aria-hidden="true">
+          <span />
+          Follow the light
         </div>
       </section>
 
-      <nav className="home-gateway reveal-stagger" aria-label="Homepage gateways">
-        {gatewayTiles.map((tile) => {
-          const GatewayIcon = tile.icon;
+      <section className="josh-stage" id="sunday" aria-labelledby="sunday-title">
+        <span className="josh-node" aria-hidden="true" />
+        <div className="josh-reveal">
+          <span className="josh-kicker">Every Sunday</span>
+          <h2 id="sunday-title">One weekly rhythm, <em>three lights.</em></h2>
+        </div>
+        <div className="josh-times josh-reveal" aria-label="Sunday gathering rhythm">
+          <div className="josh-time">
+            <strong>12<span>:</span>30</strong>
+            <p>Worship - Tamil & English</p>
+          </div>
+          <div className="josh-time">
+            <strong>Kids</strong>
+            <p>Sunday School & Kids Circle</p>
+          </div>
+          <div className="josh-time">
+            <strong>After</strong>
+            <p>Fellowship - food & friends</p>
+          </div>
+        </div>
+      </section>
 
-          return (
-            <Link className="home-gateway-tile" to={tile.href} key={tile.title}>
-              <span className="home-gateway-icon" aria-hidden="true">
-                <GatewayIcon size={20} strokeWidth={1.9} />
-              </span>
-              <strong>{tile.title}</strong>
-              <p>{tile.text}</p>
-              <ArrowRight className="home-gateway-arrow" size={16} aria-hidden="true" />
+      <section className="josh-stage" id="gather" aria-labelledby="gather-title">
+        <span className="josh-node" aria-hidden="true" />
+        <div className="josh-reveal">
+          <span className="josh-kicker">Ways to belong</span>
+          <h2 id="gather-title">Come for one thing. Stay for all of it.</h2>
+        </div>
+        <div className="josh-ministry-list josh-reveal">
+          {ministries.map((ministry) => (
+            <Link className="josh-ministry-row" to={ministry.href} key={ministry.title}>
+              <span>{ministry.number}</span>
+              <strong>{ministry.title}</strong>
+              <small>{ministry.meta}</small>
             </Link>
-          );
-        })}
-      </nav>
+          ))}
+        </div>
+      </section>
 
-      <section
-        className="home-welcome-addition reveal"
-        aria-labelledby="home-welcome-title"
-        ref={welcomeRef}
-      >
-        <div className="home-welcome-addition-inner">
-          <div className="home-welcome-photo" data-reveal-child>
-            <img
-              src={siteImages.worship.src}
-              alt={siteImages.worship.alt}
-              width="760"
-              height="570"
-              loading="lazy"
-              style={{ objectPosition: siteImages.worship.objectPosition }}
-            />
-          </div>
-          <div className="home-welcome-content">
-            <span className="home-section-label" data-reveal-child>Welcome Home</span>
-            <h2 id="home-welcome-title" data-reveal-child>Welcome to Christ Tamil Church</h2>
-            <p data-reveal-child>
-              Christ Tamil Church is a Christ-centered Tamil Christian church family
-              where people gather for worship, God's Word, prayer, fellowship, and
-              service. Whether you are new to faith, new to the area, or looking for
-              a church home, we would love to welcome you.
+      <section className="josh-stage" id="mission" aria-labelledby="mission-title">
+        <span className="josh-node" aria-hidden="true" />
+        <div className="josh-mission-grid">
+          <div className="josh-reveal">
+            <span className="josh-kicker">
+              <span lang="ta">எங்கள் நோக்கம்</span> - Our mission
+            </span>
+            <h2 id="mission-title">To be alive in Christ - together.</h2>
+            <p>
+              A Bible-based home for Tamil families across Chicago. To revive
+              believers, live by love, and grow in a real relationship with Jesus.
             </p>
-            <div className="home-chip-list" aria-label="Church welcome highlights">
-              {welcomeChips.map((chip) => (
-                <span key={chip} data-reveal-child>{chip}</span>
-              ))}
-            </div>
+          </div>
+          <div className="josh-verse josh-reveal">
+            <blockquote>
+              "Come to me, all you who are weary, and I will give you rest."
+            </blockquote>
+            <cite>Matthew 11:28</cite>
           </div>
         </div>
       </section>
 
-      <section
-        className="home-place-for-you reveal"
-        aria-labelledby="home-place-for-you-title"
-        ref={placeForYouRef}
-      >
-        <div className="home-section-intro">
-          <span className="home-section-label" data-reveal-child>Belong Here</span>
-          <h2 id="home-place-for-you-title" data-reveal-child>
-            A place for every generation to belong and grow
-          </h2>
-          <p data-reveal-child>
-            From children and youth to parents, adults, and elders, Christ Tamil
-            Church is a family where every season of life is valued. Come as you
-            are, grow in Christ, and walk with a church family that prays,
-            encourages, and serves together.
+      <section className="josh-stage josh-stage-visit" id="visit" aria-labelledby="visit-title">
+        <div className="josh-reveal">
+          <h2 className="josh-come" id="visit-title">Come <em>home.</em></h2>
+          <div className="josh-door">
+            <div className="josh-door-mark" aria-hidden="true">+</div>
+            <p>
+              <strong>1330 63rd St, Downers Grove, IL 60516</strong>
+              <br />
+              Free parking - everyone welcome - this Sunday, 12:30 PM
+            </p>
+            <div>
+              <a className="go" href={directionsUrl} target="_blank" rel="noreferrer">
+                Get directions
+              </a>
+              <a href="mailto:ctcchicago@gmail.com">Email us</a>
+            </div>
+          </div>
+          <div className="josh-endlinks">
+            <a href="https://www.youtube.com/c/ChristTamilChurchChicago" target="_blank" rel="noreferrer">YouTube</a>
+            <a href="https://www.facebook.com/ChristTamilChurchChicago" target="_blank" rel="noreferrer">Facebook</a>
+            <a href="tel:+17739363697">(773) 936-3697</a>
+            <Link to="/contact">Contact</Link>
+          </div>
+          <p className="josh-signoff">
+            Christ Tamil Church - Chicago - <span lang="ta">வணக்கம்</span>
           </p>
         </div>
-        <div className="home-welcome-blocks">
-          {placeBlocks.map((block) => {
-            const BlockIcon = block.icon;
-
-            return (
-              <article className="home-welcome-block" key={block.title} data-reveal-child>
-                <span aria-hidden="true">
-                  <BlockIcon size={20} strokeWidth={2} />
-                </span>
-                <h3>{block.title}</h3>
-                <p>{block.text}</p>
-              </article>
-            );
-          })}
-        </div>
       </section>
-
-      <section
-        className="home-first-visit reveal"
-        aria-labelledby="home-first-visit-title"
-        ref={visitorRef}
-      >
-        <div className="home-first-visit-panel" data-reveal-child>
-          <div className="home-first-visit-intro">
-            <span className="home-section-label" data-reveal-child>First-Time Visitor</span>
-            <h2 id="home-first-visit-title" data-reveal-child>Visiting for the first time?</h2>
-            <p data-reveal-child>
-              We'd love to meet you. Here's what you can expect when you visit.
-            </p>
-          </div>
-          <div className="home-visitor-step-list">
-            {visitorSteps.map((step, index) => (
-              <article className="home-visitor-step" key={step.title} data-reveal-child>
-                <span>{index + 1}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </article>
-            ))}
-          </div>
-          <Link className="button primary" to="/visit" data-reveal-child>
-            Plan Your Visit
-            <HeartHandshake size={18} aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
-    </>
+    </div>
   );
 }
-

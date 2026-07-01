@@ -50,7 +50,7 @@ export default function Layout({ children }: LayoutProps) {
           <span className="brand-mark" aria-hidden="true">+</span>
           <span>
             <strong>Christ Tamil Church</strong>
-            <small>Chicago</small>
+            <small><span lang="ta">வணக்கம்</span> Chicago</small>
           </span>
         </Link>
 
@@ -102,6 +102,7 @@ export default function Layout({ children }: LayoutProps) {
               <span className="brand-mark" aria-hidden="true">+</span>
               <span>Christ Tamil Church Chicago</span>
             </Link>
+            <span className="footer-tamil" lang="ta">விசுவாசம் · அன்பு · ஐக்கியம்</span>
             <p>
               Rooted in Christ. United in Love. Sent to Serve.
             </p>
@@ -137,7 +138,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </div>
         <div className="footer-bottom" data-reveal-child>
-          <span>(c) 2025 Christ Tamil Church Chicago. All rights reserved.</span>
+          <span>(c) 2026 Christ Tamil Church Chicago. All rights reserved.</span>
           <span>Sunday Worship 12:30 PM</span>
           <span>1330 63rd St, Downers Grove, IL</span>
         </div>
