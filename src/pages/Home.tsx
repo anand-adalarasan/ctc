@@ -1,49 +1,11 @@
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
 import { siteImages } from "../data/images";
 
 const directionsUrl =
   "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
-
-const ministries = [
-  {
-    number: "i",
-    title: "Worship",
-    meta: "Tamil & English - Sundays",
-    href: "/worship"
-  },
-  {
-    number: "ii",
-    title: "Sunday School - B.L.A.S.T.",
-    meta: "Bible learning for kids and teens",
-    href: "/grow/sunday-school"
-  },
-  {
-    number: "iii",
-    title: "Kids Circle",
-    meta: "During Sunday worship",
-    href: "/grow/kids-circle"
-  },
-  {
-    number: "iv",
-    title: "Bible Study & Prayer",
-    meta: "Growing through God's Word",
-    href: "/grow/bible-study-prayer"
-  },
-  {
-    number: "v",
-    title: "Fellowship Hour",
-    meta: "Food, family, and friends",
-    href: "/connect"
-  },
-  {
-    number: "vi",
-    title: "Care & Outreach",
-    meta: "Prayer and community service",
-    href: "/serve"
-  }
-];
 
 export default function Home() {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -84,7 +46,6 @@ export default function Home() {
     };
 
     let particles: Particle[] = [];
-
     const sprite = document.createElement("canvas");
     const spriteRadius = 40;
     sprite.width = spriteRadius * 2;
@@ -118,19 +79,19 @@ export default function Home() {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
 
-      const count = Math.min(92, Math.round((window.innerWidth * window.innerHeight) / 21000));
+      const count = Math.min(72, Math.round((window.innerWidth * window.innerHeight) / 26000));
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.12 * dpr,
-        vy: (-0.05 - Math.random() * 0.16) * dpr,
-        radius: (Math.random() * 2 + 0.6) * dpr,
-        alpha: Math.random() * 0.45 + 0.14,
+        vx: (Math.random() - 0.5) * 0.1 * dpr,
+        vy: (-0.045 - Math.random() * 0.12) * dpr,
+        radius: (Math.random() * 1.6 + 0.55) * dpr,
+        alpha: Math.random() * 0.3 + 0.12,
         twinkle: Math.random() * Math.PI * 2
       }));
     };
 
-    const draw = () => {
+    const paint = (animate: boolean) => {
       if (!context) {
         return;
       }
@@ -139,30 +100,32 @@ export default function Home() {
       context.globalCompositeOperation = "lighter";
 
       particles.forEach((particle) => {
-        if (mouseX > -9000) {
+        if (animate && mouseX > -9000) {
           const dx = mouseX - particle.x;
           const dy = mouseY - particle.y;
           const distanceSquared = dx * dx + dy * dy;
 
           if (distanceSquared < 90000 * dpr * dpr) {
-            const force = 0.00015;
+            const force = 0.00012;
             particle.vx += dx * force;
             particle.vy += dy * force;
           }
         }
 
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-        particle.vx *= 0.992;
-        particle.vy *= 0.992;
-        particle.twinkle += 0.02;
+        if (animate) {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+          particle.vx *= 0.992;
+          particle.vy *= 0.992;
+          particle.twinkle += 0.02;
 
-        if (particle.y < -40) particle.y = height + 40;
-        if (particle.y > height + 40) particle.y = -40;
-        if (particle.x < -40) particle.x = width + 40;
-        if (particle.x > width + 40) particle.x = -40;
+          if (particle.y < -40) particle.y = height + 40;
+          if (particle.y > height + 40) particle.y = -40;
+          if (particle.x < -40) particle.x = width + 40;
+          if (particle.x > width + 40) particle.x = -40;
+        }
 
-        const twinkle = Math.sin(particle.twinkle) * 0.3 + 0.7;
+        const twinkle = animate ? Math.sin(particle.twinkle) * 0.3 + 0.7 : 1;
         const size = particle.radius * 7 * twinkle;
         context.globalAlpha = particle.alpha * twinkle;
         context.drawImage(sprite, particle.x - size / 2, particle.y - size / 2, size, size);
@@ -170,23 +133,11 @@ export default function Home() {
 
       context.globalAlpha = 1;
       context.globalCompositeOperation = "source-over";
-      animationFrame = window.requestAnimationFrame(draw);
     };
 
-    const paintStaticField = () => {
-      if (!context) {
-        return;
-      }
-
-      context.clearRect(0, 0, width, height);
-      context.globalCompositeOperation = "lighter";
-      particles.forEach((particle) => {
-        const size = particle.radius * 7;
-        context.globalAlpha = particle.alpha;
-        context.drawImage(sprite, particle.x - size / 2, particle.y - size / 2, size, size);
-      });
-      context.globalAlpha = 1;
-      context.globalCompositeOperation = "source-over";
+    const draw = () => {
+      paint(true);
+      animationFrame = window.requestAnimationFrame(draw);
     };
 
     const handlePointerMove = (event: MouseEvent) => {
@@ -224,6 +175,7 @@ export default function Home() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
       comet.style.transform = `translateY(${progress * window.innerHeight}px)`;
+      root.style.setProperty("--josh-rail-progress", `${progress * 100}%`);
     };
 
     let scrollTicking = false;
@@ -239,48 +191,21 @@ export default function Home() {
       });
     };
 
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.16 }
-    );
-
-    const stageObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle("is-lit", entry.isIntersecting);
-        });
-      },
-      { threshold: 0.36 }
-    );
-
     resize();
-
+    updateComet();
     const cleanupCursorLoop = finePointer && !reduceMotion ? animateCursor() : undefined;
 
-    if (finePointer) {
+    if (finePointer && !reduceMotion) {
       window.addEventListener("mousemove", handlePointerMove);
     }
 
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
     window.addEventListener("scroll", handleScroll, { passive: true });
-    updateComet();
 
     if (reduceMotion) {
-      paintStaticField();
-      root.querySelectorAll(".josh-reveal, .josh-stage").forEach((element) => {
-        element.classList.add("is-visible", "is-lit");
-      });
+      paint(false);
     } else {
       draw();
-      root.querySelectorAll(".josh-reveal").forEach((element) => revealObserver.observe(element));
-      root.querySelectorAll(".josh-stage").forEach((element) => stageObserver.observe(element));
     }
 
     const handleVisibilityChange = () => {
@@ -307,13 +232,12 @@ export default function Home() {
       window.removeEventListener("mousemove", handlePointerMove);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       cleanupCursorLoop?.();
-      revealObserver.disconnect();
-      stageObserver.disconnect();
     };
   }, []);
 
   return (
-    <div className="josh-home" ref={rootRef}>
+    <>
+      <div className="josh-home" ref={rootRef}>
       <canvas className="josh-field" ref={canvasRef} aria-hidden="true" />
       <div className="josh-vignette" aria-hidden="true" />
       <div className="josh-grain" aria-hidden="true" />
@@ -326,7 +250,9 @@ export default function Home() {
         Sunday - 12:30 - Downers Grove
       </div>
       <div className="josh-hud josh-hud-actions">
-        <Link className="go" to="/visit">I'm New</Link>
+        <Link className="go" to="/visit">
+          I'm New
+        </Link>
       </div>
 
       <section className="josh-stage josh-stage-open josh-hero is-lit" id="open" aria-labelledby="home-title">
@@ -409,95 +335,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="josh-stage" id="sunday" aria-labelledby="sunday-title">
-        <span className="josh-node" aria-hidden="true" />
-        <div className="josh-reveal">
-          <span className="josh-kicker">Every Sunday</span>
-          <h2 id="sunday-title">One weekly rhythm, <em>three lights.</em></h2>
-        </div>
-        <div className="josh-times josh-reveal" aria-label="Sunday gathering rhythm">
-          <div className="josh-time">
-            <strong>12<span>:</span>30</strong>
-            <p>Worship - Tamil & English</p>
-          </div>
-          <div className="josh-time">
-            <strong>Kids</strong>
-            <p>Sunday School & Kids Circle</p>
-          </div>
-          <div className="josh-time">
-            <strong>After</strong>
-            <p>Fellowship - food & friends</p>
-          </div>
-        </div>
-      </section>
+      </div>
 
-      <section className="josh-stage" id="gather" aria-labelledby="gather-title">
-        <span className="josh-node" aria-hidden="true" />
-        <div className="josh-reveal">
-          <span className="josh-kicker">Ways to belong</span>
-          <h2 id="gather-title">Come for one thing. Stay for all of it.</h2>
-        </div>
-        <div className="josh-ministry-list josh-reveal">
-          {ministries.map((ministry) => (
-            <Link className="josh-ministry-row" to={ministry.href} key={ministry.title}>
-              <span>{ministry.number}</span>
-              <strong>{ministry.title}</strong>
-              <small>{ministry.meta}</small>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="josh-stage" id="mission" aria-labelledby="mission-title">
-        <span className="josh-node" aria-hidden="true" />
-        <div className="josh-mission-grid">
-          <div className="josh-reveal">
-            <span className="josh-kicker">
-              <span lang="ta">எங்கள் நோக்கம்</span> - Our mission
-            </span>
-            <h2 id="mission-title">To be alive in Christ - together.</h2>
-            <p>
-              A Bible-based home for Tamil families across Chicago. To revive
-              believers, live by love, and grow in a real relationship with Jesus.
-            </p>
-          </div>
-          <div className="josh-verse josh-reveal">
-            <blockquote>
-              "Come to me, all you who are weary, and I will give you rest."
-            </blockquote>
-            <cite>Matthew 11:28</cite>
-          </div>
-        </div>
-      </section>
-
-      <section className="josh-stage josh-stage-visit" id="visit" aria-labelledby="visit-title">
-        <div className="josh-reveal">
-          <h2 className="josh-come" id="visit-title">Come <em>home.</em></h2>
-          <div className="josh-door">
-            <div className="josh-door-mark" aria-hidden="true">+</div>
-            <p>
-              <strong>1330 63rd St, Downers Grove, IL 60516</strong>
-              <br />
-              Free parking - everyone welcome - this Sunday, 12:30 PM
-            </p>
-            <div>
-              <a className="go" href={directionsUrl} target="_blank" rel="noreferrer">
-                Get directions
-              </a>
-              <a href="mailto:ctcchicago@gmail.com">Email us</a>
-            </div>
-          </div>
-          <div className="josh-endlinks">
-            <a href="https://www.youtube.com/c/ChristTamilChurchChicago" target="_blank" rel="noreferrer">YouTube</a>
-            <a href="https://www.facebook.com/ChristTamilChurchChicago" target="_blank" rel="noreferrer">Facebook</a>
-            <a href="tel:+17739363697">(773) 936-3697</a>
-            <Link to="/contact">Contact</Link>
-          </div>
-          <p className="josh-signoff">
-            Christ Tamil Church - Chicago - <span lang="ta">வணக்கம்</span>
-          </p>
-        </div>
-      </section>
-    </div>
+      <FollowTheLight />
+    </>
   );
 }

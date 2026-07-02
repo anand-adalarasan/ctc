@@ -141,11 +141,23 @@ The Josh-inspired homepage may use a richer motion layer than standard inner pag
 
 - Living light particle canvas.
 - Pointer-following light glow on fine pointers.
-- Scroll-progress comet on the left rail.
+- Scroll-progress comet and filled light path on the left rail.
 - Animated star/light mark.
 - Tamil/English greeting swap.
 - Section reveal and section-node activation.
 - Ministry row hover movement.
+
+## Guided Light Motion
+
+Animation should feel like light revealing the page, not decoration moving on top of it.
+
+- The left rail should fill as the visitor scrolls.
+- The comet should feel attached to that progress path.
+- Active sections should receive one soft horizontal arrival beam from the rail.
+- Particles should stay quiet and atmospheric, never noisy around text.
+- The hero sequence should settle quickly: Tamil phrase, verse reference, headline, copy, CTA, image.
+- Primary CTA hover may use a subtle light sweep and small arrow movement.
+- Sunday cards and ministry rows may lift gently on hover, but never bounce.
 
 Because the theme is light, motion needs more surface area and contrast than the original dark reference:
 

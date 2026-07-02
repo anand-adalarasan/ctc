@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap");
 
 :root {
   color-scheme: light;
@@ -12536,5 +12536,176 @@ h6 {
 
   .app-shell:has(.josh-home) .footer-bottom {
     gap: 8px;
+  }
+}
+
+/* Guided Light Motion refinement. */
+.josh-home {
+  --josh-rail-progress: 0%;
+}
+
+.josh-spine {
+  overflow: visible;
+  opacity: 0.9;
+}
+
+.josh-spine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: var(--josh-rail-progress);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(140, 198, 62, 0.22) 0%,
+      rgba(140, 198, 62, 0.92) 38%,
+      rgba(249, 157, 55, 0.72) 100%
+    );
+  box-shadow:
+    0 0 18px rgba(140, 198, 62, 0.28),
+    0 0 34px rgba(249, 157, 55, 0.12);
+  transform: translateX(-50%);
+  transition: height 140ms linear;
+}
+
+.josh-comet {
+  transition: transform 160ms linear;
+}
+
+.josh-comet::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(249, 157, 55, 0.18), rgba(140, 198, 62, 0.16) 34%, transparent 68%);
+  animation: joshCometBreath 2.8s ease-in-out infinite;
+}
+
+.josh-stage::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--ql-rail);
+  z-index: -1;
+  width: min(56vw, 620px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(140, 198, 62, 0.5), rgba(249, 157, 55, 0.18), transparent);
+  opacity: 0;
+  transform: translateY(-50%) scaleX(0.16);
+  transform-origin: left;
+  transition:
+    opacity 720ms var(--ease-soft),
+    transform 900ms var(--ease-soft);
+}
+
+.josh-stage.is-lit::after {
+  opacity: 0.54;
+  transform: translateY(-50%) scaleX(1);
+}
+
+.josh-stage.is-lit .josh-reveal {
+  transition-duration: 760ms;
+}
+
+.josh-node {
+  transition:
+    border-color 620ms var(--ease-soft),
+    background-color 620ms var(--ease-soft),
+    box-shadow 620ms var(--ease-soft),
+    transform 620ms var(--ease-soft);
+}
+
+.josh-stage.is-lit .josh-node {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.josh-hero-actions a.go,
+.josh-hud-actions a.go,
+.josh-door a.go {
+  position: relative;
+  overflow: hidden;
+}
+
+.josh-hero-actions a.go::before,
+.josh-hud-actions a.go::before,
+.josh-door a.go::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.34) 42%, transparent 68%);
+  opacity: 0;
+  transform: translateX(-70%);
+  transition:
+    opacity var(--motion-base) var(--ease-out),
+    transform 700ms var(--ease-soft);
+}
+
+.josh-hero-actions a.go:hover::before,
+.josh-hud-actions a.go:hover::before,
+.josh-door a.go:hover::before {
+  opacity: 1;
+  transform: translateX(72%);
+}
+
+.josh-hero-actions a.go svg {
+  position: relative;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.josh-hero-actions a.go:hover svg {
+  transform: translateX(3px);
+}
+
+.josh-time {
+  transition:
+    transform var(--motion-base) var(--ease-out),
+    border-color var(--motion-base) var(--ease-out),
+    background-color var(--motion-base) var(--ease-out);
+}
+
+.josh-time:hover {
+  border-color: rgba(140, 198, 62, 0.34);
+  background: rgba(255, 255, 255, 0.78);
+  transform: translateY(-3px);
+}
+
+@keyframes joshCometBreath {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: scale(0.82);
+  }
+
+  50% {
+    opacity: 0.72;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .josh-spine::before {
+    height: 100%;
+    transition: none;
+  }
+
+  .josh-comet,
+  .josh-comet::after,
+  .josh-stage::after,
+  .josh-node,
+  .josh-hero-actions a.go::before,
+  .josh-hud-actions a.go::before,
+  .josh-door a.go::before,
+  .josh-time {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .josh-stage::after {
+    opacity: 0.18;
   }
 }
