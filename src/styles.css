@@ -9398,6 +9398,13 @@ select:focus-visible {
   background: var(--ql-bg);
 }
 
+.josh-light-shell {
+  --josh-rail-progress: 0%;
+  position: relative;
+  isolation: isolate;
+  background: var(--ql-bg);
+}
+
 .josh-home {
   position: relative;
   isolation: isolate;
@@ -9460,7 +9467,7 @@ select:focus-visible {
   top: 0;
   bottom: 0;
   left: var(--ql-rail);
-  z-index: 3;
+  z-index: 6;
   width: 1px;
   background: linear-gradient(
     to bottom,
@@ -9477,7 +9484,7 @@ select:focus-visible {
 .josh-comet {
   top: 0;
   left: var(--ql-rail);
-  z-index: 4;
+  z-index: 7;
   width: 14px;
   height: 14px;
   margin: -7px 0 0 -7px;
@@ -10446,13 +10453,18 @@ select:focus-visible {
 
 /* Cinematic visitor-first hero refinement. */
 .josh-hero {
+  --hero-background: var(--ql-bg);
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1fr);
   align-items: center;
   gap: clamp(44px, 7vw, 96px);
+  overflow: hidden;
   min-height: calc(100svh - 72px);
   padding-top: clamp(92px, 12vh, 140px);
   padding-bottom: clamp(72px, 9vh, 116px);
+  background: var(--hero-background);
 }
 
 .josh-hero::before {
@@ -10466,9 +10478,59 @@ select:focus-visible {
     radial-gradient(closest-side at 10% 42%, rgba(140, 198, 62, 0.2), transparent 74%);
 }
 
+.josh-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  filter: saturate(0.84) contrast(0.96) brightness(1.02);
+  animation: heroImageIn 1050ms var(--ease-premium) 120ms both;
+}
+
+.josh-hero-bg-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      var(--hero-background) 0%,
+      var(--hero-background) 26%,
+      rgba(255, 255, 255, 0.92) 40%,
+      rgba(255, 255, 255, 0.5) 58%,
+      rgba(255, 255, 255, 0.08) 76%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(140, 198, 62, 0.03) 0%,
+      rgba(185, 144, 69, 0.04) 100%
+    );
+  background:
+    linear-gradient(
+      90deg,
+      var(--hero-background) 0%,
+      var(--hero-background) 26%,
+      color-mix(in srgb, var(--hero-background) 92%, transparent) 40%,
+      color-mix(in srgb, var(--hero-background) 50%, transparent) 58%,
+      color-mix(in srgb, var(--hero-background) 8%, transparent) 76%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ql-lime) 3%, transparent) 0%,
+      color-mix(in srgb, var(--ql-orange) 4%, transparent) 100%
+    );
+}
+
 .josh-hero-copy {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   max-width: 720px;
 }
 
@@ -10607,7 +10669,7 @@ select:focus-visible {
 
 .josh-hero-visual {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   min-height: clamp(420px, 54vh, 650px);
   opacity: 0;
   isolation: isolate;
@@ -10615,37 +10677,11 @@ select:focus-visible {
 }
 
 .josh-hero-visual::before {
-  content: "";
-  position: absolute;
-  inset: 26px -24px -18px 22px;
-  z-index: -1;
-  border-radius: 30px;
-  background:
-    radial-gradient(80% 70% at 24% 18%, rgba(250, 247, 238, 0.82), transparent 62%),
-    linear-gradient(140deg, rgba(185, 116, 85, 0.16), rgba(140, 198, 62, 0.12));
-  box-shadow: 0 32px 80px -58px rgba(30, 36, 27, 0.34);
+  display: none;
 }
 
 .josh-hero-visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: 28px;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 254, 250, 0.2) 0%,
-      rgba(255, 254, 250, 0.05) 38%,
-      rgba(7, 53, 47, 0.34) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(7, 53, 47, 0.04) 0%,
-      rgba(7, 53, 47, 0.24) 100%
-    ),
-    radial-gradient(80% 74% at 20% 12%, rgba(250, 247, 238, 0.28), transparent 58%);
+  display: none;
 }
 
 .josh-hero-visual img {
@@ -10739,6 +10775,10 @@ select:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  .josh-hero-bg {
+    object-position: 68% center !important;
+  }
+
   .josh-hero-title {
     max-width: 13ch;
   }
@@ -10752,6 +10792,44 @@ select:focus-visible {
   .josh-hero {
     gap: 34px;
     padding-top: 84px;
+  }
+
+  .josh-hero-bg {
+    height: 100%;
+    object-fit: cover;
+    object-position: 88% bottom !important;
+    opacity: 0.9;
+  }
+
+  .josh-hero-bg-wash {
+    background:
+      linear-gradient(
+        180deg,
+        var(--hero-background) 0%,
+        var(--hero-background) 46%,
+        rgba(255, 255, 255, 0.9) 62%,
+        rgba(255, 255, 255, 0.48) 100%
+      ),
+      linear-gradient(
+        90deg,
+        var(--hero-background) 0%,
+        rgba(255, 255, 255, 0.74) 48%,
+        rgba(255, 255, 255, 0.08) 100%
+      );
+    background:
+      linear-gradient(
+        180deg,
+        var(--hero-background) 0%,
+        var(--hero-background) 46%,
+        color-mix(in srgb, var(--hero-background) 90%, transparent) 62%,
+        color-mix(in srgb, var(--hero-background) 48%, transparent) 100%
+      ),
+      linear-gradient(
+        90deg,
+        var(--hero-background) 0%,
+        color-mix(in srgb, var(--hero-background) 74%, transparent) 48%,
+        color-mix(in srgb, var(--hero-background) 8%, transparent) 100%
+      );
   }
 
   .josh-hero-title {
@@ -11030,11 +11108,6 @@ select:focus-visible {
   .app-shell:has(.josh-home) .footer-bottom {
     gap: 8px;
   }
-}
-
-/* Guided Light Motion refinement. */
-.josh-home {
-  --josh-rail-progress: 0%;
 }
 
 .josh-spine {

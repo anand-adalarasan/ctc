@@ -1,3 +1,4 @@
+import ctcHeroBackground from "../assets/images/ctc-hero-background-green.png";
 import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
 
 export type SiteImage = {
@@ -14,6 +15,16 @@ export type SiteImage = {
 const utm = "utm_source=christ_tamil_church&utm_medium=referral";
 
 export const siteImages = {
+  heroBackground: {
+    id: "ctc-hero-background-green",
+    src: ctcHeroBackground,
+    alt: "",
+    creditName: "Christ Tamil Church",
+    creditUrl: "",
+    unsplashUrl: "",
+    usage: "Homepage hero background",
+    objectPosition: "center right"
+  },
   hero: {
     id: "ctc-hero-image",
     src: ctcHeroImage,

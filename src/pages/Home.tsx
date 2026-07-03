@@ -281,7 +281,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="josh-home" ref={rootRef}>
+      <div className="josh-light-shell" ref={rootRef}>
       <canvas className="josh-field" ref={canvasRef} aria-hidden="true" />
       <div className="josh-vignette" aria-hidden="true" />
       <div className="josh-grain" aria-hidden="true" />
@@ -299,7 +299,18 @@ export default function Home() {
         </Link>
       </div>
 
+      <div className="josh-home">
       <section className="josh-stage josh-stage-open josh-hero is-lit" id="open" aria-labelledby="home-title">
+        <img
+          className="josh-hero-bg"
+          src={siteImages.heroBackground.src}
+          alt=""
+          aria-hidden="true"
+          width="1792"
+          height="1024"
+          style={{ objectPosition: siteImages.heroBackground.objectPosition }}
+        />
+        <div className="josh-hero-bg-wash" aria-hidden="true" />
         <div className="josh-hero-copy">
           <span className="josh-kicker josh-hero-kicker">
             <span lang="ta">என்னிடத்தில் வாருங்கள்</span>
@@ -334,40 +345,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="josh-hero-visual" aria-label="Christ Tamil Church community">
-          <svg className="josh-star" viewBox="0 0 200 200" aria-hidden="true">
-            <defs>
-              <radialGradient id="josh-gl" cx="50%" cy="50%" r="50%">
-                <stop stopColor="#8CC63F" stopOpacity=".36" />
-                <stop offset="1" stopColor="#8CC63F" stopOpacity="0" />
-              </radialGradient>
-              <linearGradient id="josh-ry" x1="100" y1="6" x2="100" y2="194" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#EAF8D9" stopOpacity="0" />
-                <stop offset=".5" stopColor="#8CC63E" />
-                <stop offset="1" stopColor="#8CC63E" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="josh-rx" x1="6" y1="100" x2="194" y2="100" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#C7C8C9" stopOpacity="0" />
-                <stop offset=".5" stopColor="#AEB0B2" stopOpacity=".82" />
-                <stop offset="1" stopColor="#C7C8C9" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <circle cx="100" cy="100" r="92" fill="url(#josh-gl)" />
-            <g className="josh-star-spin">
-              <path d="M100 12 L106 100 L100 188 L94 100 Z" fill="url(#josh-ry)" />
-              <path d="M12 100 L100 95 L188 100 L100 105 Z" fill="url(#josh-rx)" opacity=".74" />
-              <path d="M40 40 L100 96 L160 160 L100 104 Z" fill="url(#josh-ry)" opacity=".25" />
-              <path d="M160 40 L104 100 L40 160 L96 100 Z" fill="url(#josh-ry)" opacity=".25" />
-            </g>
-            <circle className="josh-star-core" cx="100" cy="100" r="7" fill="#FAFFF2" />
-          </svg>
-          <img
-            src={siteImages.hero.src}
-            alt={siteImages.hero.alt}
-            width="900"
-            height="660"
-            style={{ objectPosition: siteImages.hero.objectPosition }}
-          />
+        <div className="josh-hero-visual">
           <span className="josh-hero-location">
             1330 63rd St · Downers Grove
           </span>
@@ -381,10 +359,10 @@ export default function Home() {
           </aside>
         </div>
       </section>
-
       </div>
 
       <FollowTheLight />
+      </div>
 
       {false && (
         <>
