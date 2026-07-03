@@ -1,6 +1,7 @@
 import ctcHeroBackground from "../assets/images/ctc-hero-background-green.png";
 import ctcHeroBackgroundMobile from "../assets/images/ctc-hero-background-green-mobile.png";
 import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
+import ctcLogo from "../assets/images/ctc-logo.png";
 
 export type SiteImage = {
   id: string;
@@ -16,6 +17,15 @@ export type SiteImage = {
 const utm = "utm_source=christ_tamil_church&utm_medium=referral";
 
 export const siteImages = {
+  logo: {
+    id: "ctc-logo",
+    src: ctcLogo,
+    alt: "Christ Tamil Church Chicago logo",
+    creditName: "Christ Tamil Church",
+    creditUrl: "https://www.christtamilchurch.com/",
+    unsplashUrl: "",
+    usage: "Site header and footer logo"
+  },
   heroBackground: {
     id: "ctc-hero-background-green",
     src: ctcHeroBackground,

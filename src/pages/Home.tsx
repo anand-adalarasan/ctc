@@ -306,7 +306,7 @@ export default function Home() {
             <small>Matthew 11:28</small>
           </span>
           <h1 className="josh-hero-title" id="home-title">
-            A Tamil church family in Chicagoland
+            A Tamil church in Chicagoland
           </h1>
           <p className="josh-hero-lede">
             New to church, new to the area, or visiting for the first time?

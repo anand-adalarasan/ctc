@@ -10931,95 +10931,45 @@ select:focus-visible {
   gap: clamp(24px, 4vw, 44px);
 }
 
-.footer-invitation {
-  position: relative;
-  z-index: 1;
-  max-width: 1180px;
-  margin-inline: auto;
-}
-
-.footer-flow-label {
-  display: block;
-  margin-bottom: 16px;
-  color: var(--clay, #b97455);
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.footer-invitation .footer-brand {
-  width: fit-content;
-  font-size: clamp(1.55rem, 4vw, 3.4rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-
-.footer-invitation p {
-  max-width: 48ch;
-  margin: 18px 0 0;
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
-  line-height: 1.55;
-}
-
-.footer-next-steps {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  width: min(100%, 1180px);
-  margin-inline: auto;
-}
-
-.footer-next-step {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 10px;
-  min-height: 64px;
-  border: 1px solid rgba(185, 116, 85, 0.2);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.66);
-  padding: 14px 16px;
-  color: var(--ink, #142824);
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.footer-next-step svg {
-  color: var(--clay, #b97455);
-}
-
-.footer-next-step:hover {
-  border-color: rgba(185, 116, 85, 0.42);
-  background: rgba(244, 228, 219, 0.54);
-  transform: translateY(-1px);
-}
-
 .footer-flow .footer-grid section p {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.footer-service strong {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--ink, #142824);
-  font-family: var(--font-heading, "Fraunces", serif);
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 500;
-  line-height: 1;
+.brand-logo-link {
+  min-width: 0;
 }
 
-.footer-service a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  font-weight: 800;
+.brand-logo-link > span {
+  display: none;
+}
+
+.brand-logo {
+  width: clamp(154px, 15vw, 210px);
+  height: auto;
+}
+
+@media (min-width: 861px) {
+  .site-header {
+    justify-content: flex-start;
+  }
+
+  .site-nav {
+    flex: 1;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .site-nav .nav-cta {
+    margin-left: clamp(8px, 1vw, 14px);
+  }
+}
+
+@media (max-width: 620px) {
+  .brand-logo {
+    width: clamp(138px, 45vw, 172px);
+  }
 }
 
 @media (max-width: 860px) {
@@ -11032,10 +10982,6 @@ select:focus-visible {
   }
 
   .app-shell:has(.josh-home) .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-next-steps {
     grid-template-columns: 1fr;
   }
 
@@ -11359,5 +11305,149 @@ select:focus-visible {
 
   .home-teaser-ministry-meta {
     display: none;
+  }
+}
+
+/* Homepage-aligned footer redesign */
+.footer.footer-flow,
+.app-shell:has(.josh-home) .footer.footer-flow {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: clamp(30px, 5vw, 56px);
+  padding:
+    clamp(76px, 8vw, 118px)
+    clamp(22px, 5vw, 72px)
+    clamp(28px, 4vw, 42px);
+  border-top: 1px solid rgba(13, 75, 67, 0.09);
+  background:
+    radial-gradient(58% 90% at 14% 4%, rgba(140, 198, 62, 0.12), transparent 62%),
+    radial-gradient(54% 88% at 92% 18%, rgba(185, 116, 85, 0.12), transparent 66%),
+    linear-gradient(180deg, #f3f7f4 0%, #f7f8f4 42%, #fffefa 100%);
+  color: var(--qgm-text, #142824);
+}
+
+.footer.footer-flow::before,
+.app-shell:has(.josh-home) .footer.footer-flow::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(13, 75, 67, 0.08), rgba(185, 116, 85, 0.24), rgba(13, 75, 67, 0.08));
+}
+
+.footer.footer-flow::after,
+.app-shell:has(.josh-home) .footer.footer-flow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, rgba(255, 254, 250, 0.62), transparent 42%),
+    linear-gradient(180deg, rgba(255, 254, 250, 0.46), transparent 38%);
+  pointer-events: none;
+}
+
+.footer.footer-flow .footer-grid,
+.footer.footer-flow .footer-bottom,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-grid,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-bottom {
+  width: min(1180px, 100%);
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.footer.footer-flow .footer-grid,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.1fr) repeat(2, minmax(150px, 0.72fr));
+  gap: clamp(32px, 6vw, 86px);
+  align-items: start;
+}
+
+.footer.footer-flow h3,
+.app-shell:has(.josh-home) .footer.footer-flow h3 {
+  margin: 0 0 16px;
+  color: var(--qgm-primary-dark, #07352f);
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.footer.footer-flow p,
+.app-shell:has(.josh-home) .footer.footer-flow p {
+  margin: 0 0 12px;
+  color: var(--qgm-muted, #687872);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.footer.footer-flow .footer-grid section p,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-grid section p {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.footer.footer-flow a,
+.app-shell:has(.josh-home) .footer.footer-flow a {
+  color: var(--qgm-primary, #0d4b43);
+  text-decoration-color: transparent;
+}
+
+.footer.footer-flow a:hover,
+.app-shell:has(.josh-home) .footer.footer-flow a:hover {
+  color: var(--qgm-clay-dark, #9b5f43);
+  text-decoration-color: rgba(185, 116, 85, 0.42);
+}
+
+.footer.footer-flow .footer-bottom,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 0;
+  border-top: 1px solid rgba(13, 75, 67, 0.09);
+  padding-top: 22px;
+  color: rgba(104, 120, 114, 0.9);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.footer.footer-flow .footer-bottom span,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-bottom span {
+  color: inherit;
+}
+
+@media (max-width: 920px) {
+  .footer.footer-flow .footer-grid,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .footer.footer-flow,
+  .app-shell:has(.josh-home) .footer.footer-flow {
+    gap: 28px;
+    padding: 64px 22px 28px;
+    background:
+      radial-gradient(100% 70% at 0% 0%, rgba(140, 198, 62, 0.14), transparent 66%),
+      linear-gradient(180deg, #f3f7f4 0%, #f7f8f4 52%, #fffefa 100%);
+  }
+
+  .footer.footer-flow .footer-grid,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer.footer-flow .footer-bottom,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-bottom {
+    display: grid;
+    gap: 8px;
   }
 }
