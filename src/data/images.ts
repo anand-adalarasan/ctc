@@ -1,4 +1,5 @@
 import ctcHeroBackground from "../assets/images/ctc-hero-background-green.png";
+import ctcHeroBackgroundMobile from "../assets/images/ctc-hero-background-green-mobile.png";
 import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
 
 export type SiteImage = {
@@ -24,6 +25,15 @@ export const siteImages = {
     unsplashUrl: "",
     usage: "Homepage hero background",
     objectPosition: "center right"
+  },
+  heroBackgroundMobile: {
+    id: "ctc-hero-background-green-mobile",
+    src: ctcHeroBackgroundMobile,
+    alt: "",
+    creditName: "Christ Tamil Church",
+    creditUrl: "",
+    unsplashUrl: "",
+    usage: "Homepage hero background (portrait crop for phones)"
   },
   hero: {
     id: "ctc-hero-image",

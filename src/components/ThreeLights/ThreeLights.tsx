@@ -1,14 +1,12 @@
 import { MapPin } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { churchInfo } from "../../data/site";
 import styles from "./ThreeLights.module.css";
 
 type Light = { time: string; label: [string, string]; hint: string };
 
-const directionsUrl =
-  "https://www.google.com/maps/dir//1330+63rd+St,+Downers+Grove,+IL+60516";
-
 const LIGHTS: Light[] = [
-  { time: "12:30", label: ["Worship", "Tamil & English"], hint: "Praise, prayer & the Word." },
+  { time: churchInfo.worship.compactTime, label: ["Worship", "Tamil & English"], hint: "Praise, prayer & the Word." },
   { time: "During", label: ["Sunday School", "B.L.A.S.T. · kids & teens"], hint: "Bible-based learning for every child." },
   { time: "After", label: ["Fellowship", "food & friends"], hint: "Chai, a meal & good company." }
 ];
@@ -82,25 +80,25 @@ export default function ThreeLights() {
         <div className={styles.find}>
           <div className={styles.findCard}>
             <div className={styles.findKicker}>Find us</div>
-            <div className={styles.findAddr}>1330 63rd St, Downers Grove, IL 60516</div>
+            <div className={styles.findAddr}>{churchInfo.address.full}</div>
             <div className={styles.findSub}>Free parking · everyone welcome</div>
             <div className={styles.findBtns}>
               <a
                 className={`${styles.btn} ${styles.btnFill}`}
-                href={directionsUrl}
+                href={churchInfo.address.directionsUrlDirect}
                 target="_blank"
                 rel="noreferrer"
               >
                 Get directions
               </a>
-              <a className={`${styles.btn} ${styles.btnGhost}`} href="tel:+17739363697">
-                (773) 936-3697
+              <a className={`${styles.btn} ${styles.btnGhost}`} href={churchInfo.contact.phoneHref}>
+                {churchInfo.contact.phone}
               </a>
             </div>
           </div>
           <a
             className={styles.map}
-            href={directionsUrl}
+            href={churchInfo.address.directionsUrlDirect}
             target="_blank"
             rel="noreferrer"
             aria-label="Open Christ Tamil Church location in Google Maps"

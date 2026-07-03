@@ -7,11 +7,11 @@
   --ftl-glide: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   position: relative;
-  height: 520vh;
+  height: 430vh;
   z-index: 5;
   background:
-    radial-gradient(circle at 50% 50%, rgba(244, 232, 200, 0.22), transparent 46%),
-    linear-gradient(180deg, rgba(255, 254, 250, 0.94), rgba(247, 248, 244, 0.98));
+    radial-gradient(circle at 50% 48%, rgba(244, 232, 200, 0.2), transparent 46%),
+    linear-gradient(180deg, rgba(255, 254, 250, 0.94) 0%, rgba(247, 248, 244, 0.98) 86%, rgba(255, 254, 250, 0.98) 100%);
 }
 
 .pin {
@@ -296,16 +296,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 2px;
+  height: 1px;
   z-index: 4;
-  background: rgba(185, 144, 69, 0.14);
+  background: linear-gradient(90deg, transparent, rgba(185, 144, 69, 0.14), transparent);
+  opacity: 0.42;
 }
 
 .bar span {
   display: block;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, var(--ftl-green-deep), var(--ftl-gold));
+  background: linear-gradient(90deg, rgba(107, 165, 44, 0.42), rgba(185, 144, 69, 0.32));
   transition: width 0.12s linear;
 }
 

@@ -25,6 +25,7 @@ import ministryPrayer from "../assets/images/ministry-prayer.jpg";
 import ministrySchool from "../assets/images/ministry-school.jpg";
 import ministrySermon from "../assets/images/ministry-sermon.jpg";
 import ministryTestimony from "../assets/images/ministry-testimony.jpg";
+import { churchInfo } from "../data/site";
 
 const worshipFlow = [
   {
@@ -123,7 +124,7 @@ export default function Worship() {
           <ul className="worship-detail-list">
             <li>
               <Clock size={18} aria-hidden="true" />
-              <span>12:30 PM</span>
+              <span>{churchInfo.worship.time}</span>
             </li>
             <li>
               <Globe2 size={18} aria-hidden="true" />

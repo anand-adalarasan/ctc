@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import SectionHeader from "../components/SectionHeader";
+import { churchInfo } from "../data/site";
 
 const facebookPageUrl = "https://www.facebook.com/ChristTamilChurchChicago";
 const facebookEmbedHeight = 620;
@@ -68,11 +69,11 @@ export default function Contact() {
         </div>
         <aside className="contact-card">
           <h2>Christ Tamil Church Chicago</h2>
-          <p>Sunday Worship</p>
-          <p>12:30 PM</p>
-          <p>1330 63rd St, Downers Grove, IL 60516</p>
-          <p><a href="tel:+17739363697">(773) 936-3697</a></p>
-          <p><a href="mailto:ctcchicago@gmail.com">ctcchicago@gmail.com</a></p>
+          <p>{churchInfo.worship.label}</p>
+          <p>{churchInfo.worship.time}</p>
+          <p>{churchInfo.address.full}</p>
+          <p><a href={churchInfo.contact.phoneHref}>{churchInfo.contact.phone}</a></p>
+          <p><a href={churchInfo.contact.emailHref}>{churchInfo.contact.email}</a></p>
         </aside>
       </section>
       <section className="facebook-section">

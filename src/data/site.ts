@@ -40,11 +40,41 @@ export const navItems = [
   { label: "Contact", href: "/contact" }
 ];
 
+export const churchInfo = {
+  worship: {
+    label: "Sunday Worship",
+    day: "Sunday",
+    time: "10:30 AM",
+    compactTime: "10:30",
+    schedule: "Sunday at 10:30 AM",
+    hud: "Sunday - 10:30 - Downers Grove"
+  },
+  address: {
+    street: "1330 63rd St",
+    city: "Downers Grove",
+    state: "IL",
+    zip: "60516",
+    short: "1330 63rd St, Downers Grove, IL",
+    full: "1330 63rd St, Downers Grove, IL 60516",
+    locationLabel: "1330 63rd St · Downers Grove",
+    directionsUrl:
+      "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516",
+    directionsUrlDirect:
+      "https://www.google.com/maps/dir//1330+63rd+St,+Downers+Grove,+IL+60516"
+  },
+  contact: {
+    phone: "(773) 936-3697",
+    phoneHref: "tel:+17739363697",
+    email: "ctcchicago@gmail.com",
+    emailHref: "mailto:ctcchicago@gmail.com"
+  }
+};
+
 export const quickLinks = [
   {
     title: "Sunday Worship",
     detail: "Join us every Sunday for inspiring worship, Bible teaching, and a time of fellowship.",
-    meta: "Sunday at 12:30 PM",
+    meta: churchInfo.worship.schedule,
     metaSecond: "Everyone is welcome!",
     href: "/worship",
     icon: CalendarDays
@@ -52,16 +82,16 @@ export const quickLinks = [
   {
     title: "Location",
     detail: "We are located in the heart of Chicago and would love to welcome you in person.",
-    meta: "1330, 63rd St Downers Grove, IL-60516",
-    metaHref: "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516",
+    meta: churchInfo.address.full,
+    metaHref: churchInfo.address.directionsUrl,
     href: "/visit",
     icon: MapPin
   },
   {
     title: "Contact",
     detail: "We'd love to hear from you. Reach out to us for questions or prayer requests.",
-    meta: "(773) 936-3697",
-    metaSecond: "ctcchicago@gmail.com",
+    meta: churchInfo.contact.phone,
+    metaSecond: churchInfo.contact.email,
     href: "/contact",
     icon: Phone
   }
@@ -207,7 +237,7 @@ export const churchEvents: ChurchEvent[] = [
   {
     title: "Sunday Worship Service",
     frequency: "Every Sunday",
-    time: "12:30 PM",
+    time: churchInfo.worship.time,
     category: "Tamil & English Worship",
     description:
       "Join us for Tamil and English worship, prayer, Scripture, sermon, children's ministry, communion, and fellowship.",

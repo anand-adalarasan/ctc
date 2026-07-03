@@ -1,11 +1,9 @@
 import {
   ArrowRight,
   BookOpen,
-  CalendarDays,
   Church,
   Coffee,
   HandHeart,
-  MapPin,
   Music,
   Users
 } from "lucide-react";
@@ -15,9 +13,7 @@ import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
 import SectionHeader from "../components/SectionHeader";
 import ThreeLights from "../components/ThreeLights/ThreeLights";
 import { siteImages } from "../data/images";
-
-const directionsUrl =
-  "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
+import { churchInfo } from "../data/site";
 
 const expectItems = [
   {
@@ -289,27 +285,20 @@ export default function Home() {
       <div className="josh-spine" aria-hidden="true" />
       <div className="josh-comet" ref={cometRef} aria-hidden="true" />
 
-      <div className="josh-hud josh-hud-status" aria-hidden="true">
-        <span />
-        Sunday - 12:30 - Downers Grove
-      </div>
-      <div className="josh-hud josh-hud-actions">
-        <Link className="go" to="/visit">
-          I'm New
-        </Link>
-      </div>
-
       <div className="josh-home">
       <section className="josh-stage josh-stage-open josh-hero is-lit" id="open" aria-labelledby="home-title">
-        <img
-          className="josh-hero-bg"
-          src={siteImages.heroBackground.src}
-          alt=""
-          aria-hidden="true"
-          width="1792"
-          height="1024"
-          style={{ objectPosition: siteImages.heroBackground.objectPosition }}
-        />
+        <picture>
+          <source media="(max-width: 620px)" srcSet={siteImages.heroBackgroundMobile.src} />
+          <img
+            className="josh-hero-bg"
+            src={siteImages.heroBackground.src}
+            alt=""
+            aria-hidden="true"
+            width="1672"
+            height="941"
+            style={{ objectPosition: siteImages.heroBackground.objectPosition }}
+          />
+        </picture>
         <div className="josh-hero-bg-wash" aria-hidden="true" />
         <div className="josh-hero-copy">
           <span className="josh-kicker josh-hero-kicker">
@@ -323,16 +312,6 @@ export default function Home() {
             New to church, new to the area, or visiting for the first time?
             We'll help you feel at home this Sunday.
           </p>
-          <div className="josh-hero-details" aria-label="Sunday worship and location">
-            <span>
-              <CalendarDays size={18} aria-hidden="true" />
-              Sunday Worship - 12:30 PM
-            </span>
-            <span>
-              <MapPin size={18} aria-hidden="true" />
-              1330 63rd St, Downers Grove, IL
-            </span>
-          </div>
           <div className="josh-hero-actions">
             <Link className="go" to="/visit">
               I'm New
@@ -346,13 +325,10 @@ export default function Home() {
         </div>
 
         <div className="josh-hero-visual">
-          <span className="josh-hero-location">
-            1330 63rd St · Downers Grove
-          </span>
           <aside className="josh-hero-card" aria-label="Sunday worship details">
             <span>This Sunday</span>
-            <strong>12:30 PM</strong>
-            <a href={directionsUrl} target="_blank" rel="noreferrer">
+            <strong>{churchInfo.worship.time}</strong>
+            <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
               Get directions
               <ArrowRight size={14} aria-hidden="true" />
             </a>

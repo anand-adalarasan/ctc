@@ -10,27 +10,25 @@ import {
   Phone,
   Users
 } from "lucide-react";
-
-const directionsUrl =
-  "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
+import { churchInfo } from "../data/site";
 
 const visitEssentials = [
   {
     title: "Sunday Worship",
     text: "Join us every Sunday for worship, Bible teaching, prayer, and fellowship.",
-    detail: "Sunday at 12:30 PM",
+    detail: churchInfo.worship.schedule,
     icon: CalendarDays
   },
   {
     title: "Location",
     text: "We gather in Downers Grove and would love to welcome you in person.",
-    detail: "1330 63rd St, Downers Grove, IL 60516",
+    detail: churchInfo.address.full,
     icon: MapPin
   },
   {
     title: "Contact",
     text: "Reach out with questions, prayer requests, or help planning your visit.",
-    detail: "(773) 936-3697",
+    detail: churchInfo.contact.phone,
     icon: Phone
   }
 ];
@@ -74,7 +72,7 @@ export default function Visit() {
             and what to expect when you join us.
           </p>
           <div className="visit-hero-actions">
-            <a className="button primary" href={directionsUrl} target="_blank" rel="noreferrer">
+            <a className="button primary" href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
               Get Directions
               <ArrowRight size={17} aria-hidden="true" />
             </a>
@@ -92,11 +90,11 @@ export default function Visit() {
           <div className="visit-hero-details">
             <span>
               <Clock size={18} aria-hidden="true" />
-              12:30 PM
+              {churchInfo.worship.time}
             </span>
             <span>
               <MapPin size={18} aria-hidden="true" />
-              1330 63rd St, Downers Grove, IL 60516
+              {churchInfo.address.full}
             </span>
             <span>
               <Coffee size={18} aria-hidden="true" />
@@ -136,7 +134,7 @@ export default function Visit() {
       <section className="visit-gathering" aria-labelledby="visit-gathering-title">
         <a
           className="visit-map-panel"
-          href={directionsUrl}
+          href={churchInfo.address.directionsUrl}
           target="_blank"
           rel="noreferrer"
           aria-label="Open Christ Tamil Church location in Google Maps"

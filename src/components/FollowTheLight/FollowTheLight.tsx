@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { churchInfo } from "../../data/site";
 import { getTodayVerse } from "../../data/verses";
 import styles from "./FollowTheLight.module.css";
 
@@ -64,7 +65,7 @@ const SCENES: Scene[] = [
   {
     eyebrow: "This Sunday · everyone welcome",
     words: ["Come", "home."],
-    sub: "Worship with us in Tamil & English - Sundays at 12:30 PM, 1330 63rd St, Downers Grove.",
+    sub: `Worship with us in Tamil & English - Sundays at ${churchInfo.worship.time}, ${churchInfo.address.short}.`,
     cta: { label: "Plan your visit", href: "/visit" }
   }
 ];

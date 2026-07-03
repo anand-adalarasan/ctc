@@ -9407,6 +9407,7 @@ select:focus-visible {
 
 .josh-home {
   position: relative;
+  z-index: 4;
   isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
@@ -9497,46 +9498,6 @@ select:focus-visible {
   animation: joshFadeIn 1200ms var(--ease-premium) 900ms forwards;
 }
 
-.josh-hud {
-  position: fixed;
-  z-index: 21;
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  opacity: 0;
-  animation: joshFadeIn 800ms var(--ease-premium) 1100ms forwards;
-}
-
-.josh-hud-status {
-  top: 88px;
-  right: clamp(18px, 4vw, 36px);
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--ql-muted);
-}
-
-.josh-hud-status span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--ql-lime);
-  box-shadow: 0 0 0 5px rgba(140, 198, 62, 0.14);
-  animation: joshBeat 2.2s infinite;
-}
-
-.josh-hud-actions {
-  right: clamp(18px, 4vw, 36px);
-  bottom: 26px;
-  display: flex;
-  gap: 10px;
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.josh-hud-actions a,
 .josh-door a {
   display: inline-flex;
   align-items: center;
@@ -9557,7 +9518,6 @@ select:focus-visible {
     color var(--motion-fast) var(--ease-out);
 }
 
-.josh-hud-actions a:hover,
 .josh-door a:hover {
   border-color: rgba(140, 198, 62, 0.56);
   background: var(--ql-lime-wash);
@@ -9565,14 +9525,12 @@ select:focus-visible {
   transform: translateY(-2px);
 }
 
-.josh-hud-actions a.go,
 .josh-door a.go {
   border-color: var(--ql-orange);
   background: var(--ql-orange);
   color: var(--ql-ink);
 }
 
-.josh-hud-actions a.go:hover,
 .josh-door a.go:hover {
   border-color: var(--ql-orange-deep);
   background: var(--ql-orange-deep);
@@ -10104,10 +10062,6 @@ select:focus-visible {
 }
 
 @media (max-width: 900px) {
-  .josh-hud-status {
-    display: none;
-  }
-
   .josh-stage {
     padding: 120px 28px 120px calc(var(--ql-rail) + 28px);
   }
@@ -10125,11 +10079,6 @@ select:focus-visible {
   .josh-spine,
   .josh-comet {
     display: none;
-  }
-
-  .josh-hud-actions {
-    right: 16px;
-    bottom: 16px;
   }
 
   .josh-stage {
@@ -10175,7 +10124,6 @@ select:focus-visible {
   .josh-greet-en,
   .josh-tag,
   .josh-scrollcue,
-  .josh-hud,
   .josh-spine,
   .josh-comet,
   .josh-scrollcue span::after {
@@ -10185,7 +10133,6 @@ select:focus-visible {
   .josh-star,
   .josh-tag,
   .josh-scrollcue,
-  .josh-hud,
   .josh-spine,
   .josh-comet,
   .josh-reveal {
@@ -10478,6 +10425,14 @@ select:focus-visible {
     radial-gradient(closest-side at 10% 42%, rgba(140, 198, 62, 0.2), transparent 74%);
 }
 
+.josh-hero > picture {
+  /* Keep the responsive-image wrapper out of the hero grid flow. */
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .josh-hero-bg {
   position: absolute;
   inset: 0;
@@ -10530,7 +10485,7 @@ select:focus-visible {
 
 .josh-hero-copy {
   position: relative;
-  z-index: 3;
+  z-index: 6;
   max-width: 720px;
 }
 
@@ -10594,32 +10549,16 @@ select:focus-visible {
   animation: heroFadeUp 650ms var(--ease-premium) 360ms both;
 }
 
-.josh-hero-details {
-  display: grid;
-  gap: 10px;
-  margin-top: 26px;
-  color: var(--ql-muted);
-  font-size: 0.92rem;
-  font-weight: 800;
-  animation: heroFadeUp 650ms var(--ease-premium) 460ms both;
-}
-
-.josh-hero-details span {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.josh-hero-details svg {
-  color: var(--ql-lime-deep);
-}
-
 .josh-hero-actions {
+  position: relative;
+  z-index: 8;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 30px;
-  animation: heroFadeUp 650ms var(--ease-premium) 560ms both;
+  opacity: 1 !important;
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 .josh-hero-actions a {
@@ -10652,14 +10591,15 @@ select:focus-visible {
 }
 
 .josh-hero-actions a.go {
-  border-color: var(--ql-orange);
-  background: var(--ql-orange);
-  color: var(--ql-ink);
+  border-color: #9b5f43;
+  background: #9b5f43;
+  color: #fff;
+  box-shadow: 0 16px 38px rgba(91, 54, 37, 0.28);
 }
 
 .josh-hero-actions a.go:hover {
-  border-color: var(--ql-orange-deep);
-  background: var(--ql-orange-deep);
+  border-color: #7d4e37;
+  background: #7d4e37;
   color: #fff;
 }
 
@@ -10669,11 +10609,12 @@ select:focus-visible {
 
 .josh-hero-visual {
   position: relative;
-  z-index: 3;
+  z-index: 6;
   min-height: clamp(420px, 54vh, 650px);
-  opacity: 0;
+  opacity: 1 !important;
+  filter: none;
+  mix-blend-mode: normal;
   isolation: isolate;
-  animation: heroImageIn 1050ms var(--ease-premium) 280ms both;
 }
 
 .josh-hero-visual::before {
@@ -10701,37 +10642,27 @@ select:focus-visible {
   display: none;
 }
 
-.josh-hero-location {
-  position: absolute;
-  left: clamp(18px, 3vw, 30px);
-  bottom: -34px;
-  z-index: 4;
-  color: rgba(20, 40, 36, 0.62);
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .josh-hero-card {
   position: absolute;
   right: clamp(-22px, -1.2vw, -10px);
   bottom: clamp(24px, 5vw, 56px);
-  z-index: 4;
+  z-index: 8;
   display: grid;
   gap: 8px;
   width: min(260px, calc(100% - 32px));
-  border: 1px solid rgba(255, 254, 250, 0.86);
+  border: 1px solid rgba(16, 37, 27, 0.14);
   border-radius: 18px;
   padding: 18px 20px;
-  background: rgba(255, 254, 250, 0.9);
-  box-shadow: 0 24px 70px rgba(30, 36, 27, 0.14);
-  backdrop-filter: blur(16px);
+  background: #fffefa;
+  box-shadow: 0 28px 80px rgba(16, 37, 27, 0.28);
+  backdrop-filter: none;
+  opacity: 1 !important;
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 .josh-hero-card span {
-  color: var(--ql-lime-deep);
+  color: var(--primary);
   font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 900;
@@ -10752,7 +10683,7 @@ select:focus-visible {
   align-items: center;
   gap: 8px;
   color: var(--ql-orange-deep);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   font-weight: 850;
 }
 
@@ -10790,15 +10721,20 @@ select:focus-visible {
 
 @media (max-width: 620px) {
   .josh-hero {
-    gap: 34px;
-    padding-top: 84px;
+    gap: 24px;
+    padding-top: 72px;
+    align-content: space-evenly;
+  }
+
+  .josh-hero .josh-scrollcue {
+    margin-top: 28px;
   }
 
   .josh-hero-bg {
     height: 100%;
     object-fit: cover;
-    object-position: 88% bottom !important;
-    opacity: 0.9;
+    object-position: 30% center !important;
+    opacity: 1;
   }
 
   .josh-hero-bg-wash {
@@ -10806,34 +10742,31 @@ select:focus-visible {
       linear-gradient(
         180deg,
         var(--hero-background) 0%,
-        var(--hero-background) 46%,
-        rgba(255, 255, 255, 0.9) 62%,
-        rgba(255, 255, 255, 0.48) 100%
-      ),
-      linear-gradient(
-        90deg,
-        var(--hero-background) 0%,
-        rgba(255, 255, 255, 0.74) 48%,
-        rgba(255, 255, 255, 0.08) 100%
+        var(--hero-background) 8%,
+        rgba(255, 255, 255, 0.55) 22%,
+        rgba(255, 255, 255, 0.26) 38%,
+        rgba(255, 255, 255, 0.08) 54%,
+        transparent 68%
       );
     background:
       linear-gradient(
         180deg,
         var(--hero-background) 0%,
-        var(--hero-background) 46%,
-        color-mix(in srgb, var(--hero-background) 90%, transparent) 62%,
-        color-mix(in srgb, var(--hero-background) 48%, transparent) 100%
-      ),
-      linear-gradient(
-        90deg,
-        var(--hero-background) 0%,
-        color-mix(in srgb, var(--hero-background) 74%, transparent) 48%,
-        color-mix(in srgb, var(--hero-background) 8%, transparent) 100%
+        var(--hero-background) 8%,
+        color-mix(in srgb, var(--hero-background) 55%, transparent) 22%,
+        color-mix(in srgb, var(--hero-background) 26%, transparent) 38%,
+        color-mix(in srgb, var(--hero-background) 8%, transparent) 54%,
+        transparent 68%
       );
   }
 
   .josh-hero-title {
-    font-size: clamp(3rem, 14vw, 4.75rem);
+    font-size: clamp(3.2rem, 15vw, 5rem);
+  }
+
+  .josh-hero-lede {
+    font-size: 1.24rem;
+    line-height: 1.5;
   }
 
   .josh-hero-actions,
@@ -10841,7 +10774,15 @@ select:focus-visible {
     width: 100%;
   }
 
-  .josh-hero-visual,
+  .josh-hero-actions a {
+    font-size: 1.02rem;
+  }
+
+  .josh-hero-visual {
+    min-height: 0;
+    height: auto;
+  }
+
   .josh-hero-visual img {
     min-height: 0;
     height: 360px;
@@ -10861,18 +10802,11 @@ select:focus-visible {
     object-position: 36% 50% !important;
   }
 
-  .josh-hero-location {
-    position: static;
-    display: block;
-    margin-top: 12px;
-    text-align: center;
-  }
-
   .josh-hero-card {
-    right: 50%;
-    bottom: 26px;
+    position: static;
+    margin: 0 auto;
     width: min(280px, calc(100% - 36px));
-    transform: translateX(50%);
+    transform: none;
   }
 }
 
@@ -10881,16 +10815,16 @@ select:focus-visible {
   position: relative;
   z-index: 4;
   overflow: hidden;
-  border-top: 1px solid rgba(140, 198, 62, 0.16);
+  border-top: 1px solid rgba(140, 198, 62, 0.08);
   padding:
-    clamp(64px, 8vw, 104px)
+    clamp(48px, 6vw, 78px)
     var(--ql-rail)
     34px
     calc(var(--ql-rail) + clamp(28px, 7vw, 120px));
   background:
-    radial-gradient(72% 120% at 12% 0%, rgba(140, 198, 62, 0.14), transparent 62%),
-    radial-gradient(56% 100% at 90% 18%, rgba(249, 157, 55, 0.12), transparent 64%),
-    linear-gradient(180deg, #fffefa 0%, #ffffff 100%);
+    radial-gradient(72% 120% at 12% 0%, rgba(140, 198, 62, 0.11), transparent 62%),
+    radial-gradient(56% 100% at 90% 18%, rgba(249, 157, 55, 0.1), transparent 64%),
+    linear-gradient(180deg, #f7f8f4 0%, #fffefa 24%, #ffffff 100%);
   color: var(--ql-body);
 }
 
@@ -10994,7 +10928,7 @@ select:focus-visible {
 
 .footer.footer-flow {
   display: grid;
-  gap: clamp(28px, 5vw, 54px);
+  gap: clamp(24px, 4vw, 44px);
 }
 
 .footer-invitation {
@@ -11190,14 +11124,12 @@ select:focus-visible {
 }
 
 .josh-hero-actions a.go,
-.josh-hud-actions a.go,
 .josh-door a.go {
   position: relative;
   overflow: hidden;
 }
 
 .josh-hero-actions a.go::before,
-.josh-hud-actions a.go::before,
 .josh-door a.go::before {
   content: "";
   position: absolute;
@@ -11211,7 +11143,6 @@ select:focus-visible {
 }
 
 .josh-hero-actions a.go:hover::before,
-.josh-hud-actions a.go:hover::before,
 .josh-door a.go:hover::before {
   opacity: 1;
   transform: translateX(72%);
@@ -11263,7 +11194,6 @@ select:focus-visible {
   .josh-stage::after,
   .josh-node,
   .josh-hero-actions a.go::before,
-  .josh-hud-actions a.go::before,
   .josh-door a.go::before,
   .josh-time {
     animation: none !important;

@@ -1,6 +1,7 @@
 import { ArrowRight, HeartHandshake, Mail, MapPin, Menu, Phone, PlayCircle, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 type LayoutProps = {
@@ -15,9 +16,6 @@ const primaryNavItems = [
   { label: "Serve", href: "/serve" }
 ];
 
-const directionsUrl =
-  "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
-
 const footerNextSteps = [
   { label: "Plan Your Visit", href: "/visit", icon: MapPin },
   { label: "Watch Online", href: "/sermons", icon: PlayCircle },
@@ -29,6 +27,7 @@ export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const footerRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     setOpen(false);
@@ -97,9 +96,11 @@ export default function Layout({ children }: LayoutProps) {
               {item.label}
             </NavLink>
           ))}
-          <Link className="nav-cta nav-link" to="/visit" onClick={() => setOpen(false)}>
-            I'm New
-          </Link>
+          {!isHome && (
+            <Link className="nav-cta nav-link" to="/visit" onClick={() => setOpen(false)}>
+              I'm New
+            </Link>
+          )}
         </nav>
       </header>
 
@@ -132,9 +133,9 @@ export default function Layout({ children }: LayoutProps) {
         <div className="footer-grid">
           <section className="footer-service" aria-labelledby="footer-service-heading" data-reveal-child>
             <h3 id="footer-service-heading">Sunday Worship</h3>
-            <strong>12:30 PM</strong>
-            <p>1330 63rd St, Downers Grove, IL</p>
-            <a href={directionsUrl} target="_blank" rel="noreferrer">
+            <strong>{churchInfo.worship.time}</strong>
+            <p>{churchInfo.address.short}</p>
+            <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
               Get Directions
               <ArrowRight size={14} aria-hidden="true" />
             </a>
@@ -171,7 +172,7 @@ export default function Layout({ children }: LayoutProps) {
 
         <div className="footer-bottom" data-reveal-child>
           <span>(c) 2026 Christ Tamil Church Chicago. All rights reserved.</span>
-          <span>Sunday Worship 12:30 PM</span>
+          <span>{churchInfo.worship.label} {churchInfo.worship.time}</span>
           <a
             href="https://www.facebook.com/ChristTamilChurchChicago"
             target="_blank"
@@ -208,8 +209,8 @@ export default function Layout({ children }: LayoutProps) {
           <div data-reveal-child>
             <h3>Worship</h3>
             <p>Sunday Worship</p>
-            <p>12:30 PM</p>
-            <p>1330 63rd St, Downers Grove, IL</p>
+            <p>{churchInfo.worship.time}</p>
+            <p>{churchInfo.address.short}</p>
           </div>
           <div data-reveal-child>
             <h3>Contact</h3>
@@ -227,8 +228,8 @@ export default function Layout({ children }: LayoutProps) {
         </div>
         <div className="footer-bottom" data-reveal-child>
           <span>(c) 2026 Christ Tamil Church Chicago. All rights reserved.</span>
-          <span>Sunday Worship 12:30 PM</span>
-          <span>1330 63rd St, Downers Grove, IL</span>
+          <span>{churchInfo.worship.label} {churchInfo.worship.time}</span>
+          <span>{churchInfo.address.short}</span>
         </div>
       </footer>
       )}
