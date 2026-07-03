@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node cdp-shot.mjs \"http://localhost:5183/\" 5850 expect.png)",
+      "Bash(sed -i 's/9333/9334/' cdp-shot.mjs)",
+      "Bash(node --input-type=module -e ' *)",
+      "Bash(curl -s http://localhost:9334/json)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

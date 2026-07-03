@@ -1,11 +1,55 @@
-import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
+  Church,
+  Coffee,
+  HandHeart,
+  MapPin,
+  Music,
+  Users
+} from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
+import SectionHeader from "../components/SectionHeader";
+import ThreeLights from "../components/ThreeLights/ThreeLights";
 import { siteImages } from "../data/images";
 
 const directionsUrl =
   "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
+
+const expectItems = [
+  {
+    kicker: "About 90 min",
+    title: "Worship",
+    text: "Praise, prayer, and the Word — in Tamil and English."
+  },
+  {
+    kicker: "No dress code",
+    title: "Come as you are",
+    text: "Wear whatever's comfortable. You'll fit right in."
+  },
+  {
+    kicker: "Free & easy",
+    title: "Parking",
+    text: "Free parking right at the church. Just come on in."
+  },
+  {
+    kicker: "Kids welcome",
+    title: "Your children",
+    text: "Sunday School (B.L.A.S.T.) & Kids Circle during service."
+  }
+];
+
+const ministryRows = [
+  { title: "Worship", meta: "Tamil & English · Sundays", href: "/worship", icon: Music },
+  { title: "Sunday School · B.L.A.S.T.", meta: "Bible Learning & Spiritual Training", href: "/grow/sunday-school", icon: BookOpen },
+  { title: "Kids Circle", meta: "For our littlest ones", href: "/grow/kids-circle", icon: Users },
+  { title: "Bible Study & Prayer", meta: "Wednesdays · 7:30 PM", href: "/grow/bible-study-prayer", icon: Church },
+  { title: "Fellowship Hour", meta: "Food & friends", href: "/connect", icon: Coffee },
+  { title: "Community Outreach", meta: "Serving Chicagoland", href: "/serve", icon: HandHeart }
+];
 
 export default function Home() {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -324,6 +368,9 @@ export default function Home() {
             height="660"
             style={{ objectPosition: siteImages.hero.objectPosition }}
           />
+          <span className="josh-hero-location">
+            1330 63rd St · Downers Grove
+          </span>
           <aside className="josh-hero-card" aria-label="Sunday worship details">
             <span>This Sunday</span>
             <strong>12:30 PM</strong>
@@ -338,6 +385,77 @@ export default function Home() {
       </div>
 
       <FollowTheLight />
+
+      {false && (
+        <>
+
+      <section className="section home-teaser-expect">
+        <SectionHeader
+          eyebrow="First time? · முதல் முறையா?"
+          title="Here's what a Sunday looks like."
+          text="No surprises, no pressure — just a warm welcome for you and your family."
+        />
+        <div className="home-teaser-expect-grid">
+          {expectItems.map((item) => (
+            <article className="home-teaser-expect-card" key={item.title}>
+              <span className="home-teaser-kicker">{item.kicker}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+        <Link className="button primary" to="/visit">
+          Plan your visit
+          <ArrowRight size={17} aria-hidden="true" />
+        </Link>
+      </section>
+
+      <ThreeLights />
+
+      <section className="section home-teaser-ministries">
+        <SectionHeader
+          eyebrow="Ways to belong"
+          title="Come for one thing. Stay for all of it."
+          text="A church family grows through worship, study, fellowship, and service."
+        />
+        <div className="home-teaser-ministry-list">
+          {ministryRows.map((row, index) => {
+            const Icon = row.icon;
+
+            return (
+              <Link className="home-teaser-ministry-row" key={row.title} to={row.href}>
+                <span className="home-teaser-ministry-index">{String(index + 1).padStart(2, "0")}</span>
+                <Icon className="home-teaser-ministry-icon" size={18} aria-hidden="true" />
+                <span className="home-teaser-ministry-title">{row.title}</span>
+                <span className="home-teaser-ministry-meta">{row.meta}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="section home-teaser-mission">
+        <div className="home-teaser-mission-grid">
+          <div>
+            <SectionHeader eyebrow="எங்கள் நோக்கம் · Our mission" title="To be alive in Christ — together." />
+            <p className="home-teaser-mission-text">
+              Our goal is to revive believers, to live by love, and to provide a
+              Bible-based home church for Tamil families across the Chicago
+              area — to worship and grow in a real relationship with Jesus.
+            </p>
+            <Link className="button secondary" to="/faith">
+              Read our statement of faith
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+          <blockquote className="home-teaser-verse">
+            <p>"Come to me, all you who are weary, and I will give you rest."</p>
+            <cite>Matthew 11:28</cite>
+          </blockquote>
+        </div>
+      </section>
+        </>
+      )}
     </>
   );
 }

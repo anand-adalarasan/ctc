@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { ArrowRight, HeartHandshake, Mail, MapPin, Menu, Phone, PlayCircle, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
@@ -13,6 +13,16 @@ const primaryNavItems = [
   { label: "Connect", href: "/connect" },
   { label: "Grow", href: "/grow" },
   { label: "Serve", href: "/serve" }
+];
+
+const directionsUrl =
+  "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516";
+
+const footerNextSteps = [
+  { label: "Plan Your Visit", href: "/visit", icon: MapPin },
+  { label: "Watch Online", href: "/sermons", icon: PlayCircle },
+  { label: "Request Prayer", href: "/contact", icon: HeartHandshake },
+  { label: "Contact Us", href: "/contact", icon: Mail }
 ];
 
 export default function Layout({ children }: LayoutProps) {
@@ -95,6 +105,84 @@ export default function Layout({ children }: LayoutProps) {
 
       <main id="main-content">{children}</main>
 
+      <footer className="footer footer-flow reveal" ref={footerRef}>
+        <div className="footer-invitation" data-reveal-child>
+          <span className="footer-flow-label">Stay connected · Take the next step</span>
+          <Link className="footer-brand" to="/">
+            <span className="brand-mark" aria-hidden="true">+</span>
+            <span>Christ Tamil Church</span>
+          </Link>
+          <p>Rooted in Christ. United in Love. Sent to Serve.</p>
+        </div>
+
+        <div className="footer-next-steps" aria-label="Next steps" data-reveal-child>
+          {footerNextSteps.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <Link className="footer-next-step" key={item.href} to={item.href}>
+                <Icon size={18} aria-hidden="true" />
+                <span>{item.label}</span>
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="footer-grid">
+          <section className="footer-service" aria-labelledby="footer-service-heading" data-reveal-child>
+            <h3 id="footer-service-heading">Sunday Worship</h3>
+            <strong>12:30 PM</strong>
+            <p>1330 63rd St, Downers Grove, IL</p>
+            <a href={directionsUrl} target="_blank" rel="noreferrer">
+              Get Directions
+              <ArrowRight size={14} aria-hidden="true" />
+            </a>
+          </section>
+
+          <section data-reveal-child>
+            <h3>Contact</h3>
+            <p>
+              <Phone size={15} aria-hidden="true" />
+              <a href="tel:+17739363697">(773) 936-3697</a>
+            </p>
+            <p>
+              <Mail size={15} aria-hidden="true" />
+              <a href="mailto:ctcchicago@gmail.com">ctcchicago@gmail.com</a>
+            </p>
+          </section>
+
+          <section data-reveal-child>
+            <h3>Explore</h3>
+            <p><Link to="/visit">Visit</Link></p>
+            <p><Link to="/worship">Worship</Link></p>
+            <p><Link to="/connect">Connect</Link></p>
+            <p><Link to="/grow">Grow</Link></p>
+          </section>
+
+          <section data-reveal-child>
+            <h3>Resources</h3>
+            <p><Link to="/serve">Serve</Link></p>
+            <p><Link to="/sermons">Sermons</Link></p>
+            <p><Link to="/events">Events</Link></p>
+            <p><Link to="/contact">Prayer & Contact</Link></p>
+          </section>
+        </div>
+
+        <div className="footer-bottom" data-reveal-child>
+          <span>(c) 2026 Christ Tamil Church Chicago. All rights reserved.</span>
+          <span>Sunday Worship 12:30 PM</span>
+          <a
+            href="https://www.facebook.com/ChristTamilChurchChicago"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Facebook
+          </a>
+        </div>
+      </footer>
+
+      {false && (
       <footer className="footer reveal" ref={footerRef}>
         <div className="footer-grid">
           <div className="footer-brand-column" data-reveal-child>
@@ -143,6 +231,7 @@ export default function Layout({ children }: LayoutProps) {
           <span>1330 63rd St, Downers Grove, IL</span>
         </div>
       </footer>
+      )}
     </div>
   );
 }

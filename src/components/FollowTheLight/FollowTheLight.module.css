@@ -132,9 +132,13 @@
   transition-delay: 0.22s;
 }
 
+.scene.on .w:nth-child(4) {
+  transition-delay: 0.33s;
+}
+
 .sub {
   margin: 28px 0 0;
-  max-width: 32ch;
+  max-width: 42ch;
   font-family: "Fraunces", Georgia, serif;
   font-style: italic;
   font-size: clamp(17px, 2.1vw, 25px);
@@ -145,6 +149,100 @@
 }
 
 .scene.on .sub {
+  opacity: 1;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.42s;
+}
+
+.chips span {
+  border: 1px solid rgba(185, 116, 85, 0.24);
+  border-radius: var(--radius-pill, 999px);
+  background: rgba(255, 255, 255, 0.62);
+  padding: 10px 15px;
+  color: var(--ftl-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.scene.on .chips {
+  opacity: 1;
+}
+
+.expectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: min(100%, 880px);
+  margin-top: 32px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.42s;
+}
+
+.expectGrid article {
+  border-top: 1px solid rgba(185, 116, 85, 0.2);
+  padding-top: 16px;
+  text-align: left;
+}
+
+.expectGrid h3 {
+  margin: 0;
+  color: var(--ftl-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.expectGrid p {
+  margin: 8px 0 0;
+  color: var(--ftl-body);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.scene.on .expectGrid {
+  opacity: 1;
+}
+
+.verseBlock {
+  width: min(100%, 760px);
+  margin-top: 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.42s;
+}
+
+.verseTamil {
+  margin: 0;
+  color: var(--ftl-ink);
+  font-family: "Anek Tamil", "Inter", system-ui, sans-serif;
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.verseBlock cite {
+  display: block;
+  margin-top: 18px;
+  color: var(--ftl-green-deep);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.scene.on .verseBlock {
   opacity: 1;
 }
 
@@ -233,7 +331,10 @@
 
 .flat .scene .w,
 .flat .scene .sub,
-.flat .scene .act {
+.flat .scene .act,
+.flat .scene .chips,
+.flat .scene .expectGrid,
+.flat .scene .verseBlock {
   opacity: 1;
   transform: none;
 }
@@ -253,8 +354,17 @@
   }
 
   .headline {
-    max-width: 8.8ch;
+    max-width: 9.4ch;
     font-size: clamp(46px, 18vw, 78px);
+  }
+
+  .expectGrid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+  }
+
+  .expectGrid article {
+    text-align: center;
   }
 }
 
@@ -263,6 +373,9 @@
   .w,
   .sub,
   .act,
+  .chips,
+  .expectGrid,
+  .verseBlock,
   .bar span {
     transition: none !important;
   }

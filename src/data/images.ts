@@ -1,3 +1,5 @@
+import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
+
 export type SiteImage = {
   id: string;
   src: string;
@@ -13,14 +15,14 @@ const utm = "utm_source=christ_tamil_church&utm_medium=referral";
 
 export const siteImages = {
   hero: {
-    id: "edwin-andrade-church-community",
-    src: "https://images.unsplash.com/photo-1478147427282-58a87a120781?auto=format&fit=crop&w=1800&q=80",
-    alt: "Warm church community gathered together and greeting one another",
-    creditName: "Edwin Andrade",
-    creditUrl: `https://unsplash.com/@theunsteady5?${utm}`,
-    unsplashUrl: "https://unsplash.com/s/photos/church-community",
+    id: "ctc-hero-image",
+    src: ctcHeroImage,
+    alt: "Exterior of Christ Tamil Church with the cross and church sign visible",
+    creditName: "Christ Tamil Church",
+    creditUrl: "",
+    unsplashUrl: "",
     usage: "Homepage hero",
-    objectPosition: "center 42%"
+    objectPosition: "38% 50%"
   },
   worship: {
     id: "small-group-network-community",
