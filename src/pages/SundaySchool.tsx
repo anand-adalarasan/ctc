@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {
+  ArrowRight,
   BookOpen,
   CalendarDays,
   Heart,
@@ -17,6 +18,8 @@ import {
   RelatedGrowPages
 } from "../components/ChildrenMinistry";
 import SectionHeader from "../components/SectionHeader";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import "./SundaySchool.css";
 
 const blastItems = [
   {
@@ -99,12 +102,22 @@ const relatedGrowPages = [
 ];
 
 export default function SundaySchool() {
+  const introRef = useRevealOnScroll<HTMLElement>();
+  const acronymRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
+  const experienceRef = useRevealOnScroll<HTMLElement>();
+  const scheduleRef = useRevealOnScroll<HTMLElement>();
+  const relatedRef = useRevealOnScroll<HTMLDivElement>();
+  const parentCtaRef = useRevealOnScroll<HTMLDivElement>();
+
   return (
     <>
       <section className="page-hero sunday-school-hero">
         <div className="sunday-school-hero-copy">
           <span className="eyebrow">Grow</span>
-          <h1>Helping children grow strong in God's Word.</h1>
+          <h1>
+            Helping children grow strong in{" "}
+            <span className="accent">God's Word.</span>
+          </h1>
           <p>
             Through B.L.A.S.T. &mdash; Bible Learning And Spiritual Training
             &mdash; children experience the gospel of Jesus Christ in a joyful,
@@ -129,7 +142,10 @@ export default function SundaySchool() {
         />
       </section>
 
-      <section className="section sunday-school-intro-section">
+      <section
+        className="section sunday-school-intro-section reveal"
+        ref={introRef}
+      >
         <article className="blast-intro-card">
           <span className="eyebrow">Sunday School</span>
           <h2>Join In. Team Up. Get Strong. Keep On. Celebrate.</h2>
@@ -142,14 +158,21 @@ export default function SundaySchool() {
         </article>
       </section>
 
-      <section className="section blast-acronym-section">
+      <section
+        className="section blast-acronym-section reveal"
+        ref={acronymRef}
+      >
         <SectionHeader
           eyebrow="Bible Learning And Spiritual Training"
           title="What is B.L.A.S.T.?"
         />
         <div className="blast-acronym-grid">
           {blastItems.map((item) => (
-            <article className="blast-acronym-card" key={item.letter}>
+            <article
+              className="blast-acronym-card"
+              key={item.letter}
+              data-reveal-child
+            >
               <span aria-hidden="true">{item.letter}</span>
               <div>
                 <h3>{item.word}</h3>
@@ -160,7 +183,7 @@ export default function SundaySchool() {
         </div>
       </section>
 
-      <section className="blast-experience-band">
+      <section className="blast-experience-band reveal" ref={experienceRef}>
         <div className="blast-experience-inner">
           <SectionHeader
             eyebrow="Children's Ministry"
@@ -175,7 +198,10 @@ export default function SundaySchool() {
         </div>
       </section>
 
-      <section className="section blast-schedule-section">
+      <section
+        className="section blast-schedule-section reveal"
+        ref={scheduleRef}
+      >
         <SectionHeader title="When Sunday School Happens" />
         <article className="blast-schedule-card">
           <div>
@@ -199,29 +225,34 @@ export default function SundaySchool() {
               the gospel in a way children will remember.
             </p>
           </div>
-          <Link className="button primary" to="/contact">
-            Contact Us
+          <Link className="blast-schedule-link" to="/contact">
+            Contact us
+            <ArrowRight size={18} aria-hidden="true" />
           </Link>
         </article>
       </section>
 
-      <ParentFamilyCta
-        className="blast-parent-cta"
-        panelClassName="blast-parent-panel"
-        actionsClassName="blast-parent-actions"
-        eyebrow="For Parents"
-        title="Bringing your child for the first time?"
-        titleId="blast-parent-title"
-        text="We would love to welcome your family. Our children's ministry is designed to be warm, safe, joyful, and rooted in God's Word."
-        checklist={visitorChecklist}
-      />
+      <div className="reveal" ref={relatedRef}>
+        <RelatedGrowPages
+          sectionClassName="blast-related-section"
+          gridClassName="blast-related-grid"
+          cardClassName="blast-related-card"
+          pages={relatedGrowPages}
+        />
+      </div>
 
-      <RelatedGrowPages
-        sectionClassName="blast-related-section"
-        gridClassName="blast-related-grid"
-        cardClassName="blast-related-card"
-        pages={relatedGrowPages}
-      />
+      <div className="reveal" ref={parentCtaRef}>
+        <ParentFamilyCta
+          className="blast-parent-cta"
+          panelClassName="blast-parent-panel"
+          actionsClassName="blast-parent-actions"
+          eyebrow="For Parents"
+          title="Bringing your child for the first time?"
+          titleId="blast-parent-title"
+          text="We would love to welcome your family. Our children's ministry is designed to be warm, safe, joyful, and rooted in God's Word."
+          checklist={visitorChecklist}
+        />
+      </div>
     </>
   );
 }
