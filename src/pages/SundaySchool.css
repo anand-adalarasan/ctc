@@ -567,6 +567,104 @@ section.section.blast-related-section {
   transform: translateY(-2px);
 }
 
+/* --- Motion: homepage-style entrances (template §7) ---
+   Staggered fade-up on the hero, deeper travel on band reveals,
+   and per-card stagger once a band's .reveal turns is-visible. */
+
+@keyframes ss-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sunday-school-hero-copy .eyebrow,
+.sunday-school-hero-copy h1,
+.sunday-school-hero-copy p {
+  animation: ss-rise 700ms var(--ease-premium) both;
+}
+
+.sunday-school-hero-copy h1 {
+  animation-delay: 130ms;
+}
+
+.sunday-school-hero-copy p {
+  animation-delay: 280ms;
+}
+
+.blast-hero-card {
+  animation: ss-rise 800ms var(--ease-premium) 420ms both;
+}
+
+.sunday-school-intro-section.reveal,
+.blast-acronym-section.reveal,
+.blast-experience-band.reveal,
+.blast-schedule-section.reveal {
+  transform: translateY(34px);
+  transition-duration: 700ms;
+  transition-timing-function: var(--ease-premium);
+}
+
+.sunday-school-intro-section.reveal.is-visible,
+.blast-acronym-section.reveal.is-visible,
+.blast-experience-band.reveal.is-visible,
+.blast-schedule-section.reveal.is-visible {
+  transform: translateY(0);
+}
+
+/* Cards/rows stagger in via animation (backwards fill) so their own
+   hover transitions stay fast once the entrance has finished. */
+
+.blast-experience-band.reveal:not(.is-visible) .blast-experience-card,
+.reveal:not(.is-visible) .blast-related-card {
+  opacity: 0;
+}
+
+.blast-experience-band.reveal.is-visible .blast-experience-card,
+.reveal.is-visible .blast-related-card {
+  animation: ss-rise 650ms var(--ease-premium) backwards;
+}
+
+.blast-experience-band.reveal.is-visible .blast-experience-card:nth-child(2),
+.reveal.is-visible .blast-related-card:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.blast-experience-band.reveal.is-visible .blast-experience-card:nth-child(3),
+.reveal.is-visible .blast-related-card:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.blast-experience-band.reveal.is-visible .blast-experience-card:nth-child(4) {
+  animation-delay: 360ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sunday-school-hero-copy .eyebrow,
+  .sunday-school-hero-copy h1,
+  .sunday-school-hero-copy p,
+  .blast-hero-card {
+    animation: none;
+  }
+
+  .sunday-school-intro-section.reveal,
+  .blast-acronym-section.reveal,
+  .blast-experience-band.reveal,
+  .blast-schedule-section.reveal,
+  .blast-experience-band.reveal .blast-experience-card,
+  .reveal .blast-related-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
+  }
+}
+
 /* --- Responsive (template breakpoints: 1120 / 900 / 620) --- */
 
 @media (max-width: 1120px) {
