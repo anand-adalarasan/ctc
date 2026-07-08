@@ -3483,10 +3483,6 @@ textarea {
   margin-inline: auto;
 }
 
-.kids-service-band .section-header h2,
-.kids-service-band .section-header p {
-  color: #fff;
-}
 
 .kids-service-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -10102,15 +10098,15 @@ select:focus-visible {
 }
 
 .josh-hero-actions a.go {
-  border-color: #9b5f43;
-  background: #9b5f43;
+  border-color: var(--ql-orange-deep);
+  background: var(--ql-orange-deep);
   color: #fff;
-  box-shadow: 0 16px 38px rgba(91, 54, 37, 0.28);
+  box-shadow: 0 16px 38px rgba(150, 112, 47, 0.38);
 }
 
 .josh-hero-actions a.go:hover {
-  border-color: #7d4e37;
-  background: #7d4e37;
+  border-color: #7d5c26;
+  background: #7d5c26;
   color: #fff;
 }
 
