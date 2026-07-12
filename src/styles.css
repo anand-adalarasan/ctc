@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,500&family=Space+Grotesk:wght@300;400;500;600&family=Catamaran:wght@300;500;800&display=swap");
 
 :root {
   color-scheme: light;
@@ -60,10 +60,30 @@
   --ease-premium: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Typography — Josh_1 design system.
+     Fraunces 300 for all display headings (tight -0.02em tracking, ~0.94–1.0 line-height,
+     italic + leaf green as the signature emphasis); Space Grotesk for body/UI
+     (kickers 10–12px uppercase, .2em–.3em tracking); Catamaran for Tamil script. */
   --font-display: "Fraunces", Georgia, serif;
   --font-heading: "Fraunces", Georgia, serif;
-  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-tamil: "Catamaran", "Noto Sans Tamil", "Anek Tamil", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --serif: var(--font-display);
+  --sans: var(--font-body);
+  --tamil: var(--font-tamil);
+
+  /* Signature emphasis green (Josh_1 --leaf / --leaf-bright). */
+  --leaf: #679f1f;
+  --leaf-bright: #8dc73c;
+
+  /* Fluid display type scale — huge at desktop. */
+  --text-hero: clamp(46px, 9.6vw, 146px);
+  --text-h1: clamp(46px, 6.5vw, 104px);
+  --text-h2: clamp(36px, 5vw, 72px);
+  --text-foot: clamp(48px, 9.5vw, 150px);
+  --track-display: -0.02em;
+  --track-kicker: 0.24em;
 
   /* Compatibility aliases for existing page classes while the site is modernized. */
   --warm-band: var(--surface-soft);
@@ -98,10 +118,36 @@
     var(--font-body);
   background: var(--bg);
   color: var(--text);
+  font-weight: 400;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Display headings: always Fraunces light, tight tracking, near-solid leading. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+h1,
+h2 {
+  line-height: 0.97;
+}
+
+/* Signature emphasis pattern — italic + leaf green ("Leave as *family.*"). */
+h1 em,
+h2 em,
+h3 em,
+.display em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--leaf);
 }
 
 @keyframes fade-up {
@@ -234,9 +280,9 @@ a {
   padding: 10px 16px;
   background: var(--primary);
   color: #fff;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.9rem;
-  font-weight: 800;
+  font-weight: 500;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px);
@@ -281,11 +327,18 @@ h2,
 h3,
 h4,
 h5,
-h6,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: var(--track-display);
+  font-weight: 300;
+}
+
+/* Nav and buttons are UI: Space Grotesk, medium, tracked. */
 .site-nav,
 .button {
-  font-family: var(--font-heading);
-  letter-spacing: 0;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  font-weight: 500;
 }
 
 p {
@@ -336,8 +389,9 @@ textarea {
   color: var(--primary);
   font-size: 1.55rem;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .brand strong,
@@ -349,14 +403,15 @@ textarea {
   color: var(--primary);
   font-family: var(--font-heading);
   font-size: 0.98rem;
-  font-weight: 800;
+  font-weight: 300;
   text-transform: uppercase;
+  letter-spacing: -0.02em;
 }
 
 .brand small {
   color: var(--muted);
   font-size: 0.82rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -365,9 +420,9 @@ textarea {
   align-items: center;
   gap: clamp(16px, 2vw, 28px);
   color: var(--primary-dark);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .site-nav a {
@@ -520,10 +575,10 @@ textarea {
   margin: 0;
   color: #1a211d;
   font-family: var(--font-heading);
-  font-size: clamp(3.35rem, 5vw, 4.85rem);
-  font-weight: 700;
-  line-height: 1.03;
-  letter-spacing: 0;
+  font-size: var(--text-h1);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
 }
 
 .hero-copy p,
@@ -541,8 +596,8 @@ textarea {
   margin-bottom: 14px;
   color: var(--gold);
   font-size: 0.62rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -570,9 +625,11 @@ textarea {
   padding: 0 28px;
   border: 1px solid transparent;
   cursor: pointer;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   transition:
     transform var(--motion-fast) var(--ease-out),
     background-color var(--motion-fast) var(--ease-out),
@@ -763,9 +820,9 @@ textarea {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
   color: var(--primary);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.1rem;
-  font-weight: 800;
+  font-weight: 500;
   line-height: 1.05;
   text-align: center;
 }
@@ -791,8 +848,8 @@ textarea {
 .upcoming-copy small {
   color: var(--gold);
   font-size: 0.7rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -801,7 +858,9 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  line-height: 1.1;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .event-feature-copy h3 {
@@ -996,9 +1055,10 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: 0;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  font-weight: 300;
 }
 
 .green-band .section-header h2,
@@ -1083,8 +1143,8 @@ textarea {
 .ministry-feature-copy span {
   color: var(--gold);
   font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -1093,7 +1153,9 @@ textarea {
   color: var(--primary-dark);
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 2.4vw, 2.35rem);
-  line-height: 1.08;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .ministry-feature-copy p {
@@ -1248,6 +1310,8 @@ textarea {
   font-family: var(--font-heading);
   font-size: 1.34rem;
   line-height: 1.15;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .feature-rows.info .feature-copy span {
@@ -1493,8 +1557,8 @@ textarea {
 .vision-label {
   color: var(--gold);
   font-size: 0.7rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -1649,8 +1713,10 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 3.5vw, 3.35rem);
-  line-height: 1.08;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .belief-intro p {
@@ -1672,8 +1738,8 @@ textarea {
 .belief-summary-card span {
   color: var(--gold);
   font-size: 0.7rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -1682,6 +1748,8 @@ textarea {
   font-family: var(--font-heading);
   font-size: 1.22rem;
   line-height: 1.22;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .belief-statement-list {
@@ -1743,8 +1811,10 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(2.35rem, 3.6vw, 3.35rem);
-  line-height: 1.08;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .belief-home-copy p {
@@ -1972,10 +2042,10 @@ textarea {
   margin: 0;
   color: #1a211d;
   font-family: var(--font-heading);
-  font-size: clamp(3.2rem, 5.2vw, 5rem);
-  font-weight: 700;
-  line-height: 1.03;
-  letter-spacing: 0;
+  font-size: var(--text-h1);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
 }
 
 .worship-hero-copy p {
@@ -2021,6 +2091,8 @@ textarea {
   font-family: var(--font-heading);
   font-size: 1.62rem;
   line-height: 1.14;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .worship-detail-list {
@@ -2180,7 +2252,9 @@ textarea {
 .worship-cta h2 {
   margin: 0;
   font-family: var(--font-heading);
-  line-height: 1.12;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .worship-flow-card h3 {
@@ -2488,10 +2562,10 @@ textarea {
   margin: 0;
   color: #1a211d;
   font-family: var(--font-heading);
-  font-size: clamp(3.25rem, 5vw, 4.9rem);
-  font-weight: 700;
-  line-height: 1.03;
-  letter-spacing: 0;
+  font-size: var(--text-h1);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
 }
 
 .events-hero-copy p {
@@ -2518,8 +2592,8 @@ textarea {
   background: rgba(255, 255, 255, 0.72);
   color: var(--muted);
   font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   box-shadow: 0 12px 28px rgba(16, 37, 27, 0.06);
 }
@@ -2529,6 +2603,8 @@ textarea {
   font-family: var(--font-heading);
   font-size: 1.75rem;
   line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .events-hero-card {
@@ -2569,7 +2645,9 @@ textarea {
   color: var(--primary-dark);
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 2.4vw, 2.35rem);
-  line-height: 1.08;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .events-hero-card ul {
@@ -2702,8 +2780,8 @@ textarea {
 .events-flyer-copy strong {
   color: var(--gold);
   font-size: 0.76rem;
-  font-weight: 850;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -2715,7 +2793,9 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  line-height: 1.12;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .events-featured-card h3 {
@@ -2739,8 +2819,8 @@ textarea {
 .events-featured-meta span {
   color: var(--gold);
   font-size: 0.78rem;
-  font-weight: 850;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -2877,8 +2957,8 @@ textarea {
 .events-card dt {
   color: var(--muted);
   font-size: 0.68rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -2960,8 +3040,8 @@ textarea {
 .events-flyer-details dt {
   color: var(--muted);
   font-size: 0.68rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -3050,8 +3130,10 @@ textarea {
   margin: 0;
   color: #fff;
   font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
-  line-height: 1.08;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .events-visitor-cta p {
@@ -3125,7 +3207,9 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  line-height: 1.08;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .bible-study-hero-card h2 {
@@ -3360,7 +3444,9 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  line-height: 1.08;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .kids-hero-card h2 {
@@ -3542,10 +3628,11 @@ textarea {
   background: var(--warm-band);
   color: var(--primary);
   font-size: 0.78rem;
-  font-weight: 850;
+  font-weight: 500;
   line-height: 1.25;
   text-align: center;
   text-transform: uppercase;
+  letter-spacing: 0.24em;
 }
 
 .kids-parent-cta {
@@ -3675,7 +3762,9 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  line-height: 1.08;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .grow-pathway-card h3 {
@@ -3833,7 +3922,8 @@ textarea {
 .grow-hub-cta h2 {
   font-family: var(--font-heading);
   color: var(--text);
-  font-weight: 700;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .section-header p,
@@ -3847,9 +3937,9 @@ textarea {
 
 .eyebrow {
   color: var(--clay);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.68rem;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: 0.08em;
 }
 
@@ -4097,7 +4187,8 @@ textarea {
   color: #fff;
   font-family: var(--font-heading);
   font-size: 1rem;
-  font-weight: 800;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .footer-brand .brand-mark {
@@ -4110,12 +4201,14 @@ textarea {
   margin: 0 0 18px;
   color: #fff;
   font-family: var(--font-heading);
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .footer h3 {
   font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -4150,9 +4243,9 @@ textarea {
   padding: 0 15px;
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .footer-bottom {
@@ -6287,10 +6380,10 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(3rem, 5.4vw, 5.25rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: 0;
+  font-size: var(--text-h1);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
 }
 
 .page-hero p,
@@ -6639,8 +6732,8 @@ textarea {
 .events-card-top small {
   color: var(--clay);
   font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -6885,8 +6978,9 @@ textarea {
   background: rgba(255, 255, 255, 0.68);
   color: var(--muted);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 500;
   text-transform: uppercase;
+  letter-spacing: 0.24em;
 }
 
 .events-hero-stats strong {
@@ -6924,8 +7018,8 @@ textarea {
 .events-card dt {
   color: var(--muted-light);
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -7133,10 +7227,10 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(3.25rem, 6vw, 5.65rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: 0;
+  font-size: var(--text-h1);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
 }
 
 .visit-hero p {
@@ -7178,7 +7272,8 @@ textarea {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
+  font-weight: 300;
 }
 
 .visit-hero-card h2 {
@@ -7289,8 +7384,8 @@ textarea {
   margin-top: auto;
   color: var(--clay);
   font-size: 0.84rem;
-  font-weight: 900;
-  letter-spacing: 0.06em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   line-height: 1.45;
   text-transform: uppercase;
 }
@@ -7635,7 +7730,8 @@ select:focus-visible {
   color: var(--ink, var(--primary));
   font-family: var(--font-heading);
   font-size: 0.84rem;
-  letter-spacing: 0.08em;
+  letter-spacing: -0.02em;
+  font-weight: 300;
 }
 
 .brand small {
@@ -7809,8 +7905,8 @@ select:focus-visible {
   color: var(--gold);
   font-family: var(--font-body);
   font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -7826,10 +7922,10 @@ select:focus-visible {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(3.25rem, 5.8vw, 5.7rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: 0;
+  font-size: var(--text-h2);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .home-hero-title span {
@@ -7909,8 +8005,8 @@ select:focus-visible {
 .home-service-detail span:not(.home-service-icon) {
   color: var(--muted);
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   line-height: 1.1;
   text-transform: uppercase;
 }
@@ -7980,8 +8076,8 @@ select:focus-visible {
 .home-floating-card span {
   color: var(--muted);
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -8333,8 +8429,8 @@ select:focus-visible {
   color: var(--gold);
   font-family: var(--font-body);
   font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -8352,10 +8448,10 @@ select:focus-visible {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
-  font-size: clamp(2.35rem, 4vw, 3.45rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: 0;
+  font-size: var(--text-h2);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .home-welcome-content p,
@@ -8447,8 +8543,9 @@ select:focus-visible {
   color: var(--primary-dark);
   font-family: var(--font-heading);
   font-size: 1.08rem;
-  font-weight: 800;
+  font-weight: 300;
   line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .home-first-visit {
@@ -9118,9 +9215,9 @@ select:focus-visible {
   color: var(--ql-ink);
   font-family: var(--font-display);
   font-size: clamp(4rem, 13vw, 10.5rem);
-  font-weight: 500;
+  font-weight: 300;
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 .josh-greet span {
@@ -9145,6 +9242,8 @@ select:focus-visible {
   color: var(--ql-lime-deep);
   font-family: var(--font-display);
   font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .josh-tag {
@@ -9156,6 +9255,8 @@ select:focus-visible {
   line-height: 1.42;
   opacity: 0;
   animation: joshFadeIn 900ms var(--ease-premium) 1450ms forwards;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .josh-tag strong {
@@ -9171,8 +9272,8 @@ select:focus-visible {
   color: var(--ql-muted);
   font-family: var(--font-body);
   font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   opacity: 0;
   animation: joshFadeIn 900ms var(--ease-premium) 1900ms forwards;
@@ -9206,8 +9307,8 @@ select:focus-visible {
   color: var(--ql-lime-deep);
   font-family: var(--font-body);
   font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -9223,10 +9324,10 @@ select:focus-visible {
   margin: 18px 0 0;
   color: var(--ql-ink);
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 4.25rem);
-  font-weight: 400;
-  line-height: 1.03;
-  letter-spacing: 0;
+  font-size: var(--text-h2);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .josh-reveal {
@@ -9254,9 +9355,9 @@ select:focus-visible {
   color: var(--ql-ink);
   font-family: var(--font-display);
   font-size: clamp(3.25rem, 8vw, 6.5rem);
-  font-weight: 500;
+  font-weight: 300;
   line-height: 0.88;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 .josh-time strong span {
@@ -9268,8 +9369,8 @@ select:focus-visible {
   color: var(--ql-muted);
   font-family: var(--font-body);
   font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -9307,11 +9408,12 @@ select:focus-visible {
   color: var(--ql-ink);
   font-family: var(--font-display);
   font-size: clamp(1.65rem, 4vw, 2.75rem);
-  font-weight: 400;
-  line-height: 1.05;
+  font-weight: 300;
+  line-height: 1;
   transition:
     color 350ms var(--ease-soft),
     font-style 350ms var(--ease-soft);
+  letter-spacing: -0.02em;
 }
 
 .josh-ministry-row small {
@@ -9357,8 +9459,9 @@ select:focus-visible {
   font-family: var(--font-display);
   font-size: clamp(1.65rem, 3.4vw, 2.65rem);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.28;
+  letter-spacing: -0.02em;
 }
 
 .josh-verse cite {
@@ -9368,8 +9471,8 @@ select:focus-visible {
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-style: normal;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -9439,8 +9542,8 @@ select:focus-visible {
   color: var(--ql-muted);
   font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -9457,8 +9560,8 @@ select:focus-visible {
   color: var(--ql-muted-soft);
   font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -10009,9 +10112,9 @@ select:focus-visible {
 
 .josh-hero-kicker span[lang="ta"] {
   color: var(--ql-lime-deep);
-  font-family: var(--font-display);
+  font-family: var(--font-tamil);
   font-size: clamp(1.34rem, 2.5vw, 2.08rem);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0;
   line-height: 1.1;
 }
@@ -10027,8 +10130,8 @@ select:focus-visible {
   color: var(--ql-muted);
   font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -10038,10 +10141,10 @@ select:focus-visible {
   margin: 22px 0 0;
   color: var(--ql-ink);
   font-family: var(--font-display);
-  font-size: clamp(3.8rem, 7.4vw, 7.65rem);
-  font-weight: 500;
-  line-height: 0.96;
-  letter-spacing: 0;
+  font-size: var(--text-hero);
+  font-weight: 300;
+  line-height: 0.94;
+  letter-spacing: -0.02em;
   text-wrap: balance;
   animation: heroFadeUp 650ms var(--ease-premium) 260ms both;
 }
@@ -10054,6 +10157,8 @@ select:focus-visible {
   font-size: clamp(1.1rem, 1.7vw, 1.42rem);
   line-height: 1.48;
   animation: heroFadeUp 650ms var(--ease-premium) 360ms both;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .josh-hero-actions {
@@ -10172,8 +10277,8 @@ select:focus-visible {
   color: var(--primary);
   font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -10181,8 +10286,9 @@ select:focus-visible {
   color: var(--ql-ink);
   font-family: var(--font-display);
   font-size: 2.6rem;
-  font-weight: 500;
+  font-weight: 300;
   line-height: 0.95;
+  letter-spacing: -0.02em;
 }
 
 .josh-hero-card a {
@@ -10392,8 +10498,8 @@ select:focus-visible {
 .app-shell:has(.josh-home) .footer h3 {
   margin-bottom: 14px;
   font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -10685,10 +10791,10 @@ select:focus-visible {
 .home-teaser-kicker {
   display: block;
   color: var(--gold);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -10697,7 +10803,8 @@ select:focus-visible {
   color: var(--ink);
   font-family: var(--font-heading);
   font-size: 22px;
-  font-weight: 400;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .home-teaser-expect-card p {
@@ -10732,9 +10839,10 @@ select:focus-visible {
 .home-teaser-ministry-index {
   min-width: 24px;
   color: var(--gold);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .home-teaser-ministry-icon {
@@ -10746,8 +10854,9 @@ select:focus-visible {
   color: var(--ink);
   font-family: var(--font-heading);
   font-size: clamp(20px, 3vw, 28px);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   transition: color 0.35s ease;
+  font-weight: 300;
 }
 
 .home-teaser-ministry-row:hover .home-teaser-ministry-title {
@@ -10791,17 +10900,19 @@ select:focus-visible {
   font-style: italic;
   font-size: clamp(22px, 3vw, 30px);
   line-height: 1.3;
+  font-weight: 300;
+  letter-spacing: -0.02em;
 }
 
 .home-teaser-verse cite {
   display: block;
   margin-top: 18px;
   color: var(--green-deep);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-style: normal;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -10880,8 +10991,8 @@ select:focus-visible {
   color: var(--qgm-primary-dark, #07352f);
   font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 

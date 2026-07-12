@@ -7,7 +7,7 @@
    .page-hero, .section, .section-header, .eyebrow, .button, .reveal.
    ============================================================ */
 
-/* --- Eyebrows: mono uppercase gold (template §4) --- */
+/* --- Eyebrows: Space Grotesk uppercase gold kickers (Josh_1 typography) --- */
 
 .sunday-school-hero .eyebrow,
 .sunday-school-intro-section .eyebrow,
@@ -17,10 +17,10 @@
 .blast-related-section .eyebrow,
 .blast-parent-cta .eyebrow {
   color: var(--gold);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -81,9 +81,10 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.9rem, 2.6vw, 2.5rem);
-  line-height: 1.05;
+  font-weight: 300;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .blast-hero-card > p {
@@ -186,9 +187,10 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
-  line-height: 1.08;
+  font-weight: 300;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .blast-intro-card p {
@@ -231,8 +233,9 @@
   color: var(--green-deep);
   font-family: var(--font-display);
   font-size: 2.7rem;
-  font-weight: 500;
+  font-weight: 300;
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .blast-acronym-card div {
@@ -357,16 +360,17 @@
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 300;
   font-size: 1.55rem;
+  letter-spacing: -0.02em;
 }
 
 .blast-schedule-card strong {
   color: var(--primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
@@ -428,10 +432,11 @@ section.section.blast-related-section {
 .blast-related-card::before {
   content: "0" counter(related-row);
   color: var(--gold);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 0;
 }
 
 .blast-related-card > span {
@@ -449,10 +454,11 @@ section.section.blast-related-section {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 300;
   font-size: clamp(1.3rem, 2vw, 1.55rem);
-  line-height: 1.1;
+  line-height: 1;
   transition: color var(--motion-fast) var(--ease-premium);
+  letter-spacing: -0.02em;
 }
 
 .blast-related-card p {
@@ -500,9 +506,10 @@ section.section.blast-related-section {
   margin: 0;
   color: #fff;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.1rem, 3.8vw, 3.3rem);
-  line-height: 1.05;
+  font-weight: 300;
+  font-size: var(--text-h2);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 
 .blast-parent-cta > div:first-child > p {

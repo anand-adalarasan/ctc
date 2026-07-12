@@ -62,7 +62,7 @@
 .intro {
   margin: 18px 0 0;
   max-width: 50ch;
-  font-family: var(--font-body, "Inter", system-ui, sans-serif);
+  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
   font-size: 16px;
   line-height: 1.65;
   color: var(--tl-body);
@@ -287,7 +287,7 @@
 
 .findSub {
   margin-top: 6px;
-  font-family: var(--font-body, "Inter", sans-serif);
+  font-family: var(--font-body, "Space Grotesk", sans-serif);
   font-size: 14px;
   color: var(--tl-body);
 }
@@ -310,7 +310,7 @@
   border-radius: 8px;
   background: #eef2ea;
   color: var(--tl-primary);
-  font-family: var(--font-body, "Inter", sans-serif);
+  font-family: var(--font-body, "Space Grotesk", sans-serif);
   font-weight: 600;
   font-size: 14px;
   text-decoration: none;
@@ -327,7 +327,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-body, "Inter", sans-serif);
+  font-family: var(--font-body, "Space Grotesk", sans-serif);
   font-weight: 600;
   font-size: 14px;
   padding: 11px 18px;
