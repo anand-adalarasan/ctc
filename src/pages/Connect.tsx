@@ -22,6 +22,7 @@ import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
 import { churchEvents, churchInfo, type ChurchEvent } from "../data/site";
 import "./Connect.css";
+import "./PageHeroTypography.css";
 
 const eventIconMap: Record<string, LucideIcon> = {
   "Sunday Worship Service": Music,

@@ -5,6 +5,7 @@ import { siteImages } from "../data/images";
 import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./Worship.css";
+import "./PageHeroTypography.css";
 
 const flow = [
   { title: "Music", meta: "Tamil & English", text: "Our service begins with live, upbeat, intimate worship songs in Tamil and English. You may sing, clap, raise your hands, or quietly reflect—worship in the way that comes from your heart.", icon: Music },

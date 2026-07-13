@@ -167,6 +167,7 @@ export default function Layout({ children }: LayoutProps) {
             </NavLink>
           ))}
         </nav>
+
       </header>
 
       <main id="main-content">{children}</main>

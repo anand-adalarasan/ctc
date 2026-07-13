@@ -1,0 +1,13 @@
+/* Keep migrated inner-page heroes on the canonical homepage display scale. */
+body .worship-page-hero .worship-page-hero-copy h1,
+body .connect-page .connect-hero .connect-hero-copy h1 {
+  font-size: var(--text-hero);
+  letter-spacing: -.02em;
+}
+
+@media (max-width: 620px) {
+  body .worship-page-hero .worship-page-hero-copy h1,
+  body .connect-page .connect-hero .connect-hero-copy h1 {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+  }
+}

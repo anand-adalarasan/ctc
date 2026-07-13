@@ -24,6 +24,8 @@ export default function FollowTheLight() {
     }
 
     let ticking = false;
+    let wheelHandoffInProgress = false;
+    let wheelHandoffTimer = 0;
 
     const update = () => {
       ticking = false;
@@ -57,13 +59,60 @@ export default function FollowTheLight() {
       requestAnimationFrame(update);
     };
 
+    const onWheel = (event: WheelEvent) => {
+      if (event.deltaY === 0) return;
+
+      const rect = section.getBoundingClientRect();
+      const total = section.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+
+      const direction = Math.sign(event.deltaY);
+      const approachingFromHero = direction > 0 && rect.top > 0 && rect.top <= window.innerHeight * 1.25;
+      const sectionIsPinned = rect.top <= 1 && rect.bottom >= window.innerHeight;
+
+      if (!approachingFromHero && !sectionIsPinned) return;
+
+      if (wheelHandoffInProgress) {
+        event.preventDefault();
+        return;
+      }
+
+      const sectionTop = window.scrollY + rect.top;
+      let targetTop: number | null = approachingFromHero ? sectionTop : null;
+
+      if (sectionIsPinned) {
+        const progress = Math.min(1, Math.max(0, -rect.top / total));
+        const activeIndex = Math.min(SCENES.length - 1, Math.floor(progress * SCENES.length));
+        const targetIndex = activeIndex + direction;
+
+        if (targetIndex >= 0 && targetIndex < SCENES.length) {
+          const sceneProgress = targetIndex / SCENES.length;
+          targetTop = sectionTop + total * sceneProgress + (targetIndex > 0 ? 2 : 0);
+        }
+      }
+
+      if (targetTop === null) return;
+
+      event.preventDefault();
+      wheelHandoffInProgress = true;
+      window.scrollTo({ top: targetTop, behavior: "smooth" });
+
+      window.clearTimeout(wheelHandoffTimer);
+      wheelHandoffTimer = window.setTimeout(() => {
+        wheelHandoffInProgress = false;
+      }, 700);
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: false });
     update();
 
     return () => {
+      window.clearTimeout(wheelHandoffTimer);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.removeEventListener("wheel", onWheel);
     };
   }, []);
 

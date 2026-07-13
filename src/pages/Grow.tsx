@@ -2,7 +2,6 @@ import { ArrowRight, BookOpen, Headphones, School, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
-import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./Grow.css";
 
@@ -65,9 +64,5 @@ export default function Grow() {
       <div><span className="eyebrow">Grow through the Word</span><h2 id="grow-word-title">Take Scripture with you.</h2><p>Listen to biblical messages wherever your week takes you.</p><Link to="/sermons">Listen to sermons <ArrowRight size={15} /></Link></div>
     </section>
 
-    <section className="grow-closing" aria-labelledby="grow-closing-title">
-      <div><span className="eyebrow">Your next step</span><h2 id="grow-closing-title">You don’t have to grow alone.</h2><p>Join us {churchInfo.worship.schedule} and meet a church family ready to welcome you.</p></div>
-      <div className="grow-closing-actions"><Link className="grow-primary" to="/visit">Plan your visit <ArrowRight size={17} /></Link><Link to="/contact">Ask for prayer <ArrowRight size={15} /></Link></div>
-    </section>
   </>;
 }
