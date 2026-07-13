@@ -1,44 +1,8 @@
-import {
-  BookOpen,
-  CalendarDays,
-  Church,
-  HandHeart,
-  HeartHandshake,
-  MapPin,
-  Megaphone,
-  MicVocal,
-  Music,
-  Phone,
-  School,
-  Sparkles,
-  Users
-} from "lucide-react";
-import ministryCommunion from "../assets/images/ministry-communion.jpg";
 import ministryFellowship from "../assets/images/ministry-fellowship.jpg";
 import ministryKids from "../assets/images/ministry-kids.jpg";
 import ministrySchool from "../assets/images/ministry-school.jpg";
-import ministryTestimony from "../assets/images/ministry-testimony.jpg";
 import pastorJagan from "../assets/images/pastor-jagan.jpg";
 import { siteImages } from "./images";
-
-export const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Worship", href: "/worship" },
-  { label: "Connect", href: "/connect" },
-  {
-    label: "Grow",
-    href: "/grow",
-    children: [
-      { label: "Bible Study / Prayer", href: "/grow/bible-study-prayer" },
-      { label: "Sunday School - B.L.A.S.T.", href: "/grow/sunday-school" },
-      { label: "Kids Circle", href: "/grow/kids-circle" },
-      { label: "Audio Sermons", href: "/sermons" }
-      // TODO: Add Blog / Clay Pot here only after a real blog route exists.
-    ]
-  },
-  { label: "Serve", href: "/serve" },
-  { label: "Contact", href: "/contact" }
-];
 
 export const churchInfo = {
   worship: {
@@ -70,145 +34,6 @@ export const churchInfo = {
   }
 };
 
-export const quickLinks = [
-  {
-    title: "Sunday Worship",
-    detail: "Join us every Sunday for inspiring worship, Bible teaching, and a time of fellowship.",
-    meta: churchInfo.worship.schedule,
-    metaSecond: "Everyone is welcome!",
-    href: "/worship",
-    icon: CalendarDays
-  },
-  {
-    title: "Location",
-    detail: "We are located in the heart of Chicago and would love to welcome you in person.",
-    meta: churchInfo.address.full,
-    metaHref: churchInfo.address.directionsUrl,
-    href: "/visit",
-    icon: MapPin
-  },
-  {
-    title: "Contact",
-    detail: "We'd love to hear from you. Reach out to us for questions or prayer requests.",
-    meta: churchInfo.contact.phone,
-    metaSecond: churchInfo.contact.email,
-    href: "/contact",
-    icon: Phone
-  }
-];
-
-export const nextSteps = [
-  {
-    title: "Attend Worship",
-    text: "Join the church family for Sunday worship centered on Christ.",
-    href: "/visit",
-    icon: Church
-  },
-  {
-    title: "Meet the Pastors",
-    text: "Learn about the pastoral leadership and ministry story of CTC.",
-    href: "/pastors",
-    icon: Users
-  },
-  {
-    title: "Join Fellowship",
-    text: "Build relationships through fellowship hour, groups, and shared meals.",
-    href: "/connect",
-    icon: HandHeart
-  },
-  {
-    title: "Ask for Prayer",
-    text: "Send a confidential prayer request or contact the church office.",
-    href: "/contact",
-    icon: HeartHandshake
-  }
-];
-
-export const ministries = [
-  {
-    title: "Sunday School",
-    text: "Bible-based teaching to help children grow in their faith.",
-    href: "/grow/sunday-school",
-    icon: School,
-    image: ministrySchool
-  },
-  {
-    title: "Kids Circle",
-    text: "A fun and safe place for children to learn about God's love.",
-    href: "/grow/kids-circle",
-    icon: Users,
-    image: ministryKids
-  },
-  {
-    title: "Bible Study",
-    text: "Midweek Scripture study and prayer for spiritual formation.",
-    href: "/grow/bible-study-prayer",
-    icon: BookOpen,
-    image: siteImages.bibleStudy.src
-  },
-  {
-    title: "Prayer",
-    text: "We believe in the power of prayer and love praying for one another.",
-    href: "/contact",
-    icon: HeartHandshake,
-    image: siteImages.prayer.src
-  },
-  {
-    title: "Worship",
-    text: "Lift your voice in worship and praise to our God through songs and music.",
-    href: "/worship",
-    icon: Music,
-    image: siteImages.worship.src
-  },
-  {
-    title: "Women's Fellowship",
-    text: "A gathering for women to worship, learn, pray, and encourage one another in faith.",
-    href: "/connect",
-    icon: Sparkles,
-    image: ministryFellowship
-  },
-  {
-    title: "Men's Fellowship",
-    text: "A time for men to grow in faith, encourage one another, and build Christ-centered relationships.",
-    href: "/connect",
-    icon: Users,
-    image: ministryTestimony
-  },
-  {
-    title: "Community Outreach",
-    text: "Serving neighbors through compassion, prayer, and practical care.",
-    href: "/serve",
-    icon: Megaphone,
-    image: ministryCommunion
-  }
-];
-
-export const growItems = [
-  {
-    title: "Bible Study & Prayer",
-    text: "Midweek Scripture study and prayer for spiritual formation.",
-    href: "/grow/bible-study-prayer",
-    icon: BookOpen
-  },
-  {
-    title: "Sunday School",
-    text: "B.L.A.S.T. helps children experience the gospel through Bible Learning And Spiritual Training.",
-    href: "/grow/sunday-school",
-    icon: School
-  },
-  {
-    title: "Kids Circle",
-    text: "A joyful ministry for children during the Sunday gathering rhythm.",
-    href: "/grow/kids-circle",
-    icon: Users
-  },
-  {
-    title: "Community Outreach",
-    text: "Serving neighbors through compassion, prayer, and practical care.",
-    href: "/serve",
-    icon: HandHeart
-  }
-];
 
 export type ChurchEvent = {
   title: string;
@@ -454,7 +279,6 @@ export const churchEvents: ChurchEvent[] = [
     isRecurring: true
   }
 ];
-
 export const sermons = [
   {
     title: "Kingdom of God",
@@ -523,44 +347,5 @@ export const beliefs = [
     title: "Church Life",
     text:
       "We cheerfully submit ourselves to the instruction and government of this church, and we promise to promote its purity, peace, and welfare by all means within our power, so long as we shall continue to be a member."
-  }
-];
-
-export const pageSummaries = [
-  {
-    title: "Visit",
-    text: "Service time, directions, what to expect, children, and fellowship.",
-    href: "/visit",
-    icon: MapPin
-  },
-  {
-    title: "Worship",
-    text: "Sunday worship, music, prayer, sermon, testimony, and communion.",
-    href: "/worship",
-    icon: Church
-  },
-  {
-    title: "Grow",
-    text: "Bible study, Sunday school, Kids Circle, and sermon resources.",
-    href: "/grow",
-    icon: BookOpen
-  },
-  {
-    title: "Serve",
-    text: "Community outreach and ministry opportunities.",
-    href: "/serve",
-    icon: HandHeart
-  },
-  {
-    title: "Sermons",
-    text: "Latest message and sermon archive.",
-    href: "/sermons",
-    icon: MicVocal
-  },
-  {
-    title: "Connect",
-    text: "Upcoming gatherings, fellowship, and retreat information.",
-    href: "/connect",
-    icon: CalendarDays
   }
 ];

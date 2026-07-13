@@ -40,15 +40,15 @@ Status: implementation blueprint, prepared July 12, 2026
 ### Reusable components already present
 
 - `Layout`: shared header, mobile navigation, footer, skip link, active route handling.
-- `SectionHeader`, `FeatureRows`, `EventFlyerCard`.
-- `ChildrenMinistry` primitives for hero cards, feature grids, related pages, acronym strip, and family CTA.
+- `SectionHeader` for consistent editorial section headings.
+- Homepage-specific `FollowTheLight` and `ThreeLights` components.
 - `useRevealOnScroll` for restrained progressive enhancement.
 
 ### Major inconsistencies and risks
 
-- The header navigation is hard-coded in `Layout.tsx` while a different navigation model exists in `src/data/site.ts`.
-- The footer links to `/events`, but that route does not exist, creating a dead internal link.
-- Several pages are thin (`Serve`, `Sermons`, `Pastors`) or contain implementation-facing language instead of visitor-facing copy.
+- The global stylesheet retains historical component and homepage layers that require route-by-route visual regression coverage before removal.
+- Navigation and route metadata remain colocated in `Layout.tsx`; extracting them should wait until there is a second verified consumer.
+- Several active pages are still thin (`Serve`, `Sermons`) or contain implementation-facing language instead of visitor-facing copy.
 - The current sermon cards use unverified titles/descriptions and must be removed or replaced with source-backed records.
 - Factual conflicts: current app says Sunday at 10:30 AM; legacy pages say 12:30 PM. Current app uses `(773) 936-3697` and `ctcchicago@gmail.com`; legacy pages use `+1-773-936-3097` and `info@ChristTamilChurch.com`.
 - Some text is mojibake (`வணக்கம்`, separators, copyright symbol) and must be normalized as UTF-8.

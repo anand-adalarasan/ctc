@@ -36,10 +36,9 @@ Sitewide subset only (§7): `.page-hero` fade-up on load; every band below uses
 
 - **5-across acronym strip** so B·L·A·S·T reads in order on desktop; it
   collapses to horizontal letter-rows ≤1120px (never a ragged 3+2 wrap).
-- **Icon-driven, no photography** — a deliberate choice until real
-  children's-ministry photos exist. When one is available, register it in
-  `src/data/images.ts` and add it per §8 (hero side or band 4); don't use
-  stock children photos.
-- The shared `ChildrenMinistry.tsx` components (also used by Kids Circle)
-  emit the markup for bands 1, 4, 6, 7; all styling stays in this page's CSS
-  via the `blast-*` class props — never restyle the component internals.
+- **Church-owned photography** — the page uses registered children's-ministry
+  images from `src/data/images.ts`; keep future imagery routed through that
+  registry and avoid ad-hoc stock-photo URLs.
+- The page markup is intentionally local to `SundaySchool.tsx`. Kids Circle
+  follows the same design language with its own content structure; only extract
+  a shared component when both live pages have a stable, identical API.
