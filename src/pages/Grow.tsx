@@ -1,102 +1,73 @@
+import { ArrowRight, BookOpen, Headphones, School, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  BookOpen,
-  HeartHandshake,
-  MicVocal,
-  School,
-  Sparkles,
-  UsersRound
-} from "lucide-react";
+import SectionHeader from "../components/SectionHeader";
+import { siteImages } from "../data/images";
+import { churchInfo } from "../data/site";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import "./Grow.css";
 
-const growPathways = [
-  {
-    title: "Bible Study / Prayer",
-    text: "Grow through God's Word, prayer conference, and fasting prayer.",
-    href: "/grow/bible-study-prayer",
-    icon: BookOpen
-  },
-  {
-    title: "Sunday School - B.L.A.S.T.",
-    text: "Bible Learning And Spiritual Training for children of all ages.",
-    href: "/grow/sunday-school",
-    icon: School
-  },
-  {
-    title: "Kids Circle",
-    text: "A joyful Sunday service experience where children learn God's Word and Biblical values.",
-    href: "/grow/kids-circle",
-    icon: UsersRound
-  },
-  {
-    title: "Audio Sermons",
-    text: "Continue growing through Scripture-based messages.",
-    href: "/sermons",
-    icon: MicVocal
-  }
-  // TODO: Add Blog / Clay Pot when a real blog route exists.
+const pathways = [
+  { title: "Bible Study & Prayer", meta: "Adults & families · Throughout the week", text: "Study Scripture, pray with others, and build a steady rhythm of discipleship.", href: "/grow/bible-study-prayer", icon: BookOpen },
+  { title: "Sunday School · B.L.A.S.T.", meta: "Children · Every Sunday", text: "Bible Learning And Spiritual Training designed to help children know and follow Jesus.", href: "/grow/sunday-school", icon: School },
+  { title: "Kids Circle", meta: "Children · During worship", text: "A brief, joyful space for children to learn God’s Word, ask questions, and belong.", href: "/grow/kids-circle", icon: Sprout },
+  { title: "Sermons", meta: "Listen anytime", text: "Continue growing through relevant, Scripture-centered teaching from Christ Tamil Church.", href: "/sermons", icon: Headphones }
 ];
 
 export default function Grow() {
-  return (
-    <>
-      <section className="page-hero grow-hub-hero">
-        <span className="eyebrow">Grow</span>
-        <h1>Grow in Christ, together as a church family.</h1>
-        <p>
-          From Bible study and prayer to children's ministry and
-          Scripture-based teaching, our Grow ministries help every generation
-          follow Jesus more deeply.
-        </p>
-      </section>
+  const pathwaysRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
+  const familyRef = useRevealOnScroll<HTMLElement>();
 
-      <section className="section grow-pathway-section" aria-labelledby="grow-pathway-title">
-        <div className="section-header">
-          <span className="eyebrow">Discipleship Pathway</span>
-          <h2 id="grow-pathway-title">Choose a place to grow</h2>
-        </div>
-        <div className="grow-pathway-grid">
-          {growPathways.map((pathway) => {
-            const Icon = pathway.icon;
-
-            return (
-              <Link className="grow-pathway-card" key={pathway.title} to={pathway.href}>
-                <span className="grow-pathway-icon" aria-hidden="true">
-                  <Icon size={24} />
-                </span>
-                <div>
-                  <h3>{pathway.title}</h3>
-                  <p>{pathway.text}</p>
-                </div>
-                <span className="grow-pathway-arrow" aria-hidden="true">
-                  &gt;
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="grow-hub-cta" aria-labelledby="grow-cta-title">
-        <span className="grow-cta-icon" aria-hidden="true">
-          <Sparkles size={30} />
+  return <>
+    <section className="grow-hero" aria-labelledby="grow-title">
+      <div className="grow-hero-copy">
+        <span className="grow-hero-kicker">
+          <span lang="ta">வளருங்கள்</span>
+          <small>Grow</small>
         </span>
-        <div>
-          <span className="eyebrow">Next Step</span>
-          <h2 id="grow-cta-title">Not sure where to start?</h2>
-          <p>
-            Contact us and we'll help your family get connected.
-          </p>
-        </div>
-        <div className="grow-cta-actions">
-          <Link className="button gold" to="/contact">
-            <HeartHandshake size={17} aria-hidden="true" />
-            Contact Us
-          </Link>
-          <Link className="button outline-light" to="/visit">
-            I'm New
-          </Link>
-        </div>
-      </section>
-    </>
-  );
+        <h1 id="grow-title">Rooted in Christ. <em>Growing together.</em></h1>
+        <p>Faith grows through God’s Word, prayer, and life with His people. Wherever you are starting, there is a place for you and your family to take a next step.</p>
+        <a className="grow-primary" href="#grow-pathways">Find your next step <ArrowRight size={17} /></a>
+      </div>
+      <div className="grow-hero-visual">
+        <img src={siteImages.bibleStudy.src} alt={siteImages.bibleStudy.alt} width="1200" height="900" style={{ objectPosition: siteImages.bibleStudy.objectPosition }} />
+        <aside className="grow-hero-card" aria-label="Featured growth pathway">
+          <span>Start here</span><strong>Bible Study & Prayer</strong>
+          <p>Scripture, prayer, questions, and encouragement for everyday faith.</p>
+          <Link to="/grow/bible-study-prayer">Explore this pathway <ArrowRight size={14} /></Link>
+        </aside>
+      </div>
+    </section>
+
+    <section className="grow-pathways reveal" ref={pathwaysRef} id="grow-pathways" aria-labelledby="grow-pathways-title">
+      <SectionHeader eyebrow="One church · Every generation" title="Choose a place to grow" text="Each pathway is designed to help you know Christ more deeply and follow Him in everyday life." />
+      <div className="grow-pathway-list" id="grow-pathways-title">
+        {pathways.map((pathway, index) => { const Icon = pathway.icon; return <Link className="grow-pathway-row" to={pathway.href} key={pathway.title} data-reveal-child>
+          <span className="grow-pathway-number">{String(index + 1).padStart(2, "0")}</span><span className="grow-pathway-icon"><Icon size={21} /></span>
+          <div><h3>{pathway.title}</h3><span>{pathway.meta}</span></div><p>{pathway.text}</p><ArrowRight className="grow-pathway-arrow" size={18} />
+        </Link>; })}
+      </div>
+    </section>
+
+    <section className="grow-family-band reveal" ref={familyRef} aria-labelledby="grow-family-title">
+      <div className="grow-family-copy">
+        <span className="eyebrow">Children & families</span>
+        <h2 id="grow-family-title">A place for young faith to take root.</h2>
+        <p>Children are welcomed as gifts from God. Kids Circle offers a brief teaching moment during worship, while B.L.A.S.T. provides a fuller Sunday School experience with structured Bible learning.</p>
+      </div>
+      <div className="grow-family-choices">
+        <Link to="/grow/kids-circle"><span>During worship</span><strong>Kids Circle</strong><ArrowRight size={16} /></Link>
+        <Link to="/grow/sunday-school"><span>Sunday School</span><strong>B.L.A.S.T.</strong><ArrowRight size={16} /></Link>
+      </div>
+    </section>
+
+    <section className="grow-word-band" aria-labelledby="grow-word-title">
+      <blockquote><p>“Grow in the grace and knowledge of our Lord and Savior Jesus Christ.”</p><cite>2 Peter 3:18</cite></blockquote>
+      <div><span className="eyebrow">Grow through the Word</span><h2 id="grow-word-title">Take Scripture with you.</h2><p>Listen to biblical messages wherever your week takes you.</p><Link to="/sermons">Listen to sermons <ArrowRight size={15} /></Link></div>
+    </section>
+
+    <section className="grow-closing" aria-labelledby="grow-closing-title">
+      <div><span className="eyebrow">Your next step</span><h2 id="grow-closing-title">You don’t have to grow alone.</h2><p>Join us {churchInfo.worship.schedule} and meet a church family ready to welcome you.</p></div>
+      <div className="grow-closing-actions"><Link className="grow-primary" to="/visit">Plan your visit <ArrowRight size={17} /></Link><Link to="/contact">Ask for prayer <ArrowRight size={15} /></Link></div>
+    </section>
+  </>;
 }

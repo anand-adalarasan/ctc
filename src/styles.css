@@ -77,6 +77,14 @@
   --leaf: #679f1f;
   --leaf-bright: #8dc73c;
 
+  /* Footer surface — adapted from the Josh_1 graphite band. */
+  --footer-top: #73747a;
+  --footer-base: #6c6d70;
+  --footer-deep: #616266;
+  --footer-text: rgba(255, 255, 255, 0.82);
+  --footer-muted: rgba(255, 255, 255, 0.62);
+  --footer-line: rgba(255, 255, 255, 0.18);
+
   /* Fluid display type scale — huge at desktop. */
   --text-hero: clamp(46px, 9.6vw, 146px);
   --text-h1: clamp(46px, 6.5vw, 104px);
@@ -127,17 +135,21 @@
 
 /* Display headings: always Fraunces light, tight tracking, near-solid leading. */
 h1,
-h2,
-h3,
-h4 {
+h2 {
   font-family: var(--font-heading);
   font-weight: 300;
   letter-spacing: -0.02em;
+  line-height: 0.97;
 }
 
-h1,
-h2 {
-  line-height: 0.97;
+/* Sub-headings and card titles are Space Grotesk, semibold. */
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 /* Signature emphasis pattern — italic + leaf green ("Leave as *family.*"). */
@@ -323,14 +335,19 @@ textarea {
 }
 
 h1,
-h2,
+h2 {
+  font-family: var(--font-heading);
+  letter-spacing: var(--track-display);
+  font-weight: 300;
+}
+
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
-  letter-spacing: var(--track-display);
-  font-weight: 300;
+  font-family: var(--font-body);
+  letter-spacing: 0;
+  font-weight: 600;
 }
 
 /* Nav and buttons are UI: Space Grotesk, medium, tracked. */
@@ -401,11 +418,11 @@ textarea {
 
 .brand strong {
   color: var(--primary);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.98rem;
-  font-weight: 300;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.06em;
 }
 
 .brand small {
@@ -857,10 +874,10 @@ textarea {
 .event-promo-card h3 {
   margin: 0;
   color: var(--primary-dark);
-  font-family: var(--font-heading);
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .event-feature-copy h3 {
@@ -1151,11 +1168,11 @@ textarea {
 .ministry-feature-copy h3 {
   margin: 0;
   color: var(--primary-dark);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(1.75rem, 2.4vw, 2.35rem);
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .ministry-feature-copy p {
@@ -1307,11 +1324,11 @@ textarea {
 
 .feature-rows.info .feature-copy strong {
   color: #1a211d;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.34rem;
   line-height: 1.15;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .feature-rows.info .feature-copy span {
@@ -1745,11 +1762,11 @@ textarea {
 
 .belief-summary-card strong {
   color: var(--primary-dark);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.22rem;
   line-height: 1.22;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .belief-statement-list {
@@ -2248,7 +2265,14 @@ textarea {
 
 .worship-flow-card h3,
 .worship-generation-card h3,
-.worship-horizontal-card h3,
+.worship-horizontal-card h3 {
+  margin: 0;
+  font-family: var(--font-body);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
 .worship-cta h2 {
   margin: 0;
   font-family: var(--font-heading);
@@ -2792,10 +2816,10 @@ textarea {
 .events-annual-card h3 {
   margin: 0;
   color: var(--primary-dark);
-  font-family: var(--font-heading);
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .events-featured-card h3 {
@@ -3206,10 +3230,10 @@ textarea {
 .bible-study-related-card h3 {
   margin: 0;
   color: var(--primary-dark);
-  font-family: var(--font-heading);
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-family: var(--font-body);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .bible-study-hero-card h2 {
@@ -3436,17 +3460,25 @@ textarea {
 
 .kids-hero-card h2,
 .kids-intro-card h2,
-.kids-experience-card h3,
-.kids-service-card h3,
 .kids-blast-layout h2,
-.kids-parent-cta h2,
-.kids-related-card h3 {
+.kids-parent-cta h2 {
   margin: 0;
   color: var(--primary-dark);
   font-family: var(--font-heading);
   line-height: 1;
   font-weight: 300;
   letter-spacing: -0.02em;
+}
+
+.kids-experience-card h3,
+.kids-service-card h3,
+.kids-related-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: var(--font-body);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .kids-hero-card h2 {
@@ -3757,7 +3789,15 @@ textarea {
   color: #fff;
 }
 
-.grow-pathway-card h3,
+.grow-pathway-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: var(--font-body);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
 .grow-hub-cta h2 {
   margin: 0;
   color: var(--primary-dark);
@@ -4185,10 +4225,10 @@ textarea {
   align-items: center;
   gap: 14px;
   color: #fff;
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .footer-brand .brand-mark {
@@ -4196,13 +4236,20 @@ textarea {
   color: var(--gold-soft);
 }
 
-.footer h2,
-.footer h3 {
+.footer h2 {
   margin: 0 0 18px;
   color: #fff;
   font-family: var(--font-heading);
   font-weight: 300;
   letter-spacing: -0.02em;
+}
+
+.footer h3 {
+  margin: 0 0 18px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .footer h3 {
@@ -7265,8 +7312,6 @@ textarea {
 }
 
 .visit-hero-card h2,
-.visit-essential-card h3,
-.visit-next-card h3,
 .visit-gathering-copy h2,
 .visit-section-heading h2 {
   margin: 0;
@@ -7274,6 +7319,15 @@ textarea {
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
   font-weight: 300;
+}
+
+.visit-essential-card h3,
+.visit-next-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-family: var(--font-body);
+  letter-spacing: 0;
+  font-weight: 600;
 }
 
 .visit-hero-card h2 {
@@ -7728,10 +7782,10 @@ select:focus-visible {
 
 .brand strong {
   color: var(--ink, var(--primary));
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 0.84rem;
-  letter-spacing: -0.02em;
-  font-weight: 300;
+  letter-spacing: 0.02em;
+  font-weight: 600;
 }
 
 .brand small {
@@ -8541,11 +8595,11 @@ select:focus-visible {
 .home-visitor-step h3 {
   margin: 0;
   color: var(--primary-dark);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.08rem;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .home-first-visit {
@@ -9250,13 +9304,13 @@ select:focus-visible {
   max-width: 28ch;
   margin: 34px 0 0;
   color: var(--ql-muted);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.2rem, 2.4vw, 1.65rem);
-  line-height: 1.42;
+  line-height: 1.5;
   opacity: 0;
   animation: joshFadeIn 900ms var(--ease-premium) 1450ms forwards;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .josh-tag strong {
@@ -10153,12 +10207,12 @@ select:focus-visible {
   max-width: 38ch;
   margin: 28px 0 0;
   color: var(--ql-body);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.1rem, 1.7vw, 1.42rem);
-  line-height: 1.48;
+  line-height: 1.5;
   animation: heroFadeUp 650ms var(--ease-premium) 360ms both;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .josh-hero-actions {
@@ -10801,10 +10855,10 @@ select:focus-visible {
 .home-teaser-expect-card h3 {
   margin: 14px 0 0;
   color: var(--ink);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 22px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .home-teaser-expect-card p {
@@ -10852,11 +10906,11 @@ select:focus-visible {
 
 .home-teaser-ministry-title {
   color: var(--ink);
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: clamp(20px, 3vw, 28px);
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   transition: color 0.35s ease;
-  font-weight: 300;
+  font-weight: 600;
 }
 
 .home-teaser-ministry-row:hover .home-teaser-ministry-title {
@@ -10938,12 +10992,12 @@ select:focus-visible {
     clamp(76px, 8vw, 118px)
     clamp(22px, 5vw, 72px)
     clamp(28px, 4vw, 42px);
-  border-top: 1px solid rgba(13, 75, 67, 0.09);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
   background:
-    radial-gradient(58% 90% at 14% 4%, rgba(140, 198, 62, 0.12), transparent 62%),
-    radial-gradient(54% 88% at 92% 18%, rgba(185, 116, 85, 0.12), transparent 66%),
-    linear-gradient(180deg, #f3f7f4 0%, #f7f8f4 42%, #fffefa 100%);
-  color: var(--qgm-text, #142824);
+    radial-gradient(58% 90% at 14% 4%, rgba(141, 198, 63, 0.12), transparent 62%),
+    radial-gradient(54% 88% at 92% 18%, rgba(185, 144, 69, 0.1), transparent 66%),
+    linear-gradient(180deg, var(--footer-top) 0%, var(--footer-base) 18%, var(--footer-deep) 100%);
+  color: var(--footer-text);
 }
 
 .footer.footer-flow::before,
@@ -10953,7 +11007,7 @@ select:focus-visible {
   inset: 0 0 auto;
   z-index: -1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(13, 75, 67, 0.08), rgba(185, 116, 85, 0.24), rgba(13, 75, 67, 0.08));
+  background: linear-gradient(90deg, transparent, rgba(198, 236, 139, 0.7), transparent);
 }
 
 .footer.footer-flow::after,
@@ -10963,8 +11017,8 @@ select:focus-visible {
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(90deg, rgba(255, 254, 250, 0.62), transparent 42%),
-    linear-gradient(180deg, rgba(255, 254, 250, 0.46), transparent 38%);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 38%);
   pointer-events: none;
 }
 
@@ -10988,10 +11042,10 @@ select:focus-visible {
 .footer.footer-flow h3,
 .app-shell:has(.josh-home) .footer.footer-flow h3 {
   margin: 0 0 16px;
-  color: var(--qgm-primary-dark, #07352f);
+  color: #c6ec8b;
   font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 0.72rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -10999,7 +11053,7 @@ select:focus-visible {
 .footer.footer-flow p,
 .app-shell:has(.josh-home) .footer.footer-flow p {
   margin: 0 0 12px;
-  color: var(--qgm-muted, #687872);
+  color: var(--footer-muted);
   font-size: 0.95rem;
   line-height: 1.65;
 }
@@ -11011,16 +11065,32 @@ select:focus-visible {
   gap: 9px;
 }
 
+.footer.footer-flow .footer-grid section svg,
+.app-shell:has(.josh-home) .footer.footer-flow .footer-grid section svg {
+  flex: 0 0 auto;
+  color: #c6ec8b;
+}
+
 .footer.footer-flow a,
 .app-shell:has(.josh-home) .footer.footer-flow a {
-  color: var(--qgm-primary, #0d4b43);
+  color: var(--footer-text);
   text-decoration-color: transparent;
+  text-underline-offset: 0.28em;
+  transition:
+    color var(--motion-fast) var(--ease-out),
+    text-decoration-color var(--motion-fast) var(--ease-out);
 }
 
 .footer.footer-flow a:hover,
 .app-shell:has(.josh-home) .footer.footer-flow a:hover {
-  color: var(--qgm-clay-dark, #9b5f43);
-  text-decoration-color: rgba(185, 116, 85, 0.42);
+  color: #c6ec8b;
+  text-decoration-color: rgba(198, 236, 139, 0.56);
+}
+
+.footer.footer-flow a:focus-visible,
+.app-shell:has(.josh-home) .footer.footer-flow a:focus-visible {
+  border-radius: 2px;
+  outline-color: #c6ec8b;
 }
 
 .footer.footer-flow .footer-bottom,
@@ -11029,9 +11099,9 @@ select:focus-visible {
   flex-wrap: wrap;
   gap: 10px 24px;
   margin-top: 0;
-  border-top: 1px solid rgba(13, 75, 67, 0.09);
+  border-top: 1px solid var(--footer-line);
   padding-top: 22px;
-  color: rgba(104, 120, 114, 0.9);
+  color: var(--footer-muted);
   font-size: 0.84rem;
   line-height: 1.6;
 }
@@ -11054,13 +11124,19 @@ select:focus-visible {
     gap: 28px;
     padding: 64px 22px 28px;
     background:
-      radial-gradient(100% 70% at 0% 0%, rgba(140, 198, 62, 0.14), transparent 66%),
-      linear-gradient(180deg, #f3f7f4 0%, #f7f8f4 52%, #fffefa 100%);
+      radial-gradient(100% 70% at 0% 0%, rgba(141, 198, 63, 0.14), transparent 66%),
+      linear-gradient(180deg, var(--footer-top) 0%, var(--footer-base) 42%, var(--footer-deep) 100%);
   }
 
   .footer.footer-flow .footer-grid,
   .app-shell:has(.josh-home) .footer.footer-flow .footer-grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer.footer-flow .footer-grid section + section,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-grid section + section {
+    border-top: 1px solid var(--footer-line);
+    padding-top: 28px;
   }
 
   .footer.footer-flow .footer-bottom,

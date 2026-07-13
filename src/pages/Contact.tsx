@@ -47,25 +47,22 @@ export default function Contact() {
         <div>
           <SectionHeader
             title="Get in touch"
-            text="Use this form for questions, prayer requests, or your first Sunday with us."
+            text="Call or email us with questions, prayer requests, or help planning your first Sunday."
           />
-          <form className="contact-form" onSubmit={(event) => event.preventDefault()}>
-            <label>
-              Name
-              <input type="text" placeholder="Your name" />
-            </label>
-            <label>
-              Email
-              <input type="email" placeholder="you@example.com" />
-            </label>
-            <label>
-              Message
-              <textarea rows={6} placeholder="How can we help or pray?" />
-            </label>
-            <button className="button primary" type="submit">
-              Send Message
-            </button>
-          </form>
+          <div className="contact-form" aria-label="Church contact options">
+            <a className="button primary" href={churchInfo.contact.emailHref}>
+              Email the Church
+            </a>
+            <a className="button secondary" href={churchInfo.contact.phoneHref}>
+              Call {churchInfo.contact.phone}
+            </a>
+            <a className="text-link" href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
+              Open directions
+            </a>
+            <p>
+              Prayer requests may be sent by email. Please avoid including sensitive medical or financial information.
+            </p>
+          </div>
         </div>
         <aside className="contact-card">
           <h2>Christ Tamil Church Chicago</h2>

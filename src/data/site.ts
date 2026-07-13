@@ -457,22 +457,25 @@ export const churchEvents: ChurchEvent[] = [
 
 export const sermons = [
   {
-    title: "Christ Our Hope",
-    speaker: "Rev. Jagan Samuelraj",
-    date: "Latest Message",
-    text: "A biblical message for worship, renewal, and faithful witness."
+    title: "Kingdom of God",
+    speaker: "Dr. John Raju",
+    date: "September 26, 2021",
+    text: "Legacy sermon archive recording.",
+    href: "https://fb.watch/8oO_aqBPfE/"
   },
   {
-    title: "Faith for the Family",
+    title: "Justice and Mercy",
     speaker: "Rev. Godwin Kanaka Raj",
-    date: "Archive",
-    text: "Teaching that encourages homes to follow Christ in daily life."
+    date: "September 12, 2021",
+    text: "Legacy sermon archive recording.",
+    href: "https://fb.watch/86tjNogahZ/"
   },
   {
-    title: "Prayer and Perseverance",
-    speaker: "Guest Speaker",
-    date: "Archive",
-    text: "A sermon focused on steadfast prayer and trust in God."
+    title: "Who Do You Say I Am?",
+    speaker: "Rev. Jagan Sathiya Seelan",
+    date: "September 5, 2021",
+    text: "Legacy sermon archive recording.",
+    href: "https://fb.watch/86t7RYQz7h/"
   }
 ];
 

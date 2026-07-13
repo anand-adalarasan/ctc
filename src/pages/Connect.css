@@ -1,0 +1,609 @@
+.connect-page {
+  color: var(--ink);
+  background: #fff;
+}
+
+.connect-shell {
+  width: min(calc(100% - 48px), var(--container));
+  margin-inline: auto;
+}
+
+.connect-band {
+  padding: clamp(72px, 8vw, 116px) 0;
+}
+
+.connect-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 760ms var(--ease-out), transform 760ms var(--ease-out);
+}
+
+.connect-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.connect-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  margin: 0 0 18px;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.connect-eyebrow::after {
+  width: 38px;
+  height: 1px;
+  background: var(--gold);
+  content: "";
+  opacity: .55;
+}
+
+.connect-heading h2,
+.connect-fellowship-copy h2,
+.connect-care h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 4.4vw, 3.75rem);
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1.04;
+}
+
+.connect-heading > p:last-child,
+.connect-fellowship-copy > p,
+.connect-care p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.72;
+}
+
+.connect-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--primary);
+  background: var(--sage);
+  border-radius: var(--radius-pill);
+}
+
+.connect-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--clay-dark);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.connect-text-link svg {
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.connect-text-link:hover svg {
+  transform: translateX(4px);
+}
+
+.connect-page a:focus-visible {
+  outline: 3px solid var(--light);
+  outline-offset: 4px;
+}
+
+.connect-page .connect-hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  min-height: 690px;
+  padding: 0;
+  background: linear-gradient(115deg, #fff 0%, var(--canvas) 63%, var(--sage) 100%);
+  border: 0;
+}
+
+.connect-page .connect-hero::after {
+  position: absolute;
+  inset: 0 0 0 52%;
+  background:
+    radial-gradient(circle at 58% 36%, rgba(141, 198, 63, .22), transparent 36%),
+    linear-gradient(135deg, transparent 49%, rgba(21, 61, 43, .055) 49.2%, transparent 49.5%);
+  content: "";
+  opacity: .7;
+  pointer-events: none;
+}
+
+.connect-hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
+  align-items: center;
+  gap: clamp(64px, 8vw, 118px);
+  padding-block: 100px;
+}
+
+.connect-hero-copy {
+  max-width: 730px;
+  animation: connectFadeUp 760ms var(--ease-out) both;
+}
+
+.connect-hero-kicker {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: max-content;
+  margin: 0 0 20px;
+}
+
+.connect-hero-kicker span[lang="ta"] {
+  color: var(--green-deep);
+  font-family: var(--font-tamil);
+  font-size: clamp(1.3rem, 2.4vw, 2rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.connect-hero-kicker small {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.connect-page .connect-hero h1 {
+  max-width: 10.5ch;
+  margin: 18px 0 28px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(3.8rem, 7vw, 7.2rem);
+  font-weight: 300;
+  letter-spacing: -.03em;
+  line-height: .94;
+}
+
+.connect-page .connect-hero h1 em {
+  color: var(--green-deep);
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.connect-page .connect-hero .connect-hero-lede {
+  max-width: 56ch;
+  margin: 0 0 34px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
+.connect-sunday-card {
+  padding: 34px;
+  background: rgba(255, 254, 250, .97);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 28px 80px rgba(16, 37, 27, .16);
+  animation: connectFadeUp 760ms 140ms var(--ease-out) both;
+}
+
+.connect-card-label {
+  margin: 24px 0 7px;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.connect-sunday-card h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.connect-sunday-card > p:not(.connect-card-label) {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.connect-card-details {
+  display: grid;
+  gap: 13px;
+  margin: 24px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.connect-card-details span {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.connect-card-details svg {
+  flex: 0 0 auto;
+  color: var(--green-deep);
+}
+
+.connect-fellowship-grid {
+  display: grid;
+  grid-template-columns: .92fr 1.08fr;
+  align-items: center;
+  gap: clamp(56px, 9vw, 128px);
+}
+
+.connect-fellowship-photo {
+  position: relative;
+  margin: 0;
+}
+
+.connect-fellowship-photo::after {
+  position: absolute;
+  inset: 22px -22px -22px 22px;
+  z-index: -1;
+  background: var(--primary);
+  border-radius: 18px;
+  content: "";
+}
+
+.connect-fellowship-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 4.2;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  transition: filter var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-out);
+}
+
+.connect-fellowship-photo:hover img {
+  filter: saturate(1.05);
+  transform: scale(1.012);
+}
+
+.connect-fellowship-photo figcaption {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  padding: 9px 13px;
+  color: var(--ink);
+  background: rgba(255, 254, 250, .92);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.connect-fellowship-copy > p {
+  max-width: 58ch;
+  margin: 24px 0;
+}
+
+.connect-fellowship-copy blockquote {
+  margin: 0 0 28px;
+  padding: 22px 0 22px 26px;
+  color: var(--primary);
+  border-left: 2px solid var(--gold);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.connect-traditions {
+  background: var(--canvas);
+}
+
+.connect-traditions-grid {
+  display: grid;
+  grid-template-columns: minmax(270px, .72fr) minmax(0, 1.28fr);
+  align-items: start;
+  gap: clamp(56px, 10vw, 140px);
+}
+
+.connect-traditions .connect-heading {
+  position: sticky;
+  top: 118px;
+}
+
+.connect-heading > p:last-child {
+  max-width: 48ch;
+  margin: 24px 0 0;
+}
+
+.connect-tradition-list {
+  border-top: 1px solid var(--line);
+}
+
+.connect-tradition-list article {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 44px 34px 1fr;
+  gap: 17px;
+  align-items: start;
+  padding: 27px 12px;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left var(--motion-base) var(--ease-out);
+}
+
+.connect-tradition-list article::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(141, 198, 63, .14), transparent);
+  content: "";
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--motion-base) var(--ease-out);
+}
+
+.connect-tradition-list article > * {
+  position: relative;
+}
+
+.connect-tradition-list article:hover {
+  padding-left: 24px;
+}
+
+.connect-tradition-list article:hover::before {
+  transform: scaleY(1);
+}
+
+.connect-tradition-number {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--clay-dark);
+  background: rgba(255, 255, 255, .72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.connect-tradition-list svg {
+  margin-top: 5px;
+  color: var(--green-deep);
+}
+
+.connect-tradition-list h3 {
+  margin: -2px 0 6px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: color var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-out);
+}
+
+.connect-tradition-list article:hover h3 {
+  color: var(--green-deep);
+  font-style: italic;
+  transform: translateX(6px);
+}
+
+.connect-tradition-list p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.connect-care {
+  background: var(--sage);
+}
+
+.connect-care-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .82fr);
+  align-items: center;
+  gap: clamp(64px, 9vw, 132px);
+}
+
+.connect-care-mark {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  color: var(--primary);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-card);
+}
+
+.connect-care-intro .connect-eyebrow {
+  margin-top: 30px;
+}
+
+.connect-care-intro h2 {
+  max-width: 13ch;
+}
+
+.connect-care-intro > p:not(.connect-eyebrow) {
+  max-width: 58ch;
+  margin: 22px 0 0;
+}
+
+.connect-care-invitation {
+  position: relative;
+  padding: clamp(34px, 4.5vw, 54px);
+  background: rgba(255, 254, 250, .94);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+}
+
+.connect-care-invitation::before {
+  display: block;
+  width: 44px;
+  height: 2px;
+  margin-bottom: 26px;
+  background: var(--gold);
+  content: "";
+}
+
+.connect-care-invitation h3 {
+  max-width: 14ch;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1.08;
+}
+
+.connect-care-invitation > p:not(.connect-eyebrow) {
+  max-width: 46ch;
+  margin: 20px 0 28px;
+}
+
+@keyframes connectFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1120px) {
+  .connect-hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(310px, 350px);
+    gap: 48px;
+  }
+
+  .connect-care-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .connect-care-invitation {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 900px) {
+  .connect-page .connect-hero {
+    min-height: auto;
+  }
+
+  .connect-hero-grid,
+  .connect-fellowship-grid,
+  .connect-traditions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .connect-hero-grid {
+    gap: 44px;
+    padding-block: 82px;
+  }
+
+  .connect-sunday-card {
+    max-width: 560px;
+  }
+
+  .connect-fellowship-grid,
+  .connect-traditions-grid {
+    gap: 56px;
+  }
+
+  .connect-fellowship-photo {
+    width: min(72vw, 510px);
+  }
+
+  .connect-traditions .connect-heading {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .connect-shell {
+    width: min(calc(100% - 32px), var(--container));
+  }
+
+  .connect-band {
+    padding: 64px 0;
+  }
+
+  .connect-hero-grid {
+    padding-block: 68px;
+  }
+
+  .connect-page .connect-hero h1 {
+    font-size: clamp(3.15rem, 15vw, 4.6rem);
+  }
+
+  .connect-page .connect-hero .connect-hero-lede {
+    font-size: 16px;
+  }
+
+  .connect-sunday-card {
+    padding: 24px;
+  }
+
+  .connect-fellowship-photo {
+    width: calc(100% - 22px);
+  }
+
+  .connect-fellowship-photo figcaption {
+    right: 10px;
+    bottom: 10px;
+    font-size: 9px;
+  }
+
+  .connect-tradition-list article {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .connect-tradition-list article > svg {
+    display: none;
+  }
+
+  .connect-care-invitation {
+    padding: 28px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connect-page *,
+  .connect-page *::before,
+  .connect-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .connect-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

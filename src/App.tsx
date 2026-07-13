@@ -1,13 +1,13 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Contact from "./pages/Contact";
 import Connect from "./pages/Connect";
-import Faith from "./pages/Faith";
+import Events from "./pages/Events";
 import BibleStudyPrayer from "./pages/BibleStudyPrayer";
 import Grow from "./pages/Grow";
 import Home from "./pages/Home";
 import KidsCircle from "./pages/KidsCircle";
-import Pastors from "./pages/Pastors";
+import NotFound from "./pages/NotFound";
 import Sermons from "./pages/Sermons";
 import Serve from "./pages/Serve";
 import SundaySchool from "./pages/SundaySchool";
@@ -19,6 +19,7 @@ export default function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<Navigate to="/visit#mission" replace />} />
         <Route path="/visit" element={<Visit />} />
         <Route path="/worship" element={<Worship />} />
         <Route path="/grow" element={<Grow />} />
@@ -28,9 +29,22 @@ export default function App() {
         <Route path="/serve" element={<Serve />} />
         <Route path="/sermons" element={<Sermons />} />
         <Route path="/connect" element={<Connect />} />
-        <Route path="/faith" element={<Faith />} />
-        <Route path="/pastors" element={<Pastors />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/faith" element={<Navigate to="/visit#beliefs" replace />} />
+        <Route path="/pastors" element={<Navigate to="/visit#leadership" replace />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/mission" element={<Navigate to="/visit#mission" replace />} />
+        <Route path="/beliefs" element={<Navigate to="/visit#beliefs" replace />} />
+        <Route path="/pastor" element={<Navigate to="/visit#leadership" replace />} />
+        <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
+        <Route path="/bible-study" element={<Navigate to="/grow/bible-study-prayer" replace />} />
+        <Route path="/sunday-school" element={<Navigate to="/grow/sunday-school" replace />} />
+        <Route path="/kids-circle" element={<Navigate to="/grow/kids-circle" replace />} />
+        <Route path="/audio-sermons" element={<Navigate to="/sermons" replace />} />
+        <Route path="/community-outreach" element={<Navigate to="/serve" replace />} />
+        <Route path="/fellowship-hour" element={<Navigate to="/connect" replace />} />
+        <Route path="/annual-church-retreat" element={<Navigate to="/events" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   );

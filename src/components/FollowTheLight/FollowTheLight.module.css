@@ -7,7 +7,7 @@
   --ftl-glide: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   position: relative;
-  height: 430vh;
+  height: 400vh;
   z-index: 5;
   background:
     radial-gradient(circle at 50% 48%, rgba(244, 232, 200, 0.2), transparent 46%),
@@ -140,8 +140,7 @@
 .sub {
   margin: 28px 0 0;
   max-width: 42ch;
-  font-family: "Fraunces", Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
   font-size: clamp(17px, 2.1vw, 25px);
   line-height: 1.5;
   color: var(--ftl-body);
@@ -151,6 +150,117 @@
 
 .scene.on .sub {
   opacity: 1;
+}
+
+.ribbon {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3vh, 30px);
+  width: min(100%, 1180px);
+  margin-top: clamp(34px, 4.5vh, 52px);
+  padding: 0 clamp(14px, 2.6vw, 34px);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s ease 0.34s,
+    transform 0.72s var(--ftl-glide) 0.34s;
+}
+
+.scene.on .ribbon {
+  opacity: 1;
+  transform: none;
+}
+
+.ribbonList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 0;
+  max-width: 1050px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ribbonList li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--ftl-ink);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(20px, 1.75vw, 26px);
+  font-weight: 400;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s var(--ftl-glide);
+}
+
+.scene.on .ribbonList li {
+  opacity: 1;
+  transform: none;
+}
+
+.scene.on .ribbonList li:nth-child(1) { transition-delay: 0.42s; }
+.scene.on .ribbonList li:nth-child(2) { transition-delay: 0.49s; }
+.scene.on .ribbonList li:nth-child(3) { transition-delay: 0.56s; }
+.scene.on .ribbonList li:nth-child(4) { transition-delay: 0.63s; }
+.scene.on .ribbonList li:nth-child(5) { transition-delay: 0.7s; }
+.scene.on .ribbonList li:nth-child(6) { transition-delay: 0.77s; }
+
+.ribbonList li:not(:last-child)::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin: 0 clamp(12px, 1.8vw, 24px);
+  border-radius: 50%;
+  background: var(--ftl-green-deep);
+  box-shadow: 0 0 10px rgba(107, 165, 44, 0.65);
+  align-self: center;
+}
+
+.ribbonList small {
+  color: var(--ftl-body);
+  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.pathwayCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  white-space: nowrap;
+  color: var(--clay-dark, #96702f);
+  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pathwayCta svg {
+  transition: transform 0.18s var(--ftl-glide);
+}
+
+.pathwayCta:hover svg {
+  transform: translateX(3px);
+}
+
+.pathwayCta:focus-visible {
+  border-radius: var(--radius-pill, 999px);
+  outline: 3px solid rgba(107, 165, 44, 0.3);
+  outline-offset: 4px;
 }
 
 .chips {
@@ -336,6 +446,7 @@
 
 .flat .scene .w,
 .flat .scene .sub,
+.flat .scene .ribbon,
 .flat .scene .act,
 .flat .scene .chips,
 .flat .scene .expectGrid,
@@ -350,6 +461,10 @@
 }
 
 @media (max-width: 620px) {
+  .scene {
+    padding-inline: 20px;
+  }
+
   .eyebrow {
     max-width: 28ch;
     justify-content: center;
@@ -360,7 +475,57 @@
 
   .headline {
     max-width: 9.4ch;
-    font-size: clamp(46px, 18vw, 78px);
+    font-size: clamp(42px, 14vw, 64px);
+  }
+
+  .sub {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .ribbon {
+    gap: 14px;
+    width: 100%;
+    margin-top: 22px;
+    padding: 0;
+    text-align: left;
+  }
+
+  .ribbonList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+  }
+
+  .ribbonList li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+    padding: 6px 0;
+    font-size: 18px;
+  }
+
+  .ribbonList li:not(:last-child)::after {
+    width: 18px;
+    height: 1px;
+    margin: 6px 0 0;
+    border-radius: 0;
+    background: var(--ftl-gold);
+    box-shadow: none;
+  }
+
+  .ribbonList small {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .pathwayCta {
+    justify-content: center;
+    min-height: 44px;
   }
 
   .expectGrid {
@@ -373,10 +538,28 @@
   }
 }
 
+@media (max-height: 720px) and (min-width: 621px) {
+  .headline {
+    font-size: clamp(44px, 8vw, 96px);
+  }
+
+  .sub {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .ribbon {
+    margin-top: 24px;
+    padding-block: 14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scene,
   .w,
   .sub,
+  .ribbon,
+  .pathwayCta svg,
   .act,
   .chips,
   .expectGrid,

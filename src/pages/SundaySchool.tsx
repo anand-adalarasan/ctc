@@ -1,258 +1,57 @@
+import { ArrowRight, BookOpen, CalendarDays, Heart, Lightbulb, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  ArrowRight,
-  BookOpen,
-  CalendarDays,
-  Heart,
-  HeartHandshake,
-  Lightbulb,
-  School,
-  ShieldCheck,
-  Sparkles,
-  UsersRound
-} from "lucide-react";
-import {
-  ChildMinistryHeroCard,
-  MinistryFeatureGrid,
-  ParentFamilyCta,
-  RelatedGrowPages
-} from "../components/ChildrenMinistry";
 import SectionHeader from "../components/SectionHeader";
+import { siteImages } from "../data/images";
+import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./SundaySchool.css";
 
-const blastItems = [
-  {
-    letter: "B",
-    word: "Bible",
-    text: "Children learn the truth of God's Word."
-  },
-  {
-    letter: "L",
-    word: "Learning",
-    text: "Lessons are taught in a way children can understand and remember."
-  },
-  {
-    letter: "A",
-    word: "And",
-    text: "Faith grows through connection, questions, and encouragement."
-  },
-  {
-    letter: "S",
-    word: "Spiritual",
-    text: "Children are guided to grow in their relationship with God."
-  },
-  {
-    letter: "T",
-    word: "Training",
-    text: "Children are equipped to follow Jesus in everyday life."
-  }
+const blast = [
+  { letter: "B", word: "Bible", text: "Children discover the truth and story of God’s Word." },
+  { letter: "L", word: "Learning", text: "Memorable lessons meet children at their level." },
+  { letter: "A", word: "And", text: "Questions, friendships, and encouragement happen together." },
+  { letter: "S", word: "Spiritual", text: "Young faith is nurtured with prayer, worship, and care." },
+  { letter: "T", word: "Training", text: "Children practice following Jesus in everyday life." }
 ];
 
-const experienceItems = [
-  {
-    title: "Gospel-Centered Lessons",
-    text: "Children experience the gospel of Jesus Christ through Bible-based teaching.",
-    icon: BookOpen
-  },
-  {
-    title: "Experienced Leaders",
-    text: "Caring leaders guide children with patience, wisdom, and love.",
-    icon: HeartHandshake
-  },
-  {
-    title: "Age-Appropriate Learning",
-    text: "Lessons and activities are designed to help children understand and apply God's Word.",
-    icon: Lightbulb
-  },
-  {
-    title: "Loved by God's Family",
-    text: "Our hope is that every child knows the love of God and the love of God's family.",
-    icon: Heart
-  }
-];
-
-const visitorChecklist = [
-  "Kids of all ages welcome",
-  "Bible-based teaching",
-  "Caring leaders",
-  "Child-friendly learning",
-  "Family-centered church community"
-];
-
-const relatedGrowPages = [
-  {
-    title: "Kids Circle",
-    text: "A joyful time during Sunday service where children learn God's Word and Biblical values.",
-    href: "/grow/kids-circle",
-    icon: UsersRound
-  },
-  {
-    title: "Bible Study / Prayer",
-    text: "Grow in God's Word and prayer with the church family.",
-    href: "/grow/bible-study-prayer",
-    icon: BookOpen
-  },
-  {
-    title: "Audio Sermons",
-    text: "Listen to Scripture-based teaching and messages.",
-    href: "/sermons",
-    icon: School
-  }
+const related = [
+  { title: "Kids Circle", meta: "During Sunday worship", href: "/grow/kids-circle", icon: Sparkles },
+  { title: "Bible Study & Prayer", meta: "Adults & families", href: "/grow/bible-study-prayer", icon: BookOpen },
+  { title: "Worship", meta: "What to expect this Sunday", href: "/worship", icon: Heart }
 ];
 
 export default function SundaySchool() {
-  const introRef = useRevealOnScroll<HTMLElement>();
-  const acronymRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
-  const experienceRef = useRevealOnScroll<HTMLElement>();
-  const scheduleRef = useRevealOnScroll<HTMLElement>();
-  const relatedRef = useRevealOnScroll<HTMLDivElement>();
-  const parentCtaRef = useRevealOnScroll<HTMLDivElement>();
+  const blastRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
+  const parentRef = useRevealOnScroll<HTMLElement>();
 
-  return (
-    <>
-      <section className="page-hero sunday-school-hero">
-        <div className="sunday-school-hero-copy">
-          <span className="eyebrow">Grow</span>
-          <h1>
-            Helping children grow strong in{" "}
-            <span className="accent">God's Word.</span>
-          </h1>
-          <p>
-            Through B.L.A.S.T. &mdash; Bible Learning And Spiritual Training
-            &mdash; children experience the gospel of Jesus Christ in a joyful,
-            memorable, and age-appropriate way.
-          </p>
-        </div>
-
-        <ChildMinistryHeroCard
-          className="blast-hero-card"
-          iconClassName="blast-card-icon"
-          icon={Sparkles}
-          title="B.L.A.S.T."
-          titleId="blast-card-title"
-          subtitle="Bible Learning And Spiritual Training"
-          details={[
-            { icon: CalendarDays, text: "Every Sunday" },
-            { icon: BookOpen, text: "During sermon / children's ministry time" },
-            { icon: UsersRound, text: "Kids of all ages welcome" }
-          ]}
-          buttonText="Plan a Visit"
-          buttonHref="/visit"
-        />
-      </section>
-
-      <section
-        className="section sunday-school-intro-section reveal"
-        ref={introRef}
-      >
-        <article className="blast-intro-card">
-          <span className="eyebrow">Sunday School</span>
-          <h2>Join In. Team Up. Get Strong. Keep On. Celebrate.</h2>
-          <p>
-            At Christ Tamil Church, we believe children grow spiritually as they
-            learn God's Word, obey His teaching, and share the joy, peace, and
-            love of Christ with others. Sunday School is a place where children
-            are welcomed, taught, encouraged, and loved.
-          </p>
-        </article>
-      </section>
-
-      <section
-        className="section blast-acronym-section reveal"
-        ref={acronymRef}
-      >
-        <SectionHeader
-          eyebrow="Bible Learning And Spiritual Training"
-          title="What is B.L.A.S.T.?"
-        />
-        <div className="blast-acronym-grid">
-          {blastItems.map((item) => (
-            <article
-              className="blast-acronym-card"
-              key={item.letter}
-              data-reveal-child
-            >
-              <span aria-hidden="true">{item.letter}</span>
-              <div>
-                <h3>{item.word}</h3>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="blast-experience-band reveal" ref={experienceRef}>
-        <div className="blast-experience-inner">
-          <SectionHeader
-            eyebrow="Children's Ministry"
-            title="A Sunday School Experience Children Remember"
-            align="center"
-          />
-          <MinistryFeatureGrid
-            items={experienceItems}
-            gridClassName="blast-experience-grid"
-            cardClassName="blast-experience-card"
-          />
-        </div>
-      </section>
-
-      <section
-        className="section blast-schedule-section reveal"
-        ref={scheduleRef}
-      >
-        <SectionHeader title="When Sunday School Happens" />
-        <article className="blast-schedule-card">
-          <div>
-            <span className="blast-schedule-icon" aria-hidden="true">
-              <CalendarDays size={26} />
-            </span>
-            <h3>Sunday School</h3>
-            <strong>Every Sunday</strong>
-            <p>
-              Classes begin as the church gets ready for God's Message / Sermon.
-            </p>
-          </div>
-          <div>
-            <span className="blast-schedule-icon" aria-hidden="true">
-              <ShieldCheck size={26} />
-            </span>
-            <h3>Children's Ministry</h3>
-            <strong>Kids of all ages are welcome.</strong>
-            <p>
-              Experienced leaders use strong Bible study resources to present
-              the gospel in a way children will remember.
-            </p>
-          </div>
-          <Link className="blast-schedule-link" to="/contact">
-            Contact us
-            <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-        </article>
-      </section>
-
-      <div className="reveal" ref={relatedRef}>
-        <RelatedGrowPages
-          sectionClassName="blast-related-section"
-          gridClassName="blast-related-grid"
-          cardClassName="blast-related-card"
-          pages={relatedGrowPages}
-        />
+  return <>
+    <section className="ss-hero" aria-labelledby="ss-title">
+      <div className="ss-hero-copy">
+        <span className="ss-hero-kicker"><span lang="ta">ஞாயிறு பள்ளி</span><small>Grow</small></span>
+        <h1 id="ss-title">Helping children grow strong in <em>God’s Word.</em></h1>
+        <p>B.L.A.S.T.—Bible Learning And Spiritual Training—helps children experience the gospel in a joyful, memorable, and age-appropriate way.</p>
+        <Link className="ss-primary" to="/visit">Plan a family visit <ArrowRight size={17}/></Link>
       </div>
-
-      <div className="reveal" ref={parentCtaRef}>
-        <ParentFamilyCta
-          className="blast-parent-cta"
-          panelClassName="blast-parent-panel"
-          actionsClassName="blast-parent-actions"
-          eyebrow="For Parents"
-          title="Bringing your child for the first time?"
-          titleId="blast-parent-title"
-          text="We would love to welcome your family. Our children's ministry is designed to be warm, safe, joyful, and rooted in God's Word."
-          checklist={visitorChecklist}
-        />
+      <div className="ss-hero-visual">
+        <img src={siteImages.sundaySchool.src} alt={siteImages.sundaySchool.alt} width="1200" height="900" style={{objectPosition:siteImages.sundaySchool.objectPosition}} />
+        <aside className="ss-hero-card" aria-label="Sunday School details"><span>Every Sunday</span><strong>B.L.A.S.T.</strong><p>Bible Learning And Spiritual Training</p><ul><li><CalendarDays size={16}/> During the sermon</li><li><UsersRound size={16}/> Kids of all ages welcome</li></ul><Link to="/contact">Ask a parent question <ArrowRight size={14}/></Link></aside>
       </div>
-    </>
-  );
+    </section>
+
+    <section className="ss-blast reveal" ref={blastRef} aria-labelledby="ss-blast-title">
+      <SectionHeader eyebrow="Join in · Team up · Get strong" title="What B.L.A.S.T. means" text="Five simple ideas shape a Sunday School experience children can understand and remember." />
+      <div className="ss-blast-list" id="ss-blast-title">{blast.map((item,index)=><article className="ss-blast-row" key={item.letter} data-reveal-child><span className="ss-row-number">{String(index+1).padStart(2,"0")}</span><strong>{item.letter}</strong><div><h3>{item.word}</h3><p>{item.text}</p></div></article>)}</div>
+    </section>
+
+    <section className="ss-parent-band reveal" ref={parentRef} aria-labelledby="ss-parent-title">
+      <div className="ss-parent-image"><img src={siteImages.kidsMinistry.src} alt={siteImages.kidsMinistry.alt} loading="lazy" width="1200" height="900" style={{objectPosition:siteImages.kidsMinistry.objectPosition}} /></div>
+      <div className="ss-parent-copy"><span className="eyebrow">For parents</span><h2 id="ss-parent-title">A Sunday School experience built on trust.</h2><p>Experienced leaders use strong Bible resources to present the gospel with warmth, clarity, and care. Our hope is that every child knows the love of God and the love of God’s family.</p><ul><li><ShieldCheck size={18}/><span>Caring, experienced leaders</span></li><li><Lightbulb size={18}/><span>Age-appropriate Bible learning</span></li><li><Heart size={18}/><span>A welcoming church family</span></li></ul></div>
+    </section>
+
+    <section className="ss-difference" aria-labelledby="ss-difference-title"><div><span className="eyebrow">Two moments · One purpose</span><h2 id="ss-difference-title">Kids Circle and Sunday School are different.</h2><p>Both help children know God’s love, but each has a distinct place in the Sunday experience.</p></div><div className="ss-difference-rows"><Link to="/grow/kids-circle"><span>During worship</span><strong>Kids Circle</strong><p>A brief, child-friendly teaching moment as part of the service.</p><ArrowRight size={17}/></Link><article><span>During the sermon</span><strong>B.L.A.S.T. Sunday School</strong><p>A fuller, structured time of Bible learning and spiritual formation.</p><BookOpen size={19}/></article></div></section>
+
+    <section className="ss-verse" aria-labelledby="ss-verse-title"><blockquote><p>“Let the little children come to me.”</p><cite>Matthew 19:14</cite></blockquote><div><span className="eyebrow">Children belong here</span><h2 id="ss-verse-title">Faith can take root at every age.</h2><p>Children are not an interruption to church life. They are a treasured part of our church family, learning to worship and follow Jesus alongside us.</p></div></section>
+
+    <section className="ss-related" aria-labelledby="ss-related-title"><SectionHeader eyebrow="Continue growing" title="More for your family"/><div className="ss-related-list" id="ss-related-title">{related.map((item,index)=>{const Icon=item.icon;return <Link to={item.href} key={item.title}><span>{String(index+1).padStart(2,"0")}</span><Icon size={20}/><div><strong>{item.title}</strong><small>{item.meta}</small></div><ArrowRight size={17}/></Link>;})}</div><p className="ss-sunday-note">Join us {churchInfo.worship.schedule}. We’ll help your family know where to go when you arrive.</p></section>
+  </>;
 }

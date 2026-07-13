@@ -1,213 +1,56 @@
+import { ArrowRight, BookOpen, CalendarDays, Heart, MessageCircleQuestion, Search, ShieldCheck, Sparkles, Sprout, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  BookOpen,
-  CalendarDays,
-  Heart,
-  HeartHandshake,
-  MessageCircleQuestion,
-  Search,
-  ShieldCheck,
-  Sparkles,
-  Sprout,
-  UsersRound
-} from "lucide-react";
-import {
-  BlastAcronymStrip,
-  ChildMinistryHeroCard,
-  MinistryFeatureGrid,
-  ParentFamilyCta,
-  RelatedGrowPages
-} from "../components/ChildrenMinistry";
 import SectionHeader from "../components/SectionHeader";
+import { siteImages } from "../data/images";
+import { churchInfo } from "../data/site";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import "./KidsCircle.css";
 
-const experienceItems = [
-  {
-    title: "Learn",
-    text: "Children learn God's Word in a simple and meaningful way.",
-    icon: BookOpen
-  },
-  {
-    title: "Grow",
-    text: "Children are encouraged to grow in faith and character.",
-    icon: Sprout
-  },
-  {
-    title: "Discover",
-    text: "Children discover God's love and Biblical truth.",
-    icon: Search
-  },
-  {
-    title: "Ask Questions",
-    text: "Children are welcomed to ask, wonder, and understand.",
-    icon: MessageCircleQuestion
-  },
-  {
-    title: "Make Friends",
-    text: "Children build friendships in a caring church family.",
-    icon: UsersRound
-  },
-  {
-    title: "Be Loved",
-    text: "Children experience the love of God and the love of His people.",
-    icon: Heart
-  }
+const experiences = [
+  { title: "Learn", text: "Hear God’s Word in a simple, memorable way.", icon: BookOpen },
+  { title: "Discover", text: "Explore God’s love and biblical values.", icon: Search },
+  { title: "Ask", text: "Wonder, question, and grow in understanding.", icon: MessageCircleQuestion },
+  { title: "Belong", text: "Make friends and be loved by God’s family.", icon: UsersRound }
 ];
 
-const sundayServiceItems = [
-  {
-    title: "Brief & Meaningful",
-    text: "Short lessons designed for children's attention and understanding.",
-    icon: Sparkles
-  },
-  {
-    title: "Bible-Based",
-    text: "Teaching rooted in God's Word and Biblical values.",
-    icon: BookOpen
-  },
-  {
-    title: "Warm & Safe",
-    text: "A loving environment where children are welcomed and cared for.",
-    icon: ShieldCheck
-  }
-];
-
-const blastStrip = ["Bible", "Learning", "And", "Spiritual", "Training"];
-
-const visitorChecklist = [
-  "During Sunday service",
-  "Child-friendly Bible teaching",
-  "Safe and loving environment",
-  "Encourages questions and discovery",
-  "Connected to Sunday School ministry"
-];
-
-const relatedGrowPages = [
-  {
-    title: "Sunday School - B.L.A.S.T.",
-    text: "Bible Learning And Spiritual Training for children of all ages.",
-    href: "/grow/sunday-school",
-    icon: Sparkles
-  },
-  {
-    title: "Bible Study / Prayer",
-    text: "Grow in God's Word and prayer with the church family.",
-    href: "/grow/bible-study-prayer",
-    icon: BookOpen
-  },
-  {
-    title: "Worship",
-    text: "Learn what to expect during Sunday worship.",
-    href: "/worship",
-    icon: HeartHandshake
-  }
+const related = [
+  { title: "Sunday School · B.L.A.S.T.", meta: "Structured Bible learning", href: "/grow/sunday-school", icon: Sparkles },
+  { title: "Bible Study & Prayer", meta: "For adults & families", href: "/grow/bible-study-prayer", icon: BookOpen },
+  { title: "Worship", meta: "See the full Sunday experience", href: "/worship", icon: Heart }
 ];
 
 export default function KidsCircle() {
-  return (
-    <>
-      <section className="page-hero kids-circle-hero">
-        <div className="kids-circle-hero-copy">
-          <span className="eyebrow">Grow</span>
-          <h1>A joyful place for children to bud and bloom.</h1>
-          <p>
-            During Sunday service, Kids Circle helps children learn God's Word,
-            discover Biblical values, ask questions, make friends, and
-            experience God's love.
-          </p>
-        </div>
+  const experienceRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
+  const parentRef = useRevealOnScroll<HTMLElement>();
 
-        <ChildMinistryHeroCard
-          className="kids-hero-card"
-          iconClassName="kids-card-icon"
-          icon={Sprout}
-          title="Kids Circle"
-          titleId="kids-circle-card-title"
-          details={[
-            { icon: CalendarDays, text: "During Sunday Service" },
-            { icon: BookOpen, text: "Brief Bible teaching" },
-            { icon: Heart, text: "Biblical values" },
-            { icon: ShieldCheck, text: "Safe, loving, child-friendly" }
-          ]}
-          buttonText="I'm New"
-          buttonHref="/visit"
-        />
-      </section>
+  return <>
+    <section className="kc-hero" aria-labelledby="kc-title">
+      <div className="kc-hero-copy">
+        <span className="kc-hero-kicker"><span lang="ta">குழந்தைகள் வட்டம்</span><small>Grow</small></span>
+        <h1 id="kc-title">A little space for faith to <em>bud and bloom.</em></h1>
+        <p>During Sunday worship, Kids Circle gives children a brief, joyful place to hear God’s Word, ask questions, make friends, and know they are loved.</p>
+        <Link className="kc-primary" to="/visit">Plan a family visit <ArrowRight size={17}/></Link>
+      </div>
+      <div className="kc-hero-visual">
+        <img src={siteImages.kidsMinistry.src} alt={siteImages.kidsMinistry.alt} width="1200" height="900" style={{objectPosition:siteImages.kidsMinistry.objectPosition}} />
+        <aside className="kc-hero-card" aria-label="Kids Circle details"><span>During Sunday worship</span><strong>Kids Circle</strong><p>Brief Bible teaching and biblical values for young hearts.</p><ul><li><CalendarDays size={16}/> Every Sunday</li><li><ShieldCheck size={16}/> Warm and child-friendly</li></ul><Link to="/contact">Ask a parent question <ArrowRight size={14}/></Link></aside>
+      </div>
+    </section>
 
-      <section className="section kids-intro-section">
-        <article className="kids-intro-card">
-          <span className="eyebrow">Children's Ministry</span>
-          <h2>Bud &amp; Bloom</h2>
-          <p>
-            At Christ Tamil Church, we believe every child is a unique gift
-            from God. Kids Circle gives children a warm and joyful place to
-            learn, grow, discover, ask questions, build friendships, and be
-            loved.
-          </p>
-          {/* TODO: Add a children's ministry image here when a high-quality church photo is available. */}
-        </article>
-      </section>
+    <section className="kc-experience reveal" ref={experienceRef} aria-labelledby="kc-experience-title">
+      <SectionHeader eyebrow="A joyful moment in worship" title="What children experience" text="Kids Circle is intentionally brief, accessible, and full of opportunities for children to participate." />
+      <div className="kc-experience-list" id="kc-experience-title">{experiences.map((item,index)=>{const Icon=item.icon;return <article className="kc-experience-row" key={item.title} data-reveal-child><span className="kc-row-number">{String(index+1).padStart(2,"0")}</span><span className="kc-row-icon"><Icon size={21}/></span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>;})}</div>
+    </section>
 
-      <section className="section kids-experience-section">
-        <SectionHeader title="What Children Experience" />
-        <MinistryFeatureGrid
-          items={experienceItems}
-          gridClassName="kids-experience-grid"
-          cardClassName="kids-experience-card"
-          iconSize={23}
-        />
-      </section>
+    <section className="kc-parent-band reveal" ref={parentRef} aria-labelledby="kc-parent-title">
+      <div className="kc-parent-copy"><span className="eyebrow">For parents</span><h2 id="kc-parent-title">Brief, meaningful, and part of worship.</h2><p>Kids Circle is not a separate children’s service. It is a welcoming moment within Sunday worship where children receive concise Bible teaching before continuing through the service with their family.</p><ul><li><Sparkles size={18}/><span>Designed for children’s attention</span></li><li><BookOpen size={18}/><span>Rooted in God’s Word</span></li><li><ShieldCheck size={18}/><span>Led with warmth and care</span></li></ul></div>
+      <div className="kc-parent-image"><img src={siteImages.sundaySchool.src} alt={siteImages.sundaySchool.alt} loading="lazy" width="1200" height="900" style={{objectPosition:siteImages.sundaySchool.objectPosition}} /></div>
+    </section>
 
-      <section className="kids-service-band">
-        <div className="kids-service-inner">
-          <SectionHeader
-            eyebrow="Sunday Worship"
-            title="Designed for Sunday Worship"
-            text="Kids Circle happens during Sunday service and teaches God's Word and Biblical values in a brief, concise, and child-friendly way."
-            align="center"
-          />
-          <MinistryFeatureGrid
-            items={sundayServiceItems}
-            gridClassName="kids-service-grid"
-            cardClassName="kids-service-card"
-          />
-        </div>
-      </section>
+    <section className="kc-blast" aria-labelledby="kc-blast-title"><div><span className="eyebrow">The next step for children</span><h2 id="kc-blast-title">Kids Circle opens the door. B.L.A.S.T. goes deeper.</h2><p>Both are part of our children’s ministry. Kids Circle is the brief teaching moment during worship; B.L.A.S.T. Sunday School offers structured Bible Learning And Spiritual Training during the sermon.</p><Link to="/grow/sunday-school">Explore B.L.A.S.T. Sunday School <ArrowRight size={15}/></Link></div><div className="kc-blast-words" aria-label="B.L.A.S.T. means Bible Learning And Spiritual Training"><span><strong>B</strong>Bible</span><span><strong>L</strong>Learning</span><span><strong>A</strong>And</span><span><strong>S</strong>Spiritual</span><span><strong>T</strong>Training</span></div></section>
 
-      <section className="section kids-blast-section">
-        <div className="kids-blast-layout">
-          <div>
-            <span className="eyebrow">B.L.A.S.T.</span>
-            <h2>Part of B.L.A.S.T. Children's Ministry</h2>
-            <p>
-              Kids Circle is part of B.L.A.S.T. &mdash; Bible Learning And
-              Spiritual Training &mdash; Christ Tamil Church's children's
-              ministry where kids experience the gospel of Jesus Christ.
-            </p>
-            <Link className="button primary" to="/grow/sunday-school">
-              Learn About Sunday School
-            </Link>
-          </div>
-          <BlastAcronymStrip className="kids-blast-strip" words={blastStrip} />
-        </div>
-      </section>
+    <section className="kc-verse" aria-labelledby="kc-verse-title"><blockquote><p>“Children are a gift from the Lord.”</p><cite>Psalm 127:3</cite></blockquote><div><span className="eyebrow">Bud & bloom</span><h2 id="kc-verse-title">Every child is a unique gift from God.</h2><p>We want children to know God’s love and experience the love of His people in a church family where they can learn, grow, discover, and belong.</p></div></section>
 
-      <ParentFamilyCta
-        className="kids-parent-cta"
-        panelClassName="kids-parent-panel"
-        actionsClassName="kids-parent-actions"
-        eyebrow="First-Time Families"
-        title="Bringing your child for the first time?"
-        titleId="kids-parent-title"
-        text="We would love to welcome your family. Kids Circle is designed to help children feel comfortable, loved, and included during Sunday worship."
-        checklist={visitorChecklist}
-      />
-
-      <RelatedGrowPages
-        sectionClassName="kids-related-section"
-        gridClassName="kids-related-grid"
-        cardClassName="kids-related-card"
-        pages={relatedGrowPages}
-      />
-    </>
-  );
+    <section className="kc-related" aria-labelledby="kc-related-title"><SectionHeader eyebrow="Continue growing" title="More for your family"/><div className="kc-related-list" id="kc-related-title">{related.map((item,index)=>{const Icon=item.icon;return <Link to={item.href} key={item.title}><span>{String(index+1).padStart(2,"0")}</span><Icon size={20}/><div><strong>{item.title}</strong><small>{item.meta}</small></div><ArrowRight size={17}/></Link>;})}</div><p className="kc-sunday-note">Join us {churchInfo.worship.schedule}. We’ll help your family know what to expect when you arrive.</p></section>
+  </>;
 }

@@ -1,74 +1,10 @@
 import { useEffect, useRef } from "react";
-import { churchInfo } from "../../data/site";
-import { getTodayVerse } from "../../data/verses";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ministryPathways } from "../../data/ministryPathways";
 import styles from "./FollowTheLight.module.css";
 
-type Scene = {
-  eyebrow: string;
-  eyebrowTamil?: string;
-  words: string[];
-  sub: string;
-  cite?: string;
-  chips?: string[];
-  expect?: Array<{ title: string; text: string }>;
-  verse?: {
-    english: string;
-    tamil: string;
-    reference: string;
-    tamilReference: string;
-  };
-  cta?: { label: string; href: string };
-};
-
-const todayVerse = getTodayVerse();
-
-const SCENES: Scene[] = [
-  {
-    eyebrow: "Every Sunday",
-    words: ["Three", "lights,", "one", "morning."],
-    sub: "One morning shaped by worship, God's Word, and fellowship - come for one, stay for all three. There's a place for every age.",
-    chips: ["Worship", "Word", "Fellowship"]
-  },
-  {
-    eyebrow: "Our mission",
-    eyebrowTamil: "எங்கள் நோக்கம்",
-    words: ["Alive", "in", "Christ."],
-    sub: "We gather as a Tamil church family to love God, love people, make disciples, and grow in a real relationship with Jesus.",
-    cite: "Rooted in Christ. United in Love. Sent to Serve."
-  },
-  {
-    eyebrow: "What to Expect",
-    words: ["Come", "as", "you", "are."],
-    sub: "A simple Sunday rhythm for first-time visitors and longtime families.",
-    expect: [
-      {
-        title: "Tamil & English worship",
-        text: "Songs, prayer, Scripture, and teaching for the whole church family."
-      },
-      {
-        title: "Families welcome",
-        text: "Children, youth, parents, and elders all have a place to belong."
-      },
-      {
-        title: "Prayer & fellowship",
-        text: "Stay after service for conversation, encouragement, and shared life."
-      }
-    ]
-  },
-  {
-    eyebrow: "Today’s verse",
-    eyebrowTamil: "இன்றைய வசனம்",
-    words: ["Today's", "verse."],
-    sub: todayVerse.english,
-    verse: todayVerse
-  },
-  {
-    eyebrow: "This Sunday · everyone welcome",
-    words: ["Come", "home."],
-    sub: `Worship with us in Tamil & English - Sundays at ${churchInfo.worship.time}, ${churchInfo.address.short}.`,
-    cta: { label: "Plan your visit", href: "/visit" }
-  }
-];
+const SCENES = ministryPathways;
 
 export default function FollowTheLight() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -93,27 +29,25 @@ export default function FollowTheLight() {
       ticking = false;
       const rect = section.getBoundingClientRect();
       const total = section.offsetHeight - window.innerHeight;
-      let p = total > 0 ? -rect.top / total : 0;
-      p = Math.min(1, Math.max(0, p));
+      let progress = total > 0 ? -rect.top / total : 0;
+      progress = Math.min(1, Math.max(0, progress));
 
-      const n = SCENES.length;
-      let idx = Math.floor(p * n);
-      if (idx >= n) idx = n - 1;
-      if (idx < 0) idx = 0;
+      const sceneCount = SCENES.length;
+      const activeIndex = Math.min(sceneCount - 1, Math.max(0, Math.floor(progress * sceneCount)));
 
-      sceneRefs.current.forEach((scene, i) => {
+      sceneRefs.current.forEach((scene, index) => {
         if (!scene) return;
-        scene.classList.toggle(styles.on, i === idx);
-        scene.classList.toggle(styles.past, i < idx);
+        scene.classList.toggle(styles.on, index === activeIndex);
+        scene.classList.toggle(styles.past, index < activeIndex);
       });
 
       if (auraRef.current) {
-        auraRef.current.style.transform = `translate(-50%, -50%) scale(${(0.45 + p).toFixed(3)})`;
-        auraRef.current.style.opacity = (0.35 + p * 0.5).toFixed(3);
+        auraRef.current.style.transform = `translate(-50%, -50%) scale(${(0.45 + progress).toFixed(3)})`;
+        auraRef.current.style.opacity = (0.35 + progress * 0.5).toFixed(3);
       }
 
       if (barRef.current) {
-        barRef.current.style.width = `${(p * 100).toFixed(2)}%`;
+        barRef.current.style.width = `${(progress * 100).toFixed(2)}%`;
       }
     };
 
@@ -134,80 +68,50 @@ export default function FollowTheLight() {
   }, []);
 
   return (
-    <section ref={sectionRef} className={styles.section} aria-label="Follow the light">
+    <section ref={sectionRef} className={styles.section} aria-label="Our life together">
       <div className={styles.pin}>
         <div ref={auraRef} className={styles.aura} aria-hidden="true" />
 
-        {SCENES.map((scene, i) => (
+        {SCENES.map((scene, sceneIndex) => (
           <div
-            key={scene.eyebrow}
-            ref={(el) => {
-              sceneRefs.current[i] = el;
+            key={scene.id}
+            id={`pathway-${scene.id}`}
+            ref={(element) => {
+              sceneRefs.current[sceneIndex] = element;
             }}
-            className={`${styles.scene}${i === 0 ? ` ${styles.on}` : ""}`}
+            className={`${styles.scene}${sceneIndex === 0 ? ` ${styles.on}` : ""}`}
           >
-            <span className={styles.eyebrow}>
-              {scene.eyebrowTamil && <span className={styles.tamil}>{scene.eyebrowTamil}</span>}
-              {scene.eyebrowTamil ? " · " : ""}
-              {scene.eyebrow}
-            </span>
-
+            <span className={styles.eyebrow}>{scene.label}</span>
             <h2 className={styles.headline}>
               {scene.words.map((word, wordIndex) => (
                 <span
-                  key={`${scene.eyebrow}-${word}-${wordIndex}`}
+                  key={`${scene.id}-${word}-${wordIndex}`}
                   className={
-                    wordIndex === scene.words.length - 1
+                    wordIndex === scene.accentWord
                       ? `${styles.w} ${styles.accent}`
                       : styles.w
                   }
                 >
                   {word}
-                  {wordIndex < scene.words.length - 1 ? "\u00A0" : ""}
+                  {wordIndex < scene.words.length - 1 ? "\u00a0" : ""}
                 </span>
               ))}
             </h2>
+            <p className={styles.sub}>{scene.introduction}</p>
 
-            <p className={styles.sub}>{scene.sub}</p>
-
-            {scene.chips && (
-              <div className={styles.chips} aria-label="Sunday rhythm">
-                {scene.chips.map((chip) => (
-                  <span key={chip}>{chip}</span>
+            <div className={styles.ribbon}>
+              <ul className={styles.ribbonList} aria-label={`${scene.label} ministries`}>
+                {scene.ministries.map((ministry) => (
+                  <li key={ministry.name}>
+                    <span>{ministry.name}</span>
+                  </li>
                 ))}
-              </div>
-            )}
-
-            {scene.expect && (
-              <div className={styles.expectGrid}>
-                {scene.expect.map((item) => (
-                  <article key={item.title}>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {scene.verse && (
-              <div className={styles.verseBlock}>
-                <p className={styles.verseTamil} lang="ta">
-                  {scene.verse.tamil}
-                </p>
-                <cite>
-                  {scene.verse.reference} · {scene.verse.tamilReference}
-                </cite>
-              </div>
-            )}
-
-            {scene.cite && <div className={styles.cite}>{scene.cite}</div>}
-            {scene.cta && (
-              <div className={styles.act}>
-                <a className={styles.cta} href={scene.cta.href}>
-                  {scene.cta.label}
-                </a>
-              </div>
-            )}
+              </ul>
+              <Link className={styles.pathwayCta} to={scene.cta.href}>
+                {scene.cta.label}
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         ))}
 

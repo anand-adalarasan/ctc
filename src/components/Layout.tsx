@@ -9,22 +9,92 @@ type LayoutProps = {
 };
 
 const primaryNavItems = [
-  { label: "Visit", href: "/visit" },
+  { label: "I'm New", href: "/visit" },
   { label: "Worship", href: "/worship" },
   { label: "Connect", href: "/connect" },
   { label: "Grow", href: "/grow" },
-  { label: "Serve", href: "/serve" }
+  { label: "Serve", href: "/serve" },
+  { label: "Contact", href: "/contact" },
+  { label: "Events", href: "/events" }
 ];
+
+const pageMeta: Record<string, { title: string; description: string }> = {
+  "/": {
+    title: "Christ Tamil Church Chicago",
+    description: "A Tamil Christian church family worshiping Christ, growing together, and serving the Chicago area."
+  },
+  "/visit": {
+    title: "I'm New | Christ Tamil Church Chicago",
+    description: "Plan a visit and learn about the mission, beliefs, and leadership of Christ Tamil Church Chicago."
+  },
+  "/worship": {
+    title: "Worship | Christ Tamil Church Chicago",
+    description: "Learn what to expect during Sunday worship at Christ Tamil Church Chicago."
+  },
+  "/grow": {
+    title: "Grow | Christ Tamil Church Chicago",
+    description: "Explore Bible study, prayer, Sunday School, and Kids Circle ministries."
+  },
+  "/connect": {
+    title: "Connect | Christ Tamil Church Chicago",
+    description: "Find fellowship, prayer, family ministry, and ways to belong at Christ Tamil Church."
+  },
+  "/serve": {
+    title: "Serve | Christ Tamil Church Chicago",
+    description: "Learn about community outreach and opportunities to serve with Christ Tamil Church."
+  },
+  "/contact": {
+    title: "Contact | Christ Tamil Church Chicago",
+    description: "Contact Christ Tamil Church for directions, questions, or prayer."
+  },
+  "/events": {
+    title: "Events | Christ Tamil Church Chicago",
+    description: "Explore recurring gatherings and church events at Christ Tamil Church Chicago."
+  },
+  "/sermons": {
+    title: "Sermons | Christ Tamil Church Chicago",
+    description: "Watch verified Tamil and English sermon recordings from Christ Tamil Church Chicago."
+  }
+};
 
 export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const footerRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
-  const isHome = location.pathname === "/";
 
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const exact = pageMeta[location.pathname];
+    const fallback = location.pathname.startsWith("/grow/")
+      ? pageMeta["/grow"]
+      : pageMeta["/"];
+    const meta = exact ?? fallback;
+    document.title = meta.title;
+    const description = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+    description?.setAttribute("content", meta.description);
+
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = `${window.location.origin}${location.pathname}`;
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (location.hash) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(location.hash.slice(1))?.scrollIntoView({ block: "start" });
+      });
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0 });
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     if (!open) {
@@ -96,11 +166,6 @@ export default function Layout({ children }: LayoutProps) {
               {item.label}
             </NavLink>
           ))}
-          {!isHome && (
-            <Link className="nav-cta nav-link" to="/visit" onClick={() => setOpen(false)}>
-              I'm New
-            </Link>
-          )}
         </nav>
       </header>
 

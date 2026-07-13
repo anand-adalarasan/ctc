@@ -2,6 +2,8 @@ import ctcHeroBackground from "../assets/images/ctc-hero-background-green.png";
 import ctcHeroBackgroundMobile from "../assets/images/ctc-hero-background-green-mobile.png";
 import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
 import ctcLogo from "../assets/images/ctc-logo.png";
+import ministryKids from "../assets/images/ministry-kids.jpg";
+import ministrySchool from "../assets/images/ministry-school.jpg";
 
 export type SiteImage = {
   id: string;
@@ -17,6 +19,26 @@ export type SiteImage = {
 const utm = "utm_source=christ_tamil_church&utm_medium=referral";
 
 export const siteImages = {
+  sundaySchool: {
+    id: "ctc-sunday-school",
+    src: ministrySchool,
+    alt: "Children learning together in Christ Tamil Church Sunday School",
+    creditName: "Christ Tamil Church",
+    creditUrl: "",
+    unsplashUrl: "",
+    usage: "Sunday School hero",
+    objectPosition: "center center"
+  },
+  kidsMinistry: {
+    id: "ctc-kids-ministry",
+    src: ministryKids,
+    alt: "Children participating in ministry at Christ Tamil Church",
+    creditName: "Christ Tamil Church",
+    creditUrl: "",
+    unsplashUrl: "",
+    usage: "Children's ministry supporting image",
+    objectPosition: "center center"
+  },
   logo: {
     id: "ctc-logo",
     src: ctcLogo,

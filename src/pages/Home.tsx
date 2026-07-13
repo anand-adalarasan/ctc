@@ -318,10 +318,6 @@ export default function Home() {
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </div>
-          <div className="josh-scrollcue" aria-hidden="true">
-            <span />
-            Follow the light
-          </div>
         </div>
 
         <div className="josh-hero-visual">

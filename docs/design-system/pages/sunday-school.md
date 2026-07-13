@@ -1,8 +1,9 @@
 # Page design: Sunday School — B.L.A.S.T. (`/grow/sunday-school`)
 
-The first inner page migrated onto the
-[CTC Design Template](../ctc-design-template.md); use it as the worked example
-when migrating the remaining pages.
+The page now uses a fully isolated `ss-*` editorial layout aligned with the
+[CTC Design Template](../ctc-design-template.md): Tamil-first image hero,
+B.L.A.S.T. row sequence, parent reassurance band, Kids Circle comparison,
+Scripture feature, and related family pathways.
 
 - **Component:** `src/pages/SundaySchool.tsx`
 - **Styles:** `src/pages/SundaySchool.css` (page-scoped; every migrated page
