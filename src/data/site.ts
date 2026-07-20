@@ -1,5 +1,3 @@
-import ministryFellowship from "../assets/images/ministry-fellowship.jpg";
-import ministryKids from "../assets/images/ministry-kids.jpg";
 import ministrySchool from "../assets/images/ministry-school.jpg";
 import pastorJagan from "../assets/images/pastor-jagan.jpg";
 import { siteImages } from "./images";
@@ -162,7 +160,7 @@ export const churchEvents: ChurchEvent[] = [
     cadence: "Periodic",
     date: "Periodic Gathering",
     location: "Christ Tamil Church",
-    image: ministryFellowship,
+    image: siteImages.mensFellowship.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",
@@ -180,7 +178,7 @@ export const churchEvents: ChurchEvent[] = [
     cadence: "Annual",
     date: "Annual / Periodic Gathering",
     location: "Christ Tamil Church",
-    image: ministryFellowship,
+    image: siteImages.womensFellowship.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",
@@ -217,7 +215,7 @@ export const churchEvents: ChurchEvent[] = [
     cadence: "Annual",
     date: "Every Summer",
     location: "Christ Tamil Church",
-    image: ministryKids,
+    image: siteImages.kidsCraft.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",
@@ -235,7 +233,7 @@ export const churchEvents: ChurchEvent[] = [
     cadence: "Annual",
     date: "Every June",
     location: "Location To Be Announced",
-    image: ministryFellowship,
+    image: siteImages.churchPicnic.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",
@@ -252,7 +250,7 @@ export const churchEvents: ChurchEvent[] = [
     cadence: "Annual",
     date: "Labor Day Weekend Every Year",
     location: "Retreat Location To Be Announced",
-    image: ministryFellowship,
+    image: siteImages.familyCamp.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",
@@ -270,7 +268,7 @@ export const churchEvents: ChurchEvent[] = [
     cadence: "Weekly",
     date: "After Sunday Worship",
     location: "Fellowship Hall",
-    image: ministryFellowship,
+    image: siteImages.fellowshipMeal.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",

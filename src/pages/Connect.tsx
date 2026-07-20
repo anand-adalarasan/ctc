@@ -2,44 +2,19 @@ import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import {
   ArrowRight,
-  Baby,
-  BookOpen,
-  CalendarDays,
   Clock,
   Coffee,
   HeartHandshake,
   MapPin,
-  Megaphone,
   Music,
   Sparkles,
   Sun,
-  Users,
-  UsersRound,
-  Wheat,
-  type LucideIcon
+  Wheat
 } from "lucide-react";
-import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
-import { churchEvents, churchInfo, type ChurchEvent } from "../data/site";
+import { churchInfo } from "../data/site";
 import "./Connect.css";
 import "./PageHeroTypography.css";
-
-const eventIconMap: Record<string, LucideIcon> = {
-  "Sunday Worship Service": Music,
-  "Sunday School": Baby,
-  "Prayer Conference": HeartHandshake,
-  "Bible Study & Prayer": BookOpen,
-  "Fasting Prayer": Sparkles,
-  "Men's Fellowship": Users,
-  "Women's Conference": Sparkles,
-  Outreach: Megaphone,
-  "Vacation Bible School": Baby,
-  "Church Picnic": UsersRound,
-  "Family Camp": CalendarDays,
-  "Fellowship Hour": Users
-};
-
-const getEventIcon = (title: string) => eventIconMap[title] ?? CalendarDays;
 
 const connectTraditions = [
   {
@@ -73,152 +48,6 @@ const connectTraditions = [
     icon: Music
   }
 ];
-
-export function Events() {
-  const featuredGatherings = churchEvents.filter((event) => event.isFeatured);
-  const upcomingEvents = churchEvents.filter((event) => event.isRecurring);
-  const annualEvents = churchEvents.filter((event) => event.isAnnual);
-  const weeklyCount = churchEvents.filter((event) => event.cadence === "Weekly").length;
-  const monthlyCount = churchEvents.filter((event) => event.cadence === "Monthly").length;
-  const annualCount = churchEvents.filter((event) => event.cadence === "Annual").length;
-  const heroGatherings = [
-    churchEvents.find((event) => event.title === "Prayer Conference"),
-    churchEvents.find((event) => event.title === "Sunday Worship Service"),
-    churchEvents.find((event) => event.title === "Fasting Prayer"),
-    churchEvents.find((event) => event.title === "Family Camp")
-  ].filter((event): event is ChurchEvent => Boolean(event));
-
-  return (
-    <>
-      <section className="events-hero" aria-labelledby="events-hero-title">
-        <div className="events-hero-copy">
-          <span className="eyebrow">Events</span>
-          <h1 id="events-hero-title">Gather, grow, and celebrate together.</h1>
-          <p>
-            Join us for worship, prayer, Bible study, children's activities,
-            fellowship, seasonal celebrations, outreach, and family gatherings
-            throughout the year.
-          </p>
-          <div className="events-hero-stats" aria-label="Event rhythm summary">
-            <span>
-              <strong>{weeklyCount}</strong>
-              Weekly
-            </span>
-            <span>
-              <strong>{monthlyCount}</strong>
-              Monthly
-            </span>
-            <span>
-              <strong>{annualCount}</strong>
-              Annual
-            </span>
-          </div>
-        </div>
-
-        <aside className="events-hero-card" aria-labelledby="upcoming-gatherings-title">
-          <span className="events-card-icon" aria-hidden="true">
-            <CalendarDays size={26} />
-          </span>
-          <h2 id="upcoming-gatherings-title">Upcoming Gatherings</h2>
-          <ul>
-            {heroGatherings.map((event) => (
-              <li key={event.title}>
-                <Clock size={17} aria-hidden="true" />
-                <span>
-                  <strong className="events-hero-event-title">
-                    {event.title === "Sunday Worship Service" ? "Sunday Worship" : event.title}
-                  </strong>
-                  <span>{event.frequency}</span>
-                  {event.time ? <span>{event.time}</span> : null}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <a className="button primary" href="#upcoming-events">
-            View Gatherings
-          </a>
-        </aside>
-      </section>
-
-      <section className="section events-featured-section">
-        <SectionHeader title="Featured Church Gatherings" />
-        <div className="events-featured-grid">
-          {featuredGatherings.map((event) => {
-            const Icon = getEventIcon(event.title);
-
-            return (
-              <article className="events-featured-card" key={event.title}>
-                <span className="events-featured-icon" aria-hidden="true">
-                  <Icon size={28} />
-                </span>
-                <small>{event.cadence}</small>
-                <h3>{event.title === "Fasting Prayer" ? "Monthly Fasting Prayer" : event.title}</h3>
-                <div className="events-featured-meta">
-                  <strong>{event.frequency}</strong>
-                  <span>{event.title === "Family Camp" ? "Annual Family Retreat" : event.time}</span>
-                </div>
-                <p>{event.description}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="section events-list-section" id="upcoming-events">
-        <SectionHeader title="Events & Gatherings" />
-        <div className="events-grid">
-          {upcomingEvents.map((event) => {
-            const Icon = getEventIcon(event.title);
-
-            return (
-              <article className="events-card" key={event.title}>
-                <div className="events-card-top">
-                  <span aria-hidden="true">
-                    <Icon size={22} />
-                  </span>
-                  <small>{event.cadence}</small>
-                </div>
-                <h3>{event.title}</h3>
-                <span className="events-card-category">{event.category}</span>
-                <dl>
-                  <div>
-                    <dt>Frequency</dt>
-                    <dd>{event.frequency}</dd>
-                  </div>
-                  {event.time ? (
-                    <div>
-                      <dt>Time</dt>
-                      <dd>{event.time}</dd>
-                    </div>
-                  ) : null}
-                </dl>
-                <p>{event.description}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="section events-annual-section">
-        <SectionHeader title="Annual Church Events" />
-        <div className="events-annual-grid">
-          {annualEvents.map((event) => (
-            <article className="events-annual-card" key={event.title}>
-              <span aria-hidden="true">
-                <CalendarDays size={21} />
-              </span>
-              <div>
-                <h3>{event.title}</h3>
-                <p>{event.cadence} - {event.frequency}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-    </>
-  );
-}
 
 export default function Connect() {
   const pageRef = useRef<HTMLDivElement | null>(null);

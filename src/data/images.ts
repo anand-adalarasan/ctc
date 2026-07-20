@@ -117,6 +117,66 @@ export const siteImages = {
     usage: "Events section",
     objectPosition: "center center"
   },
+  mensFellowship: {
+    id: "matheus-ferrero-mens-fellowship",
+    src: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1200&q=80",
+    alt: "Four friends sitting together on a mountain trail",
+    creditName: "Matheus Ferrero",
+    creditUrl: `https://unsplash.com/@matheusferrero?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/699cd4e2cf59",
+    usage: "Men's Fellowship event",
+    objectPosition: "center center"
+  },
+  womensFellowship: {
+    id: "meredith-spencer-womens-study",
+    src: "https://images.unsplash.com/photo-1663162550932-f67b561e656f?auto=format&fit=crop&w=1200&q=80",
+    alt: "Friends gathered on the grass reading together",
+    creditName: "Meredith Spencer",
+    creditUrl: `https://unsplash.com/@meredithspencer22?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/f67b561e656f",
+    usage: "Women's Conference event",
+    objectPosition: "center center"
+  },
+  churchPicnic: {
+    id: "liviu-boldis-family-picnic",
+    src: "https://images.unsplash.com/photo-1719759336550-4fecc23ab176?auto=format&fit=crop&w=1200&q=80",
+    alt: "A family relaxing together on a picnic blanket",
+    creditName: "Liviu Boldis",
+    creditUrl: `https://unsplash.com/@livioart?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/4fecc23ab176",
+    usage: "Church Picnic event",
+    objectPosition: "center center"
+  },
+  familyCamp: {
+    id: "kitera-dent-group-retreat",
+    src: "https://images.unsplash.com/photo-1597120590849-a1d5a743d155?auto=format&fit=crop&w=1200&q=80",
+    alt: "A group walking together along a wooded trail",
+    creditName: "Kitera Dent",
+    creditUrl: `https://unsplash.com/@kitera?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/a1d5a743d155",
+    usage: "Family Camp event",
+    objectPosition: "center center"
+  },
+  kidsCraft: {
+    id: "alan-rodriguez-kids-craft",
+    src: "https://images.unsplash.com/photo-1617117206620-b01f2919ff86?auto=format&fit=crop&w=1200&q=80",
+    alt: "Children drawing together with colorful markers and crayons",
+    creditName: "Alan Rodriguez",
+    creditUrl: `https://unsplash.com/@alanrodriguez?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/b01f2919ff86",
+    usage: "Vacation Bible School event",
+    objectPosition: "center center"
+  },
+  fellowshipMeal: {
+    id: "jonathan-borba-fellowship-meal",
+    src: "https://images.unsplash.com/photo-1558661092-f9ad8c1c63c1?auto=format&fit=crop&w=1200&q=80",
+    alt: "Friends sharing bread and a meal around a table",
+    creditName: "Jonathan Borba",
+    creditUrl: `https://unsplash.com/@jonathanborba?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/f9ad8c1c63c1",
+    usage: "Fellowship Hour event",
+    objectPosition: "center center"
+  },
   sermon: {
     id: "mitchell-leach-pulpit-cross",
     src: "https://images.unsplash.com/photo-1620565404581-e0aea3f826ef?auto=format&fit=crop&w=1200&q=80",

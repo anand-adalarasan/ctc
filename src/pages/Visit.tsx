@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { beliefs, churchInfo, pastors } from "../data/site";
+import { beliefs, churchInfo } from "../data/site";
 import "./Visit.css";
 
 const missionPoints = [
@@ -20,7 +20,6 @@ const missionPoints = [
 ];
 
 export default function Visit() {
-  const pastor = pastors[0];
   const pageRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -122,19 +121,6 @@ export default function Visit() {
               <summary><span className="visit-check"><Check size={15} aria-hidden="true" /></span>{belief.title}<span className="visit-plus" aria-hidden="true">+</span></summary>
               <p>{belief.text}</p>
             </details>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="visit-band visit-pastor visit-reveal" id="leadership" aria-labelledby="pastor-title">
-        <div className="visit-shell visit-pastor-grid">
-          <div className="visit-pastor-image"><img src={pastor.image} alt={`${pastor.name}, pastor of Christ Tamil Church`} width="560" height="620" loading="lazy" /></div>
-          <div className="visit-pastor-copy">
-            <p className="visit-eyebrow">Meet our pastor</p>
-            <h2 id="pastor-title">Pastoral care and biblical teaching.</h2>
-            <p className="visit-pastor-name">{pastor.name}</p>
-            <p>{pastor.text} He would be glad to meet you, hear your story, and help you take a next step in faith.</p>
-            <Link className="visit-text-link" to="/contact">Contact the church <ArrowRight size={17} aria-hidden="true" /></Link>
           </div>
         </div>
       </section>

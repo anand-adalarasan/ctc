@@ -13,8 +13,8 @@
 .visit-hero-kicker span[lang="ta"] { color: var(--green-deep); font-family: var(--font-tamil); font-size: clamp(1.34rem, 2.5vw, 2.08rem); font-weight: 500; letter-spacing: 0; line-height: 1.1; }
 .visit-hero-kicker small { display: inline-flex; align-items: center; min-height: 28px; border: 1px solid rgba(140,198,62,.24); border-radius: var(--radius-pill); padding: 0 10px; background: rgba(255,255,255,.72); color: var(--muted); font-family: var(--font-body); font-size: .72rem; font-weight: 500; letter-spacing: .24em; line-height: 1; text-transform: uppercase; }
 .visit-heading { max-width: 720px; }
-.visit-heading h2, .visit-welcome h2, .visit-pastor h2 { margin: 0; color: var(--ink); font: 400 clamp(2.25rem, 4.4vw, 3.8rem)/1.04 Fraunces, Georgia, serif; letter-spacing: -.025em; }
-.visit-heading > p:last-child, .visit-welcome p, .visit-pastor-copy > p { max-width: 58ch; color: var(--muted); font-size: 16px; line-height: 1.72; }
+.visit-heading h2, .visit-welcome h2 { margin: 0; color: var(--ink); font: 400 clamp(2.25rem, 4.4vw, 3.8rem)/1.04 Fraunces, Georgia, serif; letter-spacing: -.025em; }
+.visit-heading > p:last-child, .visit-welcome p { max-width: 58ch; color: var(--muted); font-size: 16px; line-height: 1.72; }
 .visit-icon { display: grid; place-items: center; width: 46px; height: 46px; color: var(--primary); background: var(--sage); border-radius: var(--radius-pill); }
 .visit-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: var(--radius-pill); font-weight: 800; text-decoration: none; transition: transform var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out); }
 .visit-button-primary { color: #fff; background: var(--clay-dark); box-shadow: 0 16px 38px rgba(150,112,47,.28); }
@@ -78,25 +78,16 @@
 .visit-belief[open] .visit-plus { transform: rotate(45deg); }
 .visit-belief > p { margin: -4px 38px 24px 49px; color: var(--muted); line-height: 1.7; }
 
-.visit-pastor { background: var(--sage); }
-.visit-pastor-grid { display: grid; grid-template-columns: minmax(300px, .8fr) 1.2fr; align-items: center; gap: clamp(60px, 10vw, 140px); }
-.visit-pastor-image { position: relative; max-width: 470px; }
-.visit-pastor-image::after { content: ""; position: absolute; inset: 22px -22px -22px 22px; z-index: 0; background: var(--primary); border-radius: 18px; }
-.visit-pastor-image img { position: relative; z-index: 1; display: block; width: 100%; height: auto; aspect-ratio: 4/4.6; object-fit: cover; border-radius: 18px; }
-.visit-pastor-name { margin: 28px 0 4px !important; color: var(--ink) !important; font: 600 1.1rem Fraunces, Georgia, serif; }
-
-
 @keyframes visitFadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
 @media (max-width: 1120px) {
   .visit-page .visit-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(310px, 350px); gap: 50px; }
 }
 @media (max-width: 900px) {
   .visit-page .visit-hero { min-height: auto; }
-  .visit-page .visit-hero-grid, .visit-split, .visit-mission-intro, .visit-faith-grid, .visit-pastor-grid { grid-template-columns: 1fr; }
+  .visit-page .visit-hero-grid, .visit-split, .visit-mission-intro, .visit-faith-grid { grid-template-columns: 1fr; }
   .visit-page .visit-hero-grid { gap: 44px; padding-block: 82px; }
   .visit-sunday-card { max-width: 560px; }
   .visit-faith-heading { position: static; }
-  .visit-pastor-image { width: min(72vw, 470px); }
 }
 @media (max-width: 620px) {
   .visit-shell { width: min(calc(100% - 32px), var(--container)); }
@@ -109,7 +100,6 @@
   .visit-mission-intro { gap: 28px; }
   .visit-mission-list article { grid-template-columns: 40px 1fr; }
   .visit-mission-list article svg { display: none; }
-  .visit-pastor-image { width: calc(100% - 22px); }
 }
 @media (prefers-reduced-motion: reduce) {
   .visit-page *, .visit-page *::before, .visit-page *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
