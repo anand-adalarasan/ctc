@@ -31,60 +31,25 @@ function WeeklyVerse({ className = "" }: { className?: string }) {
 }
 
 function StickySundayBar({ visible }: { visible: boolean }) {
-  const [expanded, setExpanded] = useState(false);
-  const rootRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!expanded) {
-      return;
-    }
-
-    const collapse = () => setExpanded(false);
-
-    const handlePointerDown = (event: PointerEvent) => {
-      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
-        collapse();
-      }
-    };
-
-    const idleTimer = window.setTimeout(collapse, 5000);
-    document.addEventListener("pointerdown", handlePointerDown);
-    window.addEventListener("scroll", collapse, { passive: true });
-
-    return () => {
-      window.clearTimeout(idleTimer);
-      document.removeEventListener("pointerdown", handlePointerDown);
-      window.removeEventListener("scroll", collapse);
-    };
-  }, [expanded]);
-
   if (!visible) {
     return null;
   }
 
   return createPortal(
-    <div className={`josh-sunday-fab${expanded ? " is-expanded" : ""}`} ref={rootRef}>
-      <div className="josh-sunday-fab-panel">
-        <strong>Sun · {churchInfo.worship.time}</strong>
-        <a
-          href={churchInfo.address.directionsUrl}
-          target="_blank"
-          rel="noreferrer"
-          tabIndex={expanded ? 0 : -1}
-        >
-          Directions
-          <ArrowRight size={14} aria-hidden="true" />
-        </a>
+    <div className="josh-sunday-fab">
+      <div className="josh-sunday-fab-time">
+        <span>Sun</span>
+        <strong>{churchInfo.worship.time}</strong>
       </div>
-      <button
-        type="button"
-        className="josh-sunday-fab-toggle"
-        aria-expanded={expanded}
-        aria-label={expanded ? "Hide Sunday service info" : "Show Sunday service info"}
-        onClick={() => setExpanded((value) => !value)}
+      <a
+        className="josh-sunday-fab-directions"
+        href={churchInfo.address.directionsUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Get directions — Sunday service at ${churchInfo.worship.time}`}
       >
-        <MapPin size={20} aria-hidden="true" />
-      </button>
+        <MapPin size={18} aria-hidden="true" />
+      </a>
     </div>,
     document.body
   );
@@ -127,22 +92,26 @@ export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const cometRef = useRef<HTMLDivElement | null>(null);
-  const heroCardRef = useRef<HTMLElement | null>(null);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
   const [showFab, setShowFab] = useState(false);
 
   useEffect(() => {
-    const heroCard = heroCardRef.current;
+    const heroSection = heroSectionRef.current;
 
-    if (!heroCard) {
+    if (!heroSection) {
       return;
     }
 
+    // Watch the whole hero section, not just the card — on phones where the
+    // hero's content is taller than the viewport, the card can sit below the
+    // fold before the user has scrolled at all, which would show the FAB
+    // prematurely if we only watched the card itself.
     const observer = new IntersectionObserver(
       ([entry]) => setShowFab(!entry.isIntersecting),
       { rootMargin: "0px" }
     );
 
-    observer.observe(heroCard);
+    observer.observe(heroSection);
     return () => observer.disconnect();
   }, []);
 
@@ -380,7 +349,12 @@ export default function Home() {
       <div className="josh-comet" ref={cometRef} aria-hidden="true" />
 
       <div className="josh-home">
-      <section className="josh-stage josh-stage-open josh-hero is-lit" id="open" aria-labelledby="home-title">
+      <section
+        className="josh-stage josh-stage-open josh-hero is-lit"
+        id="open"
+        aria-labelledby="home-title"
+        ref={heroSectionRef}
+      >
         <picture>
           <source media="(max-width: 620px)" srcSet={siteImages.heroBackgroundMobile.src} />
           <img
@@ -417,7 +391,7 @@ export default function Home() {
 
         <div className="josh-hero-visual">
           <WeeklyVerse className="josh-hero-weekly-verse-image" />
-          <aside className="josh-hero-card" aria-label="Sunday worship details" ref={heroCardRef}>
+          <aside className="josh-hero-card" aria-label="Sunday worship details">
             <div className="josh-hero-card-info">
               <span>This Sunday</span>
               <strong>{churchInfo.worship.time}</strong>

@@ -10626,82 +10626,67 @@ select:focus-visible {
     transform: none;
   }
 
-  /* Collapsed: a small pin FAB in the corner. Tap expands a frosted panel
-     with the service time and a directions link; tap again, tap outside,
-     scroll, or a short idle timeout collapses it back. */
+  /* A pinned pill in the corner, split into two zones: a display-only time
+     badge and a solid directions button. No expand step — everything you
+     need is visible or one tap away. */
   .josh-sunday-fab {
     position: fixed;
     right: 16px;
     bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     z-index: 45;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    align-items: stretch;
+    height: 52px;
     border-radius: var(--radius-pill);
-    background: rgba(255, 254, 250, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    overflow: hidden;
     box-shadow: 0 14px 40px rgba(16, 37, 27, 0.22);
     animation: heroFadeUp 420ms var(--ease-premium) both;
   }
 
-  .josh-sunday-fab-panel {
+  .josh-sunday-fab-time {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    max-width: 0;
-    overflow: hidden;
-    opacity: 0;
-    white-space: nowrap;
-    transition:
-      max-width 320ms var(--ease-out),
-      opacity 200ms var(--ease-out),
-      padding 320ms var(--ease-out);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1px;
+    padding: 0 16px;
+    background: rgba(255, 254, 250, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  .josh-sunday-fab.is-expanded .josh-sunday-fab-panel {
-    max-width: 260px;
-    opacity: 1;
-    padding: 0 8px 0 18px;
-  }
-
-  .josh-sunday-fab strong {
-    color: var(--ql-ink);
-    font-family: var(--font-display);
-    font-size: 1.05rem;
-    font-weight: 300;
+  .josh-sunday-fab-time span {
+    color: var(--ql-muted);
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     line-height: 1;
     white-space: nowrap;
   }
 
-  .josh-sunday-fab a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--ql-orange-deep);
-    font-size: 0.84rem;
-    font-weight: 850;
+  .josh-sunday-fab-time strong {
+    color: var(--ql-ink);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
     white-space: nowrap;
   }
 
-  .josh-sunday-fab-toggle {
-    flex: none;
+  .josh-sunday-fab-directions {
     display: grid;
+    flex: none;
     place-items: center;
     width: 52px;
-    height: 52px;
-    border: none;
-    border-radius: 50%;
     background: var(--ql-orange-deep);
     color: #fff;
-    transition:
-      transform var(--motion-fast) var(--ease-out),
-      background-color var(--motion-fast) var(--ease-out);
+    transition: background-color var(--motion-fast) var(--ease-out);
   }
 
-  .josh-sunday-fab-toggle:hover,
-  .josh-sunday-fab-toggle:focus-visible {
+  .josh-sunday-fab-directions:hover,
+  .josh-sunday-fab-directions:focus-visible {
     background: #7d5c26;
   }
 
