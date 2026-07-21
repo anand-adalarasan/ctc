@@ -10626,18 +10626,21 @@ select:focus-visible {
     transform: none;
   }
 
-  /* A pinned pill in the corner, split into two zones: a display-only time
-     badge and a solid directions button. No expand step — everything you
-     need is visible or one tap away. */
+  /* A pinned badge in the corner, stacked into two bands: a display-only
+     time band on top and a solid directions button below. Narrow (not a
+     wide pill) so it stays clear of centered content elsewhere on the page
+     — e.g. the Follow the Light section's CTA links. No expand step —
+     everything you need is visible or one tap away. */
   .josh-sunday-fab {
     position: fixed;
     right: 16px;
     bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     z-index: 45;
     display: flex;
+    flex-direction: column;
     align-items: stretch;
-    height: 52px;
-    border-radius: var(--radius-pill);
+    width: 76px;
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 14px 40px rgba(16, 37, 27, 0.22);
     animation: heroFadeUp 420ms var(--ease-premium) both;
@@ -10646,10 +10649,10 @@ select:focus-visible {
   .josh-sunday-fab-time {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     gap: 1px;
-    padding: 0 16px;
+    padding: 9px 6px;
     background: rgba(255, 254, 250, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -10658,9 +10661,9 @@ select:focus-visible {
   .josh-sunday-fab-time span {
     color: var(--ql-muted);
     font-family: var(--font-body);
-    font-size: 0.6rem;
+    font-size: 0.56rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     line-height: 1;
     white-space: nowrap;
@@ -10669,17 +10672,17 @@ select:focus-visible {
   .josh-sunday-fab-time strong {
     color: var(--ql-ink);
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 0.86rem;
     font-weight: 500;
     line-height: 1.3;
     white-space: nowrap;
   }
 
   .josh-sunday-fab-directions {
-    display: grid;
-    flex: none;
-    place-items: center;
-    width: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 0;
     background: var(--ql-orange-deep);
     color: #fff;
     transition: background-color var(--motion-fast) var(--ease-out);

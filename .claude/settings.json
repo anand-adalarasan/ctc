@@ -11,7 +11,9 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5199/)",
       "Read(//c/Program Files \\\\\\(x86\\\\\\)/Microsoft/Edge/Application/**)",
       "Read(//c/Program Files/Google/Chrome/Application/**)",
-      "Bash(\"/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe\" --headless=new --disable-gpu --window-size=1440,900 --hide-scrollbars --virtual-time-budget=12000 --screenshot=home-hero.png \"http://localhost:5199/\")"
+      "Bash(\"/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe\" --headless=new --disable-gpu --window-size=1440,900 --hide-scrollbars --virtual-time-budget=12000 --screenshot=home-hero.png \"http://localhost:5199/\")",
+      "Read(//tmp/**)",
+      "Bash(sleep 2; cat /tmp/vite10.log)"
     ]
   }
 }
