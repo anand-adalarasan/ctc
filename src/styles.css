@@ -10413,9 +10413,9 @@ select:focus-visible {
   transform: translateX(3px);
 }
 
-/* Mobile-only pinned bar (rendered via portal to <body> so it always overlays
+/* Mobile-only pinned FAB (rendered via portal to <body> so it always overlays
    the page, unaffected by any ancestor stacking context). */
-.josh-sticky-sunday {
+.josh-sunday-fab {
   display: none;
 }
 
@@ -10620,79 +10620,89 @@ select:focus-visible {
   }
 
   .josh-hero-card {
-    display: none;
+    position: static;
+    margin: 0 auto;
+    width: min(280px, calc(100% - 36px));
+    transform: none;
   }
 
-  .josh-sticky-sunday {
+  /* Collapsed: a small pin FAB in the corner. Tap expands a frosted panel
+     with the service time and a directions link; tap again, tap outside,
+     scroll, or a short idle timeout collapses it back. */
+  .josh-sunday-fab {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
     z-index: 45;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    row-gap: 8px;
-    column-gap: 12px;
-    border-top: 1px solid var(--line-soft);
-    padding: 12px clamp(16px, 5vw, 28px) calc(12px + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 254, 250, 0.9);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    animation: heroFadeUp 650ms var(--ease-premium) 560ms both;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 254, 250, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 14px 40px rgba(16, 37, 27, 0.22);
+    animation: heroFadeUp 420ms var(--ease-premium) both;
   }
 
-  .josh-sticky-sunday .josh-hero-card-info {
+  .josh-sunday-fab-panel {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-    gap: 8px;
-    min-width: 0;
-  }
-
-  .josh-sticky-sunday span {
-    color: var(--ql-muted);
-    font-family: var(--font-body);
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    align-items: center;
+    gap: 14px;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
     white-space: nowrap;
+    transition:
+      max-width 320ms var(--ease-out),
+      opacity 200ms var(--ease-out),
+      padding 320ms var(--ease-out);
   }
 
-  .josh-sticky-sunday strong {
+  .josh-sunday-fab.is-expanded .josh-sunday-fab-panel {
+    max-width: 260px;
+    opacity: 1;
+    padding: 0 8px 0 18px;
+  }
+
+  .josh-sunday-fab strong {
     color: var(--ql-ink);
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 300;
     line-height: 1;
     white-space: nowrap;
   }
 
-  .josh-sticky-sunday a {
+  .josh-sunday-fab a {
     display: inline-flex;
-    flex: none;
     align-items: center;
     gap: 6px;
-    min-height: 44px;
-    padding: 0 18px;
-    border-radius: var(--radius-pill);
-    background: var(--ql-orange-deep);
-    color: #fff;
-    font-size: 0.86rem;
+    color: var(--ql-orange-deep);
+    font-size: 0.84rem;
     font-weight: 850;
     white-space: nowrap;
-    box-shadow: 0 10px 24px rgba(150, 112, 47, 0.32);
+  }
+
+  .josh-sunday-fab-toggle {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    background: var(--ql-orange-deep);
+    color: #fff;
     transition:
       transform var(--motion-fast) var(--ease-out),
       background-color var(--motion-fast) var(--ease-out);
   }
 
-  .josh-sticky-sunday a:hover {
+  .josh-sunday-fab-toggle:hover,
+  .josh-sunday-fab-toggle:focus-visible {
     background: #7d5c26;
-    transform: translateY(-1px);
   }
 
   .josh-hero-weekly-verse-inline {
@@ -10878,11 +10888,6 @@ select:focus-visible {
 }
 
 @media (max-width: 620px) {
-  /* Leave room so the pinned "This Sunday" bar never covers footer content. */
-  .app-shell:has(.josh-home) .footer {
-    padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
-  }
-
   .app-shell:has(.josh-home) .footer-grid {
     grid-template-columns: 1fr;
   }
@@ -11359,6 +11364,11 @@ select:focus-visible {
   .app-shell:has(.josh-home) .footer.footer-flow {
     gap: 28px;
     padding: 64px 22px 28px;
+  }
+
+  .app-shell:has(.josh-home) .footer.footer-flow {
+    /* Leave room so the pinned Sunday FAB never covers footer content. */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
     background:
       radial-gradient(100% 70% at 0% 0%, rgba(141, 198, 63, 0.14), transparent 66%),
       linear-gradient(180deg, var(--footer-top) 0%, var(--footer-base) 42%, var(--footer-deep) 100%);

@@ -4,10 +4,11 @@ import {
   Church,
   Coffee,
   HandHeart,
+  MapPin,
   Music,
   Users
 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
@@ -29,17 +30,61 @@ function WeeklyVerse({ className = "" }: { className?: string }) {
   );
 }
 
-function StickySundayBar() {
+function StickySundayBar({ visible }: { visible: boolean }) {
+  const [expanded, setExpanded] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!expanded) {
+      return;
+    }
+
+    const collapse = () => setExpanded(false);
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
+        collapse();
+      }
+    };
+
+    const idleTimer = window.setTimeout(collapse, 5000);
+    document.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("scroll", collapse, { passive: true });
+
+    return () => {
+      window.clearTimeout(idleTimer);
+      document.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("scroll", collapse);
+    };
+  }, [expanded]);
+
+  if (!visible) {
+    return null;
+  }
+
   return createPortal(
-    <div className="josh-sticky-sunday" aria-label="Sunday worship details">
-      <div className="josh-hero-card-info">
-        <span>This Sunday</span>
-        <strong>{churchInfo.worship.time}</strong>
+    <div className={`josh-sunday-fab${expanded ? " is-expanded" : ""}`} ref={rootRef}>
+      <div className="josh-sunday-fab-panel">
+        <strong>Sun · {churchInfo.worship.time}</strong>
+        <a
+          href={churchInfo.address.directionsUrl}
+          target="_blank"
+          rel="noreferrer"
+          tabIndex={expanded ? 0 : -1}
+        >
+          Directions
+          <ArrowRight size={14} aria-hidden="true" />
+        </a>
       </div>
-      <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
-        Get directions
-        <ArrowRight size={14} aria-hidden="true" />
-      </a>
+      <button
+        type="button"
+        className="josh-sunday-fab-toggle"
+        aria-expanded={expanded}
+        aria-label={expanded ? "Hide Sunday service info" : "Show Sunday service info"}
+        onClick={() => setExpanded((value) => !value)}
+      >
+        <MapPin size={20} aria-hidden="true" />
+      </button>
     </div>,
     document.body
   );
@@ -82,6 +127,24 @@ export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const cometRef = useRef<HTMLDivElement | null>(null);
+  const heroCardRef = useRef<HTMLElement | null>(null);
+  const [showFab, setShowFab] = useState(false);
+
+  useEffect(() => {
+    const heroCard = heroCardRef.current;
+
+    if (!heroCard) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowFab(!entry.isIntersecting),
+      { rootMargin: "0px" }
+    );
+
+    observer.observe(heroCard);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -307,7 +370,7 @@ export default function Home() {
 
   return (
     <>
-      <StickySundayBar />
+      <StickySundayBar visible={showFab} />
       <div className="josh-light-shell" ref={rootRef}>
       <canvas className="josh-field" ref={canvasRef} aria-hidden="true" />
       <div className="josh-vignette" aria-hidden="true" />
@@ -354,7 +417,7 @@ export default function Home() {
 
         <div className="josh-hero-visual">
           <WeeklyVerse className="josh-hero-weekly-verse-image" />
-          <aside className="josh-hero-card" aria-label="Sunday worship details">
+          <aside className="josh-hero-card" aria-label="Sunday worship details" ref={heroCardRef}>
             <div className="josh-hero-card-info">
               <span>This Sunday</span>
               <strong>{churchInfo.worship.time}</strong>
