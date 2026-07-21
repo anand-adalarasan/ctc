@@ -8,6 +8,7 @@ import {
   Users
 } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
 import SectionHeader from "../components/SectionHeader";
@@ -25,6 +26,22 @@ function WeeklyVerse({ className = "" }: { className?: string }) {
       <p>“{verseOfTheWeek.text}”</p>
       <cite>{verseOfTheWeek.reference}</cite>
     </blockquote>
+  );
+}
+
+function StickySundayBar() {
+  return createPortal(
+    <div className="josh-sticky-sunday" aria-label="Sunday worship details">
+      <div className="josh-hero-card-info">
+        <span>This Sunday</span>
+        <strong>{churchInfo.worship.time}</strong>
+      </div>
+      <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
+        Get directions
+        <ArrowRight size={14} aria-hidden="true" />
+      </a>
+    </div>,
+    document.body
   );
 }
 
@@ -290,6 +307,7 @@ export default function Home() {
 
   return (
     <>
+      <StickySundayBar />
       <div className="josh-light-shell" ref={rootRef}>
       <canvas className="josh-field" ref={canvasRef} aria-hidden="true" />
       <div className="josh-vignette" aria-hidden="true" />
@@ -337,8 +355,10 @@ export default function Home() {
         <div className="josh-hero-visual">
           <WeeklyVerse className="josh-hero-weekly-verse-image" />
           <aside className="josh-hero-card" aria-label="Sunday worship details">
-            <span>This Sunday</span>
-            <strong>{churchInfo.worship.time}</strong>
+            <div className="josh-hero-card-info">
+              <span>This Sunday</span>
+              <strong>{churchInfo.worship.time}</strong>
+            </div>
             <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
               Get directions
               <ArrowRight size={14} aria-hidden="true" />
