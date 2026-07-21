@@ -2,6 +2,7 @@ import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { siteImages } from "../data/images";
+import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 type LayoutProps = {
@@ -40,7 +41,7 @@ const primaryNavItems: NavItem[] = [
       { label: "Bible Study & Prayer", href: "/grow/bible-study-prayer" },
       { label: "Sunday School – B.L.A.S.T.", href: "/grow/sunday-school" },
       { label: "Kids Circle", href: "/grow/kids-circle" },
-      { label: "Audio Sermons", href: "/sermons" }
+      { label: "Messages & Moments", href: "/sermons" }
     ]
   },
   {
@@ -85,8 +86,8 @@ const pageMeta: Record<string, { title: string; description: string }> = {
     description: "Explore recurring gatherings and church events at Christ Tamil Church Chicago."
   },
   "/sermons": {
-    title: "Sermons | Christ Tamil Church Chicago",
-    description: "Watch verified Tamil and English sermon recordings from Christ Tamil Church Chicago."
+    title: "Messages & Moments | Christ Tamil Church Chicago",
+    description: "Watch and search more than 10 years of worship, teaching, celebrations, and ministry videos from Christ Tamil Church Chicago."
   }
 };
 
@@ -284,7 +285,7 @@ export default function Layout({ children }: LayoutProps) {
             </p>
             <p>
               <Mail size={15} aria-hidden="true" />
-              <a href="mailto:ctcchicago@gmail.com">ctcchicago@gmail.com</a>
+              <a href={churchInfo.contact.emailHref}>{churchInfo.contact.email}</a>
             </p>
           </section>
 
@@ -299,7 +300,7 @@ export default function Layout({ children }: LayoutProps) {
           <section data-reveal-child>
             <h3>Resources</h3>
             <p><Link to="/serve">Serve</Link></p>
-            <p><Link to="/sermons">Sermons</Link></p>
+            <p><Link to="/sermons">Messages &amp; Moments</Link></p>
             <p><Link to="/events">Events</Link></p>
             <p><Link to="/contact">Prayer & Contact</Link></p>
           </section>

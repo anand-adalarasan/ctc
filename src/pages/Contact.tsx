@@ -1,108 +1,72 @@
-import { useEffect, useRef, useState } from "react";
-import SectionHeader from "../components/SectionHeader";
+import { ArrowRight, Facebook, Mail, Phone, Youtube } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { churchInfo } from "../data/site";
+import { churchYoutubeChannelUrl } from "../data/sermonVideos";
+import "./Contact.css";
 
 const facebookPageUrl = "https://www.facebook.com/ChristTamilChurchChicago";
-const facebookEmbedHeight = 620;
 
 export default function Contact() {
-  const embedRef = useRef<HTMLDivElement>(null);
-  const [embedWidth, setEmbedWidth] = useState(500);
+  const pageRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const embedElement = embedRef.current;
-
-    if (!embedElement) {
+    const page = pageRef.current;
+    if (!page) return;
+    const reveals = Array.from(page.querySelectorAll<HTMLElement>(".contact-reveal"));
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      reveals.forEach((element) => element.classList.add("is-visible"));
       return;
     }
-
-    const updateEmbedWidth = () => {
-      const nextWidth = Math.floor(embedElement.getBoundingClientRect().width);
-      setEmbedWidth(Math.min(500, Math.max(280, nextWidth)));
-    };
-
-    updateEmbedWidth();
-
-    const resizeObserver = new ResizeObserver(updateEmbedWidth);
-    resizeObserver.observe(embedElement);
-
-    return () => resizeObserver.disconnect();
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }),
+      { rootMargin: "0px 0px -12%", threshold: 0.12 },
+    );
+    reveals.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
   }, []);
 
-  const facebookPluginUrl = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
-    facebookPageUrl
-  )}&tabs=timeline&width=${embedWidth}&height=${facebookEmbedHeight}&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true`;
-
   return (
-    <>
-      <section className="page-hero">
-        <span className="eyebrow">Contact</span>
-        <h1>Send a message or prayer request.</h1>
-        <p>
-          We would love to hear from you, pray with you, and help your family
-          feel at home this Sunday.
-        </p>
-      </section>
-      <section className="contact-section">
-        <div>
-          <SectionHeader
-            title="Get in touch"
-            text="Call or email us with questions, prayer requests, or help planning your first Sunday."
-          />
-          <div className="contact-form" aria-label="Church contact options">
-            <a className="button primary" href={churchInfo.contact.emailHref}>
-              Email the Church
-            </a>
-            <a className="button secondary" href={churchInfo.contact.phoneHref}>
-              Call {churchInfo.contact.phone}
-            </a>
-            <a className="text-link" href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
-              Open directions
-            </a>
-            <p>
-              Prayer requests may be sent by email. Please avoid including sensitive medical or financial information.
-            </p>
+    <main className="contact-page" ref={pageRef}>
+      <section className="contact-hero" aria-labelledby="contact-title">
+        <div className="contact-shell contact-hero-grid">
+          <div className="contact-hero-copy">
+            <p className="contact-hero-kicker"><span lang="ta">தொடர்பு</span><small>Contact</small></p>
+            <h1 id="contact-title">Let&apos;s start a <em>conversation.</em></h1>
+            <p className="contact-hero-lede">Questions, prayer requests, or help planning your first Sunday—we would love to hear from you.</p>
+            <a className="contact-button contact-button-primary" href={churchInfo.contact.emailHref}>Email the church <ArrowRight size={17} aria-hidden="true" /></a>
           </div>
+          <aside className="contact-direct-card" aria-label="Reach us directly">
+            <span className="contact-icon"><Mail size={22} aria-hidden="true" /></span>
+            <p className="contact-card-label">Reach us directly</p>
+            <h2>We&apos;re here to help.</h2>
+            <ul>
+              <li><Phone size={18} aria-hidden="true" /><a href={churchInfo.contact.phoneHref}>Call {churchInfo.contact.phone}</a></li>
+              <li><Mail size={18} aria-hidden="true" /><a href={churchInfo.contact.emailHref}>{churchInfo.contact.email}</a></li>
+            </ul>
+            <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">Get directions <ArrowRight size={16} aria-hidden="true" /></a>
+          </aside>
         </div>
-        <aside className="contact-card">
-          <h2>Christ Tamil Church Chicago</h2>
-          <p>{churchInfo.worship.label}</p>
-          <p>{churchInfo.worship.time}</p>
-          <p>{churchInfo.address.full}</p>
-          <p><a href={churchInfo.contact.phoneHref}>{churchInfo.contact.phone}</a></p>
-          <p><a href={churchInfo.contact.emailHref}>{churchInfo.contact.email}</a></p>
-        </aside>
       </section>
-      <section className="facebook-section">
-        <div className="facebook-copy">
-          <SectionHeader
-            eyebrow="Facebook"
-            title="Follow church updates"
-            text="See recent announcements, photos, and community updates from our Facebook page."
-          />
-          <a
-            className="button secondary"
-            href={facebookPageUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open Facebook Page
+
+      <section className="contact-band contact-closing contact-reveal" aria-labelledby="contact-closing-title">
+        <div className="contact-shell contact-closing-grid">
+          <a className="contact-social-card" href={facebookPageUrl} target="_blank" rel="noreferrer">
+            <span className="contact-icon"><Facebook size={22} aria-hidden="true" /></span>
+            <span><strong>Follow along on Facebook</strong>Updates, photos, and announcements from church life.</span>
+            <span className="contact-social-link">Open Facebook page <ArrowRight size={17} aria-hidden="true" /></span>
+          </a>
+          <a className="contact-social-card" href={churchYoutubeChannelUrl} target="_blank" rel="noreferrer">
+            <span className="contact-icon"><Youtube size={22} aria-hidden="true" /></span>
+            <span><strong id="contact-closing-title">Watch on YouTube</strong>Worship, messages, and moments from Christ Tamil Church.</span>
+            <span className="contact-social-link">Open YouTube channel <ArrowRight size={17} aria-hidden="true" /></span>
           </a>
         </div>
-        <div className="facebook-embed-card" ref={embedRef}>
-          <iframe
-            title="Christ Tamil Church Chicago Facebook page"
-            src={facebookPluginUrl}
-            width={embedWidth}
-            height={facebookEmbedHeight}
-            loading="lazy"
-            style={{ border: 0, overflow: "hidden" }}
-            scrolling="no"
-            frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          />
-        </div>
       </section>
-    </>
+    </main>
   );
 }

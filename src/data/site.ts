@@ -27,8 +27,8 @@ export const churchInfo = {
   contact: {
     phone: "(773) 936-3697",
     phoneHref: "tel:+17739363697",
-    email: "ctcchicago@gmail.com",
-    emailHref: "mailto:ctcchicago@gmail.com"
+    email: "info@christtamilchurch.com",
+    emailHref: "mailto:info@christtamilchurch.com"
   }
 };
 
@@ -284,30 +284,6 @@ export const churchEvents: ChurchEvent[] = [
     isRecurring: true
   }
 ];
-export const sermons = [
-  {
-    title: "Kingdom of God",
-    speaker: "Dr. John Raju",
-    date: "September 26, 2021",
-    text: "Legacy sermon archive recording.",
-    href: "https://fb.watch/8oO_aqBPfE/"
-  },
-  {
-    title: "Justice and Mercy",
-    speaker: "Rev. Godwin Kanaka Raj",
-    date: "September 12, 2021",
-    text: "Legacy sermon archive recording.",
-    href: "https://fb.watch/86tjNogahZ/"
-  },
-  {
-    title: "Who Do You Say I Am?",
-    speaker: "Rev. Jagan Sathiya Seelan",
-    date: "September 5, 2021",
-    text: "Legacy sermon archive recording.",
-    href: "https://fb.watch/86t7RYQz7h/"
-  }
-];
-
 export const pastors = [
   {
     name: "Rev. Jagan Samuelraj",

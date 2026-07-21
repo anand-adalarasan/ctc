@@ -9,7 +9,7 @@ const pathways = [
   { title: "Bible Study & Prayer", meta: "Adults & families · Throughout the week", text: "Study Scripture, pray with others, and build a steady rhythm of discipleship.", href: "/grow/bible-study-prayer", icon: BookOpen },
   { title: "Sunday School · B.L.A.S.T.", meta: "Children · Every Sunday", text: "Bible Learning And Spiritual Training designed to help children know and follow Jesus.", href: "/grow/sunday-school", icon: School },
   { title: "Kids Circle", meta: "Children · During worship", text: "A brief, joyful space for children to learn God’s Word, ask questions, and belong.", href: "/grow/kids-circle", icon: Sprout },
-  { title: "Sermons", meta: "Listen anytime", text: "Continue growing through relevant, Scripture-centered teaching from Christ Tamil Church.", href: "/sermons", icon: Headphones }
+  { title: "Messages & Moments", meta: "Watch anytime", text: "Watch worship, teaching, celebrations, and stories from Christ Tamil Church.", href: "/sermons", icon: Headphones }
 ];
 
 export default function Grow() {
@@ -61,7 +61,7 @@ export default function Grow() {
 
     <section className="grow-word-band" aria-labelledby="grow-word-title">
       <blockquote><p>“Grow in the grace and knowledge of our Lord and Savior Jesus Christ.”</p><cite>2 Peter 3:18</cite></blockquote>
-      <div><span className="eyebrow">Grow through the Word</span><h2 id="grow-word-title">Take Scripture with you.</h2><p>Listen to biblical messages wherever your week takes you.</p><Link to="/sermons">Listen to sermons <ArrowRight size={15} /></Link></div>
+      <div><span className="eyebrow">Grow through the Word</span><h2 id="grow-word-title">Take Scripture with you.</h2><p>Watch biblical messages wherever your week takes you.</p><Link to="/sermons">Watch messages <ArrowRight size={15} /></Link></div>
     </section>
 
   </>;

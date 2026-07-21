@@ -15,7 +15,7 @@ const gatherings = [
 const related = [
   { title: "Sunday School · B.L.A.S.T.", meta: "Children · Sundays", href: "/grow/sunday-school", icon: Sparkles },
   { title: "Kids Circle", meta: "Children · During worship", href: "/grow/kids-circle", icon: UsersRound },
-  { title: "Sermons", meta: "Listen anytime", href: "/sermons", icon: BookOpen }
+  { title: "Messages & Moments", meta: "Watch anytime", href: "/sermons", icon: BookOpen }
 ];
 
 export default function BibleStudyPrayer() {
@@ -59,7 +59,7 @@ export default function BibleStudyPrayer() {
 
     <section className="study-verse-band" aria-labelledby="study-verse-title">
       <blockquote><p>“Your word is a lamp for my feet, a light on my path.”</p><cite>Psalm 119:105</cite></blockquote>
-      <div><span className="eyebrow">Faith for everyday life</span><h2 id="study-verse-title">Carry the Word into your week.</h2><p>Spiritual growth is more than gathering. It is learning to hear Christ and follow Him at home, at work, and in our relationships.</p><Link to="/sermons">Listen to a sermon <ArrowRight size={15}/></Link></div>
+      <div><span className="eyebrow">Faith for everyday life</span><h2 id="study-verse-title">Carry the Word into your week.</h2><p>Spiritual growth is more than gathering. It is learning to hear Christ and follow Him at home, at work, and in our relationships.</p><Link to="/sermons">Watch a message <ArrowRight size={15}/></Link></div>
     </section>
 
     <section className="study-related" aria-labelledby="study-related-title"><SectionHeader eyebrow="Continue growing" title="More ways to take a next step" /><div className="study-related-list" id="study-related-title">{related.map((item,index) => { const Icon=item.icon; return <Link to={item.href} key={item.title}><span>{String(index+1).padStart(2,"0")}</span><Icon size={20}/><div><strong>{item.title}</strong><small>{item.meta}</small></div><ArrowRight size={17}/></Link>; })}</div></section>
