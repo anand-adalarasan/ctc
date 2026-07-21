@@ -32,6 +32,13 @@ export const churchInfo = {
   }
 };
 
+// Update this single object when the featured weekly scripture changes.
+export const verseOfTheWeek = {
+  label: "Verse of the Week",
+  text: "I can do all things through Christ who strengthens me.",
+  reference: "Philippians 4:13"
+} as const;
+
 
 export type ChurchEvent = {
   title: string;

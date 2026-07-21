@@ -1,4 +1,4 @@
-import { Mail, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { siteImages } from "../data/images";
@@ -8,14 +8,47 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const primaryNavItems = [
-  { label: "I'm New", href: "/visit" },
+type NavItem = {
+  label: string;
+  href: string;
+  children?: Array<{ label: string; href: string }>;
+};
+
+const primaryNavItems: NavItem[] = [
+  {
+    label: "I'm New",
+    href: "/visit",
+    children: [
+      { label: "Who We Are", href: "/visit#mission" },
+      { label: "What We Believe", href: "/visit#beliefs" },
+      { label: "Stay In Touch", href: "/contact" }
+    ]
+  },
   { label: "Worship", href: "/worship" },
-  { label: "Connect", href: "/connect" },
-  { label: "Grow", href: "/grow" },
-  { label: "Serve", href: "/serve" },
-  { label: "Contact", href: "/contact" },
-  { label: "Events", href: "/events" }
+  {
+    label: "Connect",
+    href: "/connect",
+    children: [
+      { label: "Events", href: "/events" },
+      { label: "Fellowship Hour", href: "/connect#fellowship-hour" }
+    ]
+  },
+  {
+    label: "Grow",
+    href: "/grow",
+    children: [
+      { label: "Bible Study & Prayer", href: "/grow/bible-study-prayer" },
+      { label: "Sunday School – B.L.A.S.T.", href: "/grow/sunday-school" },
+      { label: "Kids Circle", href: "/grow/kids-circle" },
+      { label: "Audio Sermons", href: "/sermons" }
+    ]
+  },
+  {
+    label: "Serve",
+    href: "/serve",
+    children: [{ label: "Community Outreach", href: "/serve" }]
+  },
+  { label: "Contact", href: "/contact" }
 ];
 
 const pageMeta: Record<string, { title: string; description: string }> = {
@@ -59,11 +92,13 @@ const pageMeta: Record<string, { title: string; description: string }> = {
 
 export default function Layout({ children }: LayoutProps) {
   const [open, setOpen] = useState(false);
+  const [openMobileGroup, setOpenMobileGroup] = useState<string | null>(null);
   const location = useLocation();
   const footerRef = useRevealOnScroll<HTMLElement>({ staggerChildren: true });
 
   useEffect(() => {
     setOpen(false);
+    setOpenMobileGroup(null);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -139,7 +174,14 @@ export default function Layout({ children }: LayoutProps) {
           aria-label={open ? "Close navigation" : "Open navigation"}
           aria-expanded={open}
           aria-controls="primary-navigation"
-          onClick={() => setOpen((value) => !value)}
+          onClick={() =>
+            setOpen((value) => {
+              if (value) {
+                setOpenMobileGroup(null);
+              }
+              return !value;
+            })
+          }
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -149,23 +191,83 @@ export default function Layout({ children }: LayoutProps) {
           className={`site-nav ${open ? "is-open" : ""}`}
           aria-label="Primary navigation"
         >
-          {primaryNavItems.map((item) => (
-            <NavLink
-              key={item.href}
-              to={item.href}
-              end={item.href === "/"}
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `nav-link ${
-                  isActive || (item.href === "/grow" && location.pathname.startsWith("/grow"))
-                    ? "active"
-                    : ""
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {primaryNavItems.map((item) => {
+            const groupIsActive =
+              location.pathname === item.href ||
+              item.children?.some((child) => child.href.split("#")[0] === location.pathname);
+
+            if (!item.children) {
+              return (
+                <NavLink
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+                >
+                  {item.label}
+                </NavLink>
+              );
+            }
+
+            return (
+              <div
+                className={`nav-dropdown ${openMobileGroup === item.href ? "is-mobile-open" : ""}`}
+                key={item.href}
+              >
+                <div className="nav-dropdown-heading">
+                  <NavLink
+                    to={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`nav-link ${groupIsActive ? "active" : ""}`}
+                    aria-haspopup="true"
+                  >
+                    {item.label}
+                    <ChevronDown
+                      className="nav-dropdown-chevron nav-dropdown-chevron-desktop"
+                      size={14}
+                      aria-hidden="true"
+                    />
+                  </NavLink>
+                  <button
+                    className="nav-dropdown-toggle"
+                    type="button"
+                    aria-label={`${openMobileGroup === item.href ? "Collapse" : "Expand"} ${item.label} menu`}
+                    aria-expanded={openMobileGroup === item.href}
+                    aria-controls={`nav-group-${item.href.slice(1)}`}
+                    onClick={() =>
+                      setOpenMobileGroup((current) => (current === item.href ? null : item.href))
+                    }
+                  >
+                    <ChevronDown
+                      className="nav-dropdown-chevron nav-dropdown-chevron-mobile"
+                      size={14}
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
+                <div
+                  id={`nav-group-${item.href.slice(1)}`}
+                  className="nav-dropdown-menu"
+                  aria-label={`${item.label} navigation`}
+                >
+                  {item.children.map((child) => (
+                    <NavLink
+                      key={child.href}
+                      to={child.href}
+                      onClick={() => setOpen(false)}
+                      className={({ isActive }) =>
+                        isActive && location.hash === new URL(child.href, window.location.origin).hash
+                          ? "active"
+                          : ""
+                      }
+                    >
+                      {child.label}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </nav>
 
       </header>

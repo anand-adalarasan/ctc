@@ -13,7 +13,20 @@ import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
 import SectionHeader from "../components/SectionHeader";
 import ThreeLights from "../components/ThreeLights/ThreeLights";
 import { siteImages } from "../data/images";
-import { churchInfo } from "../data/site";
+import { churchInfo, verseOfTheWeek } from "../data/site";
+
+function WeeklyVerse({ className = "" }: { className?: string }) {
+  return (
+    <blockquote
+      className={`josh-hero-weekly-verse ${className}`.trim()}
+      aria-label={`${verseOfTheWeek.label}: ${verseOfTheWeek.text} — ${verseOfTheWeek.reference}`}
+    >
+      <span>{verseOfTheWeek.label}</span>
+      <p>“{verseOfTheWeek.text}”</p>
+      <cite>{verseOfTheWeek.reference}</cite>
+    </blockquote>
+  );
+}
 
 const expectItems = [
   {
@@ -312,6 +325,7 @@ export default function Home() {
             New to church, new to the area, or visiting for the first time?
             We'll help you feel at home this Sunday.
           </p>
+          <WeeklyVerse className="josh-hero-weekly-verse-inline" />
           <div className="josh-hero-actions">
             <Link className="go" to="/visit">
               I'm New
@@ -321,6 +335,7 @@ export default function Home() {
         </div>
 
         <div className="josh-hero-visual">
+          <WeeklyVerse className="josh-hero-weekly-verse-image" />
           <aside className="josh-hero-card" aria-label="Sunday worship details">
             <span>This Sunday</span>
             <strong>{churchInfo.worship.time}</strong>

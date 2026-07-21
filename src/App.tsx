@@ -31,11 +31,11 @@ export default function App() {
         <Route path="/connect" element={<Connect />} />
         <Route path="/events" element={<Events />} />
         <Route path="/faith" element={<Navigate to="/visit#beliefs" replace />} />
-        <Route path="/pastors" element={<Navigate to="/visit#leadership" replace />} />
+        <Route path="/pastors" element={<Navigate to="/visit" replace />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mission" element={<Navigate to="/visit#mission" replace />} />
         <Route path="/beliefs" element={<Navigate to="/visit#beliefs" replace />} />
-        <Route path="/pastor" element={<Navigate to="/visit#leadership" replace />} />
+        <Route path="/pastor" element={<Navigate to="/visit" replace />} />
         <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
         <Route path="/bible-study" element={<Navigate to="/grow/bible-study-prayer" replace />} />
         <Route path="/sunday-school" element={<Navigate to="/grow/sunday-school" replace />} />
