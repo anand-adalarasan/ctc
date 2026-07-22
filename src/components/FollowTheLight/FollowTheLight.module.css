@@ -2,7 +2,6 @@
   --ftl-ink: var(--ink, #10251b);
   --ftl-body: var(--body, #59635c);
   --ftl-green-deep: var(--green-deep, #6ba52c);
-  --ftl-light: var(--light, #8dc63f);
   --ftl-gold: var(--gold, #b99045);
   --ftl-glide: cubic-bezier(0.2, 0.7, 0.2, 1);
 

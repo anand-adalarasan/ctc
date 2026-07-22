@@ -1,6 +1,6 @@
 .ctc-events-page {
   color: var(--ink);
-  background: var(--bg-white);
+  background: var(--bg);
 }
 
 .ctc-events-shell {
@@ -19,7 +19,7 @@
   display: grid;
   align-items: center;
   min-height: 620px;
-  background: linear-gradient(115deg, var(--bg-white) 0%, var(--canvas) 66%, var(--sage) 100%);
+  background: linear-gradient(115deg, var(--bg) 0%, var(--canvas) 66%, var(--sage) 100%);
 }
 
 .ctc-events-home-hero::after {
@@ -155,7 +155,7 @@
 
 .ctc-events-upcoming {
   padding: clamp(86px, 9vw, 132px) 0 clamp(78px, 8vw, 116px);
-  background: var(--bg-white);
+  background: var(--bg);
 }
 
 .ctc-events-list-heading {

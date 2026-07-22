@@ -44,7 +44,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-pill);
   padding: 0 20px 0 48px;
-  background: var(--surface);
+  background: var(--bg);
   color: var(--ink);
   font: inherit;
   font-family: var(--font-body);
@@ -70,7 +70,7 @@
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 24px;
-  background: var(--surface);
+  background: var(--bg);
   color: var(--ink);
   box-shadow: var(--shadow-card);
   opacity: 0;

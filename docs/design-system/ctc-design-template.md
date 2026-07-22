@@ -2,7 +2,7 @@
 
 The single source of truth for the Christ Tamil Church website design system.
 Every page — new or migrated — follows this template. It codifies the
-leader-approved homepage direction (`src/pages/Home.tsx`, the `josh-*` class
+leader-approved homepage direction (`src/pages/Home.tsx`, the `ctc-*` class
 system) so the rest of the site can match it.
 
 **When this document and the code disagree, the live homepage wins.** Update
@@ -12,9 +12,6 @@ Companion documents:
 
 - `docs/design-system/follow-the-light-motion.md` — spec for the homepage's
   pinned "Follow the Light" scroll animation (homepage-exclusive).
-- `josh_design_system_updated/` and `design_handoff_ctc_follow_the_light/` —
-  the original design handoff bundles this system derives from. Historical
-  reference only; this template supersedes them where they differ.
 
 ---
 
@@ -36,7 +33,7 @@ Avoid:
 ## 2. Tokens
 
 The canonical token block lives at the top of `src/styles.css` (`:root`,
-lines ~3–96, labeled `josh_design_system_updated`). **That block is the code
+lines ~3–110, labeled as the Christ Tamil Church design system). **That block is the code
 source of truth** — never hardcode a hex that has a token, and never invent a
 parallel palette. The working set:
 
@@ -44,7 +41,7 @@ parallel palette. The working set:
 |---|---|---|
 | `--ink` | `#10251b` | Headings, strongest text |
 | `--primary` | `#153d2b` | Deep forest green — primary surfaces, footer accents |
-| `--muted` / `--ql-body` | `#59635c` | Body copy (muted green-grey) |
+| `--muted` | `#59635c` | Body copy (muted green-grey) |
 | `--faint` | `#8a9183` | Meta, captions |
 | `--green-deep` | `#6ba52c` | Accent green — accent words, icons, citations |
 | `--light` | `#8dc63f` | Bright leaf green — dots, glints, rail accents |
@@ -60,9 +57,9 @@ parallel palette. The working set:
 | `--motion-fast/base/slow` | `160ms / 260ms / 520ms` | Transition durations |
 | `--container` | `1200px` | Content width (narrow prose ~980px) |
 
-Legacy aliases (`--ql-*`, `--qgm-*`, `--warm-band`, …) exist only so old page
-CSS keeps rendering during migration. **Never extend them; never use them in
-new code.** As pages migrate to this template, their aliases get deleted.
+Legacy aliases such as `--warm-band` remain only while old global page rules
+are migrated. **Never extend them or use them in new code.** The homepage's
+former `--ql-*` palette has been replaced by the canonical tokens above.
 
 ## 3. Color usage
 
@@ -83,18 +80,18 @@ new code.** As pages migrate to this template, their aliases get deleted.
 
 | Role | Font | Recipe |
 |---|---|---|
-| Display / hero headline | Fraunces 400–500 | `clamp(3.8rem, 7.4vw, 7.65rem)` desktop, `clamp(3.2rem, 15vw, 5rem)` ≤620px; tight leading 0.94–1.05, `letter-spacing: -0.02…-0.035em` |
-| Section headline (h2) | Fraunces 400 | `clamp(30px, 4.4vw, 56px)`, line-height ~1.04 |
-| Body / UI / buttons | Inter 400–850 | 16–17px body, line-height 1.6; buttons 600–850 |
-| Eyebrow / kicker / cite | JetBrains Mono 700–800 | 11–12px, uppercase, `letter-spacing: .16–.24em`, color `--gold` (eyebrows) or `--green-deep` (citations) |
-| Tamil | Anek Tamil 400–700 | Sentence case, minimal tracking; pair with an English small-caps reference badge (see hero kicker) |
+| Display / hero headline | Fraunces 300–600 | `clamp(3.8rem, 7.4vw, 7.65rem)` desktop, `clamp(3.2rem, 15vw, 5rem)` ≤620px; tight leading 0.94–1.05, `letter-spacing: -0.02…-0.035em` |
+| Section headline (h2) | Fraunces 300–500 | `clamp(30px, 4.4vw, 56px)`, line-height ~1.04 |
+| Body / UI / buttons | Space Grotesk 300–600 | 16–17px body, line-height 1.6; buttons use the stronger available weights |
+| Eyebrow / kicker / cite | Space Grotesk or the `--font-mono` fallback stack | 11–12px, uppercase, `letter-spacing: .16–.24em`, color `--gold` (eyebrows) or `--green-deep` (citations) |
+| Tamil | Catamaran 300–800 | Sentence case, minimal tracking; pair with an English small-caps reference badge (see hero kicker) |
 
 Patterns:
 
 - **Accent word:** the final/subject word of a display headline may be colored
   `--green-deep` (optionally italic Fraunces).
 - **Tamil first:** where scripture leads a page, the Tamil phrase leads and the
-  reference sits in a small pill badge (see `.josh-hero-kicker`).
+  reference sits in a small pill badge (see `.ctc-hero-kicker`).
 - Sentence case for body and headings; Title Case for ministry names.
   Uppercase only for mono eyebrows/labels.
 
@@ -116,17 +113,17 @@ Patterns:
 Concrete, shipping implementations to copy from. Class names below are live in
 `src/styles.css`.
 
-### 6.1 Page hero (`.josh-hero-*`)
+### 6.1 Page hero (`.ctc-hero-*`)
 
 The homepage hero is the master pattern (see `src/pages/Home.tsx`):
 
-1. **Kicker** (`.josh-hero-kicker`): Tamil phrase in Anek-Tamil/Fraunces green
+1. **Kicker** (`.ctc-hero-kicker`): Tamil phrase in Catamaran/Fraunces green
    + small uppercase reference badge in a white pill.
-2. **Display headline** (`.josh-hero-title`): Fraunces, ink.
-3. **Lede** (`.josh-hero-lede`): 1–2 sentences of visitor-focused copy.
+2. **Display headline** (`.ctc-hero-title`): Fraunces, ink.
+3. **Lede** (`.ctc-hero-lede`): 1–2 sentences of visitor-focused copy.
 4. **One primary CTA** — never a pair of competing buttons in a hero.
 5. Optional full-bleed photo with a white wash gradient
-   (`.josh-hero-bg` + `.josh-hero-bg-wash`) so text sits on calm space; on
+   (`.ctc-hero-bg` + `.ctc-hero-bg-wash`) so text sits on calm space; on
    mobile the wash flips to top-down and a portrait crop serves via `<picture>`.
 6. Optional info card (see 6.3) anchored over the photo.
 
@@ -137,22 +134,22 @@ white or cream band; the photo and info card are optional, the structure is not.
 
 Rounded **pill** is the sitewide button shape (`border-radius: var(--radius-pill)`).
 
-- **Primary — bronze pill** (shipping as `.josh-hero-actions a.go`):
+- **Primary — bronze pill** (shipping as `.ctc-hero-actions a.go`):
   fill/border `--clay-dark` `#96702f`, text `#fff`, warm shadow
   `0 16px 38px rgba(150,112,47,0.38)`; hover deepens to `#7d5c26` with a
   `-2px` lift and a subtle white shimmer sweep (`a.go::before`).
   One bronze primary per view.
-- **Secondary — quiet pill** (shipping as `.josh-hero-actions a`):
+- **Secondary — quiet pill** (shipping as `.ctc-hero-actions a`):
   `rgba(255,255,255,0.86)` fill, `--line` hairline border, ink text;
   hover: lime-wash fill, green text, `-2px` lift.
-- **Tertiary — arrow text link** (shipping as `.josh-hero-card a`):
-  850-weight Inter in `--clay-dark`, trailing `ArrowRight` (lucide) that
+- **Tertiary — arrow text link** (shipping as `.ctc-hero-card a`):
+  strong-weight Space Grotesk in `--clay-dark`, trailing `ArrowRight` (lucide) that
   slides `3px` on hover.
 
-Buttons are `min-height: 52px` (44px+ touch target), Inter 600–850,
+Buttons are `min-height: 52px` (44px+ touch target), Space Grotesk 500–600,
 transitions 160–180ms with the signature easing.
 
-### 6.3 Card (the "This Sunday" look, `.josh-hero-card`)
+### 6.3 Card (the "This Sunday" look, `.ctc-hero-card`)
 
 - Solid warm white `rgba(255, 254, 250, 0.97)` (+ `backdrop-filter: blur(16px)`
   when floating over photos).

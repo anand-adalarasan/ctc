@@ -20,7 +20,7 @@ import { churchInfo, verseOfTheWeek } from "../data/site";
 function WeeklyVerse({ className = "" }: { className?: string }) {
   return (
     <blockquote
-      className={`josh-hero-weekly-verse ${className}`.trim()}
+      className={`ctc-hero-weekly-verse ${className}`.trim()}
       aria-label={`${verseOfTheWeek.label}: ${verseOfTheWeek.text} — ${verseOfTheWeek.reference}`}
     >
       <span>{verseOfTheWeek.label}</span>
@@ -36,13 +36,13 @@ function StickySundayBar({ visible }: { visible: boolean }) {
   }
 
   return createPortal(
-    <div className="josh-sunday-fab">
-      <div className="josh-sunday-fab-time">
+    <div className="ctc-sunday-fab">
+      <div className="ctc-sunday-fab-time">
         <span>Sun</span>
         <strong>{churchInfo.worship.time}</strong>
       </div>
       <a
-        className="josh-sunday-fab-directions"
+        className="ctc-sunday-fab-directions"
         href={churchInfo.address.directionsUrl}
         target="_blank"
         rel="noreferrer"
@@ -277,7 +277,7 @@ export default function Home() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
       comet.style.transform = `translateY(${progress * window.innerHeight}px)`;
-      root.style.setProperty("--josh-rail-progress", `${progress * 100}%`);
+      root.style.setProperty("--ctc-rail-progress", `${progress * 100}%`);
     };
 
     let scrollTicking = false;
@@ -340,17 +340,17 @@ export default function Home() {
   return (
     <>
       <StickySundayBar visible={showFab} />
-      <div className="josh-light-shell" ref={rootRef}>
-      <canvas className="josh-field" ref={canvasRef} aria-hidden="true" />
-      <div className="josh-vignette" aria-hidden="true" />
-      <div className="josh-grain" aria-hidden="true" />
-      <div className="josh-cursor" ref={cursorRef} aria-hidden="true" />
-      <div className="josh-spine" aria-hidden="true" />
-      <div className="josh-comet" ref={cometRef} aria-hidden="true" />
+      <div className="ctc-light-shell" ref={rootRef}>
+      <canvas className="ctc-field" ref={canvasRef} aria-hidden="true" />
+      <div className="ctc-vignette" aria-hidden="true" />
+      <div className="ctc-grain" aria-hidden="true" />
+      <div className="ctc-cursor" ref={cursorRef} aria-hidden="true" />
+      <div className="ctc-spine" aria-hidden="true" />
+      <div className="ctc-comet" ref={cometRef} aria-hidden="true" />
 
-      <div className="josh-home">
+      <div className="ctc-home">
       <section
-        className="josh-stage josh-stage-open josh-hero is-lit"
+        className="ctc-stage ctc-stage-open ctc-hero is-lit"
         id="open"
         aria-labelledby="home-title"
         ref={heroSectionRef}
@@ -358,7 +358,7 @@ export default function Home() {
         <picture>
           <source media="(max-width: 620px)" srcSet={siteImages.heroBackgroundMobile.src} />
           <img
-            className="josh-hero-bg"
+            className="ctc-hero-bg"
             src={siteImages.heroBackground.src}
             alt=""
             aria-hidden="true"
@@ -367,21 +367,21 @@ export default function Home() {
             style={{ objectPosition: siteImages.heroBackground.objectPosition }}
           />
         </picture>
-        <div className="josh-hero-bg-wash" aria-hidden="true" />
-        <div className="josh-hero-copy">
-          <span className="josh-kicker josh-hero-kicker">
+        <div className="ctc-hero-bg-wash" aria-hidden="true" />
+        <div className="ctc-hero-copy">
+          <span className="ctc-kicker ctc-hero-kicker">
             <span lang="ta">என்னிடத்தில் வாருங்கள்</span>
             <small>Matthew 11:28</small>
           </span>
-          <h1 className="josh-hero-title" id="home-title">
+          <h1 className="ctc-hero-title" id="home-title">
             A Tamil church in Chicagoland
           </h1>
-          <p className="josh-hero-lede">
+          <p className="ctc-hero-lede">
             New to church, new to the area, or visiting for the first time?
             We'll help you feel at home this Sunday.
           </p>
-          <WeeklyVerse className="josh-hero-weekly-verse-inline" />
-          <div className="josh-hero-actions">
+          <WeeklyVerse className="ctc-hero-weekly-verse-inline" />
+          <div className="ctc-hero-actions">
             <Link className="go" to="/visit">
               I'm New
               <ArrowRight size={18} aria-hidden="true" />
@@ -389,10 +389,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="josh-hero-visual">
-          <WeeklyVerse className="josh-hero-weekly-verse-image" />
-          <aside className="josh-hero-card" aria-label="Sunday worship details">
-            <div className="josh-hero-card-info">
+        <div className="ctc-hero-visual">
+          <WeeklyVerse className="ctc-hero-weekly-verse-image" />
+          <aside className="ctc-hero-card" aria-label="Sunday worship details">
+            <div className="ctc-hero-card-info">
               <span>This Sunday</span>
               <strong>{churchInfo.worship.time}</strong>
             </div>

@@ -46,7 +46,7 @@
 
 .title {
   margin: 16px 0 0;
-  font-family: var(--font-heading, "Fraunces", Georgia, serif);
+  font-family: var(--font-display, "Fraunces", Georgia, serif);
   font-weight: 300;
   font-size: clamp(30px, 4.4vw, 56px);
   line-height: 1.02;
@@ -201,7 +201,7 @@
 /* note: .travel is nth-child(1); the three columns are 2/3/4 */
 
 .time {
-  font-family: var(--font-heading, "Fraunces", Georgia, serif);
+  font-family: var(--font-display, "Fraunces", Georgia, serif);
   font-weight: 300;
   font-size: clamp(34px, 5vw, 64px);
   line-height: 0.9;
@@ -226,7 +226,7 @@
 
 .hint {
   margin-top: 10px;
-  font-family: var(--font-heading, "Fraunces", Georgia, serif);
+  font-family: var(--font-display, "Fraunces", Georgia, serif);
   font-style: italic;
   font-size: 14.5px;
   color: var(--tl-green);
