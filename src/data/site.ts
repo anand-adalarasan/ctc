@@ -1,5 +1,4 @@
 import ministrySchool from "../assets/images/ministry-school.jpg";
-import pastorJagan from "../assets/images/pastor-jagan.jpg";
 import { siteImages } from "./images";
 import { churchYoutubeChannelUrl } from "./sermonVideos";
 
@@ -289,15 +288,6 @@ export const churchEvents: ChurchEvent[] = [
     isRecurring: true
   }
 ];
-export const pastors = [
-  {
-    name: "Rev. Jagan Samuelraj",
-    role: "Pastor",
-    text: "Rev. Jagan Samuelraj serves as our pastor. He has a heart for teaching God's Word and shepherding His people.",
-    image: pastorJagan
-  }
-];
-
 export const beliefs = [
   {
     title: "God, the Father Almighty",

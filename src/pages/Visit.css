@@ -16,9 +16,6 @@
 .visit-heading h2, .visit-welcome h2 { margin: 0; color: var(--ink); font: 400 clamp(2.25rem, 4.4vw, 3.8rem)/1.04 Fraunces, Georgia, serif; letter-spacing: -.025em; }
 .visit-heading > p:last-child, .visit-welcome p { max-width: 58ch; color: var(--muted); font-size: 16px; line-height: 1.72; }
 .visit-icon { display: grid; place-items: center; width: 46px; height: 46px; color: var(--primary); background: var(--sage); border-radius: var(--radius-pill); }
-.visit-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: var(--radius-pill); font-weight: 800; text-decoration: none; transition: transform var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out); }
-.visit-button-primary { color: #fff; background: var(--clay-dark); box-shadow: 0 16px 38px rgba(150,112,47,.28); }
-.visit-button-primary:hover { color: #fff; background: #7d5c26; transform: translateY(-2px); }
 .visit-text-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; color: var(--clay-dark); font-weight: 800; text-decoration: none; }
 .visit-text-link svg { transition: transform var(--motion-fast) var(--ease-out); }
 .visit-text-link:hover svg { transform: translateX(4px); }

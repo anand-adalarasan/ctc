@@ -177,14 +177,4 @@ export const siteImages = {
     usage: "Fellowship Hour event",
     objectPosition: "center center"
   },
-  sermon: {
-    id: "mitchell-leach-pulpit-cross",
-    src: "https://images.unsplash.com/photo-1620565404581-e0aea3f826ef?auto=format&fit=crop&w=1200&q=80",
-    alt: "Wooden church pulpit with softly lit crosses in the background",
-    creditName: "Mitchell Leach",
-    creditUrl: `https://unsplash.com/@mitchleach?${utm}`,
-    unsplashUrl: "https://unsplash.com/pt-br/s/fotografias/p%C3%BAlpito-da-igreja",
-    usage: "Latest sermon section",
-    objectPosition: "center center"
-  }
 } satisfies Record<string, SiteImage>;

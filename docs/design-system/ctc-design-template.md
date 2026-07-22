@@ -13,6 +13,18 @@ Companion documents:
 - `docs/design-system/follow-the-light-motion.md` — spec for the homepage's
   pinned "Follow the Light" scroll animation (homepage-exclusive).
 
+Stylesheet ownership:
+
+- `src/styles.css` — canonical tokens, reset, global typography, and shared foundations.
+- `src/styles/layout.css` — shipping navigation and footer.
+- `src/pages/Home.css` — homepage-only hero, atmosphere, motion, and teaser sections.
+- `src/pages/<Page>.css` — route-owned inner-page styling.
+- `src/components/**/**.module.css` — component-scoped animation systems.
+
+Run `node scripts/prune-global-css.mjs --all` to audit unreachable class
+selectors. Review its report before using `--write`; visual regression checks
+remain mandatory after removal.
+
 ---
 
 ## 1. Design intent
@@ -33,7 +45,7 @@ Avoid:
 ## 2. Tokens
 
 The canonical token block lives at the top of `src/styles.css` (`:root`,
-lines ~3–110, labeled as the Christ Tamil Church design system). **That block is the code
+lines ~3–85, labeled as the Christ Tamil Church design system). **That block is the code
 source of truth** — never hardcode a hex that has a token, and never invent a
 parallel palette. The working set:
 
@@ -110,8 +122,8 @@ Patterns:
 
 ## 6. Component recipes
 
-Concrete, shipping implementations to copy from. Class names below are live in
-`src/styles.css`.
+Concrete, shipping implementations to copy from. Homepage `ctc-*` recipes live
+in `src/pages/Home.css`; shared foundations live in `src/styles.css`.
 
 ### 6.1 Page hero (`.ctc-hero-*`)
 
@@ -262,10 +274,10 @@ Rules:
 - Sunday worship time, address, and a path to "I'm New"/Contact reachable
   from every page (hero CTA or closing band).
 - Verify at desktop (1900), tablet (~900), and phone (487/380 wide) before
-  calling a page done — the repo's Playwright scratchpad scripts drive
-  headless Chrome against `vite --port 5199`.
-- Migrate one page per commit. Delete that page's legacy CSS aliases as it
-  lands on the template.
+  calling a page done. Use browser screenshots and production builds; no
+  Playwright test suite is currently configured in the repository.
+- Keep page changes isolated and remove obsolete selectors only after source
+  reachability and visual-regression checks.
 - Each migrated page gets its own stylesheet (`src/pages/<Page>.css`) and a
   short design note in `docs/design-system/pages/`. Worked example:
   [Sunday School](pages/sunday-school.md).

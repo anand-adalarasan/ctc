@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, CalendarDays, Heart, MessageCircleQuestion, Search, ShieldCheck, Sparkles, Sprout, UsersRound } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarDays, Heart, MessageCircleQuestion, Search, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";

@@ -1,44 +1,48 @@
 # Page design: Sunday School — B.L.A.S.T. (`/grow/sunday-school`)
 
-The page now uses a fully isolated `ss-*` editorial layout aligned with the
-[CTC Design Template](../ctc-design-template.md): Tamil-first image hero,
-B.L.A.S.T. row sequence, parent reassurance band, Kids Circle comparison,
-Scripture feature, and related family pathways.
+## Shipping files
 
-- **Component:** `src/pages/SundaySchool.tsx`
-- **Styles:** `src/pages/SundaySchool.css` (page-scoped; every migrated page
-  gets its own design file like this one). Shared bases it relies on from
-  `src/styles.css`: `.page-hero`, `.section`, `.section-header`, `.eyebrow`,
-  `.button`, `.reveal`.
-- **Audience:** parents deciding whether to bring their child; the page must
-  answer *what is B.L.A.S.T., when does it happen, is my child welcome* and
-  end on a clear next step.
+- Component: `src/pages/SundaySchool.tsx`
+- Page-owned styles: `src/pages/SundaySchool.css`
+- Shared section heading: `src/components/SectionHeader.tsx`
+- Images: `src/data/images.ts`
+- Worship schedule: `src/data/site.ts`
+- Reveal behavior: `src/hooks/useRevealOnScroll.ts`
 
-## Band map
+The page uses an isolated `ss-*` namespace and canonical tokens. It does not
+depend on the former global `.page-hero`, `.section`, or `.button` recipes.
 
-| # | Band | Surface | Template recipe |
-|---|---|---|---|
-| 1 | Hero: kicker · headline (accent on "God's Word.") · lede + B.L.A.S.T. info card with the one bronze primary ("Plan a Visit") | cream (`.page-hero` base) | §6.1 light variant + §6.3 card + §6.2 primary |
-| 2 | Intro panel: white card, gold left bar, Fraunces welcome line | sage (`.section:nth-of-type(even)`) | §6.6-style panel |
-| 3 | What is B.L.A.S.T.: 5-across acronym strip (letters in Fraunces `--green-deep`) | white | §6.3 in-flow cards |
-| 4 | Experience: 4 feature cards, green pill icons | full-bleed sage (`.blast-experience-band`) | §6.4 header + §6.3 cards |
-| 5 | Schedule: split card with mono labels + tertiary arrow link ("Contact us") | white | §6.3 card anatomy |
-| 6 | Continue Growing: hairline row list (mono-gold index · green icon · Fraunces title) | white | §6.5 row list |
-| 7 | Closing CTA "For Parents": deep-green band, checklist panel, bronze "I'm New" + quiet white-outline "Contact Us" | deep green (`--primary` gradient) | §10 closing band |
+## Visitor journey
 
-## Motion
+1. Tamil-first split hero with the B.L.A.S.T. promise, one bronze family-visit
+   CTA, registered Sunday School image, and floating weekly details card.
+2. Five editorial B.L.A.S.T. rows: Bible, Learning, And, Spiritual, Training.
+3. Sage parent-trust band with registered children’s-ministry photography and
+   three reassurance points.
+4. Side-by-side explanation of Kids Circle versus structured Sunday School.
+5. Cream Scripture band quoting Matthew 19:14.
+6. Related family pathways followed by the live shared worship schedule.
 
-Sitewide subset only (§7): `.page-hero` fade-up on load; every band below uses
-`useRevealOnScroll` + the shared `.reveal` class; the acronym cards stagger via
-`data-reveal-child`. Reduced motion is handled by the hook and the global CSS.
+## Responsive behavior
 
-## Intentionally page-specific
+- `1120px`: hero becomes one column and the detail card moves inward.
+- `900px`: parent, comparison, and Scripture bands become one column.
+- `620px`: content gutters tighten, hero imagery becomes 450px tall, the
+  detail card spans the image width, B.L.A.S.T. rows compact, and related rows
+  retain all labels and actions.
 
-- **5-across acronym strip** so B·L·A·S·T reads in order on desktop; it
-  collapses to horizontal letter-rows ≤1120px (never a ragged 3+2 wrap).
-- **Church-owned photography** — the page uses registered children's-ministry
-  images from `src/data/images.ts`; keep future imagery routed through that
-  registry and avoid ad-hoc stock-photo URLs.
-- The page markup is intentionally local to `SundaySchool.tsx`. Kids Circle
-  follows the same design language with its own content structure; only extract
-  a shared component when both live pages have a stable, identical API.
+## Motion and accessibility
+
+The hero uses the local `ss-rise` entrance. B.L.A.S.T. and parent sections use
+`useRevealOnScroll`; acronym rows stagger through `data-reveal-child`.
+`prefers-reduced-motion` removes animations and transforms and shows all
+content immediately. Sections use one page `h1`, labeled headings, semantic
+lists/articles, registered alt text, Lucide icons, and accessible link targets.
+
+## Content guardrails
+
+- B.L.A.S.T. expands to Bible Learning And Spiritual Training.
+- Kids Circle is a brief moment during worship; Sunday School occurs during
+  the sermon and provides structured Bible formation.
+- Schedule copy comes from shared church data rather than page-local times.
+- New imagery must be registered in `src/data/images.ts`.
