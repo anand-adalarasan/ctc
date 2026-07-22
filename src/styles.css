@@ -77,12 +77,12 @@
   --leaf: #679f1f;
   --leaf-bright: #8dc73c;
 
-  /* Footer surface — adapted from the Josh_1 graphite band. */
-  --footer-top: #73747a;
-  --footer-base: #6c6d70;
-  --footer-deep: #616266;
-  --footer-text: rgba(255, 255, 255, 0.82);
-  --footer-muted: rgba(255, 255, 255, 0.62);
+  /* Footer surface — lighter/warmer mid-tone forest green, grounded but not as heavy as --primary. */
+  --footer-top: #4c6b5b;
+  --footer-base: #3f5b4c;
+  --footer-deep: #2c473a;
+  --footer-text: rgba(255, 255, 255, 0.9);
+  --footer-muted: rgba(255, 255, 255, 0.72);
   --footer-line: rgba(255, 255, 255, 0.18);
 
   /* Fluid display type scale — huge at desktop. */
@@ -3804,63 +3804,6 @@ textarea {
   gap: 8px;
 }
 
-.footer {
-  padding: 62px clamp(20px, 4vw, 72px) 28px;
-  background: var(--primary-dark);
-  color: #fff;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.12fr 0.58fr 0.72fr 1fr;
-  gap: 34px;
-  width: min(1180px, 100%);
-  margin-inline: auto;
-}
-
-.footer h2,
-.footer h3,
-.footer p {
-  margin-top: 0;
-}
-
-.footer p {
-  color: rgba(255, 255, 255, 0.72);
-  line-height: 1.45;
-  margin: 0 0 10px;
-}
-
-.social-row {
-  display: flex;
-  gap: 12px;
-  margin-top: 26px;
-}
-
-.social-row span {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--primary);
-  font-size: 0.78rem;
-  font-weight: 850;
-  text-transform: uppercase;
-}
-
-.footer-bottom {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px 24px;
-  width: min(1180px, 100%);
-  margin: 42px auto 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  padding-top: 22px;
-  color: rgba(255, 255, 255, 0.66);
-  font-size: 0.86rem;
-}
-
 /* Legacy foundation (pre-CTC-design-template; superseded by docs/design-system/ctc-design-template.md) */
 .hero,
 .page-hero,
@@ -4131,107 +4074,6 @@ textarea {
   border-color: var(--line-soft);
   background: var(--surface);
   color: var(--primary);
-}
-
-.footer {
-  padding: clamp(68px, 8vw, 104px) clamp(20px, 5vw, 72px) 34px;
-  background: var(--primary-dark);
-  color: #fff;
-}
-
-.footer-grid {
-  grid-template-columns: minmax(260px, 1.25fr) repeat(3, minmax(150px, 0.6fr));
-  gap: clamp(34px, 6vw, 82px);
-  align-items: start;
-}
-
-.footer-brand-column {
-  display: grid;
-  gap: 20px;
-}
-
-.footer-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  color: #fff;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.footer-brand .brand-mark {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--gold-soft);
-}
-
-.footer h2 {
-  margin: 0 0 18px;
-  color: #fff;
-  font-family: var(--font-heading);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-}
-
-.footer h3 {
-  margin: 0 0 18px;
-  color: #fff;
-  font-family: var(--font-body);
-  font-weight: 600;
-  letter-spacing: 0;
-}
-
-.footer h3 {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.footer p {
-  margin: 0 0 12px;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.95rem;
-  line-height: 1.75;
-}
-
-.footer a {
-  color: rgba(255, 255, 255, 0.78);
-  transition: color 160ms ease;
-}
-
-.footer a:hover {
-  color: #fff;
-}
-
-.social-row {
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.social-row a {
-  display: inline-flex;
-  min-height: 38px;
-  align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: var(--radius-pill);
-  padding: 0 15px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 500;
-}
-
-.footer-bottom {
-  gap: 14px 28px;
-  margin-top: clamp(48px, 6vw, 72px);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 24px;
-  color: rgba(255, 255, 255, 0.58);
-  line-height: 1.6;
 }
 
 @media (max-width: 860px) {
@@ -10703,133 +10545,6 @@ select:focus-visible {
   }
 }
 
-/* Homepage footer (CTC design template). */
-.app-shell:has(.josh-home) .footer {
-  position: relative;
-  z-index: 4;
-  overflow: hidden;
-  border-top: 1px solid rgba(140, 198, 62, 0.08);
-  padding:
-    clamp(48px, 6vw, 78px)
-    var(--ql-rail)
-    34px
-    calc(var(--ql-rail) + clamp(28px, 7vw, 120px));
-  background:
-    radial-gradient(72% 120% at 12% 0%, rgba(140, 198, 62, 0.11), transparent 62%),
-    radial-gradient(56% 100% at 90% 18%, rgba(249, 157, 55, 0.1), transparent 64%),
-    linear-gradient(180deg, #f7f8f4 0%, #fffefa 24%, #ffffff 100%);
-  color: var(--ql-body);
-}
-
-.app-shell:has(.josh-home) .footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: var(--ql-rail);
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(140, 198, 62, 0.38), rgba(249, 157, 55, 0.18), transparent);
-}
-
-.app-shell:has(.josh-home) .footer-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(260px, 1.2fr) repeat(3, minmax(150px, 0.7fr));
-  gap: clamp(28px, 4vw, 56px);
-  max-width: 1180px;
-  margin-inline: auto;
-}
-
-.app-shell:has(.josh-home) .footer-brand,
-.app-shell:has(.josh-home) .footer h3 {
-  color: var(--ql-ink);
-}
-
-.app-shell:has(.josh-home) .footer-brand {
-  gap: 12px;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 900;
-}
-
-.app-shell:has(.josh-home) .footer .brand-mark {
-  border: 1px solid rgba(140, 198, 62, 0.26);
-  background: #fff;
-  color: var(--ql-lime-deep);
-  box-shadow: 0 12px 28px rgba(140, 198, 62, 0.13);
-}
-
-.app-shell:has(.josh-home) .footer-tamil {
-  display: block;
-  margin-top: 18px;
-  color: var(--ql-lime-deep);
-  font-family: var(--font-tamil);
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.app-shell:has(.josh-home) .footer p,
-.app-shell:has(.josh-home) .footer-bottom,
-.app-shell:has(.josh-home) .footer-bottom span {
-  color: var(--ql-muted);
-}
-
-.app-shell:has(.josh-home) .footer h3 {
-  margin-bottom: 14px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.app-shell:has(.josh-home) .footer a {
-  color: var(--ql-body);
-  text-decoration-color: transparent;
-  transition:
-    color var(--motion-fast) var(--ease-out),
-    text-decoration-color var(--motion-fast) var(--ease-out),
-    transform var(--motion-fast) var(--ease-out);
-}
-
-.app-shell:has(.josh-home) .footer a:hover {
-  color: var(--ql-lime-deep);
-  text-decoration-color: rgba(140, 198, 62, 0.46);
-}
-
-.app-shell:has(.josh-home) .social-row a {
-  border: 1px solid var(--ql-line);
-  background: rgba(255, 255, 255, 0.7);
-  color: var(--ql-ink);
-}
-
-.app-shell:has(.josh-home) .social-row a:hover {
-  border-color: rgba(249, 157, 55, 0.45);
-  background: var(--ql-orange-soft);
-  color: var(--ql-orange-deep);
-  transform: translateY(-1px);
-}
-
-.app-shell:has(.josh-home) .footer-bottom {
-  position: relative;
-  z-index: 1;
-  max-width: 1180px;
-  margin: clamp(42px, 5vw, 64px) auto 0;
-  border-top: 1px solid var(--ql-line-soft);
-  padding-top: 22px;
-}
-
-.footer.footer-flow {
-  display: grid;
-  gap: clamp(24px, 4vw, 44px);
-}
-
-.footer-flow .footer-grid section p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .brand-logo-link {
   min-width: 0;
 }
@@ -11209,7 +10924,7 @@ select:focus-visible {
   }
 }
 
-/* Homepage-aligned footer redesign */
+/* Footer — deep forest green surface, matching the sitewide "green leads" system. */
 .footer.footer-flow,
 .app-shell:has(.josh-home) .footer.footer-flow {
   position: relative;
@@ -11221,7 +10936,7 @@ select:focus-visible {
     clamp(76px, 8vw, 118px)
     clamp(22px, 5vw, 72px)
     clamp(28px, 4vw, 42px);
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid var(--footer-line);
   background:
     radial-gradient(58% 90% at 14% 4%, rgba(141, 198, 63, 0.12), transparent 62%),
     radial-gradient(54% 88% at 92% 18%, rgba(185, 144, 69, 0.1), transparent 66%),
@@ -11236,7 +10951,7 @@ select:focus-visible {
   inset: 0 0 auto;
   z-index: -1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(198, 236, 139, 0.7), transparent);
+  background: linear-gradient(90deg, transparent, rgba(141, 198, 63, 0.55), transparent);
 }
 
 .footer.footer-flow::after,
@@ -11263,15 +10978,89 @@ select:focus-visible {
 .footer.footer-flow .footer-grid,
 .app-shell:has(.josh-home) .footer.footer-flow .footer-grid {
   display: grid;
-  grid-template-columns: minmax(220px, 1.1fr) repeat(2, minmax(150px, 0.72fr));
+  grid-template-columns: minmax(240px, 1.3fr) minmax(170px, 0.9fr) minmax(150px, 0.8fr) minmax(160px, 0.85fr);
   gap: clamp(32px, 6vw, 86px);
   align-items: start;
 }
 
+/* Brand column */
+.footer.footer-flow .footer-brand-column {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.footer.footer-flow .footer-brand {
+  display: inline-block;
+}
+
+.footer.footer-flow .footer-logo {
+  width: clamp(150px, 16vw, 176px);
+  height: auto;
+  /* The source mark is tuned for a light surface (dark ink + brand green);
+     reverse it to solid white so it reads on the dark green footer. */
+  filter: brightness(0) invert(1);
+  opacity: 0.94;
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.footer.footer-flow .footer-brand:hover .footer-logo {
+  opacity: 1;
+}
+
+.footer.footer-flow .footer-greeting {
+  margin: 0;
+  color: var(--footer-muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
+.footer.footer-flow .footer-greeting span[lang="ta"] {
+  margin-right: 5px;
+  color: var(--light);
+  font-family: var(--font-tamil);
+}
+
+.footer.footer-flow .footer-tagline {
+  max-width: 32ch;
+  margin: 0;
+  color: var(--footer-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.footer.footer-flow .footer-social {
+  display: flex;
+  gap: 10px;
+}
+
+.footer.footer-flow .footer-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-pill);
+  color: var(--light);
+  transition:
+    background var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out),
+    color var(--motion-fast) var(--ease-out),
+    transform var(--motion-fast) var(--ease-out);
+}
+
+.footer.footer-flow .footer-social a:hover {
+  border-color: #fff;
+  background: #fff;
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* Column headings, body, links (Visit Us / Explore / Resources) */
 .footer.footer-flow h3,
 .app-shell:has(.josh-home) .footer.footer-flow h3 {
   margin: 0 0 16px;
-  color: #c6ec8b;
+  color: var(--gold-hover);
   font-family: var(--font-mono, "JetBrains Mono", monospace);
   font-size: 0.72rem;
   font-weight: 700;
@@ -11297,7 +11086,7 @@ select:focus-visible {
 .footer.footer-flow .footer-grid section svg,
 .app-shell:has(.josh-home) .footer.footer-flow .footer-grid section svg {
   flex: 0 0 auto;
-  color: #c6ec8b;
+  color: var(--light);
 }
 
 .footer.footer-flow a,
@@ -11312,14 +11101,14 @@ select:focus-visible {
 
 .footer.footer-flow a:hover,
 .app-shell:has(.josh-home) .footer.footer-flow a:hover {
-  color: #c6ec8b;
-  text-decoration-color: rgba(198, 236, 139, 0.56);
+  color: var(--light);
+  text-decoration-color: rgba(141, 198, 63, 0.56);
 }
 
 .footer.footer-flow a:focus-visible,
 .app-shell:has(.josh-home) .footer.footer-flow a:focus-visible {
   border-radius: 2px;
-  outline-color: #c6ec8b;
+  outline-color: var(--light);
 }
 
 .footer.footer-flow .footer-bottom,
@@ -11343,7 +11132,12 @@ select:focus-visible {
 @media (max-width: 920px) {
   .footer.footer-flow .footer-grid,
   .app-shell:has(.josh-home) .footer.footer-flow .footer-grid {
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer.footer-flow .footer-brand-column,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-brand-column {
+    grid-column: 1 / -1;
   }
 }
 
@@ -11357,9 +11151,6 @@ select:focus-visible {
   .app-shell:has(.josh-home) .footer.footer-flow {
     /* Leave room so the pinned Sunday FAB never covers footer content. */
     padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
-    background:
-      radial-gradient(100% 70% at 0% 0%, rgba(141, 198, 63, 0.14), transparent 66%),
-      linear-gradient(180deg, var(--footer-top) 0%, var(--footer-base) 42%, var(--footer-deep) 100%);
   }
 
   .footer.footer-flow .footer-grid,
@@ -11367,8 +11158,13 @@ select:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .footer.footer-flow .footer-grid section + section,
-  .app-shell:has(.josh-home) .footer.footer-flow .footer-grid section + section {
+  .footer.footer-flow .footer-brand-column,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-brand-column {
+    grid-column: auto;
+  }
+
+  .footer.footer-flow .footer-grid > * + *,
+  .app-shell:has(.josh-home) .footer.footer-flow .footer-grid > * + * {
     border-top: 1px solid var(--footer-line);
     padding-top: 28px;
   }

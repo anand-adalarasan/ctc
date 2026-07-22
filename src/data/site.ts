@@ -1,6 +1,7 @@
 import ministrySchool from "../assets/images/ministry-school.jpg";
 import pastorJagan from "../assets/images/pastor-jagan.jpg";
 import { siteImages } from "./images";
+import { churchYoutubeChannelUrl } from "./sermonVideos";
 
 export const churchInfo = {
   worship: {
@@ -29,6 +30,10 @@ export const churchInfo = {
     phoneHref: "tel:+17739363697",
     email: "info@christtamilchurch.com",
     emailHref: "mailto:info@christtamilchurch.com"
+  },
+  social: {
+    facebookUrl: "https://www.facebook.com/ChristTamilChurchChicago",
+    youtubeUrl: churchYoutubeChannelUrl
   }
 };
 

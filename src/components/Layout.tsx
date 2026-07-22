@@ -1,4 +1,4 @@
-import { ChevronDown, Mail, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Clock, Facebook, Mail, MapPin, Menu, Phone, X, Youtube } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { siteImages } from "../data/images";
@@ -277,11 +277,61 @@ export default function Layout({ children }: LayoutProps) {
 
       <footer className="footer footer-flow reveal" ref={footerRef}>
         <div className="footer-grid">
-          <section data-reveal-child>
-            <h3>Contact</h3>
+          <div className="footer-brand-column" data-reveal-child>
+            <Link className="footer-brand" to="/">
+              <img
+                className="footer-logo"
+                src={siteImages.logo.src}
+                alt={siteImages.logo.alt}
+                width="200"
+                height="45"
+                loading="lazy"
+              />
+            </Link>
+            <p className="footer-greeting">
+              <span lang="ta">வணக்கம்</span> Chicago
+            </p>
+            <p className="footer-tagline">
+              A Tamil Christian church family worshiping Christ, growing together, and serving the Chicago area.
+            </p>
+            <div className="footer-social">
+              <a
+                href={churchInfo.social.facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Christ Tamil Church on Facebook"
+              >
+                <Facebook size={18} aria-hidden="true" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+              <a
+                href={churchInfo.social.youtubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Christ Tamil Church on YouTube"
+              >
+                <Youtube size={18} aria-hidden="true" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
+          </div>
+
+          <section data-reveal-child aria-labelledby="footer-visit-heading">
+            <h3 id="footer-visit-heading">Visit Us</h3>
+            <p>
+              <MapPin size={15} aria-hidden="true" />
+              <a href={churchInfo.address.directionsUrl} target="_blank" rel="noreferrer">
+                {churchInfo.address.short}
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </p>
+            <p>
+              <Clock size={15} aria-hidden="true" />
+              <Link to="/worship">{churchInfo.worship.schedule}</Link>
+            </p>
             <p>
               <Phone size={15} aria-hidden="true" />
-              <a href="tel:+17739363697">(773) 936-3697</a>
+              <a href={churchInfo.contact.phoneHref}>{churchInfo.contact.phone}</a>
             </p>
             <p>
               <Mail size={15} aria-hidden="true" />
@@ -289,25 +339,27 @@ export default function Layout({ children }: LayoutProps) {
             </p>
           </section>
 
-          <section data-reveal-child>
-            <h3>Explore</h3>
-            <p><Link to="/visit">Visit</Link></p>
+          <section data-reveal-child aria-labelledby="footer-explore-heading">
+            <h3 id="footer-explore-heading">Explore</h3>
+            <p><Link to="/visit">I&apos;m New</Link></p>
             <p><Link to="/worship">Worship</Link></p>
             <p><Link to="/connect">Connect</Link></p>
             <p><Link to="/grow">Grow</Link></p>
+            <p><Link to="/serve">Serve</Link></p>
           </section>
 
-          <section data-reveal-child>
-            <h3>Resources</h3>
-            <p><Link to="/serve">Serve</Link></p>
-            <p><Link to="/sermons">Messages &amp; Moments</Link></p>
+          <section data-reveal-child aria-labelledby="footer-resources-heading">
+            <h3 id="footer-resources-heading">Resources</h3>
             <p><Link to="/events">Events</Link></p>
-            <p><Link to="/contact">Prayer & Contact</Link></p>
+            <p><Link to="/sermons">Messages &amp; Moments</Link></p>
+            <p><Link to="/grow/sunday-school">Sunday School</Link></p>
+            <p><Link to="/grow/kids-circle">Kids Circle</Link></p>
+            <p><Link to="/contact">Prayer &amp; Contact</Link></p>
           </section>
         </div>
 
         <div className="footer-bottom" data-reveal-child>
-          <span>(c) 2026 Christ Tamil Church Chicago. All rights reserved.</span>
+          <span>&copy; 2026 Christ Tamil Church Chicago. All rights reserved.</span>
         </div>
       </footer>
     </div>

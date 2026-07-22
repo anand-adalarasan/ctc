@@ -1,10 +1,7 @@
 import { ArrowRight, Facebook, Mail, Phone, Youtube } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { churchInfo } from "../data/site";
-import { churchYoutubeChannelUrl } from "../data/sermonVideos";
 import "./Contact.css";
-
-const facebookPageUrl = "https://www.facebook.com/ChristTamilChurchChicago";
 
 export default function Contact() {
   const pageRef = useRef<HTMLElement | null>(null);
@@ -55,12 +52,12 @@ export default function Contact() {
 
       <section className="contact-band contact-closing contact-reveal" aria-labelledby="contact-closing-title">
         <div className="contact-shell contact-closing-grid">
-          <a className="contact-social-card" href={facebookPageUrl} target="_blank" rel="noreferrer">
+          <a className="contact-social-card" href={churchInfo.social.facebookUrl} target="_blank" rel="noreferrer">
             <span className="contact-icon"><Facebook size={22} aria-hidden="true" /></span>
             <span><strong>Follow along on Facebook</strong>Updates, photos, and announcements from church life.</span>
             <span className="contact-social-link">Open Facebook page <ArrowRight size={17} aria-hidden="true" /></span>
           </a>
-          <a className="contact-social-card" href={churchYoutubeChannelUrl} target="_blank" rel="noreferrer">
+          <a className="contact-social-card" href={churchInfo.social.youtubeUrl} target="_blank" rel="noreferrer">
             <span className="contact-icon"><Youtube size={22} aria-hidden="true" /></span>
             <span><strong id="contact-closing-title">Watch on YouTube</strong>Worship, messages, and moments from Christ Tamil Church.</span>
             <span className="contact-social-link">Open YouTube channel <ArrowRight size={17} aria-hidden="true" /></span>
