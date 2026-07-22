@@ -24,23 +24,39 @@ Scroll progress is calculated as:
 ```ts
 progress = clamp(
   -section.getBoundingClientRect().top /
-    (section.offsetHeight - window.innerHeight),
+    (section.offsetHeight - pin.offsetHeight),
   0,
   1,
 );
 ```
 
-The active scene is `floor(progress * sceneCount)`, clamped to the available
-scene indexes. Scroll work is scheduled with `requestAnimationFrame`; React
-state is never updated per frame. The component only toggles CSS Module
-classes and writes the aura transform/opacity and progress-bar width.
+The active scene is `round(progress * (sceneCount - 1))`, clamped to the
+available scene indexes. Each scene anchor is evenly spaced across the sticky
+travel at `index / (sceneCount - 1)`. Scroll work is scheduled with
+`requestAnimationFrame` behind a `ticking` guard, so at most one visual update
+runs per animation frame. React state is never updated per frame; the
+component only toggles CSS Module classes, `aria-hidden`/`inert` attributes,
+and writes the aura transform/opacity and progress-bar width.
 
-Mouse-wheel navigation adds a deliberate scene handoff:
+## Navigation model: native scrolling, no JS scroll hijacking
 
-- Approaching from the hero scrolls smoothly to the pinned section.
-- While pinned, a wheel step advances to the neighboring scene.
-- A 700ms guard prevents repeated wheel input from fighting smooth scrolling.
-- Normal page scrolling resumes at the first and last boundaries.
+The pin (`position: sticky`) does all "pinning" work in CSS. The component
+attaches only **passive** `scroll` and `resize` listeners to read position —
+it never calls `event.preventDefault()` and never calls
+`window.scrollTo(...)`. The browser owns wheel, trackpad, touch, keyboard,
+and scrollbar-drag input completely; the component just paints scene state in
+response to wherever the user has scrolled to.
+
+`Hero ↔ Worship ↔ Connect ↔ Grow ↔ Serve ↔ Footer` is a continuous document
+scroll, not a set of discrete JS-driven stops. There is no gesture
+accumulation, no settle timer, and no navigation lock. This is deliberate:
+an earlier version of this component intercepted every wheel/touch event with
+non-passive listeners, accumulated deltas until the input stream went quiet,
+then replayed the gesture as a forced `scrollTo({ behavior: "smooth" })`. That
+approach fought the browser's native (compositor-thread) scrolling on every
+trackpad tick, and made the homepage feel laggy and unresponsive under
+sustained precision-trackpad input. Prefer deleting this kind of controller
+over layering another timeout or lock onto it.
 
 ## Scene anatomy
 
@@ -76,9 +92,10 @@ applies below `720px` viewport height.
 ## Reduced motion
 
 If `prefers-reduced-motion: reduce` matches, the component adds the scoped
-`flat` class, marks every scene visible, and skips all scroll/wheel listeners.
-The pin becomes normal document flow, scenes stack vertically, the aura and
-progress bar disappear, and transitions are disabled.
+`flat` class, marks every scene visible (including `aria-hidden`/`inert`
+removal), and attaches no scroll listener at all. The pin becomes normal
+document flow, scenes stack vertically, the aura and progress bar disappear,
+and transitions are disabled.
 
 This flat mode is required. New motion must preserve complete readability and
 navigation when animation is disabled.
@@ -89,17 +106,32 @@ navigation when animation is disabled.
 - The ministry ribbon is a semantic list with a scene-specific label.
 - CTAs are router links and retain visible focus treatment and 44px targets.
 - Decorative aura and progress elements are hidden from assistive technology.
+- Every inactive scene gets `aria-hidden="true"` and `inert`, so it cannot
+  hold focus or be read while off-screen; the active scene has both removed.
 - The sticky section must not be placed inside an ancestor with clipping,
   transforms, or a conflicting fixed height.
-- Always clean up `scroll`, `resize`, `wheel`, and timeout resources.
+- The pin and outer section use `100vh`/`400vh` with a `100dvh`/`400dvh`
+  override (dynamic viewport units), so mobile browser-chrome show/hide does
+  not leave a gap or misjudge scroll distance. Progress is always computed
+  from the section's and pin's *measured* `offsetHeight`, never from
+  `window.innerHeight` assumptions.
+- Always clean up `scroll` and `resize` listeners on unmount.
 
 ## Acceptance checklist
 
 - [ ] The section pins for four viewport heights after the hero.
 - [ ] Exactly one animated scene is active at a time.
-- [ ] Wheel input advances one neighboring scene while pinned.
+- [ ] Wheel, trackpad, touch, keyboard, and scrollbar-drag input all scroll
+      natively — no input type is intercepted or preventDefault'd.
+- [ ] Downward scroll passes through Hero, Worship, Connect, Grow, Serve,
+      Footer in order; upward scroll reverses the same sequence.
+- [ ] Sustained precision-trackpad scrolling (fast, slow, inertial,
+      direction-reversed) tracks 1:1 with no forced smooth-scroll animation
+      competing with it.
 - [ ] Aura and progress line track continuous scroll progress.
 - [ ] Every pathway CTA uses the destination from shared data.
 - [ ] Phone layouts keep every ministry name and CTA readable.
-- [ ] Reduced-motion mode becomes a fully visible stacked document.
+- [ ] Reduced-motion mode becomes a fully visible stacked document with no
+      scroll listener attached.
+- [ ] Inactive scenes are not focusable and are hidden from assistive tech.
 - [ ] Scrolling does not trigger React renders per frame.

@@ -8,39 +8,53 @@ const SCENES = ministryPathways;
 
 export default function FollowTheLight() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const pinRef = useRef<HTMLDivElement | null>(null);
   const sceneRefs = useRef<Array<HTMLDivElement | null>>([]);
   const auraRef = useRef<HTMLDivElement | null>(null);
   const barRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const pin = pinRef.current;
+    if (!section || !pin) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
       section.classList.add(styles.flat);
-      sceneRefs.current.forEach((scene) => scene?.classList.add(styles.on));
+      sceneRefs.current.forEach((scene) => {
+        scene?.classList.add(styles.on);
+        scene?.removeAttribute("aria-hidden");
+        scene?.removeAttribute("inert");
+      });
       return;
     }
 
+    // Passive scroll observation only: the browser drives scrolling and the
+    // sticky pin natively (wheel, touch, keyboard, scrollbar drag all work
+    // for free). This just reads scroll position and paints scene state —
+    // it never blocks or redirects the native scroll gesture.
     let ticking = false;
-    let wheelHandoffInProgress = false;
-    let wheelHandoffTimer = 0;
 
     const update = () => {
       ticking = false;
       const rect = section.getBoundingClientRect();
-      const total = section.offsetHeight - window.innerHeight;
-      let progress = total > 0 ? -rect.top / total : 0;
-      progress = Math.min(1, Math.max(0, progress));
+      const total = section.offsetHeight - pin.offsetHeight;
+      const progress = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
 
       const sceneCount = SCENES.length;
-      const activeIndex = Math.min(sceneCount - 1, Math.max(0, Math.floor(progress * sceneCount)));
+      const activeIndex = Math.min(
+        sceneCount - 1,
+        Math.max(0, Math.round(progress * Math.max(1, sceneCount - 1))),
+      );
 
       sceneRefs.current.forEach((scene, index) => {
         if (!scene) return;
-        scene.classList.toggle(styles.on, index === activeIndex);
+        const isActive = index === activeIndex;
+        scene.classList.toggle(styles.on, isActive);
         scene.classList.toggle(styles.past, index < activeIndex);
+        scene.setAttribute("aria-hidden", String(!isActive));
+        if (isActive) scene.removeAttribute("inert");
+        else scene.setAttribute("inert", "");
       });
 
       if (auraRef.current) {
@@ -59,66 +73,19 @@ export default function FollowTheLight() {
       requestAnimationFrame(update);
     };
 
-    const onWheel = (event: WheelEvent) => {
-      if (event.deltaY === 0) return;
-
-      const rect = section.getBoundingClientRect();
-      const total = section.offsetHeight - window.innerHeight;
-      if (total <= 0) return;
-
-      const direction = Math.sign(event.deltaY);
-      const approachingFromHero = direction > 0 && rect.top > 0 && rect.top <= window.innerHeight * 1.25;
-      const sectionIsPinned = rect.top <= 1 && rect.bottom >= window.innerHeight;
-
-      if (!approachingFromHero && !sectionIsPinned) return;
-
-      if (wheelHandoffInProgress) {
-        event.preventDefault();
-        return;
-      }
-
-      const sectionTop = window.scrollY + rect.top;
-      let targetTop: number | null = approachingFromHero ? sectionTop : null;
-
-      if (sectionIsPinned) {
-        const progress = Math.min(1, Math.max(0, -rect.top / total));
-        const activeIndex = Math.min(SCENES.length - 1, Math.floor(progress * SCENES.length));
-        const targetIndex = activeIndex + direction;
-
-        if (targetIndex >= 0 && targetIndex < SCENES.length) {
-          const sceneProgress = targetIndex / SCENES.length;
-          targetTop = sectionTop + total * sceneProgress + (targetIndex > 0 ? 2 : 0);
-        }
-      }
-
-      if (targetTop === null) return;
-
-      event.preventDefault();
-      wheelHandoffInProgress = true;
-      window.scrollTo({ top: targetTop, behavior: "smooth" });
-
-      window.clearTimeout(wheelHandoffTimer);
-      wheelHandoffTimer = window.setTimeout(() => {
-        wheelHandoffInProgress = false;
-      }, 700);
-    };
-
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
-    window.addEventListener("wheel", onWheel, { passive: false });
     update();
 
     return () => {
-      window.clearTimeout(wheelHandoffTimer);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      window.removeEventListener("wheel", onWheel);
     };
   }, []);
 
   return (
     <section ref={sectionRef} className={styles.section} aria-label="Our life together">
-      <div className={styles.pin}>
+      <div ref={pinRef} className={styles.pin}>
         <div ref={auraRef} className={styles.aura} aria-hidden="true" />
 
         {SCENES.map((scene, sceneIndex) => (
@@ -128,6 +95,7 @@ export default function FollowTheLight() {
             ref={(element) => {
               sceneRefs.current[sceneIndex] = element;
             }}
+            aria-hidden={sceneIndex !== 0}
             className={`${styles.scene}${sceneIndex === 0 ? ` ${styles.on}` : ""}`}
           >
             <span className={styles.eyebrow}>{scene.label}</span>
