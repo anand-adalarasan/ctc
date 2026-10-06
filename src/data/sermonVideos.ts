@@ -1,7 +1,6 @@
 export type SermonPlaylist = {
   id: string;
   title: string;
-  youtubeUrl: string;
 };
 
 export type SermonVideo = {
@@ -18,14 +17,14 @@ export const churchYoutubeChannelUrl =
 // playlistId must match one of the ids in sermonPlaylists below (a typo is a
 // compile error).
 export const sermonPlaylists = [
-  { id: "praise-worship", title: "Praise & Worship", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjYIL-QL79KmWKehuugUim0O" },
-  { id: "vbs", title: "VBS - Vacation Bible School", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjaNUCwhMiWI0_Ri54cQYZJu" },
-  { id: "kids-at-ctc", title: "Kids @ CTC / Sunday School", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjbrT2aHlIz8xSqxM_kHOQNe" },
-  { id: "women-of-ctc", title: "Women of CTC", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjammYLFXvYZa76ayyHMYa78" },
-  { id: "church-anniversary", title: "Church Anniversary & Milestones", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
-  { id: "christmas-programs", title: "Christmas Programs", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
-  { id: "sermons-guest-messages", title: "Sermons & Guest Messages", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
-  { id: "morning-devotionals", title: "Morning Devotionals", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
+  { id: "praise-worship", title: "Praise & Worship" },
+  { id: "vbs", title: "VBS - Vacation Bible School" },
+  { id: "kids-at-ctc", title: "Kids @ CTC / Sunday School" },
+  { id: "women-of-ctc", title: "Women of CTC" },
+  { id: "church-anniversary", title: "Church Anniversary & Milestones" },
+  { id: "christmas-programs", title: "Christmas Programs" },
+  { id: "sermons-guest-messages", title: "Sermons & Guest Messages" },
+  { id: "morning-devotionals", title: "Morning Devotionals" },
 ] as const satisfies readonly SermonPlaylist[];
 
 export type SermonPlaylistId = (typeof sermonPlaylists)[number]["id"];

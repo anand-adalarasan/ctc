@@ -1,15 +1,10 @@
-import ministrySchool from "../assets/images/ministry-school.jpg";
 import { siteImages } from "./images";
 import { churchYoutubeChannelUrl } from "./sermonVideos";
 
 export const churchInfo = {
   worship: {
-    label: "Sunday Worship",
-    day: "Sunday",
     time: "10:30 AM",
-    compactTime: "10:30",
-    schedule: "Sunday at 10:30 AM",
-    hud: "Sunday - 10:30 - Downers Grove"
+    schedule: "Sunday at 10:30 AM"
   },
   address: {
     street: "1330 63rd St",
@@ -17,12 +12,8 @@ export const churchInfo = {
     state: "IL",
     zip: "60516",
     short: "1330 63rd St, Downers Grove, IL",
-    full: "1330 63rd St, Downers Grove, IL 60516",
-    locationLabel: "1330 63rd St · Downers Grove",
     directionsUrl:
-      "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516",
-    directionsUrlDirect:
-      "https://www.google.com/maps/dir//1330+63rd+St,+Downers+Grove,+IL+60516"
+      "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516"
   },
   contact: {
     phone: "(773) 936-3697",
@@ -98,7 +89,7 @@ export const churchEvents = [
     cadence: "Weekly",
     date: "Every Sunday",
     location: "Children's Ministry Area",
-    image: ministrySchool,
+    image: siteImages.sundaySchool.src,
     flyerImage: null,
     ctaText: "Learn More",
     ctaLink: "/contact",
