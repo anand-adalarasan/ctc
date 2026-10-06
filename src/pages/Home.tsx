@@ -80,13 +80,21 @@ export default function Home() {
   useEffect(() => {
     const spine = spineRef.current;
     const comet = cometRef.current;
+    const shell = homeRef.current?.closest<HTMLElement>(".app-shell") ?? null;
     if (!spine || !comet) return;
+
+    // On touch devices the homepage scrolls inside `.app-shell` (Home.css,
+    // "Touch scroll container"); on desktop the document scrolls. Start the
+    // container at the top, since it can keep an offset from a past visit.
+    const shellScrolls = () => !!shell && getComputedStyle(shell).overflowY !== "visible";
+    if (shell && shellScrolls()) shell.scrollTop = 0;
 
     let ticking = false;
     const update = () => {
       ticking = false;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = maxScroll > 0 ? Math.min(1, window.scrollY / maxScroll) : 0;
+      const scroller = shell && shellScrolls() ? shell : document.documentElement;
+      const maxScroll = scroller.scrollHeight - scroller.clientHeight;
+      const progress = maxScroll > 0 ? Math.min(1, scroller.scrollTop / maxScroll) : 0;
       comet.style.transform = `translate3d(0, ${(progress * window.innerHeight).toFixed(1)}px, 0)`;
       spine.style.setProperty("--ctc-rail-progress", progress.toFixed(4));
     };
@@ -96,11 +104,13 @@ export default function Home() {
       window.requestAnimationFrame(update);
     };
 
+    // Capture phase so container scrolls (which don't bubble) are heard too.
+    const scrollOptions = { passive: true, capture: true } as const;
     update();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("scroll", onScroll, scrollOptions);
     window.addEventListener("resize", onScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("scroll", onScroll, scrollOptions);
       window.removeEventListener("resize", onScroll);
     };
   }, []);

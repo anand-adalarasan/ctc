@@ -18,11 +18,14 @@
    Homepage scroll snapping:
    Welcome (hero) → Worship → Connect → Grow → Serve → Visit → Footer.
 
-   The snap container is the ROOT scroller (`html`), switched on only while
-   the homepage is mounted. Deliberately not a nested `overflow: scroll`
-   wrapper: window-level scroll (comet rail, FollowTheLight progress, header,
-   Sunday FAB, hash links) keeps working, and mobile browser chrome still
-   collapses. Never put scroll-snap-type on `body` — it is ignored there.
+   The snap container is the page's scroller, switched on only while the
+   homepage is mounted:
+   - Desktop / fine pointer: the ROOT scroller (`html`), so keyboard
+     scrolling (arrows, Space, PageDown) works with nothing focused.
+   - Touch devices: `.app-shell` (see "Touch scroll container" below), so
+     the mobile address bar never collapses mid-transition.
+   Both selectors carry the snap type; only the one that actually scrolls
+   uses it. Never put scroll-snap-type on `body` — it is ignored there.
 
    Snap points:
    - Every chapter, hero included: the `.snapStop` spans inside
@@ -36,7 +39,8 @@
    behavior would also animate the route-change scroll reset in Layout.
    ------------------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) and (min-width: 481px) and (min-height: 551px) {
-  html:has(.ctc-home) {
+  html:has(.ctc-home),
+  .app-shell:has(.ctc-home) {
     scroll-snap-type: y mandatory;
   }
 
@@ -50,8 +54,43 @@
    near a chapter settles onto it, so the light never rests half-way. */
 @media (prefers-reduced-motion: no-preference) and (max-width: 480px),
   (prefers-reduced-motion: no-preference) and (max-height: 550px) {
-  html:has(.ctc-home) {
+  html:has(.ctc-home),
+  .app-shell:has(.ctc-home) {
     scroll-snap-type: y proximity;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   Touch scroll container (phones and tablets).
+
+   Mobile browsers collapse/expand their address bar only when the DOCUMENT
+   scrolls. Doing that during the hero → Worship sweep shifted the whole
+   visible area ~56px while the sticky pin, the snap and the light drift
+   were all mid-animation — the jitter on the hero's Tamil text, on every
+   hero → Worship swipe (scrolling back up re-shows the bar). So on touch
+   devices the homepage scrolls inside `.app-shell` instead: the document
+   never scrolls, the address bar never moves, nothing shifts under the
+   animation. Desktop keeps root scrolling (keyboard scrolling needs it).
+   Trade-offs: the address bar stays visible on the homepage, and
+   pull-to-refresh is not available there.
+   ------------------------------------------------------------------------ */
+@media (pointer: coarse) {
+  html:has(.ctc-home),
+  html:has(.ctc-home) body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Sized to the screen directly: `.app-shell` sits inside React's `#root`,
+     which has no height, so `100%` would resolve to auto. `svh` = the
+     visible height, which stays fixed because the address bar never moves. */
+  .app-shell:has(.ctc-home) {
+    height: 100vh;
+    height: 100svh;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
   }
 }
 

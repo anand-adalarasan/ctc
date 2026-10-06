@@ -36,6 +36,14 @@
        sits under a mobile toolbar while the pin itself covers `lvh`. */
     --ftl-safe: 100svh;
   }
+
+  /* Touch devices scroll the homepage inside `.app-shell` (Home.css), so
+     the address bar never moves and the visible height is always `svh`. */
+  @media (pointer: coarse) {
+    .section {
+      --ftl-cover: 100svh;
+    }
+  }
 }
 
 /* Scroll-snap targets (see FollowTheLight.tsx). Each stop is one pin-height

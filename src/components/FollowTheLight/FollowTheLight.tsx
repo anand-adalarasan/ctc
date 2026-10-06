@@ -288,12 +288,16 @@ export default function FollowTheLight({ opening, onActiveChange }: FollowTheLig
       requestAnimationFrame(update);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    // Capture-phase listener on the document hears the page scrolling AND the
+    // touch-device `.app-shell` scroll container (scroll events don't bubble).
+    // Progress comes from getBoundingClientRect, so either scroller works.
+    const scrollOptions = { passive: true, capture: true } as const;
+    document.addEventListener("scroll", onScroll, scrollOptions);
     window.addEventListener("resize", onScroll, { passive: true });
     update();
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("scroll", onScroll, scrollOptions);
       window.removeEventListener("resize", onScroll);
     };
     // `chapters` is rebuilt each render, but its length and order are fixed.

@@ -62,10 +62,20 @@ The pin does all pinning in CSS. The component attaches only **passive**
 `window.scrollTo()`. The browser owns wheel, trackpad, touch, keyboard and
 scrollbar input; snapping is native CSS:
 
-- Snap container: the root scroller, `html:has(.ctc-home)` in `Home.css`.
-  Never a nested `overflow: scroll` wrapper (it breaks every `window` scroll
-  listener and stops the mobile browser chrome collapsing), and never `body`
-  (snap-type is ignored there).
+- Scroller / snap container (`Home.css`), never `body` (snap-type is
+  ignored there):
+  - **Desktop (fine pointer):** the root scroller, `html:has(.ctc-home)`,
+    so keyboard scrolling works with nothing focused.
+  - **Touch (`pointer: coarse`):** `.app-shell` is a `100svh` scroll
+    container and the document does not scroll. Mobile browsers collapse
+    their address bar only on document scroll; doing that during hero →
+    Worship shifted the visible area ~56px mid-animation and made the hero's
+    Tamil text jitter on every such swipe (seen on a Galaxy S20 FE, Chrome).
+    The pin is `100svh` here. Trade-offs: the address bar stays visible on
+    the homepage and pull-to-refresh is unavailable there.
+  - Scroll listeners therefore use a capture-phase `document` listener (it
+    hears both the page and the container) and read positions with
+    `getBoundingClientRect`, or the active scroller's `scrollTop`.
 - Snap points: one invisible `.snapStop` span per chapter, positioned at
   `(section height − pin height) × index / (chapterCount − 1)` — exactly where
   that chapter is fully revealed — plus the footer (`end`).
