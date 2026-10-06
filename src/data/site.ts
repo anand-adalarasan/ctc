@@ -42,7 +42,7 @@ export type ChurchEvent = {
   category: string;
   description: string;
   date: string;
-  location: string;
+  location?: string;
   image: string | null;
 };
 
@@ -109,7 +109,6 @@ export const churchEvents = [
   {
     title: "Men's Fellowship",
     frequency: "Periodic Gathering",
-    time: "Time To Be Announced",
     category: "Men's Ministry",
     description:
       "A time for men to grow in faith, encourage one another, and build Christ-centered relationships.",
@@ -120,7 +119,6 @@ export const churchEvents = [
   {
     title: "Women's Conference",
     frequency: "Annual / Periodic Gathering",
-    time: "Time To Be Announced",
     category: "Women's Ministry",
     description:
       "A gathering for women to worship, learn, pray, and encourage one another in faith.",
@@ -142,7 +140,6 @@ export const churchEvents = [
   {
     title: "Vacation Bible School",
     frequency: "Every Summer",
-    time: "Time To Be Announced",
     category: "Children's Summer Ministry",
     description:
       "A joyful summer program where children learn God's Word through Bible stories, songs, games, crafts, and activities.",
@@ -153,12 +150,10 @@ export const churchEvents = [
   {
     title: "Church Picnic",
     frequency: "Every June",
-    time: "Time To Be Announced",
     category: "Family Fellowship",
     description:
       "A yearly outdoor gathering for food, fellowship, games, and community as a church family.",
     date: "Every June",
-    location: "Location To Be Announced",
     image: siteImages.churchPicnic.src
   },
   {
@@ -168,7 +163,6 @@ export const churchEvents = [
     description:
       "A yearly family retreat for worship, teaching, fellowship, rest, and spiritual renewal.",
     date: "Labor Day Weekend Every Year",
-    location: "Retreat Location To Be Announced",
     image: siteImages.familyCamp.src
   },
   {

@@ -21,12 +21,14 @@ export function useRevealGroup<T extends HTMLElement>(selector: string) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+          if (!entry.isIntersecting && entry.boundingClientRect.bottom >= 0) return;
           entry.target.classList.add("is-visible");
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -12%", threshold: 0.12 }
+      // threshold 0: a fractional threshold can't be met by a band taller than
+      // the viewport (common once layouts stack on phones). See useRevealOnScroll.
+      { rootMargin: "0px 0px -12%", threshold: 0 }
     );
 
     reveals.forEach((element) => observer.observe(element));

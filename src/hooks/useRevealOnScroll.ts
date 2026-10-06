@@ -38,9 +38,14 @@ export function useRevealOnScroll<T extends HTMLElement>({
       return;
     }
 
+    // Trigger as soon as any part of the element enters the viewport. A
+    // fractional threshold can never be met by an element taller than the
+    // viewport divided by that fraction — e.g. the stacked Events list on
+    // phones — which left such sections invisible. Elements already scrolled
+    // past (a hash jump, a restored scroll position) are revealed too.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting || entry.boundingClientRect.bottom < 0) {
           element.classList.add(visibleClassName);
 
           if (runOnce) {
@@ -52,7 +57,7 @@ export function useRevealOnScroll<T extends HTMLElement>({
       },
       {
         rootMargin: "0px 0px -80px 0px",
-        threshold: 0.12
+        threshold: 0
       }
     );
 

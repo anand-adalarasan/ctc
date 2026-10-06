@@ -23,7 +23,7 @@ function EventRow({ event }: { event: ChurchEvent }) {
         <div className="ctc-events-row-schedule">
           <span><CalendarDays size={15} aria-hidden="true" /> {event.date}</span>
           {event.time ? <span><Clock size={15} aria-hidden="true" /> {event.time}</span> : null}
-          <span><MapPin size={15} aria-hidden="true" /> {event.location}</span>
+          {event.location ? <span><MapPin size={15} aria-hidden="true" /> {event.location}</span> : null}
         </div>
         <p className="ctc-events-row-description">{event.description}</p>
       </div>

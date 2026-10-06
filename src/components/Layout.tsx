@@ -1,9 +1,10 @@
 import { ChevronDown, Clock, Facebook, Mail, MapPin, Menu, Phone, X, Youtube } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { siteImages } from "../data/images";
 import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { prefersReducedMotion } from "../utils/motion";
 
 type LayoutProps = {
   children: ReactNode;
@@ -31,7 +32,7 @@ const primaryNavItems: NavItem[] = [
     href: "/connect",
     children: [
       { label: "Events", href: "/events" },
-      { label: "Fellowship Hour", href: "/connect#fellowship-hour" }
+      { label: "Fellowship", href: "/connect#fellowship-hour" }
     ]
   },
   {
@@ -148,6 +149,24 @@ export default function Layout({ children }: LayoutProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open]);
 
+  // Linking to "/" while already on "/" changes no route, so the route-change
+  // scroll reset never runs. Scroll back to the hero ourselves — both the
+  // document and `.app-shell`, which is the homepage's scroller on touch
+  // devices (Home.css, "Touch scroll container").
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    setOpen(false);
+    setOpenMobileGroup(null);
+
+    if (location.pathname !== "/" || location.hash) {
+      return;
+    }
+
+    event.preventDefault();
+    const behavior: ScrollBehavior = prefersReducedMotion() ? "auto" : "smooth";
+    window.scrollTo({ top: 0, left: 0, behavior });
+    document.querySelector<HTMLElement>(".app-shell")?.scrollTo({ top: 0, left: 0, behavior });
+  };
+
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main-content">
@@ -155,7 +174,7 @@ export default function Layout({ children }: LayoutProps) {
       </a>
 
       <header className="site-header">
-        <Link className="brand brand-logo-link" to="/" onClick={() => setOpen(false)}>
+        <Link className="brand brand-logo-link" to="/" onClick={handleLogoClick}>
           <img
             className="brand-logo"
             src={siteImages.logo.src}
