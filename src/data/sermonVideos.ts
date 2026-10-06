@@ -7,7 +7,7 @@ export type SermonPlaylist = {
 export type SermonVideo = {
   title: string;
   youtubeId: string;
-  playlistId: string;
+  playlistId: SermonPlaylistId;
 };
 
 export const churchYoutubeChannelUrl =
@@ -15,8 +15,9 @@ export const churchYoutubeChannelUrl =
 
 // Church admin/developer note: add new videos here as they're posted.
 // youtubeId is the part of the video URL after "v=" (or after youtu.be/).
-// playlistId must match one of the ids in sermonPlaylists below.
-export const sermonPlaylists: SermonPlaylist[] = [
+// playlistId must match one of the ids in sermonPlaylists below (a typo is a
+// compile error).
+export const sermonPlaylists = [
   { id: "praise-worship", title: "Praise & Worship", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjYIL-QL79KmWKehuugUim0O" },
   { id: "vbs", title: "VBS - Vacation Bible School", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjaNUCwhMiWI0_Ri54cQYZJu" },
   { id: "kids-at-ctc", title: "Kids @ CTC / Sunday School", youtubeUrl: "https://www.youtube.com/playlist?list=PLtiE6Cl_ytjbrT2aHlIz8xSqxM_kHOQNe" },
@@ -25,53 +26,55 @@ export const sermonPlaylists: SermonPlaylist[] = [
   { id: "christmas-programs", title: "Christmas Programs", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
   { id: "sermons-guest-messages", title: "Sermons & Guest Messages", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
   { id: "morning-devotionals", title: "Morning Devotionals", youtubeUrl: "https://www.youtube.com/@ChristTamilChurchChicago/videos" },
-];
+] as const satisfies readonly SermonPlaylist[];
+
+export type SermonPlaylistId = (typeof sermonPlaylists)[number]["id"];
 
 export const sermonVideos: SermonVideo[] = [
   // Praise & Worship (16)
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | July 12, 2026", youtubeId: "NW_TXe8uxBg", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | May 17, 2026", youtubeId: "gLA-_-VvSa4", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | July 5, 2026", youtubeId: "zbV6kw0ayd4", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | June 28, 2026", youtubeId: "v4p_vC5pr8E", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | June 21, 2026 (Father's Day)", youtubeId: "BsADUs7x_Gc", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | June 14, 2026", youtubeId: "rRFcYkcW2tc", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | June 7, 2026 #shorts", youtubeId: "SUUWZf3S7Xg", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | June 7, 2026", youtubeId: "LtxBTMrFbwU", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | March 8, 2026 (Women's Sunday)", youtubeId: "R8tNPbPF9cI", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | May 31, 2026 (Blast Kids Sunday)", youtubeId: "x1biiYCBoyw", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | March 30, 2026 (Palm Sunday)", youtubeId: "AeSHfzXCQX0", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | April 12, 2026", youtubeId: "SDCbz0XKuTk", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | April 5, 2026 (Easter Sunday)", youtubeId: "NRgoxG2yHgs", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | July 12, 2026", youtubeId: "NW_TXe8uxBg", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | May 17, 2026", youtubeId: "gLA-_-VvSa4", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | July 5, 2026", youtubeId: "zbV6kw0ayd4", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | June 28, 2026", youtubeId: "v4p_vC5pr8E", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | June 21, 2026 (Father's Day)", youtubeId: "BsADUs7x_Gc", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | June 14, 2026", youtubeId: "rRFcYkcW2tc", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | June 7, 2026 #shorts", youtubeId: "SUUWZf3S7Xg", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | June 7, 2026", youtubeId: "LtxBTMrFbwU", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | March 8, 2026 (Women's Sunday)", youtubeId: "R8tNPbPF9cI", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | May 31, 2026 (Blast Kids Sunday)", youtubeId: "x1biiYCBoyw", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | March 30, 2026 (Palm Sunday)", youtubeId: "AeSHfzXCQX0", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | April 12, 2026", youtubeId: "SDCbz0XKuTk", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | April 5, 2026 (Easter Sunday)", youtubeId: "NRgoxG2yHgs", playlistId: "praise-worship" },
   { title: "Mother's Day 2026 | Christ Tamil Church Chicago | Pastor. Benny Joshua & Fly", youtubeId: "Nf7YNYx7vVI", playlistId: "praise-worship" },
-  { title: "Christ Tamil Church Chicago â€“ Good Friday Special Service 2026", youtubeId: "LiQ2uilv9Yo", playlistId: "praise-worship" },
+  { title: "Christ Tamil Church Chicago – Good Friday Special Service 2026", youtubeId: "LiQ2uilv9Yo", playlistId: "praise-worship" },
   { title: "From the Calvary comes the Seven words on the Cross - Christ Tamil Church Chicago Good Friday 2020", youtubeId: "JmHV8-ekzto", playlistId: "praise-worship" },
   // VBS - Vacation Bible School (33)
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 5 Recap | Zoomerang", youtubeId: "z06qhpW9Xg4", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Summary | Zoomerang", youtubeId: "z5KsGJgO0B8", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 4 Recap | Zoomerang", youtubeId: "jqBnsWoc7nA", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 2 Recap | Zoomerang", youtubeId: "tKY2EfP14-0", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 3 Recap | Zoomerang", youtubeId: "IemGP4FF5mg", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 1 Recap | Zoomerang", youtubeId: "Yq15phUAir8", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 6 Grand Finale | Certificate Distribution", youtubeId: "HS9gBAK5AGs", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 5 Recap | Zoomerang", youtubeId: "z06qhpW9Xg4", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Summary | Zoomerang", youtubeId: "z5KsGJgO0B8", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 4 Recap | Zoomerang", youtubeId: "jqBnsWoc7nA", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 2 Recap | Zoomerang", youtubeId: "tKY2EfP14-0", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 3 Recap | Zoomerang", youtubeId: "IemGP4FF5mg", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 1 Recap | Zoomerang", youtubeId: "Yq15phUAir8", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 6 Grand Finale | Certificate Distribution", youtubeId: "HS9gBAK5AGs", playlistId: "vbs" },
   { title: "Christ Tamil Church | VBS 2026 | Day 6 Grand Finale | Adult Skit for Kids: Love-O-Meter 5000", youtubeId: "yRCI4TMrrUk", playlistId: "vbs" },
   { title: "Christ Tamil Church | VBS 2026 | Day 6 Grand Finale | Zoomerang | Kids Program: Dance, Skit & Choreo", youtubeId: "Cr_LEn7B8hw", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 6 Grand Finale | Zoomerang | Intro & Kids P&W", youtubeId: "i2zBuj4kVnY", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 5 | Zoomerang | Glow Party Celebration â€“ Closing Session", youtubeId: "OHk04dXvb3c", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 5 | Zoomerang | Praise & Worship", youtubeId: "hOuEHzKFUNM", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Final Day | Zoomerang | Ultimate MEGA Recap", youtubeId: "pHVVNkpQQWw", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 6 Grand Finale | Zoomerang | Intro & Kids P&W", youtubeId: "i2zBuj4kVnY", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 5 | Zoomerang | Glow Party Celebration – Closing Session", youtubeId: "OHk04dXvb3c", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 5 | Zoomerang | Praise & Worship", youtubeId: "hOuEHzKFUNM", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Final Day | Zoomerang | Ultimate MEGA Recap", youtubeId: "pHVVNkpQQWw", playlistId: "vbs" },
   { title: "VBS @ CTC | Final Day #shorts", youtubeId: "BJphyypq9eQ", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 4 | Zoomerang | Closing Session", youtubeId: "Cg75Imvc1WE", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 4 | Zoomerang | Praise & Worship", youtubeId: "17m14b47a4U", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 3 | Zoomerang | Closing Session", youtubeId: "lEoHNoSsK_g", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 3 | Zoomerang | God's Amazing Design Lab", youtubeId: "69lb7dnD3Pk", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 4 | Zoomerang | Closing Session", youtubeId: "Cg75Imvc1WE", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 4 | Zoomerang | Praise & Worship", youtubeId: "17m14b47a4U", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 3 | Zoomerang | Closing Session", youtubeId: "lEoHNoSsK_g", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 3 | Zoomerang | God's Amazing Design Lab", youtubeId: "69lb7dnD3Pk", playlistId: "vbs" },
   { title: "VBS @ CTC | Day 5 #shorts", youtubeId: "EMkR5knCcuM", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 3 | Zoomerang | Praise & Worship", youtubeId: "s77D9zHvayc", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 2 | Zoomerang | Closing Session", youtubeId: "LHa8qN8Nm9M", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 3 | Zoomerang | Praise & Worship", youtubeId: "s77D9zHvayc", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 2 | Zoomerang | Closing Session", youtubeId: "LHa8qN8Nm9M", playlistId: "vbs" },
   { title: "VBS @ CTC | Day 4 #shorts", youtubeId: "L1CbTYqC5xk", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 2 | Zoomerang | Praise & Worship", youtubeId: "rbcW3EJseoY", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 2 | Zoomerang | Praise & Worship", youtubeId: "rbcW3EJseoY", playlistId: "vbs" },
   { title: "VBS @ CTC | Day 3 #shorts", youtubeId: "XeiYahLN9YU", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 1 | Zoomerang | Team Portraits", youtubeId: "tH0lx9JhNW0", playlistId: "vbs" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 1 | Zoomerang | Praise & Worship", youtubeId: "8SNMLH_3xWs", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 1 | Zoomerang | Team Portraits", youtubeId: "tH0lx9JhNW0", playlistId: "vbs" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 1 | Zoomerang | Praise & Worship", youtubeId: "8SNMLH_3xWs", playlistId: "vbs" },
   { title: "CTC VBS 2026 Is Here! #shorts #vbs2026 #christtamilchurchchicago", youtubeId: "yKnZ9iI63GE", playlistId: "vbs" },
   { title: "CTC VBS 2026 Is Coming! #shorts #vbs2026 #christtamilchurchchicago", youtubeId: "yXVYzClQK-o", playlistId: "vbs" },
   { title: "VBS 2026 Is Almost Here! | Christ Tamil Church Chicago", youtubeId: "KMQBE455RlE", playlistId: "vbs" },
@@ -80,16 +83,16 @@ export const sermonVideos: SermonVideo[] = [
   { title: "Rev Doc Newcomb: Message to VBS Kids AUG 8 2015 - GOD's LOVE", youtubeId: "rOrfmmNO7-g", playlistId: "vbs" },
   { title: "2015 Christ Tamil Church Chicago VBS: EVEREST - Powerful, August 8", youtubeId: "bEd-FDK-Pu0", playlistId: "vbs" },
   // Kids @ CTC / Sunday School (7)
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 1 | Zoomerang | Team Portraits", youtubeId: "tH0lx9JhNW0", playlistId: "kids-at-ctc" },
-  { title: "Christ Tamil Church â€“ VBS 2026 | Day 1 | Zoomerang | Praise & Worship", youtubeId: "8SNMLH_3xWs", playlistId: "kids-at-ctc" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 1 | Zoomerang | Team Portraits", youtubeId: "tH0lx9JhNW0", playlistId: "kids-at-ctc" },
+  { title: "Christ Tamil Church – VBS 2026 | Day 1 | Zoomerang | Praise & Worship", youtubeId: "8SNMLH_3xWs", playlistId: "kids-at-ctc" },
   { title: "CTC VBS 2026 Is Here! #shorts #vbs2026 #christtamilchurchchicago", youtubeId: "yKnZ9iI63GE", playlistId: "kids-at-ctc" },
   { title: "All About Our Blast Kids Sunday!!! | CTC Kids #shorts", youtubeId: "T5J0YaCKoQ4", playlistId: "kids-at-ctc" },
   { title: "Blast Kids Program | Christ Tamil Church Chicago | May 31, 2026", youtubeId: "S_rGebNY0ek", playlistId: "kids-at-ctc" },
   { title: "1st BLAST KIDS Children's Sunday JAN 31 2016 Christ Tamil Church Chicago", youtubeId: "-V3dPLuyHC4", playlistId: "kids-at-ctc" },
   { title: "Blast Kids Sunday Christ Tamil Church Chicago \"KINDNESS\" AUG 30 2015", youtubeId: "EaSZpGcrxV0", playlistId: "kids-at-ctc" },
   // Women of CTC (3)
-  { title: "Christ Tamil Church Chicago â€“ Praise & Worship | March 8, 2026 (Women's Sunday)", youtubeId: "R8tNPbPF9cI", playlistId: "women-of-ctc" },
-  { title: "Christ Tamil Church Chicago â€“ Women's Sunday 2026 Special Song", youtubeId: "4AWpYOS0i6U", playlistId: "women-of-ctc" },
+  { title: "Christ Tamil Church Chicago – Praise & Worship | March 8, 2026 (Women's Sunday)", youtubeId: "R8tNPbPF9cI", playlistId: "women-of-ctc" },
+  { title: "Christ Tamil Church Chicago – Women's Sunday 2026 Special Song", youtubeId: "4AWpYOS0i6U", playlistId: "women-of-ctc" },
   { title: "Women's Sunday Song - Christ Tamil Church Chicago", youtubeId: "qDjYc9DrpjY", playlistId: "women-of-ctc" },
   // Church Anniversary & Milestones (11)
   { title: "CTC 2023 Anniversary Adults Skit", youtubeId: "gF3cu5UsLWQ", playlistId: "church-anniversary" },

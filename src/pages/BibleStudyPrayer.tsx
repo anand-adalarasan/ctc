@@ -1,18 +1,28 @@
-import { ArrowRight, BookOpen, CalendarDays, HeartHandshake, MessageCircleQuestion, MoonStar, Sparkles, UsersRound } from "lucide-react";
+import { ArrowRight, BookOpen, CalendarDays, HeartHandshake, MessageCircleQuestion, MoonStar, Sparkles, UsersRound, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import RelatedLinks, { type RelatedLink } from "../components/RelatedLinks";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
-import { churchEvents } from "../data/site";
+import { churchEvents, type ChurchEvent, type ChurchEventTitle } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import { formatStep } from "../utils/format";
 import "./BibleStudyPrayer.css";
 
-const gatherings = [
+const events: readonly ChurchEvent[] = churchEvents;
+
+type Gathering = {
+  title: string;
+  /** Must name an entry in churchEvents; its schedule fills the row meta. */
+  event: ChurchEventTitle;
+  text: string;
+  icon: LucideIcon;
+};
+
+const gatherings = ([
   { title: "Bible Study & Prayer", event: "Bible Study & Prayer", text: "Open Scripture together, ask honest questions, and discover how God’s Word shapes everyday life.", icon: BookOpen },
   { title: "Prayer Conference", event: "Prayer Conference", text: "Pray for families, the church, and our community while encouraging one another in faith.", icon: HeartHandshake },
   { title: "Fasting Prayer", event: "Fasting Prayer", text: "Set aside focused time each month for worship, fasting, prayer, and seeking God together.", icon: MoonStar }
-].map((item) => ({ ...item, details: churchEvents.find((event) => event.title === item.event) }));
+] satisfies Gathering[]).map((item) => ({ ...item, details: events.find((event) => event.title === item.event) }));
 
 const related: RelatedLink[] = [
   { title: "Sunday School · B.L.A.S.T.", meta: "Children · Sundays", href: "/grow/sunday-school", icon: Sparkles },

@@ -12,7 +12,9 @@ import { beliefs, churchInfo } from "../data/site";
 import { useRevealGroup } from "../hooks/useRevealGroup";
 import "./Visit.css";
 
-const missionPoints = [
+type MissionPoint = readonly [step: string, title: string, text: string];
+
+const missionPoints: readonly MissionPoint[] = [
   ["01", "Worship in Tamil", "Create a place for Tamil families to worship and praise God in Tamil."],
   ["02", "Grow in Christ", "Deepen our relationship with Jesus, become alive in Christ, and serve others."],
   ["03", "Serve our neighbors", "Support people in need and take part in mission throughout Chicagoland."],

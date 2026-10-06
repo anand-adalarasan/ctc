@@ -34,7 +34,7 @@ export const churchInfo = {
     facebookUrl: "https://www.facebook.com/ChristTamilChurchChicago",
     youtubeUrl: churchYoutubeChannelUrl
   }
-};
+} as const;
 
 // Update this single object when the featured weekly scripture changes.
 export const verseOfTheWeek = {
@@ -67,7 +67,7 @@ export type ChurchEvent = {
 // Church admin/developer note:
 // Add or update future events here. Home intentionally previews only events
 // marked showOnHome, while Connect can display the full list.
-export const churchEvents: ChurchEvent[] = [
+export const churchEvents = [
   {
     title: "Sunday Worship Service",
     frequency: "Every Sunday",
@@ -287,8 +287,16 @@ export const churchEvents: ChurchEvent[] = [
     isAnnual: false,
     isRecurring: true
   }
-];
-export const beliefs = [
+] as const satisfies readonly ChurchEvent[];
+
+export type ChurchEventTitle = (typeof churchEvents)[number]["title"];
+
+export type Belief = {
+  title: string;
+  text: string;
+};
+
+export const beliefs: Belief[] = [
   {
     title: "God, the Father Almighty",
     text:

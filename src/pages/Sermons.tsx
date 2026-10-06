@@ -5,22 +5,27 @@ import {
   churchYoutubeChannelUrl,
   sermonPlaylists,
   sermonVideos,
+  type SermonPlaylistId,
   type SermonVideo
 } from "../data/sermonVideos";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./Sermons.css";
 
-const VIDEO_CATEGORIES: Array<{ id: string; label: string; playlists: string[] }> = [
+type VideoCategory = { id: string; label: string; playlists: readonly SermonPlaylistId[] };
+
+const VIDEO_CATEGORIES = [
   { id: "all", label: "All", playlists: [] },
   { id: "worship", label: "Worship", playlists: ["praise-worship"] },
   { id: "sermons", label: "Sermons", playlists: ["sermons-guest-messages", "morning-devotionals"] },
   { id: "children", label: "Children", playlists: ["vbs", "kids-at-ctc"] },
   { id: "celebrations", label: "Celebrations", playlists: ["women-of-ctc", "church-anniversary", "christmas-programs"] }
-];
+] as const satisfies readonly VideoCategory[];
 
-function cleanVideoTitle(title: string) {
-  return title.replace(/â€“/g, "–");
-}
+type VideoCategoryId = (typeof VIDEO_CATEGORIES)[number]["id"];
+
+const playlistTitles = new Map<SermonPlaylistId, string>(
+  sermonPlaylists.map((playlist) => [playlist.id, playlist.title])
+);
 
 function getDateLabel(title: string) {
   const fullDate = title.match(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}\b/i);
@@ -30,8 +35,7 @@ function getDateLabel(title: string) {
 }
 
 function VideoCard({ video, playlistName }: { video: SermonVideo; playlistName: string }) {
-  const cleanTitle = cleanVideoTitle(video.title);
-  const dateLabel = getDateLabel(cleanTitle);
+  const dateLabel = getDateLabel(video.title);
 
   return (
     <a
@@ -39,7 +43,7 @@ function VideoCard({ video, playlistName }: { video: SermonVideo; playlistName: 
       href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
       target="_blank"
       rel="noreferrer"
-      aria-label={`Watch ${cleanTitle} on YouTube`}
+      aria-label={`Watch ${video.title} on YouTube`}
       data-reveal-child
     >
       <span className="sermons-thumbnail">
@@ -51,7 +55,7 @@ function VideoCard({ video, playlistName }: { video: SermonVideo; playlistName: 
           <small>{playlistName}</small>
           {dateLabel ? <time>{dateLabel}</time> : null}
         </span>
-        <span className="sermons-video-title">{cleanTitle}</span>
+        <span className="sermons-video-title">{video.title}</span>
       </span>
     </a>
   );
@@ -65,7 +69,7 @@ function VideoGrid({ videos }: { videos: SermonVideo[] }) {
         <VideoCard
           key={`${video.playlistId}-${video.youtubeId}`}
           video={video}
-          playlistName={sermonPlaylists.find((playlist) => playlist.id === video.playlistId)?.title ?? "CTC video"}
+          playlistName={playlistTitles.get(video.playlistId) ?? "CTC video"}
         />
       ))}
     </div>
@@ -74,10 +78,13 @@ function VideoGrid({ videos }: { videos: SermonVideo[] }) {
 
 export default function Sermons() {
   const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [expandedPlaylists, setExpandedPlaylists] = useState<Record<string, boolean>>({});
+  const [activeCategory, setActiveCategory] = useState<VideoCategoryId>("all");
+  const [expandedPlaylists, setExpandedPlaylists] = useState<Partial<Record<SermonPlaylistId, boolean>>>({});
   const normalizedQuery = query.trim().toLocaleLowerCase();
-  const activePlaylistIds = VIDEO_CATEGORIES.find((category) => category.id === activeCategory)?.playlists ?? [];
+  const activePlaylistIds = useMemo<readonly SermonPlaylistId[]>(
+    () => VIDEO_CATEGORIES.find((category) => category.id === activeCategory)?.playlists ?? [],
+    [activeCategory]
+  );
   const visiblePlaylists = activeCategory === "all"
     ? sermonPlaylists
     : sermonPlaylists.filter((playlist) => activePlaylistIds.includes(playlist.id));
@@ -87,11 +94,11 @@ export default function Sermons() {
       : sermonVideos.filter((video) => activePlaylistIds.includes(video.playlistId));
     if (!normalizedQuery) return categoryVideos;
     return categoryVideos.filter((video) => {
-      const playlistTitle = sermonPlaylists.find((playlist) => playlist.id === video.playlistId)?.title ?? "";
-      return cleanVideoTitle(video.title).toLocaleLowerCase().includes(normalizedQuery)
+      const playlistTitle = playlistTitles.get(video.playlistId) ?? "";
+      return video.title.toLocaleLowerCase().includes(normalizedQuery)
         || playlistTitle.toLocaleLowerCase().includes(normalizedQuery);
     });
-  }, [activeCategory, normalizedQuery]);
+  }, [activeCategory, activePlaylistIds, normalizedQuery]);
 
   return (
     <>
