@@ -34,8 +34,10 @@ first-time-visitor essentials (time, address with directions, the one bronze
 
 ## Structure and progress
 
-The outer section is `100dvh + (chapters − 1) × 40dvh` tall (`--ftl-gaps` is
-set from the component). Its sticky, viewport-height pin holds every chapter
+The outer section is `100lvh + (chapters − 1) × 30svh` tall (`--ftl-gaps` is
+set from the component; `--ftl-cover`/`--ftl-step` hold the units, with `vh`
+fallbacks). The pin is `100lvh`; content is centred inside the always-visible
+`100svh`, so nothing sits under a mobile toolbar. Its sticky, viewport-height pin holds every chapter
 absolutely stacked. On the homepage the header is `position: fixed`, so the
 section starts at the very top of the document and the hero fills the first
 screen under the floating header.
@@ -105,12 +107,12 @@ layering another timeout or lock onto it.
   scroll-linked). A chapter gets `.lit` from the first pixel the light
   reveals it until it is fully gone; gaining it plays, losing it resets, so
   it replays on every arrival in either direction:
-  - Scene resolves from `blur(9px)`, `translate: 0 46px`, `scale: 0.955`
-    over 600–750ms. These use the individual `translate`/`scale`
-    properties so they compose with the scroll-driven `transform` drift,
-    which is never transitioned. No scene-level opacity fade: the mask
-    already controls visibility, and a second fade left the revealed area
-    empty mid-sweep.
+  - Scene settles from `translate: 0 46px`, `scale: 0.955` over 750ms.
+    These use the individual `translate`/`scale` properties so they compose
+    with the scroll-driven `transform` drift, which is never transitioned.
+    No scene-level opacity fade (the mask controls visibility; a second fade
+    left the revealed area empty mid-sweep) and no full-scene blur (blurring
+    a whole masked screen every frame was the costliest paint).
   - Marker rises 14px; its gold-to-green rule draws from `scaleX(0.15)`.
   - Headline words rise `0.55em` in a 110ms stagger; introduction fades at
     280ms; ribbon / Visit actions rise at 340ms; ministry names stagger at
@@ -134,7 +136,7 @@ Chapters are centred in the space **below the floating header**: Home.tsx
 measures `.site-header` (ResizeObserver) into `--ftl-top-inset`, which the
 scene's top padding uses; `justify-content: safe center` keeps the marker and
 headline on screen if a chapter ever overflows. At `620px`, vertical rhythm
-and the headline (`clamp(36px, min(13vw, 7.2dvh), 60px)`) scale with screen
+and the headline (`clamp(36px, min(13vw, 7.2svh), 60px)`) scale with screen
 height as well as width, ministry names stack tightly, and the Visit actions
 stack — the six-ministry chapters (Connect, Grow) fit down to 360×640 and
 375×600. The phone hero is tightened to fit one
@@ -156,6 +158,29 @@ IntersectionObserver on the hero instead.
 This mode is required. New motion must preserve complete readability and
 navigation when animation is disabled or the screen is too short to pin.
 
+## Performance rules (smooth always)
+
+Measured with GPU-enabled headless Chrome at 4× CPU throttling, scrolling
+through every chapter: phone 390×844@3x went from ~40 fps (p95 frame 83ms) to
+~58 fps (p95 17ms); desktop 1440×900 from ~10 fps to ~53 fps. Keep it there:
+
+- **Paint only what is visible.** Chapters without `.lit` are
+  `visibility: hidden` (fully masked anyway) and carry no `will-change`; at
+  most two chapters (outgoing + incoming) are painted and layered at once.
+- **Per-frame custom properties never cascade.** `--lo`/`--hi` are
+  registered with `@property … inherits: false`. Never write a per-frame
+  custom property on an ancestor: the comet rail writes
+  `--ctc-rail-progress` on `.ctc-spine` itself, not on `.ctc-light-shell`
+  (that one write restyled the entire homepage every frame).
+- **No full-screen filters in motion.** No `blur()` on whole chapters.
+- **Static viewport units.** `lvh`/`svh`, never `dvh`, for anything sized or
+  positioned while scrolling, including phone type and spacing.
+- **No hidden work.** Anything fully covered by the pin (the old particle
+  canvas, vignette, grain and cursor glow — removed after a zero-pixel
+  screenshot diff) must not keep rendering.
+- **Snap step.** 30% of a screen per chapter, so gentle trackpad swipes
+  cross the half-way point instead of snapping back.
+
 ## Accessibility and implementation constraints
 
 - The section has the accessible label "Our life together".
@@ -166,7 +191,7 @@ navigation when animation is disabled or the screen is too short to pin.
   ordered list; the active station carries `aria-current="step"`.
 - Every inactive chapter gets `aria-hidden="true"` and `inert`; the active
   chapter has both removed.
-- Heights use `vh` with `dvh` overrides; progress always comes from measured
+- Heights use `lvh`/`svh` with `vh` fallbacks; progress always comes from measured
   `offsetHeight`, never `window.innerHeight`.
 - Always clean up listeners and observers on unmount.
 

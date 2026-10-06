@@ -101,9 +101,14 @@
 @media (max-width: 620px) {
   .ctc-home .ctc-hero {
     align-content: center;
-    gap: clamp(16px, 3dvh, 28px);
+    gap: clamp(16px, 3svh, 28px);
     padding-top: 92px;
-    padding-bottom: clamp(16px, 3dvh, 28px);
+    /* The photo covers the full pin (`lvh`); content stays centred in the
+       always-visible part, clear of a mobile browser toolbar. Units are
+       static (svh/lvh) so nothing reflows while that toolbar slides. */
+    padding-bottom: calc(
+      clamp(16px, 3svh, 28px) + var(--ftl-cover, 100vh) - var(--ftl-safe, 100vh)
+    );
   }
 
   /* Display hierarchy for the Tamil title. Its two phrase lines never wrap
@@ -120,19 +125,19 @@
   .ctc-home .ctc-hero-title-accent {
     font-size: 2.3em;
     line-height: 1.08;
-    margin-bottom: clamp(6px, 1.4dvh, 14px);
+    margin-bottom: clamp(6px, 1.4svh, 14px);
   }
 
   /* One step quieter than the title so the hierarchy reads at a glance.
      Gaps scale with screen height: generous on tall phones, compressing on
      short ones so the hero still fits one screen (verified to 360×640). */
   .ctc-home .ctc-hero-lede {
-    margin-top: clamp(16px, 3dvh, 28px);
-    font-size: clamp(0.98rem, 2.1dvh, 1.08rem);
+    margin-top: clamp(16px, 3svh, 28px);
+    font-size: clamp(0.98rem, 2.1svh, 1.08rem);
   }
 
   .ctc-home .ctc-hero-actions {
-    margin-top: clamp(18px, 3.4dvh, 32px);
+    margin-top: clamp(18px, 3.4svh, 32px);
   }
 
   .ctc-home .ctc-hero-actions a {
@@ -165,54 +170,18 @@
   }
 
   .ctc-home .ctc-hero-weekly-verse-ribbon p {
-    font-size: clamp(1rem, 2.2dvh, 1.2rem);
+    font-size: clamp(1rem, 2.2svh, 1.2rem);
   }
 }
 
-.ctc-field,
-.ctc-vignette,
-.ctc-grain,
-.ctc-cursor,
+/* The particle canvas, vignette, grain and cursor glow that used to sit
+   here were removed: once the hero moved into Follow the Light's opaque
+   pin they were fully covered (verified pixel-identical with them hidden)
+   but still rendered every frame. Only the visible rail remains. */
 .ctc-spine,
 .ctc-comet {
   position: fixed;
   pointer-events: none;
-}
-
-.ctc-field {
-  inset: 0;
-  z-index: 0;
-}
-
-.ctc-vignette {
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(100% 80% at 50% 18%, transparent 42%, rgba(255, 255, 255, 0.36) 100%),
-    radial-gradient(60% 50% at 50% 30%, rgba(140, 198, 62, 0.08), transparent 70%);
-}
-
-.ctc-grain {
-  inset: -50%;
-  z-index: 2;
-  opacity: 0.035;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: ctcGrain 7s steps(6) infinite;
-}
-
-.ctc-cursor {
-  top: 0;
-  left: 0;
-  z-index: 3;
-  width: 520px;
-  height: 520px;
-  margin: -260px 0 0 -260px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(140, 198, 62, 0.14), rgba(249, 157, 55, 0.055) 36%, transparent 62%);
-  mix-blend-mode: multiply;
-  opacity: 0;
-  transition: opacity 600ms ease;
 }
 
 .ctc-spine {
@@ -300,27 +269,6 @@
   font-weight: 300;
   line-height: 0.98;
   letter-spacing: -0.02em;
-}
-
-@keyframes ctcGrain {
-  0% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-4%, 3%);
-  }
-  40% {
-    transform: translate(3%, -4%);
-  }
-  60% {
-    transform: translate(-3%, 2%);
-  }
-  80% {
-    transform: translate(4%, -2%);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
 }
 
 @keyframes ctcFadeIn {
@@ -420,11 +368,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ctc-grain,
-  .ctc-cursor {
-    display: none;
-  }
-
   .ctc-spine,
 .ctc-comet {
     animation: none !important;
@@ -441,16 +384,6 @@
 .ctc-home {
   --ctc-wash-opacity: 0;
   --ctc-wash-x: -26px;
-}
-
-.ctc-cursor {
-  width: 620px;
-  height: 620px;
-  margin: -310px 0 0 -310px;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(140, 198, 62, 0.3) 0%, rgba(140, 198, 62, 0.18) 18%, rgba(249, 157, 55, 0.1) 42%, transparent 68%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.76), transparent 32%);
-  mix-blend-mode: multiply;
 }
 
 .ctc-spine {
@@ -551,10 +484,6 @@
   .ctc-stage-open::before {
     left: 0;
     width: 100%;
-  }
-
-  .ctc-cursor {
-    display: none;
   }
 }
 

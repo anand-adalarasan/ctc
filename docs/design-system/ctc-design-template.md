@@ -218,7 +218,9 @@ Gentle and reverent — light revealing the page, not decoration moving on it.
 
 **Homepage-exclusive atmosphere — do NOT copy to inner pages:**
 
-- The left light-rail spine, scroll comet, particle canvas, cursor glow.
+- The left light-rail spine and scroll comet. (The particle canvas, cursor
+  glow, vignette and grain were removed: Follow the Light's opaque pin
+  covers them completely, so they only cost frame time.)
 - The pinned "Follow the Light" scrollytelling
   (`src/components/FollowTheLight/`) — spec in
   `docs/design-system/follow-the-light-motion.md`.

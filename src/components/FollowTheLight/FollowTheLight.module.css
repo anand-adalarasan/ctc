@@ -6,37 +6,56 @@
   --ftl-light: var(--light, #8dc63f);
   --ftl-glide: cubic-bezier(0.2, 0.7, 0.2, 1);
 
-  /* One pin-height plus 40% of a screen of scroll per chapter change. */
+  /* One pin-height plus 30% of a screen of scroll per chapter change.
+     30% (not more) so a gentle trackpad swipe crosses the half-way point
+     and mandatory snapping carries it on, instead of pulling it back.
+
+     Viewport units are the STATIC ones: `lvh` (largest, browser toolbar
+     hidden) for anything that must cover the screen, `svh` (smallest) for
+     scroll distances and type. `dvh` changes continuously while a mobile
+     address bar slides away, which re-laid-out this whole section and moved
+     the snap stops mid-scroll — the "stuck" stutter on phones. Desktop has
+     no toolbar, so all three are equal there. */
+  --ftl-cover: 100vh;
+  --ftl-step: 30vh;
+  --ftl-safe: 100vh;
+
   position: relative;
-  height: calc(100vh + var(--ftl-gaps, 3) * 40vh);
-  height: calc(100dvh + var(--ftl-gaps, 3) * 40dvh);
+  height: calc(var(--ftl-cover) + var(--ftl-gaps, 3) * var(--ftl-step));
   z-index: 5;
   background:
     radial-gradient(circle at 50% 48%, rgba(244, 232, 200, 0.2), transparent 46%),
     linear-gradient(180deg, rgba(255, 254, 250, 0.94) 0%, rgba(247, 248, 244, 0.98) 86%, rgba(255, 254, 250, 0.98) 100%);
 }
 
+@supports (height: 100lvh) {
+  .section {
+    --ftl-cover: 100lvh;
+    --ftl-step: 30svh;
+    /* Always-visible height: content is centred inside this, so nothing
+       sits under a mobile toolbar while the pin itself covers `lvh`. */
+    --ftl-safe: 100svh;
+  }
+}
+
 /* Scroll-snap targets (see FollowTheLight.tsx). Each stop is one pin-height
    tall and placed at `--ftl-stop` (0 → 1) of the sticky travel, i.e.
-   (section height − pin height) × stop. Using `100%` of the section keeps
-   the stops correct whether 220vh or 220dvh is in effect. Snapping itself is
-   only switched on inside the media queries at the bottom of this file. */
+   (section height − pin height) × stop, so each matches the component's
+   measured progress exactly. Snapping itself is only switched on inside
+   the media queries at the bottom of this file. */
 .snapStop {
   position: absolute;
   left: 0;
   width: 1px;
-  height: 100vh;
-  height: 100dvh;
-  top: calc((100% - 100vh) * var(--ftl-stop, 0));
-  top: calc((100% - 100dvh) * var(--ftl-stop, 0));
+  height: var(--ftl-cover);
+  top: calc((100% - var(--ftl-cover)) * var(--ftl-stop, 0));
   pointer-events: none;
 }
 
 .pin {
   position: sticky;
   top: 0;
-  height: 100vh;
-  height: 100dvh;
+  height: var(--ftl-cover);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -92,8 +111,14 @@
   justify-content: center;
   justify-content: safe center;
   text-align: center;
-  padding: calc(var(--ftl-top-inset, 0px) + 16px) 8vw 24px;
+  padding:
+    calc(var(--ftl-top-inset, 0px) + 16px)
+    8vw
+    calc(24px + var(--ftl-cover) - var(--ftl-safe));
   pointer-events: none;
+  /* Only the one or two scenes sharing the light (`.lit`) are painted;
+     the rest are fully masked anyway, so skip their paint entirely. */
+  visibility: hidden;
   -webkit-mask-image: linear-gradient(
     to top,
     transparent calc(var(--lo) * (100% + var(--edge)) - var(--edge)),
@@ -111,7 +136,20 @@
   /* Outgoing content lifts away as the light passes; incoming settles up
      into place behind it. */
   transform: translate3d(0, calc((1 - var(--hi)) * var(--drift) - var(--lo) * var(--drift)), 0);
-  will-change: transform;
+}
+
+/* `--lo` / `--hi` change every scroll frame. Registered as non-inheriting,
+   so each change restyles the scene element alone, not its whole subtree. */
+@property --lo {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --hi {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
 }
 
 .scene.on {
@@ -137,23 +175,23 @@
    The scene-level entrance uses the individual `translate` / `scale`
    properties so it composes with the scroll-driven `transform` drift above
    (which must never be transitioned — it tracks the scroll exactly). It has
-   no opacity fade of its own: the light's mask already controls visibility,
-   and a second fade left the freshly revealed area empty mid-sweep.
+   no opacity fade of its own (the light's mask controls visibility) and no
+   full-scene blur: blurring a whole masked screen, photo included, on every
+   frame of the entrance was the costliest paint in the sequence.
    ------------------------------------------------------------------------ */
 .scene {
   translate: 0 46px;
   scale: 0.955;
-  filter: blur(9px);
   transition:
     translate 0.75s var(--ftl-glide),
-    scale 0.75s var(--ftl-glide),
-    filter 0.6s ease;
+    scale 0.75s var(--ftl-glide);
 }
 
 .scene.lit {
+  visibility: visible;
   translate: none;
   scale: none;
-  filter: none;
+  will-change: transform;
 }
 
 .marker {
@@ -725,10 +763,10 @@
   -webkit-mask-image: none;
   mask-image: none;
   transform: none;
+  visibility: visible;
   opacity: 1;
   translate: none;
   scale: none;
-  filter: none;
   will-change: auto;
 }
 
@@ -756,14 +794,17 @@
 
 /* Phones: the longest chapters (Connect, Grow: six ministries, some on two
    lines) must fit between the 76px header and the bottom of a ~640px-tall
-   screen. Vertical rhythm and the headline scale with screen height (dvh)
+   screen. Vertical rhythm and the headline scale with screen height (svh, stable while the toolbar moves)
    as well as width, so short phones tighten instead of clipping. */
 @media (max-width: 620px) {
   .scene {
     padding:
-      calc(var(--ftl-top-inset, 0px) + clamp(8px, 1.6dvh, 16px))
+      calc(var(--ftl-top-inset, 0px) + clamp(8px, 1.6svh, 16px))
       20px
-      calc(clamp(12px, 2dvh, 20px) + env(safe-area-inset-bottom, 0px));
+      calc(
+        clamp(12px, 2svh, 20px) + env(safe-area-inset-bottom, 0px) +
+        var(--ftl-cover) - var(--ftl-safe)
+      );
   }
 
   .markerCopy {
@@ -776,25 +817,25 @@
 
   .markerRule {
     width: 44px;
-    margin-top: clamp(8px, 1.2dvh, 12px);
+    margin-top: clamp(8px, 1.2svh, 12px);
   }
 
   .headline {
     max-width: 9.4ch;
-    margin-top: clamp(10px, 1.8dvh, 18px);
-    font-size: clamp(36px, min(13vw, 7.2dvh), 60px);
+    margin-top: clamp(10px, 1.8svh, 18px);
+    font-size: clamp(36px, min(13vw, 7.2svh), 60px);
   }
 
   .sub {
-    margin-top: clamp(10px, 1.8dvh, 18px);
-    font-size: clamp(14px, 2.2dvh, 15.5px);
+    margin-top: clamp(10px, 1.8svh, 18px);
+    font-size: clamp(14px, 2.2svh, 15.5px);
     line-height: 1.45;
   }
 
   .ribbon {
-    gap: clamp(6px, 1.2dvh, 12px);
+    gap: clamp(6px, 1.2svh, 12px);
     width: 100%;
-    margin-top: clamp(12px, 2.2dvh, 22px);
+    margin-top: clamp(12px, 2.2svh, 22px);
     padding: 0;
     text-align: left;
   }
@@ -813,15 +854,15 @@
     align-items: center;
     gap: 0;
     width: 100%;
-    padding: clamp(2px, 0.5dvh, 5px) 0;
-    font-size: clamp(15px, 2.5dvh, 17.5px);
+    padding: clamp(2px, 0.5svh, 5px) 0;
+    font-size: clamp(15px, 2.5svh, 17.5px);
     line-height: 1.3;
   }
 
   .ribbonList li:not(:last-child)::after {
     width: 16px;
     height: 1px;
-    margin: clamp(4px, 0.7dvh, 6px) 0 0;
+    margin: clamp(4px, 0.7svh, 6px) 0 0;
     border-radius: 0;
     background: var(--ftl-gold);
     box-shadow: none;
