@@ -7,9 +7,9 @@ import {
   Coffee,
   MapPin,
 } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { beliefs, churchInfo } from "../data/site";
+import { useRevealGroup } from "../hooks/useRevealGroup";
 import "./Visit.css";
 
 const missionPoints = [
@@ -20,34 +20,7 @@ const missionPoints = [
 ];
 
 export default function Visit() {
-  const pageRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
-
-    const reveals = Array.from(page.querySelectorAll<HTMLElement>(".visit-reveal"));
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      reveals.forEach((element) => element.classList.add("is-visible"));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -12%", threshold: 0.12 }
-    );
-
-    reveals.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
+  const pageRef = useRevealGroup<HTMLElement>(".visit-reveal");
 
   return (
     <main className="visit-page" ref={pageRef}>

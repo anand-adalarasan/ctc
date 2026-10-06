@@ -11,6 +11,7 @@ tsconfig.tsbuildinfo
 skills/
 agents/
 hooks/
+!src/hooks/
 .codex/hooks.json
 .impeccable/critique/2026-10-06T01-25-15Z__src-pages-home-tsx.md
 docs/design-system/pages/home-hero-concept.png

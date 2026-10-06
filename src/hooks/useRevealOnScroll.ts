@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { prefersReducedMotion } from "../utils/motion";
 
 type RevealOptions = {
   childSelector?: string;
@@ -32,11 +33,7 @@ export function useRevealOnScroll<T extends HTMLElement>({
         });
     }
 
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
       element.classList.add(visibleClassName);
       return;
     }

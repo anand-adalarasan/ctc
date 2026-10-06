@@ -99,10 +99,6 @@
 .sermons-playlist-heading > button:focus-visible { border-radius: 4px; outline: 2px solid var(--primary); outline-offset: 4px; }
 .sermons-video-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-.sermons-show-all { display: inline-flex; align-items: center; margin-top: 28px; border: 0; padding: 8px 0; background: transparent; color: var(--clay-dark); font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; }
-.sermons-show-all:hover { color: var(--primary); }
-.sermons-show-all:focus-visible { border-radius: 4px; outline: 2px solid var(--primary); outline-offset: 4px; }
-
 .sermons-video-card {
   display: block;
   overflow: hidden;

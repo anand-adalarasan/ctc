@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
 import {
   ArrowRight,
   Clock,
@@ -14,6 +13,7 @@ import {
 import { siteImages } from "../data/images";
 import { pathwayLabels } from "../data/ministryPathways";
 import { churchInfo } from "../data/site";
+import { useRevealGroup } from "../hooks/useRevealGroup";
 import "./Connect.css";
 import "./PageHeroTypography.css";
 
@@ -51,34 +51,7 @@ const connectTraditions = [
 ];
 
 export default function Connect() {
-  const pageRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
-
-    const reveals = Array.from(page.querySelectorAll<HTMLElement>(".connect-reveal"));
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      reveals.forEach((element) => element.classList.add("is-visible"));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -12%", threshold: 0.12 }
-    );
-
-    reveals.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
+  const pageRef = useRevealGroup<HTMLDivElement>(".connect-reveal");
 
   return (
     <div className="connect-page" ref={pageRef}>

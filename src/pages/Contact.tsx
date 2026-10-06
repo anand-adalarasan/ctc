@@ -1,31 +1,10 @@
 import { ArrowRight, Facebook, Mail, Phone, Youtube } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { churchInfo } from "../data/site";
+import { useRevealGroup } from "../hooks/useRevealGroup";
 import "./Contact.css";
 
 export default function Contact() {
-  const pageRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
-    const reveals = Array.from(page.querySelectorAll<HTMLElement>(".contact-reveal"));
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion || !("IntersectionObserver" in window)) {
-      reveals.forEach((element) => element.classList.add("is-visible"));
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }),
-      { rootMargin: "0px 0px -12%", threshold: 0.12 },
-    );
-    reveals.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
+  const pageRef = useRevealGroup<HTMLElement>(".contact-reveal");
 
   return (
     <main className="contact-page" ref={pageRef}>
