@@ -57,6 +57,21 @@ export default function Home() {
   // The hero is Follow the Light's opening chapter; the Sunday FAB appears
   // once any later chapter (or the footer) is the one in view.
   const [showFab, setShowFab] = useState(false);
+  const homeRef = useRef<HTMLDivElement | null>(null);
+
+  // The homepage header floats over Follow the Light; publish its real
+  // height so every chapter is centred in the space below it.
+  useEffect(() => {
+    const home = homeRef.current;
+    const header = document.querySelector<HTMLElement>(".site-header");
+    if (!home || !header) return;
+
+    const apply = () => home.style.setProperty("--ftl-top-inset", `${header.offsetHeight}px`);
+    apply();
+    const observer = new ResizeObserver(apply);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -343,7 +358,7 @@ export default function Home() {
       <div className="ctc-spine" aria-hidden="true" />
       <div className="ctc-comet" ref={cometRef} aria-hidden="true" />
 
-      <div className="ctc-home">
+      <div className="ctc-home" ref={homeRef}>
         <FollowTheLight
           opening={{ labelTa: "வணக்கம்", labelEn: "Welcome", content: hero }}
           onActiveChange={(index) => setShowFab(index > 0)}

@@ -86,9 +86,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Centred in the space BELOW the floating homepage header
+     (`--ftl-top-inset`, set in Home.css). `safe` keeps the top (marker and
+     headline) on screen if a chapter is ever taller than that space. */
   justify-content: center;
+  justify-content: safe center;
   text-align: center;
-  padding: 0 8vw;
+  padding: calc(var(--ftl-top-inset, 0px) + 16px) 8vw 24px;
   pointer-events: none;
   -webkit-mask-image: linear-gradient(
     to top,
@@ -750,9 +754,16 @@
   display: none;
 }
 
+/* Phones: the longest chapters (Connect, Grow: six ministries, some on two
+   lines) must fit between the 76px header and the bottom of a ~640px-tall
+   screen. Vertical rhythm and the headline scale with screen height (dvh)
+   as well as width, so short phones tighten instead of clipping. */
 @media (max-width: 620px) {
   .scene {
-    padding-inline: 20px;
+    padding:
+      calc(var(--ftl-top-inset, 0px) + clamp(8px, 1.6dvh, 16px))
+      20px
+      calc(clamp(12px, 2dvh, 20px) + env(safe-area-inset-bottom, 0px));
   }
 
   .markerCopy {
@@ -760,28 +771,30 @@
   }
 
   .markerTamil {
-    font-size: clamp(20px, 6vw, 23px);
+    font-size: clamp(19px, 5.6vw, 22px);
   }
 
   .markerRule {
-    width: 48px;
-    margin-top: 12px;
+    width: 44px;
+    margin-top: clamp(8px, 1.2dvh, 12px);
   }
 
   .headline {
     max-width: 9.4ch;
-    font-size: clamp(42px, 14vw, 64px);
+    margin-top: clamp(10px, 1.8dvh, 18px);
+    font-size: clamp(36px, min(13vw, 7.2dvh), 60px);
   }
 
   .sub {
-    margin-top: 20px;
-    font-size: 15px;
+    margin-top: clamp(10px, 1.8dvh, 18px);
+    font-size: clamp(14px, 2.2dvh, 15.5px);
+    line-height: 1.45;
   }
 
   .ribbon {
-    gap: 14px;
+    gap: clamp(6px, 1.2dvh, 12px);
     width: 100%;
-    margin-top: 22px;
+    margin-top: clamp(12px, 2.2dvh, 22px);
     padding: 0;
     text-align: left;
   }
@@ -798,16 +811,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 0;
     width: 100%;
-    padding: 6px 0;
-    font-size: 18px;
+    padding: clamp(2px, 0.5dvh, 5px) 0;
+    font-size: clamp(15px, 2.5dvh, 17.5px);
+    line-height: 1.3;
   }
 
   .ribbonList li:not(:last-child)::after {
-    width: 18px;
+    width: 16px;
     height: 1px;
-    margin: 6px 0 0;
+    margin: clamp(4px, 0.7dvh, 6px) 0 0;
     border-radius: 0;
     background: var(--ftl-gold);
     box-shadow: none;

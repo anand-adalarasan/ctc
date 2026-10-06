@@ -130,10 +130,18 @@ layering another timeout or lock onto it.
   Supporting UI: `--font-body`. Accent `--green-deep`; CTA `--clay-dark`.
 - No bounce, spring, looping ornament, or React render loop.
 
-At `620px`, pathway padding tightens, headlines use `42–64px`, ministry names
-stack, and the Visit actions stack. The phone hero is tightened to fit one
-screen down to 375×667 (centred column, single-row Sunday card, width-scaled
-Tamil title that never wraps or overflows).
+Chapters are centred in the space **below the floating header**: Home.tsx
+measures `.site-header` (ResizeObserver) into `--ftl-top-inset`, which the
+scene's top padding uses; `justify-content: safe center` keeps the marker and
+headline on screen if a chapter ever overflows. At `620px`, vertical rhythm
+and the headline (`clamp(36px, min(13vw, 7.2dvh), 60px)`) scale with screen
+height as well as width, ministry names stack tightly, and the Visit actions
+stack — the six-ministry chapters (Connect, Grow) fit down to 360×640 and
+375×600. The phone hero is tightened to fit one
+screen down to 360×640 (centred column, single-row Sunday card). The Tamil
+title uses a display hierarchy on phones: "வாரும்," at ~2× on its own line,
+the two phrase lines width-scaled so they never wrap or overflow, and the
+lede one step quieter.
 
 ## Flat mode (reduced motion and short screens)
 
