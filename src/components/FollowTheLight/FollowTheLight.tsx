@@ -193,7 +193,12 @@ export default function FollowTheLight({ opening, onActiveChange }: FollowTheLig
     let ticking = false;
     let lastActive = -1;
     const lastMask = chapters.map(() => "");
-    const lastLit = chapters.map((_, index) => index === 0);
+    // Seed from the DOM, not from the initial render: a previous run of this
+    // effect (StrictMode remount, or a pass made while the old route's scroll
+    // offset was still applied) may already have moved `lit` to another scene.
+    const lastLit = chapters.map(
+      (_, index) => sceneRefs.current[index]?.classList.contains(styles.lit) ?? false
+    );
 
     const update = () => {
       ticking = false;
