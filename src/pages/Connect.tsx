@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -11,18 +12,27 @@ import {
   Wheat
 } from "lucide-react";
 import PathwayMarker from "../components/PathwayMarker";
-import { siteImages } from "../data/images";
+import { siteImages, type SiteImage } from "../data/images";
 import { churchInfo } from "../data/site";
 import { useRevealGroup } from "../hooks/useRevealGroup";
 import "./Connect.css";
 import "./PageHeroTypography.css";
 
-const connectTraditions = [
+type ConnectTradition = {
+  number: string;
+  title: string;
+  text: string;
+  icon: typeof Sun;
+  image?: SiteImage;
+};
+
+const connectTraditions: ConnectTradition[] = [
   {
     number: "01",
     title: "Summer Picnic",
     text: "An easygoing day outdoors with shared food, games, conversation, and time for every generation to enjoy being together.",
-    icon: Sun
+    icon: Sun,
+    image: siteImages.connectSummerPicnic
   },
   {
     number: "02",
@@ -34,28 +44,69 @@ const connectTraditions = [
     number: "03",
     title: "Summer Carnival",
     text: "A joyful community celebration where children, parents, friends, and neighbors can share activities, laughter, and hospitality.",
-    icon: Sparkles
+    icon: Sparkles,
+    image: siteImages.connectSummerCarnival
   },
   {
     number: "04",
     title: "Harvest Festival",
     text: "A seasonal gathering to give thanks for God’s goodness and celebrate with food, family activities, and fellowship.",
-    icon: Wheat
+    icon: Wheat,
+    image: siteImages.connectHarvestFestival
   },
   {
     number: "05",
     title: "Carol Rounds",
     text: "At Christmas, we carry songs of hope from home to home and share the joy of Christ’s birth with our church family.",
-    icon: Music
+    icon: Music,
+    image: siteImages.connectCarolRounds
   }
 ];
 
 export default function Connect() {
   const pageRef = useRevealGroup<HTMLDivElement>(".connect-reveal");
+  const listRef = useRef<HTMLDivElement>(null);
+  const [activeTradition, setActiveTradition] = useState(0);
+  const [shownPhoto, setShownPhoto] = useState(0);
+
+  // The frame keeps the last photographed tradition when the active row has no photo.
+  useEffect(() => {
+    if (connectTraditions[activeTradition].image) setShownPhoto(activeTradition);
+  }, [activeTradition]);
+
+  // Rows crossing the middle of the viewport become active as the visitor scrolls.
+  useEffect(() => {
+    const rows = listRef.current?.querySelectorAll<HTMLElement>("[data-tradition]");
+    if (!rows?.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveTradition(Number((entry.target as HTMLElement).dataset.tradition));
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    rows.forEach((row) => observer.observe(row));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="connect-page" ref={pageRef}>
       <section className="connect-hero" aria-labelledby="connect-title">
+        <div className="connect-hero-media" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 900px)" srcSet={siteImages.connectHeroMobile.src} />
+            <img
+              className="connect-hero-bg"
+              src={siteImages.connectHero.src}
+              alt=""
+              width="2000"
+              height="1117"
+              style={{ objectPosition: siteImages.connectHero.objectPosition }}
+            />
+          </picture>
+          <div className="connect-hero-wash" />
+        </div>
         <div className="connect-shell connect-hero-grid">
           <div className="connect-hero-copy">
             <PathwayMarker pathway="connect" className="connect-hero-kicker" />
@@ -83,11 +134,12 @@ export default function Connect() {
         <div className="connect-shell connect-fellowship-grid">
           <figure className="connect-fellowship-photo">
             <img
-              src={siteImages.events.src}
-              alt={siteImages.events.alt}
-              width="1200"
-              height="900"
+              src={siteImages.connectFellowshipMeal.src}
+              alt={siteImages.connectFellowshipMeal.alt}
+              width="1070"
+              height="716"
               loading="lazy"
+              style={{ objectPosition: siteImages.connectFellowshipMeal.objectPosition }}
             />
             <figcaption>Food, friendship, and time to be known.</figcaption>
           </figure>
@@ -117,18 +169,50 @@ export default function Connect() {
             <p className="connect-eyebrow">Through the year</p>
             <h2 id="traditions-title">Traditions that turn moments into memories.</h2>
             <p>Our calendar makes room for celebration, care, and the kind of friendship that continues beyond Sundays.</p>
+
+            <figure className="connect-tradition-frame" aria-hidden="true">
+              <div className="connect-tradition-frame-photos">
+                {connectTraditions.map((tradition, index) =>
+                  tradition.image ? (
+                    <img
+                      key={tradition.title}
+                      className={index === shownPhoto ? "is-shown" : undefined}
+                      src={tradition.image.src}
+                      alt=""
+                      loading="lazy"
+                      style={{ objectPosition: tradition.image.objectPosition }}
+                    />
+                  ) : null
+                )}
+              </div>
+              <figcaption key={shownPhoto}>{connectTraditions[shownPhoto].title}</figcaption>
+            </figure>
           </header>
 
-          <div className="connect-tradition-list">
-            {connectTraditions.map((tradition) => {
+          <div className="connect-tradition-list" ref={listRef}>
+            {connectTraditions.map((tradition, index) => {
               const Icon = tradition.icon;
               return (
-                <article key={tradition.title}>
+                <article
+                  key={tradition.title}
+                  data-tradition={index}
+                  className={index === activeTradition ? "is-active" : undefined}
+                  onPointerEnter={() => setActiveTradition(index)}
+                >
                   <span className="connect-tradition-number">{tradition.number}</span>
                   <Icon size={21} aria-hidden="true" />
                   <div>
                     <h3>{tradition.title}</h3>
                     <p>{tradition.text}</p>
+                    {tradition.image ? (
+                      <img
+                        className="connect-tradition-inline-photo"
+                        src={tradition.image.src}
+                        alt={tradition.image.alt}
+                        loading="lazy"
+                        style={{ objectPosition: tradition.image.objectPosition }}
+                      />
+                    ) : null}
                   </div>
                 </article>
               );
@@ -152,14 +236,27 @@ export default function Connect() {
             </p>
           </div>
 
-          <aside className="connect-care-invitation" aria-labelledby="seat-title">
-            <p className="connect-eyebrow">Your seat is waiting</p>
-            <h3 id="seat-title">Stay after worship. Share a meal. Start a friendship.</h3>
-            <p>Join us Sunday at {churchInfo.worship.time} in Downers Grove, or reach out and we will help you feel at home.</p>
-            <Link className="connect-text-link" to="/events">
-              Explore gatherings <ArrowRight size={17} aria-hidden="true" />
-            </Link>
-          </aside>
+          <div className="connect-care-stage">
+            <figure className="connect-care-photo">
+              <img
+                src={siteImages.connectCampfire.src}
+                alt={siteImages.connectCampfire.alt}
+                width="1400"
+                height="1050"
+                loading="lazy"
+                style={{ objectPosition: siteImages.connectCampfire.objectPosition }}
+              />
+            </figure>
+
+            <aside className="connect-care-invitation" aria-labelledby="seat-title">
+              <p className="connect-eyebrow">Your seat is waiting</p>
+              <h3 id="seat-title">Stay after worship. Share a meal. Start a friendship.</h3>
+              <p>Join us Sunday at {churchInfo.worship.time} in Downers Grove, or reach out and we will help you feel at home.</p>
+              <Link className="connect-text-link" to="/events">
+                Explore gatherings <ArrowRight size={17} aria-hidden="true" />
+              </Link>
+            </aside>
+          </div>
         </div>
       </section>
     </div>
