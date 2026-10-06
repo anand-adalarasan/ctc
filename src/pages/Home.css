@@ -1145,9 +1145,29 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 14px 40px rgba(16, 37, 27, 0.22);
-    animation: heroFadeUp 420ms var(--ease-premium) both;
+    /* Always mounted; Home.tsx toggles `.is-visible` (no React render).
+       `visibility` waits for the fade-out so it also leaves the tab order. */
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 14px;
+    transition:
+      opacity 280ms ease,
+      translate 420ms var(--ease-premium),
+      visibility 0s linear 420ms;
   }
 
+  .ctc-sunday-fab.is-visible {
+    opacity: 1;
+    visibility: visible;
+    translate: none;
+    transition:
+      opacity 320ms ease,
+      translate 420ms var(--ease-premium),
+      visibility 0s linear 0s;
+  }
+
+  /* Solid, not frosted: a backdrop blur re-blurs the moving Follow the
+     Light scene behind it on every frame of every transition. */
   .ctc-sunday-fab-time {
     display: flex;
     flex-direction: column;
@@ -1155,9 +1175,7 @@
     justify-content: center;
     gap: 1px;
     padding: 9px 6px;
-    background: rgba(255, 254, 250, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 254, 250, 0.97);
   }
 
   .ctc-sunday-fab-time span {
@@ -1416,6 +1434,12 @@
 @media (prefers-reduced-motion: reduce) {
   .ctc-spine::before {
     height: 100%;
+    transition: none;
+  }
+
+  .ctc-sunday-fab,
+  .ctc-sunday-fab.is-visible {
+    translate: none;
     transition: none;
   }
 

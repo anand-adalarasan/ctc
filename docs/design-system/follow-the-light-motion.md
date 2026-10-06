@@ -172,7 +172,13 @@ through every chapter: phone 390×844@3x went from ~40 fps (p95 frame 83ms) to
   custom property on an ancestor: the comet rail writes
   `--ctc-rail-progress` on `.ctc-spine` itself, not on `.ctc-light-shell`
   (that one write restyled the entire homepage every frame).
-- **No full-screen filters in motion.** No `blur()` on whole chapters.
+- **No full-screen filters in motion.** No `blur()` on whole chapters, and
+  no `backdrop-filter` on anything floating over the sequence (the Sunday FAB
+  is a solid surface — a backdrop blur re-blurs the moving scene each frame).
+- **No React renders on the scroll path.** `onActiveChange` must not set
+  React state: the Sunday FAB is always mounted and toggled with a class.
+  Setting state there re-rendered the whole homepage mid-sweep and caused a
+  visible 67–83ms hitch on the hero → Worship transition on phones.
 - **Static viewport units.** `lvh`/`svh`, never `dvh`, for anything sized or
   positioned while scrolling, including phone type and spacing.
 - **No hidden work.** Anything fully covered by the pin (the old particle

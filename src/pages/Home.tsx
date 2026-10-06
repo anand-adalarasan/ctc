@@ -2,7 +2,7 @@ import {
   ArrowRight,
   MapPin,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { type RefObject, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import FollowTheLight from "../components/FollowTheLight/FollowTheLight";
@@ -24,13 +24,13 @@ function WeeklyVerse({ className = "" }: { className?: string }) {
   );
 }
 
-function StickySundayBar({ visible }: { visible: boolean }) {
-  if (!visible) {
-    return null;
-  }
-
+// Always mounted (hidden until shown) and revealed by toggling `.is-visible`
+// directly, never through React state: showing it used to re-render the
+// whole homepage mid-way through the hero → Worship light sweep, which was
+// the one visible hitch in the sequence on phones.
+function StickySundayBar({ fabRef }: { fabRef: RefObject<HTMLDivElement> }) {
   return createPortal(
-    <div className="ctc-sunday-fab">
+    <div className="ctc-sunday-fab" ref={fabRef}>
       <div className="ctc-sunday-fab-time">
         <span>Sun</span>
         <strong>{churchInfo.worship.time}</strong>
@@ -54,7 +54,10 @@ export default function Home() {
   const cometRef = useRef<HTMLDivElement | null>(null);
   // The hero is Follow the Light's opening chapter; the Sunday FAB appears
   // once any later chapter (or the footer) is the one in view.
-  const [showFab, setShowFab] = useState(false);
+  const fabRef = useRef<HTMLDivElement>(null);
+  const onActiveChange = useCallback((index: number) => {
+    fabRef.current?.classList.toggle("is-visible", index > 0);
+  }, []);
   const homeRef = useRef<HTMLDivElement | null>(null);
 
   // The homepage header floats over Follow the Light; publish its real
@@ -156,7 +159,7 @@ export default function Home() {
 
   return (
     <>
-      <StickySundayBar visible={showFab} />
+      <StickySundayBar fabRef={fabRef} />
       <div className="ctc-light-shell">
       <div className="ctc-spine" ref={spineRef} aria-hidden="true" />
       <div className="ctc-comet" ref={cometRef} aria-hidden="true" />
@@ -164,7 +167,7 @@ export default function Home() {
       <div className="ctc-home" ref={homeRef}>
         <FollowTheLight
           opening={{ labelTa: "வணக்கம்", labelEn: "Welcome", content: hero }}
-          onActiveChange={(index) => setShowFab(index > 0)}
+          onActiveChange={onActiveChange}
         />
       </div>
       </div>
