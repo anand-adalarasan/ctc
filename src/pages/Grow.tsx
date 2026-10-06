@@ -1,9 +1,10 @@
 import { ArrowRight, BookOpen, Headphones, School, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
+import PathwayMarker from "../components/PathwayMarker";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
-import { pathwayLabels } from "../data/ministryPathways";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { formatStep } from "../utils/format";
 import "./Grow.css";
 import "./PageHeroTypography.css";
 
@@ -21,13 +22,7 @@ export default function Grow() {
   return <>
     <section className="grow-hero" aria-labelledby="grow-title">
       <div className="grow-hero-copy">
-        <div className="grow-hero-kicker pathway-marker">
-          <div className="pathway-marker-copy">
-            <span lang="ta">{pathwayLabels.grow.ta}</span>
-            <small>{pathwayLabels.grow.en}</small>
-          </div>
-          <span className="pathway-marker-rule" aria-hidden="true" />
-        </div>
+        <PathwayMarker pathway="grow" className="grow-hero-kicker" />
         <h1 id="grow-title">Rooted in Christ. <em>Growing together.</em></h1>
         <p>Faith grows through God’s Word, prayer, and life with His people. Wherever you are starting, there is a place for you and your family to take a next step.</p>
         <a className="grow-primary" href="#grow-pathways">Find your next step <ArrowRight size={17} /></a>
@@ -46,7 +41,7 @@ export default function Grow() {
       <SectionHeader eyebrow="One church · Every generation" title="Choose a place to grow" text="Each pathway is designed to help you know Christ more deeply and follow Him in everyday life." />
       <div className="grow-pathway-list" id="grow-pathways-title">
         {pathways.map((pathway, index) => { const Icon = pathway.icon; return <Link className="grow-pathway-row" to={pathway.href} key={pathway.title} data-reveal-child>
-          <span className="grow-pathway-number">{String(index + 1).padStart(2, "0")}</span><span className="grow-pathway-icon"><Icon size={21} /></span>
+          <span className="grow-pathway-number">{formatStep(index)}</span><span className="grow-pathway-icon"><Icon size={21} /></span>
           <div><h3>{pathway.title}</h3><span>{pathway.meta}</span></div><p>{pathway.text}</p><ArrowRight className="grow-pathway-arrow" size={18} />
         </Link>; })}
       </div>

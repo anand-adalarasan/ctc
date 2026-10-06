@@ -1,9 +1,11 @@
 import { ArrowRight, BookOpen, CalendarDays, HeartHandshake, MessageCircleQuestion, MoonStar, Sparkles, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
+import RelatedLinks, { type RelatedLink } from "../components/RelatedLinks";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
 import { churchEvents } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { formatStep } from "../utils/format";
 import "./BibleStudyPrayer.css";
 
 const gatherings = [
@@ -12,7 +14,7 @@ const gatherings = [
   { title: "Fasting Prayer", event: "Fasting Prayer", text: "Set aside focused time each month for worship, fasting, prayer, and seeking God together.", icon: MoonStar }
 ].map((item) => ({ ...item, details: churchEvents.find((event) => event.title === item.event) }));
 
-const related = [
+const related: RelatedLink[] = [
   { title: "Sunday School · B.L.A.S.T.", meta: "Children · Sundays", href: "/grow/sunday-school", icon: Sparkles },
   { title: "Kids Circle", meta: "Children · During worship", href: "/grow/kids-circle", icon: UsersRound },
   { title: "Messages & Moments", meta: "Watch anytime", href: "/sermons", icon: BookOpen }
@@ -44,7 +46,7 @@ export default function BibleStudyPrayer() {
       <SectionHeader eyebrow="A steady rhythm" title="Ways we seek God together" text="You do not need advanced Bible knowledge—just come ready to listen, ask, pray, and be encouraged." />
       <div className="study-gathering-list" id="study-gatherings-title">
         {gatherings.map((item, index) => { const Icon = item.icon; return <article className="study-gathering-row" key={item.title} data-reveal-child>
-          <span className="study-row-number">{String(index + 1).padStart(2, "0")}</span><span className="study-row-icon"><Icon size={21}/></span>
+          <span className="study-row-number">{formatStep(index)}</span><span className="study-row-icon"><Icon size={21}/></span>
           <div><h3>{item.title}</h3><span>{item.details?.frequency} · {item.details?.time}</span></div><p>{item.text}</p>
         </article>; })}
       </div>
@@ -62,7 +64,7 @@ export default function BibleStudyPrayer() {
       <div><span className="eyebrow">Faith for everyday life</span><h2 id="study-verse-title">Carry the Word into your week.</h2><p>Spiritual growth is more than gathering. It is learning to hear Christ and follow Him at home, at work, and in our relationships.</p><Link to="/sermons">Watch a message <ArrowRight size={15}/></Link></div>
     </section>
 
-    <section className="study-related" aria-labelledby="study-related-title"><SectionHeader eyebrow="Continue growing" title="More ways to take a next step" /><div className="study-related-list" id="study-related-title">{related.map((item,index) => { const Icon=item.icon; return <Link to={item.href} key={item.title}><span>{String(index+1).padStart(2,"0")}</span><Icon size={20}/><div><strong>{item.title}</strong><small>{item.meta}</small></div><ArrowRight size={17}/></Link>; })}</div></section>
+    <section className="study-related" aria-labelledby="study-related-title"><SectionHeader eyebrow="Continue growing" title="More ways to take a next step" /><RelatedLinks items={related} className="study-related-list" id="study-related-title" /></section>
 
   </>;
 }

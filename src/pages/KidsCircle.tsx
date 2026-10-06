@@ -1,9 +1,11 @@
 import { ArrowRight, BookOpen, CalendarDays, Heart, MessageCircleQuestion, Search, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
+import RelatedLinks, { type RelatedLink } from "../components/RelatedLinks";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
 import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { formatStep } from "../utils/format";
 import "./KidsCircle.css";
 
 const experiences = [
@@ -13,7 +15,7 @@ const experiences = [
   { title: "Belong", text: "Make friends and be loved by God’s family.", icon: UsersRound }
 ];
 
-const related = [
+const related: RelatedLink[] = [
   { title: "Sunday School · B.L.A.S.T.", meta: "Structured Bible learning", href: "/grow/sunday-school", icon: Sparkles },
   { title: "Bible Study & Prayer", meta: "For adults & families", href: "/grow/bible-study-prayer", icon: BookOpen },
   { title: "Worship", meta: "See the full Sunday experience", href: "/worship", icon: Heart }
@@ -39,7 +41,7 @@ export default function KidsCircle() {
 
     <section className="kc-experience reveal" ref={experienceRef} aria-labelledby="kc-experience-title">
       <SectionHeader eyebrow="A joyful moment in worship" title="What children experience" text="Kids Circle is intentionally brief, accessible, and full of opportunities for children to participate." />
-      <div className="kc-experience-list" id="kc-experience-title">{experiences.map((item,index)=>{const Icon=item.icon;return <article className="kc-experience-row" key={item.title} data-reveal-child><span className="kc-row-number">{String(index+1).padStart(2,"0")}</span><span className="kc-row-icon"><Icon size={21}/></span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>;})}</div>
+      <div className="kc-experience-list" id="kc-experience-title">{experiences.map((item,index)=>{const Icon=item.icon;return <article className="kc-experience-row" key={item.title} data-reveal-child><span className="kc-row-number">{formatStep(index)}</span><span className="kc-row-icon"><Icon size={21}/></span><div><h3>{item.title}</h3><p>{item.text}</p></div></article>;})}</div>
     </section>
 
     <section className="kc-parent-band reveal" ref={parentRef} aria-labelledby="kc-parent-title">
@@ -51,6 +53,6 @@ export default function KidsCircle() {
 
     <section className="kc-verse" aria-labelledby="kc-verse-title"><blockquote><p>“Children are a gift from the Lord.”</p><cite>Psalm 127:3</cite></blockquote><div><span className="eyebrow">Bud & bloom</span><h2 id="kc-verse-title">Every child is a unique gift from God.</h2><p>We want children to know God’s love and experience the love of His people in a church family where they can learn, grow, discover, and belong.</p></div></section>
 
-    <section className="kc-related" aria-labelledby="kc-related-title"><SectionHeader eyebrow="Continue growing" title="More for your family"/><div className="kc-related-list" id="kc-related-title">{related.map((item,index)=>{const Icon=item.icon;return <Link to={item.href} key={item.title}><span>{String(index+1).padStart(2,"0")}</span><Icon size={20}/><div><strong>{item.title}</strong><small>{item.meta}</small></div><ArrowRight size={17}/></Link>;})}</div><p className="kc-sunday-note">Join us {churchInfo.worship.schedule}. We’ll help your family know what to expect when you arrive.</p></section>
+    <section className="kc-related" aria-labelledby="kc-related-title"><SectionHeader eyebrow="Continue growing" title="More for your family"/><RelatedLinks items={related} className="kc-related-list" id="kc-related-title" /><p className="kc-sunday-note">Join us {churchInfo.worship.schedule}. We’ll help your family know what to expect when you arrive.</p></section>
   </>;
 }

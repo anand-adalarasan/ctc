@@ -1,9 +1,11 @@
 import { ArrowRight, BookOpen, CalendarDays, Heart, Lightbulb, ShieldCheck, Sparkles, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
+import RelatedLinks, { type RelatedLink } from "../components/RelatedLinks";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
 import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { formatStep } from "../utils/format";
 import "./SundaySchool.css";
 
 const blast = [
@@ -14,7 +16,7 @@ const blast = [
   { letter: "T", word: "Training", text: "Children practice following Jesus in everyday life." }
 ];
 
-const related = [
+const related: RelatedLink[] = [
   { title: "Kids Circle", meta: "During Sunday worship", href: "/grow/kids-circle", icon: Sparkles },
   { title: "Bible Study & Prayer", meta: "Adults & families", href: "/grow/bible-study-prayer", icon: BookOpen },
   { title: "Worship", meta: "What to expect this Sunday", href: "/worship", icon: Heart }
@@ -40,7 +42,7 @@ export default function SundaySchool() {
 
     <section className="ss-blast reveal" ref={blastRef} aria-labelledby="ss-blast-title">
       <SectionHeader eyebrow="Join in · Team up · Get strong" title="What B.L.A.S.T. means" text="Five simple ideas shape a Sunday School experience children can understand and remember." />
-      <div className="ss-blast-list" id="ss-blast-title">{blast.map((item,index)=><article className="ss-blast-row" key={item.letter} data-reveal-child><span className="ss-row-number">{String(index+1).padStart(2,"0")}</span><strong>{item.letter}</strong><div><h3>{item.word}</h3><p>{item.text}</p></div></article>)}</div>
+      <div className="ss-blast-list" id="ss-blast-title">{blast.map((item,index)=><article className="ss-blast-row" key={item.letter} data-reveal-child><span className="ss-row-number">{formatStep(index)}</span><strong>{item.letter}</strong><div><h3>{item.word}</h3><p>{item.text}</p></div></article>)}</div>
     </section>
 
     <section className="ss-parent-band reveal" ref={parentRef} aria-labelledby="ss-parent-title">
@@ -52,6 +54,6 @@ export default function SundaySchool() {
 
     <section className="ss-verse" aria-labelledby="ss-verse-title"><blockquote><p>“Let the little children come to me.”</p><cite>Matthew 19:14</cite></blockquote><div><span className="eyebrow">Children belong here</span><h2 id="ss-verse-title">Faith can take root at every age.</h2><p>Children are not an interruption to church life. They are a treasured part of our church family, learning to worship and follow Jesus alongside us.</p></div></section>
 
-    <section className="ss-related" aria-labelledby="ss-related-title"><SectionHeader eyebrow="Continue growing" title="More for your family"/><div className="ss-related-list" id="ss-related-title">{related.map((item,index)=>{const Icon=item.icon;return <Link to={item.href} key={item.title}><span>{String(index+1).padStart(2,"0")}</span><Icon size={20}/><div><strong>{item.title}</strong><small>{item.meta}</small></div><ArrowRight size={17}/></Link>;})}</div><p className="ss-sunday-note">Join us {churchInfo.worship.schedule}. We’ll help your family know where to go when you arrive.</p></section>
+    <section className="ss-related" aria-labelledby="ss-related-title"><SectionHeader eyebrow="Continue growing" title="More for your family"/><RelatedLinks items={related} className="ss-related-list" id="ss-related-title" /><p className="ss-sunday-note">Join us {churchInfo.worship.schedule}. We’ll help your family know where to go when you arrive.</p></section>
   </>;
 }

@@ -10,8 +10,8 @@ import {
   Sun,
   Wheat
 } from "lucide-react";
+import PathwayMarker from "../components/PathwayMarker";
 import { siteImages } from "../data/images";
-import { pathwayLabels } from "../data/ministryPathways";
 import { churchInfo } from "../data/site";
 import { useRevealGroup } from "../hooks/useRevealGroup";
 import "./Connect.css";
@@ -58,13 +58,7 @@ export default function Connect() {
       <section className="connect-hero" aria-labelledby="connect-title">
         <div className="connect-shell connect-hero-grid">
           <div className="connect-hero-copy">
-            <div className="connect-hero-kicker pathway-marker">
-              <div className="pathway-marker-copy">
-                <span lang="ta">{pathwayLabels.connect.ta}</span>
-                <small>{pathwayLabels.connect.en}</small>
-              </div>
-              <span className="pathway-marker-rule" aria-hidden="true" />
-            </div>
+            <PathwayMarker pathway="connect" className="connect-hero-kicker" />
             <h1 id="connect-title">Come as a guest. Leave as <em>family.</em></h1>
             <p className="connect-hero-lede">
               Faith grows in shared life. Around the table, through every season,
