@@ -45,7 +45,7 @@
 /* Brand column */
 .footer.footer-flow .footer-brand-column {
   display: grid;
-  gap: 18px;
+  gap: 20px;
   align-content: start;
 }
 
@@ -67,30 +67,58 @@
   opacity: 1;
 }
 
-.footer.footer-flow .footer-greeting {
+.footer.footer-flow .footer-greeting,
+.app-shell:has(.ctc-home) .footer.footer-flow .footer-greeting {
+  display: grid;
+  justify-items: start;
+  gap: 0;
   margin: 0;
-  color: var(--footer-muted);
-  font-size: 0.82rem;
-  letter-spacing: 0.02em;
+  color: var(--footer-text);
+  font-size: clamp(2rem, 3vw, 2.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
 }
 
-.footer.footer-flow .footer-greeting span[lang="ta"] {
-  margin-right: 5px;
+.footer.footer-flow .footer-greeting span[lang="ta"],
+.app-shell:has(.ctc-home) .footer.footer-flow .footer-greeting span[lang="ta"] {
+  color: var(--footer-text);
+  font-family: "Noto Serif Tamil", Georgia, serif;
+  font-size: 0.84em;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.footer.footer-flow .footer-greeting strong,
+.app-shell:has(.ctc-home) .footer.footer-flow .footer-greeting strong {
   color: var(--light);
-  font-family: var(--font-tamil);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
 }
 
-.footer.footer-flow .footer-tagline {
-  max-width: 32ch;
+.footer.footer-flow .footer-greeting-rule,
+.app-shell:has(.ctc-home) .footer.footer-flow .footer-greeting-rule {
+  display: block;
+  width: 58px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--light));
+}
+
+.footer.footer-flow .footer-tagline,
+.app-shell:has(.ctc-home) .footer.footer-flow .footer-tagline {
+  max-width: 29ch;
   margin: 0;
   color: var(--footer-muted);
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 0.96rem;
+  line-height: 1.7;
 }
 
-.footer.footer-flow .footer-social {
+.footer.footer-flow .footer-social,
+.app-shell:has(.ctc-home) .footer.footer-flow .footer-social {
   display: flex;
   gap: 10px;
+  margin-top: 4px;
 }
 
 .footer.footer-flow .footer-social a {

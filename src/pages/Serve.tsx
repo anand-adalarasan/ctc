@@ -5,8 +5,10 @@ import {
   Utensils
 } from "lucide-react";
 import { siteImages } from "../data/images";
+import { pathwayLabels } from "../data/ministryPathways";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./Serve.css";
+import "./PageHeroTypography.css";
 
 const outreachActivities = [
   {
@@ -41,10 +43,13 @@ export default function Serve() {
       <section className="ctc-serve-hero" aria-labelledby="serve-title">
         <div className="ctc-serve-shell ctc-serve-hero-grid">
           <div className="ctc-serve-hero-copy">
-            <p className="ctc-serve-hero-kicker">
-              <span lang="ta">சேவை செய்வோம்</span>
-              <small>Serve</small>
-            </p>
+            <div className="ctc-serve-hero-kicker pathway-marker">
+              <div className="pathway-marker-copy">
+                <span lang="ta">{pathwayLabels.serve.ta}</span>
+                <small>{pathwayLabels.serve.en}</small>
+              </div>
+              <span className="pathway-marker-rule" aria-hidden="true" />
+            </div>
             <h1 id="serve-title">
               Love your neighbor in <em>practical ways.</em>
             </h1>

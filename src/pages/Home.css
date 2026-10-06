@@ -484,10 +484,10 @@
     linear-gradient(
       90deg,
       var(--hero-background) 0%,
-      var(--hero-background) 26%,
-      rgba(255, 255, 255, 0.92) 40%,
-      rgba(255, 255, 255, 0.5) 58%,
-      rgba(255, 255, 255, 0.08) 76%,
+      var(--hero-background) 24%,
+      rgba(255, 255, 255, 0.9) 38%,
+      rgba(255, 255, 255, 0.46) 54%,
+      rgba(255, 255, 255, 0.06) 70%,
       transparent 100%
     ),
     linear-gradient(
@@ -499,10 +499,10 @@
     linear-gradient(
       90deg,
       var(--hero-background) 0%,
-      var(--hero-background) 26%,
-      color-mix(in srgb, var(--hero-background) 92%, transparent) 40%,
-      color-mix(in srgb, var(--hero-background) 50%, transparent) 58%,
-      color-mix(in srgb, var(--hero-background) 8%, transparent) 76%,
+      var(--hero-background) 24%,
+      color-mix(in srgb, var(--hero-background) 90%, transparent) 38%,
+      color-mix(in srgb, var(--hero-background) 46%, transparent) 54%,
+      color-mix(in srgb, var(--hero-background) 6%, transparent) 70%,
       transparent 100%
     ),
     linear-gradient(
@@ -515,7 +515,8 @@
 .ctc-hero-copy {
   position: relative;
   z-index: 6;
-  max-width: 720px;
+  max-width: 780px;
+  transform: translateY(-70px);
 }
 
 .ctc-hero-kicker {
@@ -556,16 +557,27 @@
 }
 
 .ctc-hero-title {
-  max-width: 11.8ch;
-  margin: 22px 0 0;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
   color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--text-hero);
-  font-weight: 300;
-  line-height: 0.94;
-  letter-spacing: -0.02em;
+  font-family: "Noto Serif Tamil", Georgia, serif;
+  font-size: clamp(3.25rem, 3.7vw, 4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0;
   text-wrap: balance;
+  white-space: nowrap;
   animation: heroFadeUp 650ms var(--ease-premium) 260ms both;
+}
+
+.ctc-hero-title > span {
+  display: block;
+}
+
+.ctc-hero-title-accent {
+  color: var(--green-deep);
+  display: inline;
 }
 
 .ctc-hero-lede {
@@ -733,11 +745,14 @@
 .ctc-hero-weekly-verse {
   position: relative;
   z-index: 2;
-  display: grid;
-  gap: 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
   margin: 0;
   border: 0;
   padding: 0;
+  text-align: center;
 }
 
 .ctc-hero-weekly-verse > span {
@@ -748,6 +763,7 @@
   letter-spacing: 0.2em;
   line-height: 1.3;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .ctc-hero-weekly-verse p {
@@ -756,10 +772,10 @@
   font-family: var(--font-display);
   font-size: clamp(1.22rem, 1.45vw, 1.55rem);
   font-weight: 400;
+  font-style: italic;
   line-height: 1.3;
   letter-spacing: -0.01em;
-  overflow-wrap: anywhere;
-  text-wrap: pretty;
+  white-space: nowrap;
 }
 
 .ctc-hero-weekly-verse cite {
@@ -771,25 +787,112 @@
   letter-spacing: 0.1em;
   line-height: 1.35;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.ctc-hero-weekly-verse-inline {
-  display: none;
+.ctc-hero-weekly-verse i {
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-style: normal;
 }
 
-.ctc-hero-weekly-verse-image {
+.ctc-hero-weekly-verse-ribbon {
   position: absolute;
-  top: clamp(24px, 5vh, 60px);
-  right: auto;
-  left: clamp(-150px, -7vw, -112px);
-  width: min(300px, 42vw);
-  border-left: 1px solid rgba(150, 112, 47, 0.5);
-  padding: 14px 0 18px 28px;
-  animation: heroFadeUp 650ms var(--ease-premium) 440ms both;
+  bottom: clamp(28px, 3.5vh, 44px);
+  left: 50%;
+  z-index: 7;
+  width: min(850px, calc(100vw - 40px));
+  max-width: none;
+  margin: 0;
+  padding: 15px 0 0;
+  translate: -50% 0;
 }
 
-.ctc-hero-weekly-verse-image::before {
+.ctc-hero-weekly-verse-ribbon::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 76px;
+  height: 1px;
+  background:
+    radial-gradient(circle at center, var(--light) 0 2px, transparent 2.5px),
+    linear-gradient(90deg, transparent, var(--gold) 28%, var(--light) 72%, transparent);
+  content: "";
+  opacity: 0;
+  transform: translateX(-50%) scaleX(0.2);
+  animation: heroVerseMark 620ms var(--ease-premium) 620ms both;
+}
+
+.ctc-hero-weekly-verse-ribbon::after {
   display: none;
+}
+
+.ctc-hero-weekly-verse-ribbon > span,
+.ctc-hero-weekly-verse-ribbon > p,
+.ctc-hero-weekly-verse-ribbon > cite,
+.ctc-hero-weekly-verse-ribbon > i {
+  opacity: 0;
+  animation: heroVersePart 620ms var(--ease-premium) both;
+}
+
+.ctc-hero-weekly-verse-ribbon > span {
+  animation-delay: 760ms;
+}
+
+.ctc-hero-weekly-verse-ribbon > p {
+  animation-name: heroVerseQuote;
+  animation-delay: 900ms;
+}
+
+.ctc-hero-weekly-verse-ribbon > i {
+  animation-delay: 960ms;
+}
+
+.ctc-hero-weekly-verse-ribbon > cite {
+  animation-delay: 1.08s;
+}
+
+@keyframes heroVerseReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroVerseMark {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1);
+  }
+}
+
+@keyframes heroVersePart {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroVerseQuote {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1120px) {
@@ -802,25 +905,37 @@
   }
 
   .ctc-hero-title {
-    max-width: 13ch;
+    max-width: none;
+    font-size: clamp(2.5rem, 4.45vw, 2.9rem);
+  }
+
+  .ctc-hero-copy {
+    transform: translateY(-35px);
   }
 
   .ctc-hero-visual {
-    width: min(840px, 100%);
+    position: absolute;
+    right: clamp(34px, 7vw, 72px);
+    bottom: clamp(96px, 13vh, 132px);
+    width: min(260px, 34vw);
+    min-height: 0;
   }
 
-  .ctc-hero-weekly-verse-image {
-    display: none;
+  .ctc-hero-card {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
   }
 
-  .ctc-hero-weekly-verse-inline {
-    display: grid;
-    max-width: 36ch;
-    margin-top: 24px;
-    border-left: 1px solid rgba(150, 112, 47, 0.46);
-    padding-left: 18px;
-    animation: heroFadeUp 650ms var(--ease-premium) 440ms both;
+  .ctc-hero-weekly-verse-ribbon {
+    width: calc(100vw - 90px);
   }
+
+  .ctc-hero-weekly-verse-ribbon p {
+    font-size: 1.12rem;
+  }
+
 }
 
 @media (max-width: 620px) {
@@ -836,6 +951,7 @@
     width: 100%;
     min-width: 0;
     max-width: 100%;
+    transform: none;
   }
 
   .ctc-hero-kicker {
@@ -876,11 +992,20 @@
   }
 
   .ctc-hero-title {
+    width: max-content;
     max-width: 100%;
-    font-size: clamp(2.85rem, 11.5vw, 3.7rem);
+    font-size: clamp(1.58rem, 6.6vw, 2.1rem);
+    line-height: 1.14;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .ctc-hero-title > span {
+    white-space: nowrap;
   }
 
   .ctc-hero-lede {
+    margin-top: 22px;
     font-size: 1.24rem;
     line-height: 1.5;
   }
@@ -897,6 +1022,10 @@
   }
 
   .ctc-hero-visual {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 100%;
     min-height: 0;
     height: auto;
   }
@@ -994,13 +1123,60 @@
     background: #7d5c26;
   }
 
-  .ctc-hero-weekly-verse-inline {
-    gap: 6px;
-    margin-top: 22px;
+  .ctc-hero-weekly-verse-ribbon {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    flex-wrap: wrap;
+    gap: 5px 8px;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 18px;
+    padding: 15px 0 0;
+    translate: none;
   }
 
-  .ctc-hero-weekly-verse-inline p {
-    font-size: 1.12rem;
+  .ctc-hero-weekly-verse-ribbon > span {
+    flex-basis: 100%;
+    color: #f0d79e;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-shadow: 0 2px 12px rgba(16, 37, 27, 0.72);
+  }
+
+  .ctc-hero-weekly-verse-ribbon i:first-of-type {
+    display: none;
+  }
+
+  .ctc-hero-weekly-verse-ribbon p {
+    max-width: 31ch;
+    margin-inline: auto;
+    color: #fffefa;
+    font-size: 1.2rem;
+    line-height: 1.28;
+    text-shadow:
+      0 2px 5px rgba(16, 37, 27, 0.88),
+      0 8px 24px rgba(16, 37, 27, 0.5);
+    white-space: normal;
+  }
+
+  .ctc-hero-weekly-verse-ribbon cite {
+    flex-basis: 100%;
+    color: #fffefa;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-shadow: 0 2px 10px rgba(16, 37, 27, 0.85);
+  }
+
+  .ctc-hero-weekly-verse-ribbon i:last-of-type {
+    display: none;
+  }
+
+  .ctc-hero-weekly-verse-ribbon::before {
+    background:
+      radial-gradient(circle at center, #fffefa 0 2px, transparent 2.5px),
+      linear-gradient(90deg, transparent, #f0d79e 28%, #fffefa 72%, transparent);
+    filter: drop-shadow(0 2px 5px rgba(16, 37, 27, 0.65));
   }
 }
 
@@ -1172,6 +1348,12 @@
 .ctc-comet::after,
 .ctc-stage::after,
 .ctc-hero-weekly-verse,
+.ctc-hero-weekly-verse::before,
+.ctc-hero-weekly-verse::after,
+.ctc-hero-weekly-verse > span,
+.ctc-hero-weekly-verse > p,
+.ctc-hero-weekly-verse > cite,
+.ctc-hero-weekly-verse > i,
 .ctc-hero-actions a.go::before {
     animation: none !important;
     transition: none !important;

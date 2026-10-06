@@ -12,6 +12,7 @@ import {
   Wheat
 } from "lucide-react";
 import { siteImages } from "../data/images";
+import { pathwayLabels } from "../data/ministryPathways";
 import { churchInfo } from "../data/site";
 import "./Connect.css";
 import "./PageHeroTypography.css";
@@ -84,10 +85,13 @@ export default function Connect() {
       <section className="connect-hero" aria-labelledby="connect-title">
         <div className="connect-shell connect-hero-grid">
           <div className="connect-hero-copy">
-            <p className="connect-hero-kicker">
-              <span lang="ta">ஒன்றாய்க் கூடுவோம்</span>
-              <small>Connect</small>
-            </p>
+            <div className="connect-hero-kicker pathway-marker">
+              <div className="pathway-marker-copy">
+                <span lang="ta">{pathwayLabels.connect.ta}</span>
+                <small>{pathwayLabels.connect.en}</small>
+              </div>
+              <span className="pathway-marker-rule" aria-hidden="true" />
+            </div>
             <h1 id="connect-title">Come as a guest. Leave as <em>family.</em></h1>
             <p className="connect-hero-lede">
               Faith grows in shared life. Around the table, through every season,

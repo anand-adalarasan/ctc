@@ -5,9 +5,78 @@ body .connect-page .connect-hero .connect-hero-copy h1 {
   letter-spacing: -.02em;
 }
 
+/* Shared Tamil-first chapter marker for pathway destination heroes. */
+body .pathway-marker {
+  display: grid;
+  grid-template-columns: max-content;
+  align-items: initial;
+  justify-items: start;
+  gap: 14px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+}
+
+body .pathway-marker-copy {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+body .pathway-marker .pathway-marker-copy > span[lang="ta"] {
+  color: var(--green-deep);
+  font-family: "Noto Serif Tamil", Georgia, serif;
+  font-size: clamp(1.65rem, 2.8vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+body .pathway-marker .pathway-marker-copy > small {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  border: 1px solid rgba(107, 165, 44, .28);
+  border-radius: var(--radius-pill);
+  padding: 0 10px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, .74);
+  font-family: var(--font-body);
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+body .pathway-marker-rule {
+  display: block;
+  width: 68px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), var(--green-deep));
+}
+
 @media (max-width: 620px) {
   body .worship-page-hero .worship-page-hero-copy h1,
   body .connect-page .connect-hero .connect-hero-copy h1 {
     font-size: clamp(3.2rem, 15vw, 5rem);
+  }
+
+  body .pathway-marker {
+    gap: 11px;
+  }
+
+  body .pathway-marker .pathway-marker-copy > span[lang="ta"] {
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+  }
+
+  body .pathway-marker .pathway-marker-copy > small {
+    min-height: 26px;
+    padding-inline: 9px;
+    font-size: .61rem;
+  }
+
+  body .pathway-marker-rule {
+    width: 56px;
   }
 }

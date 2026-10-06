@@ -78,16 +78,47 @@
   filter: blur(9px);
 }
 
-.eyebrow {
-  display: inline-flex;
+.marker {
+  display: grid;
+  justify-items: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.65s var(--ftl-glide);
+}
+
+.markerCopy {
+  display: flex;
   align-items: center;
-  gap: 12px;
-  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--ftl-gold);
+  justify-content: center;
+}
+
+.markerTamil {
+  color: var(--primary, #153d2b);
+  font-family: "Noto Serif Tamil", Georgia, serif;
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.markerRule {
+  width: 58px;
+  height: 1px;
+  margin-top: 16px;
+  background: linear-gradient(90deg, var(--ftl-gold), var(--ftl-green-deep));
+  opacity: 0;
+  transform: scaleX(0.15);
+  transform-origin: center;
+  transition:
+    opacity 0.42s ease 0.12s,
+    transform 0.62s var(--ftl-glide) 0.12s;
+}
+
+.scene.on .marker,
+.scene.on .markerRule {
+  opacity: 1;
+  transform: none;
 }
 
 .headline {
@@ -362,12 +393,17 @@
     padding-inline: 20px;
   }
 
-  .eyebrow {
-    max-width: 28ch;
-    justify-content: center;
-    gap: 8px;
-    font-size: 10px;
-    line-height: 1.5;
+  .markerCopy {
+    gap: 0;
+  }
+
+  .markerTamil {
+    font-size: clamp(20px, 6vw, 23px);
+  }
+
+  .markerRule {
+    width: 48px;
+    margin-top: 12px;
   }
 
   .headline {
@@ -444,6 +480,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .scene,
+.marker,
+.markerRule,
 .w,
 .sub,
 .ribbon,

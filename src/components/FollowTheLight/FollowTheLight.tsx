@@ -98,7 +98,12 @@ export default function FollowTheLight() {
             aria-hidden={sceneIndex !== 0}
             className={`${styles.scene}${sceneIndex === 0 ? ` ${styles.on}` : ""}`}
           >
-            <span className={styles.eyebrow}>{scene.label}</span>
+            <div className={styles.marker}>
+              <div className={styles.markerCopy}>
+                <span className={styles.markerTamil} lang="ta">{scene.labelTa}</span>
+              </div>
+              <span className={styles.markerRule} aria-hidden="true" />
+            </div>
             <h2 className={styles.headline}>
               {scene.words.map((word, wordIndex) => (
                 <span
@@ -117,7 +122,7 @@ export default function FollowTheLight() {
             <p className={styles.sub}>{scene.introduction}</p>
 
             <div className={styles.ribbon}>
-              <ul className={styles.ribbonList} aria-label={`${scene.label} ministries`}>
+              <ul className={styles.ribbonList} aria-label={`${scene.labelEn} ministries`}>
                 {scene.ministries.map((ministry) => (
                   <li key={ministry.name}>
                     <span>{ministry.name}</span>

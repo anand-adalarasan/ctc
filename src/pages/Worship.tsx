@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, CalendarDays, Church, Coffee, Globe2, HeartHandshake, MicVocal, Music, School, UsersRound } from "lucide-react";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
+import { pathwayLabels } from "../data/ministryPathways";
 import { churchInfo } from "../data/site";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./Worship.css";
@@ -23,10 +24,13 @@ export default function Worship() {
   return <>
     <section className="worship-page-hero" aria-labelledby="worship-title">
       <div className="worship-page-hero-copy">
-        <span className="worship-hero-kicker">
-          <span lang="ta">ஆராதனை</span>
-          <small>Worship</small>
-        </span>
+        <div className="worship-hero-kicker pathway-marker">
+          <div className="pathway-marker-copy">
+            <span lang="ta">{pathwayLabels.worship.ta}</span>
+            <small>{pathwayLabels.worship.en}</small>
+          </div>
+          <span className="pathway-marker-rule" aria-hidden="true" />
+        </div>
         <h1 id="worship-title">Come as you are. <em>Worship with us.</em></h1>
         <p>Join a warm Tamil church family for Christ-centered worship, Scripture, prayer, and fellowship this Sunday.</p>
       </div>

@@ -16,7 +16,9 @@ function WeeklyVerse({ className = "" }: { className?: string }) {
       aria-label={`${verseOfTheWeek.label}: ${verseOfTheWeek.text} — ${verseOfTheWeek.reference}`}
     >
       <span>{verseOfTheWeek.label}</span>
+      <i aria-hidden="true">·</i>
       <p>“{verseOfTheWeek.text}”</p>
+      <i aria-hidden="true">·</i>
       <cite>{verseOfTheWeek.reference}</cite>
     </blockquote>
   );
@@ -329,18 +331,14 @@ export default function Home() {
         </picture>
         <div className="ctc-hero-bg-wash" aria-hidden="true" />
         <div className="ctc-hero-copy">
-          <span className="ctc-kicker ctc-hero-kicker">
-            <span lang="ta">என்னிடத்தில் வாருங்கள்</span>
-            <small>Matthew 11:28</small>
-          </span>
-          <h1 className="ctc-hero-title" id="home-title">
-            A Tamil church in Chicagoland
+          <h1 className="ctc-hero-title" id="home-title" lang="ta">
+            <span className="ctc-hero-title-accent">வாரும்,</span>
+            <span>நாம் எல்லோரும் கூடி,</span>
+            <span>மகிழ் கொண்டாடுவோம்</span>
           </h1>
           <p className="ctc-hero-lede">
-            New to church, new to the area, or visiting for the first time?
-            We'll help you feel at home this Sunday.
+            Join us this Sunday. We’d love to welcome you and your family.
           </p>
-          <WeeklyVerse className="ctc-hero-weekly-verse-inline" />
           <div className="ctc-hero-actions">
             <Link className="go" to="/visit">
               I'm New
@@ -350,7 +348,6 @@ export default function Home() {
         </div>
 
         <div className="ctc-hero-visual">
-          <WeeklyVerse className="ctc-hero-weekly-verse-image" />
           <aside className="ctc-hero-card" aria-label="Sunday worship details">
             <div className="ctc-hero-card-info">
               <span>This Sunday</span>
@@ -362,6 +359,7 @@ export default function Home() {
             </a>
           </aside>
         </div>
+        <WeeklyVerse className="ctc-hero-weekly-verse-ribbon" />
       </section>
       </div>
 

@@ -289,10 +289,12 @@ export default function Layout({ children }: LayoutProps) {
               />
             </Link>
             <p className="footer-greeting">
-              <span lang="ta">வணக்கம்</span> Chicago
+              <span lang="ta">வணக்கம்,</span>
+              <strong>Chicago.</strong>
             </p>
+            <span className="footer-greeting-rule" aria-hidden="true" />
             <p className="footer-tagline">
-              A Tamil Christian church family worshiping Christ, growing together, and serving the Chicago area.
+              A Tamil church family worshiping Christ, growing together, and serving Chicagoland.
             </p>
             <div className="footer-social">
               <a

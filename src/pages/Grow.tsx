@@ -2,8 +2,10 @@ import { ArrowRight, BookOpen, Headphones, School, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionHeader from "../components/SectionHeader";
 import { siteImages } from "../data/images";
+import { pathwayLabels } from "../data/ministryPathways";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import "./Grow.css";
+import "./PageHeroTypography.css";
 
 const pathways = [
   { title: "Bible Study & Prayer", meta: "Adults & families · Throughout the week", text: "Study Scripture, pray with others, and build a steady rhythm of discipleship.", href: "/grow/bible-study-prayer", icon: BookOpen },
@@ -19,10 +21,13 @@ export default function Grow() {
   return <>
     <section className="grow-hero" aria-labelledby="grow-title">
       <div className="grow-hero-copy">
-        <span className="grow-hero-kicker">
-          <span lang="ta">வளருங்கள்</span>
-          <small>Grow</small>
-        </span>
+        <div className="grow-hero-kicker pathway-marker">
+          <div className="pathway-marker-copy">
+            <span lang="ta">{pathwayLabels.grow.ta}</span>
+            <small>{pathwayLabels.grow.en}</small>
+          </div>
+          <span className="pathway-marker-rule" aria-hidden="true" />
+        </div>
         <h1 id="grow-title">Rooted in Christ. <em>Growing together.</em></h1>
         <p>Faith grows through God’s Word, prayer, and life with His people. Wherever you are starting, there is a place for you and your family to take a next step.</p>
         <a className="grow-primary" href="#grow-pathways">Find your next step <ArrowRight size={17} /></a>

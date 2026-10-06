@@ -1,6 +1,7 @@
 export type MinistryPathway = {
   id: "worship" | "connect" | "grow" | "serve";
-  label: string;
+  labelTa: string;
+  labelEn: string;
   words: string[];
   accentWord: number;
   introduction: string;
@@ -11,10 +12,18 @@ export type MinistryPathway = {
   };
 };
 
+export const pathwayLabels = {
+  worship: { ta: "ஆராதனை", en: "Worship" },
+  connect: { ta: "ஐக்கியம்", en: "Connect" },
+  grow: { ta: "பக்தி விருத்தி", en: "Grow" },
+  serve: { ta: "ஊழியம்", en: "Serve" }
+} as const;
+
 export const ministryPathways: MinistryPathway[] = [
   {
     id: "worship",
-    label: "Worship",
+    labelTa: pathwayLabels.worship.ta,
+    labelEn: pathwayLabels.worship.en,
     words: ["Worship", "is", "our", "purpose."],
     accentWord: 0,
     introduction:
@@ -29,7 +38,8 @@ export const ministryPathways: MinistryPathway[] = [
   },
   {
     id: "connect",
-    label: "Connect",
+    labelTa: pathwayLabels.connect.ta,
+    labelEn: pathwayLabels.connect.en,
     words: ["Connecting", "to", "grow."],
     accentWord: 0,
     introduction:
@@ -42,11 +52,12 @@ export const ministryPathways: MinistryPathway[] = [
       { name: "Harvest Festival" },
       { name: "Carol Rounds" }
     ],
-    cta: { label: "Find your community", href: "/connect" }
+    cta: { label: "Explore", href: "/connect" }
   },
   {
     id: "grow",
-    label: "Grow",
+    labelTa: pathwayLabels.grow.ta,
+    labelEn: pathwayLabels.grow.en,
     words: ["Growing", "to", "serve."],
     accentWord: 0,
     introduction:
@@ -63,7 +74,8 @@ export const ministryPathways: MinistryPathway[] = [
   },
   {
     id: "serve",
-    label: "Serve",
+    labelTa: pathwayLabels.serve.ta,
+    labelEn: pathwayLabels.serve.en,
     words: ["Serving", "is", "a", "privilege."],
     accentWord: 0,
     introduction:
