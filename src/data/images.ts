@@ -1,5 +1,5 @@
-import ctcHeroBackground from "../assets/images/ctc-hero-background-green.png";
-import ctcHeroBackgroundMobile from "../assets/images/ctc-hero-background-green-mobile.png";
+import ctcHeroBackground from "../assets/images/ctc-hero-background-green.webp";
+import ctcHeroBackgroundMobile from "../assets/images/ctc-hero-background-green-mobile.webp";
 import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
 import ctcLogo from "../assets/images/ctc-logo.png";
 import ministryKids from "../assets/images/ministry-kids.jpg";
