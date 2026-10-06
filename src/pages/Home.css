@@ -8,23 +8,140 @@
 }
 
 .ctc-light-shell {
-  --ctc-rail-progress: 0%;
+  --ctc-rail-progress: 0; /* unitless 0–1, set from Home.tsx on scroll */
   position: relative;
   isolation: isolate;
   background: var(--bg);
+}
+
+/* ------------------------------------------------------------------------
+   Homepage scroll snapping:
+   Welcome (hero) → Worship → Connect → Grow → Serve → Visit → Footer.
+
+   The snap container is the ROOT scroller (`html`), switched on only while
+   the homepage is mounted. Deliberately not a nested `overflow: scroll`
+   wrapper: window-level scroll (comet rail, FollowTheLight progress, header,
+   Sunday FAB, hash links) keeps working, and mobile browser chrome still
+   collapses. Never put scroll-snap-type on `body` — it is ignored there.
+
+   Snap points:
+   - Every chapter, hero included: the `.snapStop` spans inside
+     FollowTheLight (its module CSS uses these same media queries).
+   - Footer: `end`, so the last stop shows the whole footer.
+
+   `scroll-snap-stop: always` = one wheel tick / swipe moves exactly one
+   chapter. Disabled for reduced motion. Short screens (≤550px tall) show
+   Follow the Light as a stacked document instead, so nothing snaps there.
+   No `scroll-behavior: smooth` here — snapping animates natively, and smooth
+   behavior would also animate the route-change scroll reset in Layout.
+   ------------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) and (min-width: 481px) and (min-height: 551px) {
+  html:has(.ctc-home) {
+    scroll-snap-type: y mandatory;
+  }
+
+  .app-shell:has(.ctc-home) > .footer {
+    scroll-snap-align: end;
+  }
+}
+
+/* Phones: `proximity` only, and only the chapter stops align (see
+   FollowTheLight.module.css). It never traps content, but a scroll that ends
+   near a chapter settles onto it, so the light never rests half-way. */
+@media (prefers-reduced-motion: no-preference) and (max-width: 480px),
+  (prefers-reduced-motion: no-preference) and (max-height: 550px) {
+  html:has(.ctc-home) {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* The homepage header floats over the first chapter: the hero lives in Follow
+   the Light's full-screen pin, which starts at the very top of the page. */
+.app-shell:has(.ctc-home) > .site-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 .ctc-home {
   position: relative;
   z-index: 4;
   isolation: isolate;
-  min-height: 100vh;
-  overflow: hidden;
+  /* `clip`, never `hidden`: `hidden` would make this a scroll container,
+     which breaks Follow the Light's sticky pin and captures its snap stops. */
+  overflow: clip;
   background:
     radial-gradient(90% 54% at 52% 16%, rgba(140, 198, 62, 0.1), transparent 66%),
     radial-gradient(72% 44% at 82% 86%, rgba(249, 157, 55, 0.1), transparent 64%),
     linear-gradient(180deg, #ffffff 0%, #fffefa 48%, #ffffff 100%);
   color: var(--muted);
+}
+
+/* The hero is Follow the Light's opening chapter: it fills the pin exactly. */
+.ctc-home .ctc-hero {
+  height: 100%;
+  min-height: 0;
+}
+
+/* Phones: the whole hero must fit one screen (the pin clips overflow), down
+   to a 375×667 phone under the 76px header. Content is centred as one
+   compact column; the Sunday card becomes a single row. */
+@media (max-width: 620px) {
+  .ctc-home .ctc-hero {
+    align-content: center;
+    gap: clamp(14px, 2.6dvh, 24px);
+    padding-top: 92px;
+    padding-bottom: clamp(16px, 3dvh, 28px);
+  }
+
+  /* The Tamil title never wraps, so it scales with width to stay inside the
+     column down to 360px phones. */
+  .ctc-home .ctc-hero-title {
+    font-size: clamp(1.4rem, 6vw, 2.1rem);
+  }
+
+  .ctc-home .ctc-hero-lede {
+    margin-top: clamp(12px, 2dvh, 20px);
+    font-size: clamp(1.02rem, 2.3dvh, 1.2rem);
+  }
+
+  .ctc-home .ctc-hero-actions {
+    margin-top: clamp(14px, 2.4dvh, 26px);
+  }
+
+  .ctc-home .ctc-hero-actions a {
+    min-height: 48px;
+  }
+
+  .ctc-home .ctc-hero-card {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  .ctc-home .ctc-hero-card-info {
+    gap: 4px;
+  }
+
+  .ctc-home .ctc-hero-card strong {
+    font-size: 1.9rem;
+  }
+
+  .ctc-home .ctc-hero-card a {
+    min-height: 44px;
+  }
+
+  .ctc-home .ctc-hero-weekly-verse-ribbon {
+    margin-top: 0;
+    padding-top: 12px;
+  }
+
+  .ctc-home .ctc-hero-weekly-verse-ribbon p {
+    font-size: clamp(1rem, 2.2dvh, 1.2rem);
+  }
 }
 
 .ctc-field,
@@ -112,6 +229,7 @@
   z-index: 5;
   display: flex;
   min-height: 100vh;
+  min-height: 100dvh;
   flex-direction: column;
   justify-content: center;
   padding: 140px var(--ctc-rail) 140px calc(var(--ctc-rail) + clamp(28px, 7vw, 120px));
@@ -1242,7 +1360,7 @@
   top: 0;
   left: 50%;
   width: 3px;
-  height: var(--ctc-rail-progress);
+  height: 100%;
   border-radius: 999px;
   background:
     linear-gradient(
@@ -1254,8 +1372,11 @@
   box-shadow:
     0 0 18px rgba(140, 198, 62, 0.28),
     0 0 34px rgba(249, 157, 55, 0.12);
-  transform: translateX(-50%);
-  transition: height 140ms linear;
+  /* Fill grows with scaleY (compositor-only), not height, so it never
+     forces layout on scroll. */
+  transform: translateX(-50%) scaleY(var(--ctc-rail-progress));
+  transform-origin: top center;
+  transition: transform 140ms linear;
 }
 
 .ctc-comet {

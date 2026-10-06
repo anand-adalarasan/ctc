@@ -295,6 +295,7 @@ textarea {
 
 .app-shell {
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .site-header {
@@ -1152,6 +1153,7 @@ textarea {
 
   .site-nav.is-open {
     max-height: calc(100vh - 92px);
+    max-height: calc(100dvh - 92px);
     overflow-y: auto;
     opacity: 1;
     pointer-events: auto;
@@ -1906,6 +1908,7 @@ select:focus-visible {
 
   .site-nav.is-open {
     max-height: calc(100vh - 92px);
+    max-height: calc(100dvh - 92px);
     overflow-y: auto;
     opacity: 1;
     pointer-events: auto;

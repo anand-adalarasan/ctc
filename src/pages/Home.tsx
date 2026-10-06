@@ -54,28 +54,9 @@ export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const cometRef = useRef<HTMLDivElement | null>(null);
-  const heroSectionRef = useRef<HTMLElement | null>(null);
+  // The hero is Follow the Light's opening chapter; the Sunday FAB appears
+  // once any later chapter (or the footer) is the one in view.
   const [showFab, setShowFab] = useState(false);
-
-  useEffect(() => {
-    const heroSection = heroSectionRef.current;
-
-    if (!heroSection) {
-      return;
-    }
-
-    // Watch the whole hero section, not just the card — on phones where the
-    // hero's content is taller than the viewport, the card can sit below the
-    // fold before the user has scrolled at all, which would show the FAB
-    // prematurely if we only watched the card itself.
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowFab(!entry.isIntersecting),
-      { rootMargin: "0px" }
-    );
-
-    observer.observe(heroSection);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -239,7 +220,7 @@ export default function Home() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
       comet.style.transform = `translateY(${progress * window.innerHeight}px)`;
-      root.style.setProperty("--ctc-rail-progress", `${progress * 100}%`);
+      root.style.setProperty("--ctc-rail-progress", progress.toFixed(4));
     };
 
     let scrollTicking = false;
@@ -299,23 +280,11 @@ export default function Home() {
     };
   }, []);
 
-  return (
-    <>
-      <StickySundayBar visible={showFab} />
-      <div className="ctc-light-shell" ref={rootRef}>
-      <canvas className="ctc-field" ref={canvasRef} aria-hidden="true" />
-      <div className="ctc-vignette" aria-hidden="true" />
-      <div className="ctc-grain" aria-hidden="true" />
-      <div className="ctc-cursor" ref={cursorRef} aria-hidden="true" />
-      <div className="ctc-spine" aria-hidden="true" />
-      <div className="ctc-comet" ref={cometRef} aria-hidden="true" />
-
-      <div className="ctc-home">
+  const hero = (
       <section
         className="ctc-stage ctc-stage-open ctc-hero is-lit"
         id="open"
         aria-labelledby="home-title"
-        ref={heroSectionRef}
       >
         <picture>
           <source media="(max-width: 620px)" srcSet={siteImages.heroBackgroundMobile.src} />
@@ -361,11 +330,26 @@ export default function Home() {
         </div>
         <WeeklyVerse className="ctc-hero-weekly-verse-ribbon" />
       </section>
-      </div>
+  );
 
-      <FollowTheLight />
-      </div>
+  return (
+    <>
+      <StickySundayBar visible={showFab} />
+      <div className="ctc-light-shell" ref={rootRef}>
+      <canvas className="ctc-field" ref={canvasRef} aria-hidden="true" />
+      <div className="ctc-vignette" aria-hidden="true" />
+      <div className="ctc-grain" aria-hidden="true" />
+      <div className="ctc-cursor" ref={cursorRef} aria-hidden="true" />
+      <div className="ctc-spine" aria-hidden="true" />
+      <div className="ctc-comet" ref={cometRef} aria-hidden="true" />
 
+      <div className="ctc-home">
+        <FollowTheLight
+          opening={{ labelTa: "வணக்கம்", labelEn: "Welcome", content: hero }}
+          onActiveChange={(index) => setShowFab(index > 0)}
+        />
+      </div>
+      </div>
     </>
   );
 }

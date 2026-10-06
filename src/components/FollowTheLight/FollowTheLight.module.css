@@ -3,15 +3,33 @@
   --ftl-body: var(--body, #59635c);
   --ftl-green-deep: var(--green-deep, #6ba52c);
   --ftl-gold: var(--gold, #b99045);
+  --ftl-light: var(--light, #8dc63f);
   --ftl-glide: cubic-bezier(0.2, 0.7, 0.2, 1);
 
+  /* One pin-height plus 40% of a screen of scroll per chapter change. */
   position: relative;
-  height: 220vh;
-  height: 220dvh;
+  height: calc(100vh + var(--ftl-gaps, 3) * 40vh);
+  height: calc(100dvh + var(--ftl-gaps, 3) * 40dvh);
   z-index: 5;
   background:
     radial-gradient(circle at 50% 48%, rgba(244, 232, 200, 0.2), transparent 46%),
     linear-gradient(180deg, rgba(255, 254, 250, 0.94) 0%, rgba(247, 248, 244, 0.98) 86%, rgba(255, 254, 250, 0.98) 100%);
+}
+
+/* Scroll-snap targets (see FollowTheLight.tsx). Each stop is one pin-height
+   tall and placed at `--ftl-stop` (0 → 1) of the sticky travel, i.e.
+   (section height − pin height) × stop. Using `100%` of the section keeps
+   the stops correct whether 220vh or 220dvh is in effect. Snapping itself is
+   only switched on inside the media queries at the bottom of this file. */
+.snapStop {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 100vh;
+  height: 100dvh;
+  top: calc((100% - 100vh) * var(--ftl-stop, 0));
+  top: calc((100% - 100dvh) * var(--ftl-stop, 0));
+  pointer-events: none;
 }
 
 .pin {
@@ -45,7 +63,23 @@
   );
 }
 
+/* ------------------------------------------------------------------------
+   The light reveal.
+
+   Every scene is stacked in the pin and masked to the band between two
+   horizontal cuts, measured from the bottom. FollowTheLight.tsx writes them
+   per frame from scroll position (no transitions — the scroll is the clock):
+     --lo  0 → 1  the light rising through this scene, erasing it (outgoing)
+     --hi  0 → 1  the light rising through this scene, revealing it (incoming)
+   `--edge` is the soft dissolve where the two scenes meet; the .sweep band
+   sits on its centre. The edge must match EDGE in FollowTheLight.tsx.
+   ------------------------------------------------------------------------ */
 .scene {
+  --lo: 0;
+  --hi: 1;
+  --edge: 8%;
+  --drift: 32px;
+
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -55,37 +89,213 @@
   justify-content: center;
   text-align: center;
   padding: 0 8vw;
-  opacity: 0;
-  transform: translateY(46px) scale(0.955);
-  filter: blur(9px);
   pointer-events: none;
-  transition:
-    opacity 0.6s ease,
-    transform 0.75s var(--ftl-glide),
-    filter 0.6s ease;
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent calc(var(--lo) * (100% + var(--edge)) - var(--edge)),
+    #000 calc(var(--lo) * (100% + var(--edge))),
+    #000 calc(var(--hi) * (100% + var(--edge)) - var(--edge)),
+    transparent calc(var(--hi) * (100% + var(--edge)))
+  );
+  mask-image: linear-gradient(
+    to top,
+    transparent calc(var(--lo) * (100% + var(--edge)) - var(--edge)),
+    #000 calc(var(--lo) * (100% + var(--edge))),
+    #000 calc(var(--hi) * (100% + var(--edge)) - var(--edge)),
+    transparent calc(var(--hi) * (100% + var(--edge)))
+  );
+  /* Outgoing content lifts away as the light passes; incoming settles up
+     into place behind it. */
+  transform: translate3d(0, calc((1 - var(--hi)) * var(--drift) - var(--lo) * var(--drift)), 0);
+  will-change: transform;
 }
 
 .scene.on {
-  opacity: 1;
-  transform: none;
-  filter: none;
   pointer-events: auto;
 }
 
-.scene.past {
-  opacity: 0;
-  transform: translateY(-46px) scale(1.04);
+/* Full-bleed chapter (the hero): same mask, drift and light, own layout. */
+.scene.sceneBleed {
+  display: block;
+  padding: 0;
+  text-align: left;
+}
+
+/* ------------------------------------------------------------------------
+   Entrance choreography (the original Follow the Light scene animation).
+
+   FollowTheLight.tsx adds `.lit` to a scene from the first pixel the light
+   reveals it until it is fully gone, so every arrival replays these timed
+   transitions while the light sweeps: the scene resolves from blur and a
+   slight scale, the marker and its rule draw in, headline words rise in a
+   110ms stagger, then the introduction, then the ministry names at 70ms.
+
+   The scene-level entrance uses the individual `translate` / `scale`
+   properties so it composes with the scroll-driven `transform` drift above
+   (which must never be transitioned — it tracks the scroll exactly). It has
+   no opacity fade of its own: the light's mask already controls visibility,
+   and a second fade left the freshly revealed area empty mid-sweep.
+   ------------------------------------------------------------------------ */
+.scene {
+  translate: 0 46px;
+  scale: 0.955;
   filter: blur(9px);
+  transition:
+    translate 0.75s var(--ftl-glide),
+    scale 0.75s var(--ftl-glide),
+    filter 0.6s ease;
+}
+
+.scene.lit {
+  translate: none;
+  scale: none;
+  filter: none;
 }
 
 .marker {
-  display: grid;
-  justify-items: center;
   opacity: 0;
   transform: translateY(14px);
   transition:
     opacity 0.5s ease,
     transform 0.65s var(--ftl-glide);
+}
+
+.markerRule {
+  opacity: 0;
+  transform: scaleX(0.15);
+  transform-origin: center;
+  transition:
+    opacity 0.42s ease 0.12s,
+    transform 0.62s var(--ftl-glide) 0.12s;
+}
+
+.lit .marker,
+.lit .markerRule {
+  opacity: 1;
+  transform: none;
+}
+
+.w {
+  opacity: 0;
+  transform: translateY(0.55em);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s var(--ftl-glide);
+}
+
+.lit .w {
+  opacity: 1;
+  transform: none;
+}
+
+.lit .w:nth-child(2) { transition-delay: 0.11s; }
+.lit .w:nth-child(3) { transition-delay: 0.22s; }
+.lit .w:nth-child(4) { transition-delay: 0.33s; }
+
+.sub {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.28s;
+}
+
+.lit .sub {
+  opacity: 1;
+}
+
+.ribbon,
+.visitActions {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s ease 0.34s,
+    transform 0.72s var(--ftl-glide) 0.34s;
+}
+
+.lit .ribbon,
+.lit .visitActions {
+  opacity: 1;
+  transform: none;
+}
+
+.ribbonList li {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.65s var(--ftl-glide);
+}
+
+.lit .ribbonList li {
+  opacity: 1;
+  transform: none;
+}
+
+.lit .ribbonList li:nth-child(1) { transition-delay: 0.42s; }
+.lit .ribbonList li:nth-child(2) { transition-delay: 0.49s; }
+.lit .ribbonList li:nth-child(3) { transition-delay: 0.56s; }
+.lit .ribbonList li:nth-child(4) { transition-delay: 0.63s; }
+.lit .ribbonList li:nth-child(5) { transition-delay: 0.7s; }
+.lit .ribbonList li:nth-child(6) { transition-delay: 0.77s; }
+
+/* The seam of light. A zero-height anchor moved with translate3d by the
+   component; the glow and the bright core line hang off it. */
+.sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* The glow has an opaque warm-white core spanning the dissolve edge, so
+   the light covers the crossover instead of showing two scenes' text
+   through each other; a faint leaf-green halo fades out around it. */
+.sweep::before {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  top: -10vh;
+  height: 20vh;
+  background:
+    radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(255, 253, 244, 0.97) 0%,
+      rgba(255, 253, 244, 0.94) 38%,
+      rgba(250, 244, 222, 0.6) 62%,
+      rgba(255, 254, 250, 0) 100%
+    ),
+    radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(141, 198, 63, 0.16),
+      rgba(141, 198, 63, 0) 100%
+    );
+}
+
+.sweep::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(185, 144, 69, 0.55) 22%,
+    var(--ftl-light) 50%,
+    rgba(185, 144, 69, 0.55) 78%,
+    transparent
+  );
+  box-shadow: 0 2px 16px rgba(141, 198, 63, 0.45);
+}
+
+.marker {
+  display: grid;
+  justify-items: center;
 }
 
 .markerCopy {
@@ -107,18 +317,6 @@
   height: 1px;
   margin-top: 16px;
   background: linear-gradient(90deg, var(--ftl-gold), var(--ftl-green-deep));
-  opacity: 0;
-  transform: scaleX(0.15);
-  transform-origin: center;
-  transition:
-    opacity 0.42s ease 0.12s,
-    transform 0.62s var(--ftl-glide) 0.12s;
-}
-
-.scene.on .marker,
-.scene.on .markerRule {
-  opacity: 1;
-  transform: none;
 }
 
 .headline {
@@ -133,33 +331,11 @@
 
 .w {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(0.55em);
-  transition:
-    opacity 0.5s ease,
-    transform 0.6s var(--ftl-glide);
 }
 
 .accent {
   color: var(--ftl-green-deep);
   font-style: italic;
-}
-
-.scene.on .w {
-  opacity: 1;
-  transform: none;
-}
-
-.scene.on .w:nth-child(2) {
-  transition-delay: 0.11s;
-}
-
-.scene.on .w:nth-child(3) {
-  transition-delay: 0.22s;
-}
-
-.scene.on .w:nth-child(4) {
-  transition-delay: 0.33s;
 }
 
 .sub {
@@ -169,12 +345,6 @@
   font-size: clamp(17px, 2.1vw, 25px);
   line-height: 1.5;
   color: var(--ftl-body);
-  opacity: 0;
-  transition: opacity 0.6s ease 0.28s;
-}
-
-.scene.on .sub {
-  opacity: 1;
 }
 
 .ribbon {
@@ -186,16 +356,6 @@
   width: min(100%, 1180px);
   margin-top: clamp(34px, 4.5vh, 52px);
   padding: 0 clamp(14px, 2.6vw, 34px);
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.65s ease 0.34s,
-    transform 0.72s var(--ftl-glide) 0.34s;
-}
-
-.scene.on .ribbon {
-  opacity: 1;
-  transform: none;
 }
 
 .ribbonList {
@@ -221,24 +381,7 @@
   line-height: 1.35;
   text-align: center;
   text-wrap: balance;
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.55s ease,
-    transform 0.65s var(--ftl-glide);
 }
-
-.scene.on .ribbonList li {
-  opacity: 1;
-  transform: none;
-}
-
-.scene.on .ribbonList li:nth-child(1) { transition-delay: 0.42s; }
-.scene.on .ribbonList li:nth-child(2) { transition-delay: 0.49s; }
-.scene.on .ribbonList li:nth-child(3) { transition-delay: 0.56s; }
-.scene.on .ribbonList li:nth-child(4) { transition-delay: 0.63s; }
-.scene.on .ribbonList li:nth-child(5) { transition-delay: 0.7s; }
-.scene.on .ribbonList li:nth-child(6) { transition-delay: 0.77s; }
 
 .ribbonList li:not(:last-child)::after {
   content: "";
@@ -288,6 +431,234 @@
   outline-offset: 4px;
 }
 
+/* Closing "Visit" chapter: address + the one bronze CTA for this view. */
+.visitActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 32px;
+  margin-top: clamp(34px, 4.5vh, 52px);
+}
+
+.visitAddress {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--ftl-ink);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(19px, 1.6vw, 24px);
+  text-decoration: underline;
+  text-decoration-color: rgba(107, 165, 44, 0.45);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+.visitAddress svg {
+  flex: none;
+  color: var(--ftl-green-deep);
+}
+
+.visitAddress:hover {
+  text-decoration-color: var(--ftl-green-deep);
+}
+
+.visitCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  border: 1px solid var(--clay-dark, #96702f);
+  border-radius: var(--radius-pill, 999px);
+  background: var(--clay-dark, #96702f);
+  color: #fff;
+  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 16px 38px rgba(150, 112, 47, 0.32);
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+
+.visitCta:hover {
+  border-color: #7d5c26;
+  background: #7d5c26;
+}
+
+.visitCta svg {
+  transition: transform 0.18s var(--ftl-glide);
+}
+
+.visitCta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ------------------------------------------------------------------------
+   Chapter rail: four stations on the right edge of the pin with a point of
+   light that glides continuously between them as you scroll. Stations are
+   buttons that jump to their scene; labels open on hover / keyboard focus
+   so they never sit on top of the scene copy at rest.
+   ------------------------------------------------------------------------ */
+.rail {
+  --rail-hit: 44px;
+
+  position: absolute;
+  top: 50%;
+  right: clamp(12px, 2.4vw, 36px);
+  z-index: 4;
+  transform: translateY(-50%);
+  transition:
+    opacity 260ms ease,
+    translate 360ms var(--ftl-glide),
+    visibility 0s linear 0s;
+}
+
+/* Hidden over the hero chapter. `visibility` (delayed until the fade ends)
+   also takes the stations out of the tab order while hidden. */
+.railHidden {
+  opacity: 0;
+  translate: 12px 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    translate 260ms var(--ftl-glide),
+    visibility 0s linear 260ms;
+}
+
+.railList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Hairline from the first station's centre to the last's. */
+.railTrack {
+  position: absolute;
+  top: calc(var(--rail-hit) / 2);
+  bottom: calc(var(--rail-hit) / 2);
+  right: calc(var(--rail-hit) / 2);
+  width: 1px;
+  background: rgba(16, 37, 27, 0.14);
+  pointer-events: none;
+}
+
+/* Full-track-height carrier so translateY(progress × 100%) travels exactly
+   from the first station to the last. The visible light is its ::before. */
+.railLight {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.railLight::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -4.5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ftl-light);
+  box-shadow:
+    0 0 0 5px rgba(141, 198, 63, 0.14),
+    0 2px 16px rgba(141, 198, 63, 0.5);
+}
+
+.railStop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--rail-hit);
+  height: var(--rail-hit);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--ftl-ink);
+  cursor: pointer;
+}
+
+.railDot {
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(16, 37, 27, 0.32);
+  border-radius: 50%;
+  background: var(--bg, #fffefa);
+  transition:
+    transform 260ms var(--ftl-glide),
+    background-color 260ms var(--ftl-glide),
+    border-color 260ms var(--ftl-glide);
+}
+
+.railStopPassed .railDot {
+  border-color: var(--ftl-green-deep);
+  background: var(--ftl-green-deep);
+}
+
+.railStopActive .railDot {
+  border-color: var(--ftl-green-deep);
+  transform: scale(1.6);
+}
+
+.railStop:hover .railDot {
+  border-color: var(--ftl-green-deep);
+}
+
+.railLabel {
+  position: absolute;
+  right: calc(100% - 4px);
+  top: 50%;
+  display: grid;
+  justify-items: end;
+  gap: 1px;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill, 999px);
+  background: rgba(255, 254, 250, 0.96);
+  box-shadow: 0 8px 24px rgba(16, 37, 27, 0.1);
+  white-space: nowrap;
+  text-align: right;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(8px, -50%, 0);
+  transition:
+    opacity 160ms ease,
+    transform 260ms var(--ftl-glide);
+}
+
+.railLabel [lang="ta"] {
+  color: var(--ftl-ink);
+  font-family: "Noto Serif Tamil", Georgia, serif;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.railLabel small {
+  color: var(--ftl-body);
+  font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.railStopActive .railLabel [lang="ta"] {
+  color: var(--ftl-green-deep);
+}
+
+.rail:hover .railLabel,
+.rail:focus-within .railLabel {
+  opacity: 1;
+  transform: translate3d(0, -50%, 0);
+}
+
+/* Not referenced by the current markup. */
 .cite {
   margin-top: 16px;
   font-family: var(--font-body, "Space Grotesk", system-ui, sans-serif);
@@ -300,12 +671,6 @@
 
 .act {
   margin-top: 30px;
-  opacity: 0;
-  transition: opacity 0.6s ease 0.42s;
-}
-
-.scene.on .act {
-  opacity: 1;
 }
 
 .cta {
@@ -336,25 +701,8 @@
   transform: translateY(-2px);
 }
 
-.bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  z-index: 4;
-  background: linear-gradient(90deg, transparent, rgba(185, 144, 69, 0.14), transparent);
-  opacity: 0.42;
-}
-
-.bar span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, rgba(107, 165, 44, 0.42), rgba(185, 144, 69, 0.32));
-  transition: width 0.12s linear;
-}
-
+/* Flat mode (reduced motion, short screens): a plain stacked document.
+   No masks, no light, no rail, no entrance choreography. */
 .flat {
   height: auto;
 }
@@ -368,23 +716,37 @@
 
 .flat .scene {
   position: static;
-  opacity: 1;
-  transform: none;
-  filter: none;
   pointer-events: auto;
   padding: 52px 8vw;
+  -webkit-mask-image: none;
+  mask-image: none;
+  transform: none;
+  opacity: 1;
+  translate: none;
+  scale: none;
+  filter: none;
+  will-change: auto;
 }
 
-.flat .scene .w,
-.flat .scene .sub,
-.flat .scene .ribbon,
-.flat .scene .act {
+.flat .scene.sceneBleed {
+  padding: 0;
+}
+
+.flat .marker,
+.flat .markerRule,
+.flat .w,
+.flat .sub,
+.flat .ribbon,
+.flat .visitActions,
+.flat .ribbonList li {
   opacity: 1;
   transform: none;
 }
 
+.flat .snapStop,
 .flat .aura,
-.flat .bar {
+.flat .sweep,
+.flat .rail {
   display: none;
 }
 
@@ -460,6 +822,22 @@
     justify-content: center;
     min-height: 44px;
   }
+
+  .visitActions {
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  .visitAddress {
+    font-size: 17px;
+  }
+
+  /* Phone scenes use the full width; the scene's own Tamil marker names
+     the chapter, so the rail steps aside rather than crowd the copy. */
+  .rail {
+    display: none;
+  }
 }
 
 @media (max-height: 720px) and (min-width: 621px) {
@@ -478,16 +856,40 @@
   }
 }
 
+/* One scroll = one scene. The snap container is the root scroller, enabled
+   by `html:has(.ctc-home)` in src/pages/Home.css — keep these media queries
+   identical to the ones there. `scroll-snap-stop: always` stops a fast wheel
+   fling or swipe at the very next scene instead of skipping past it. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 481px) and (min-height: 551px) {
+  .snapStop {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+/* Phones and short landscape screens: no hard stops (content must scroll
+   freely), but a gentle proximity settle so the light never comes to rest
+   halfway through a scene. */
+@media (prefers-reduced-motion: no-preference) and (max-width: 480px),
+  (prefers-reduced-motion: no-preference) and (max-height: 550px) {
+  .snapStop {
+    scroll-snap-align: start;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scene,
-.marker,
-.markerRule,
-.w,
-.sub,
-.ribbon,
-.pathwayCta svg,
-.act,
-.bar span {
+  .marker,
+  .markerRule,
+  .w,
+  .sub,
+  .ribbon,
+  .visitActions,
+  .ribbonList li,
+  .pathwayCta svg,
+  .rail,
+  .railDot,
+  .railLabel {
     transition: none !important;
   }
 }
