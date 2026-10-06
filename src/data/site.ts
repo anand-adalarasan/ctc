@@ -41,23 +41,15 @@ export type ChurchEvent = {
   time?: string;
   category: string;
   description: string;
-  cadence: "Weekly" | "Monthly" | "Annual" | "Seasonal" | "Periodic";
   date: string;
   location: string;
   image: string | null;
-  flyerImage: string | null;
-  ctaText: string;
-  ctaLink: string;
-  isFeatured: boolean;
-  isAnnual: boolean;
-  isRecurring: boolean;
-  showOnHome?: boolean;
-  homeFeatured?: boolean;
 };
 
 // Church admin/developer note:
-// Add or update future events here. Home intentionally previews only events
-// marked showOnHome, while Connect can display the full list.
+// Add or update events here; the Events page lists every entry in this order.
+// Bible Study & Prayer also reads the schedule of a few entries by title, so
+// renaming one of those is a compile error until that page is updated too.
 export const churchEvents = [
   {
     title: "Sunday Worship Service",
@@ -66,18 +58,9 @@ export const churchEvents = [
     category: "Tamil & English Worship",
     description:
       "Join us for Tamil and English worship, prayer, Scripture, sermon, children's ministry, communion, and fellowship.",
-    cadence: "Weekly",
     date: "Every Sunday",
     location: "Christ Tamil Church",
-    image: siteImages.hero.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: false,
-    isRecurring: true,
-    showOnHome: true,
-    homeFeatured: true
+    image: siteImages.hero.src
   },
   {
     title: "Sunday School",
@@ -86,16 +69,9 @@ export const churchEvents = [
     category: "Children's Ministry",
     description:
       "Bible-based learning for children to grow in faith through age-appropriate lessons and activities.",
-    cadence: "Weekly",
     date: "Every Sunday",
     location: "Children's Ministry Area",
-    image: siteImages.sundaySchool.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: false,
-    isRecurring: true
+    image: siteImages.sundaySchool.src
   },
   {
     title: "Prayer Conference",
@@ -104,16 +80,9 @@ export const churchEvents = [
     category: "Prayer Gathering",
     description:
       "Join us during the week for prayer, encouragement, and spiritual strengthening as a church family.",
-    cadence: "Weekly",
     date: "Monday to Thursday",
     location: "Christ Tamil Church",
-    image: siteImages.prayer.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: true,
-    isAnnual: false,
-    isRecurring: true
+    image: siteImages.prayer.src
   },
   {
     title: "Bible Study & Prayer",
@@ -122,17 +91,9 @@ export const churchEvents = [
     category: "Midweek Bible Study",
     description:
       "Grow deeper in God's Word through midweek Bible study and prayer.",
-    cadence: "Weekly",
     date: "Wednesday",
     location: "Christ Tamil Church",
-    image: siteImages.bibleStudy.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/grow/bible-study-prayer",
-    isFeatured: false,
-    isAnnual: false,
-    isRecurring: true,
-    showOnHome: true
+    image: siteImages.bibleStudy.src
   },
   {
     title: "Fasting Prayer",
@@ -141,16 +102,9 @@ export const churchEvents = [
     category: "Prayer & Fasting",
     description:
       "A dedicated time of prayer, fasting, worship, and seeking God together.",
-    cadence: "Monthly",
     date: "First Saturday of every month",
     location: "Christ Tamil Church",
-    image: siteImages.prayer.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: true,
-    isAnnual: false,
-    isRecurring: true
+    image: siteImages.prayer.src
   },
   {
     title: "Men's Fellowship",
@@ -159,16 +113,9 @@ export const churchEvents = [
     category: "Men's Ministry",
     description:
       "A time for men to grow in faith, encourage one another, and build Christ-centered relationships.",
-    cadence: "Periodic",
     date: "Periodic Gathering",
     location: "Christ Tamil Church",
-    image: siteImages.mensFellowship.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: false,
-    isRecurring: true
+    image: siteImages.mensFellowship.src
   },
   {
     title: "Women's Conference",
@@ -177,16 +124,9 @@ export const churchEvents = [
     category: "Women's Ministry",
     description:
       "A gathering for women to worship, learn, pray, and encourage one another in faith.",
-    cadence: "Annual",
     date: "Annual / Periodic Gathering",
     location: "Christ Tamil Church",
-    image: siteImages.womensFellowship.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: true,
-    isRecurring: true
+    image: siteImages.womensFellowship.src
   },
   {
     title: "Outreach",
@@ -195,17 +135,9 @@ export const churchEvents = [
     category: "Community Outreach",
     description:
       "Serving our community through love, care, prayer, and practical support.",
-    cadence: "Seasonal",
     date: "Seasonal / As Scheduled",
     location: "Chicago Area",
-    image: siteImages.events.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: true,
-    isRecurring: true,
-    showOnHome: true
+    image: siteImages.events.src
   },
   {
     title: "Vacation Bible School",
@@ -214,16 +146,9 @@ export const churchEvents = [
     category: "Children's Summer Ministry",
     description:
       "A joyful summer program where children learn God's Word through Bible stories, songs, games, crafts, and activities.",
-    cadence: "Annual",
     date: "Every Summer",
     location: "Christ Tamil Church",
-    image: siteImages.kidsCraft.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: true,
-    isRecurring: true
+    image: siteImages.kidsCraft.src
   },
   {
     title: "Church Picnic",
@@ -232,16 +157,9 @@ export const churchEvents = [
     category: "Family Fellowship",
     description:
       "A yearly outdoor gathering for food, fellowship, games, and community as a church family.",
-    cadence: "Annual",
     date: "Every June",
     location: "Location To Be Announced",
-    image: siteImages.churchPicnic.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: true,
-    isRecurring: true
+    image: siteImages.churchPicnic.src
   },
   {
     title: "Family Camp",
@@ -249,16 +167,9 @@ export const churchEvents = [
     category: "Family Retreat",
     description:
       "A yearly family retreat for worship, teaching, fellowship, rest, and spiritual renewal.",
-    cadence: "Annual",
     date: "Labor Day Weekend Every Year",
     location: "Retreat Location To Be Announced",
-    image: siteImages.familyCamp.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: true,
-    isAnnual: true,
-    isRecurring: true
+    image: siteImages.familyCamp.src
   },
   {
     title: "Fellowship Hour",
@@ -267,16 +178,9 @@ export const churchEvents = [
     category: "Fellowship Hall",
     description:
       "Stay after worship to connect, encourage one another, and share life together.",
-    cadence: "Weekly",
     date: "After Sunday Worship",
     location: "Fellowship Hall",
-    image: siteImages.fellowshipMeal.src,
-    flyerImage: null,
-    ctaText: "Learn More",
-    ctaLink: "/contact",
-    isFeatured: false,
-    isAnnual: false,
-    isRecurring: true
+    image: siteImages.fellowshipMeal.src
   }
 ] as const satisfies readonly ChurchEvent[];
 
