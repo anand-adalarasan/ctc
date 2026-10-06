@@ -751,6 +751,56 @@
   mix-blend-mode: normal;
 }
 
+/* Desktop: anchor the card to the hero itself (not the vertically centred
+   visual column) so it rests on the lawn, clear of the church facade and
+   just above the verse ribbon. */
+@media (min-width: 1121px) {
+  .ctc-hero-visual {
+    position: static;
+  }
+
+  /* Compact and lighter so it sits beside the airy verse line as a
+     companion, not a slab. */
+  .ctc-hero .ctc-hero-card {
+    right: clamp(40px, 4.5vw, 96px);
+    bottom: clamp(96px, 11vh, 124px);
+    gap: 6px;
+    width: 200px;
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 18px 50px rgba(16, 37, 27, 0.18);
+  }
+
+  .ctc-hero .ctc-hero-card-info {
+    gap: 6px;
+  }
+
+  .ctc-hero .ctc-hero-card span {
+    font-size: 0.64rem;
+  }
+
+  .ctc-hero .ctc-hero-card strong {
+    font-size: 2rem;
+  }
+
+  .ctc-hero .ctc-hero-card a {
+    font-size: 0.86rem;
+  }
+}
+
+/* Wide enough to share the bottom line: the card drops to the verse
+   ribbon's baseline. The ribbon stays centred while there is room and
+   slides left only as far as needed (half its text ~405px plus a gap). */
+@media (min-width: 1240px) {
+  .ctc-hero .ctc-hero-card {
+    bottom: clamp(28px, 3.5vh, 44px);
+  }
+
+  .ctc-hero .ctc-hero-weekly-verse-ribbon {
+    translate: calc(-50% + min(0px, 45.5vw - 640px)) 0;
+  }
+}
+
 .ctc-hero-card-info {
   display: grid;
   gap: 8px;
