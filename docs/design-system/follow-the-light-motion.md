@@ -14,7 +14,7 @@ Do not copy this system to inner pages.
 
 ## Current behavior
 
-The outer section is `400vh`. Its direct child is a sticky, viewport-height
+The outer section is `220vh`. Its direct child is a sticky, viewport-height
 pin containing one absolutely stacked scene per entry in `ministryPathways`.
 The current data produces the ministry-pathway story rather than hard-coded
 "Love God / Love People / Make Disciples" scenes.
@@ -110,7 +110,7 @@ navigation when animation is disabled.
   hold focus or be read while off-screen; the active scene has both removed.
 - The sticky section must not be placed inside an ancestor with clipping,
   transforms, or a conflicting fixed height.
-- The pin and outer section use `100vh`/`400vh` with a `100dvh`/`400dvh`
+- The pin and outer section use `100vh`/`220vh` with a `100dvh`/`220dvh`
   override (dynamic viewport units), so mobile browser-chrome show/hide does
   not leave a gap or misjudge scroll distance. Progress is always computed
   from the section's and pin's *measured* `offsetHeight`, never from
@@ -119,7 +119,7 @@ navigation when animation is disabled.
 
 ## Acceptance checklist
 
-- [ ] The section pins for four viewport heights after the hero.
+- [ ] The section pins for 2.2 viewport heights after the hero.
 - [ ] Exactly one animated scene is active at a time.
 - [ ] Wheel, trackpad, touch, keyboard, and scrollbar-drag input all scroll
       natively — no input type is intercepted or preventDefault'd.

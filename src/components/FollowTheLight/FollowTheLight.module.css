@@ -6,8 +6,8 @@
   --ftl-glide: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   position: relative;
-  height: 400vh;
-  height: 400dvh;
+  height: 220vh;
+  height: 220dvh;
   z-index: 5;
   background:
     radial-gradient(circle at 50% 48%, rgba(244, 232, 200, 0.2), transparent 46%),

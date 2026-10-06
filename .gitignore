@@ -16,3 +16,5 @@ hooks/
 docs/design-system/pages/home-hero-concept.png
 scripts/verify-sermons.mjs
 src/assets/images/ctc-hero-community-v2.png
+.impeccable/config.json
+.claude/settings.json

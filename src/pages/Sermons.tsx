@@ -1,4 +1,4 @@
-import { ExternalLink, Play, Search, VideoOff } from "lucide-react";
+import { ChevronDown, ChevronUp, ExternalLink, Play, Search, VideoOff } from "lucide-react";
 import { useMemo, useState } from "react";
 import SectionHeader from "../components/SectionHeader";
 import {
@@ -75,6 +75,7 @@ function VideoGrid({ videos }: { videos: SermonVideo[] }) {
 export default function Sermons() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
+  const [expandedPlaylists, setExpandedPlaylists] = useState<Record<string, boolean>>({});
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const activePlaylistIds = VIDEO_CATEGORIES.find((category) => category.id === activeCategory)?.playlists ?? [];
   const visiblePlaylists = activeCategory === "all"
@@ -142,17 +143,23 @@ export default function Sermons() {
           <div className="sermons-playlists">
             {visiblePlaylists.map((playlist) => {
               const videos = sermonVideos.filter((video) => video.playlistId === playlist.id);
-              const hasRealPlaylist = ["praise-worship", "vbs", "kids-at-ctc", "women-of-ctc"].includes(playlist.id);
+              const isExpanded = Boolean(expandedPlaylists[playlist.id]);
               return videos.length ? (
                 <section className="sermons-playlist" key={playlist.id} aria-labelledby={`playlist-${playlist.id}`}>
                   <div className="sermons-playlist-heading" id={`playlist-${playlist.id}`}>
                     <SectionHeader title={playlist.title} />
-                    <a href={playlist.youtubeUrl} target="_blank" rel="noreferrer">
-                      {hasRealPlaylist ? `View all ${videos.length} on YouTube` : "Browse more on YouTube"}
-                      <ExternalLink size={14} aria-hidden="true" />
-                    </a>
+                    {videos.length > 3 ? (
+                      <button
+                        type="button"
+                        onClick={() => setExpandedPlaylists((prev) => ({ ...prev, [playlist.id]: !isExpanded }))}
+                        aria-expanded={isExpanded}
+                      >
+                        {isExpanded ? "Show fewer" : `View all ${videos.length}`}
+                        {isExpanded ? <ChevronUp size={14} aria-hidden="true" /> : <ChevronDown size={14} aria-hidden="true" />}
+                      </button>
+                    ) : null}
                   </div>
-                  <VideoGrid videos={videos.slice(0, 3)} />
+                  <VideoGrid videos={isExpanded ? videos : videos.slice(0, 3)} />
                 </section>
               ) : null;
             })}

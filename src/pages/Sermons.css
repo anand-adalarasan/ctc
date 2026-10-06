@@ -93,9 +93,10 @@
 .sermons-playlists { display: grid; gap: clamp(70px, 8vw, 104px); }
 .sermons-playlist-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
 .sermons-playlist-heading .section-header { margin-bottom: 0; }
-.sermons-playlist-heading > a { display: inline-flex; align-items: center; flex: none; gap: 7px; padding-bottom: 6px; color: var(--clay-dark); font-size: .78rem; font-weight: 700; }
-.sermons-playlist-heading > a svg { transition: transform var(--motion-fast) var(--ease-out); }
-.sermons-playlist-heading > a:hover svg { transform: translate(2px, -2px); }
+.sermons-playlist-heading > button { display: inline-flex; align-items: center; flex: none; gap: 7px; padding-bottom: 6px; border: 0; background: transparent; color: var(--clay-dark); font: inherit; font-size: .78rem; font-weight: 700; cursor: pointer; }
+.sermons-playlist-heading > button svg { transition: transform var(--motion-fast) var(--ease-out); }
+.sermons-playlist-heading > button:hover svg { transform: translateY(2px); }
+.sermons-playlist-heading > button:focus-visible { border-radius: 4px; outline: 2px solid var(--primary); outline-offset: 4px; }
 .sermons-video-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .sermons-show-all { display: inline-flex; align-items: center; margin-top: 28px; border: 0; padding: 8px 0; background: transparent; color: var(--clay-dark); font: inherit; font-size: .84rem; font-weight: 700; cursor: pointer; }
@@ -157,7 +158,7 @@
   .sermons-hero-copy > *, .sermons-channel-link { opacity: 1; transform: none; animation: none; transition: none; }
   .sermons-video-card, .sermons-video-grid.is-visible .sermons-video-card { opacity: 1; transform: none; transition: none; }
   .sermons-thumbnail img, .sermons-play-icon { transition: none; }
-  .sermons-playlist-heading > a svg { transition: none; }
+  .sermons-playlist-heading > button svg { transition: none; }
   .sermons-category-filters button::after { transition: none; }
   .sermons-video-card:hover, .sermons-video-card:hover img, .sermons-video-card:hover .sermons-play-icon { transform: none; }
 }

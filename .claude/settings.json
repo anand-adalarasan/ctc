@@ -13,7 +13,15 @@
       "Read(//c/Program Files/Google/Chrome/Application/**)",
       "Bash(\"/c/Program Files \\(x86\\)/Microsoft/Edge/Application/msedge.exe\" --headless=new --disable-gpu --window-size=1440,900 --hide-scrollbars --virtual-time-budget=12000 --screenshot=home-hero.png \"http://localhost:5199/\")",
       "Read(//tmp/**)",
-      "Bash(sleep 2; cat /tmp/vite10.log)"
+      "Bash(sleep 2; cat /tmp/vite10.log)",
+      "Bash(node inspect.mjs)",
+      "Bash(node inspect2.mjs)",
+      "Bash(node scrolltest.mjs)",
+      "Bash(node inspect3.mjs)",
+      "Bash(sed -i \"s/const header = document.querySelector/window.scrollTo\\(0,0\\); const header = document.querySelector/\" inspect3.mjs)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} in %{time_total}s\\\\n\" --max-time 5 \"https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil\")",
+      "Bash(curl -s http://127.0.0.1:9444/json/list)",
+      "Bash(node inspect_final.mjs 357771621E86DCAD752FF2A7C767C09E)"
     ]
   }
 }
