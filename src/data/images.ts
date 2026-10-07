@@ -1,11 +1,3 @@
-import connectCampfire from "../assets/images/connect-campfire.webp";
-import connectCarolRounds from "../assets/images/connect-carol-rounds.webp";
-import connectHarvestFestival from "../assets/images/connect-harvest-festival.webp";
-import connectHero from "../assets/images/connect-hero.webp";
-import connectHeroMobile from "../assets/images/connect-hero-mobile.webp";
-import connectFellowshipMeal from "../assets/images/connect-fellowship-meal.webp";
-import connectSummerCarnival from "../assets/images/connect-summer-carnival.webp";
-import connectSummerPicnic from "../assets/images/connect-summer-picnic.webp";
 import ctcHeroBackground from "../assets/images/ctc-hero-background-green.webp";
 import ctcHeroBackgroundMobile from "../assets/images/ctc-hero-background-green-mobile.webp";
 import ctcHeroImage from "../assets/images/ctc-hero-image.jpg";
@@ -27,85 +19,6 @@ export type SiteImage = {
 const utm = "utm_source=christ_tamil_church&utm_medium=referral";
 
 export const siteImages = {
-  connectHero: {
-    id: "ctc-connect-hero",
-    src: connectHero,
-    alt: "",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect hero background",
-    objectPosition: "64% 42%"
-  },
-  connectHeroMobile: {
-    id: "ctc-connect-hero-mobile",
-    src: connectHeroMobile,
-    alt: "",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect hero background (portrait crop for tablet and phone)"
-  },
-  connectFellowshipMeal: {
-    id: "ctc-connect-fellowship-meal",
-    src: connectFellowshipMeal,
-    alt: "A church member leans in to talk with an elder as the church family shares a meal served on banana leaves",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect: fellowship hour",
-    objectPosition: "58% 50%"
-  },
-  connectSummerPicnic: {
-    id: "ctc-connect-summer-picnic",
-    src: connectSummerPicnic,
-    alt: "Two lines of church members tossing a water balloon across the grass at the summer picnic",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect: Summer Picnic tradition",
-    objectPosition: "50% 55%"
-  },
-  connectSummerCarnival: {
-    id: "ctc-connect-summer-carnival",
-    src: connectSummerCarnival,
-    alt: "A pink, orange, and yellow balloon arch beneath the Christ Tamil Church Carnival banner",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect: Summer Carnival tradition",
-    objectPosition: "50% 32%"
-  },
-  connectHarvestFestival: {
-    id: "ctc-connect-harvest-festival",
-    src: connectHarvestFestival,
-    alt: "A long table of homemade mango pickle, rose cookies, snacks, and fruit baskets set out for the harvest festival",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect: Harvest Festival tradition",
-    objectPosition: "50% 60%"
-  },
-  connectCarolRounds: {
-    id: "ctc-connect-carol-rounds",
-    src: connectCarolRounds,
-    alt: "Children and families singing and dancing with Santa beside a Christmas tree during carol rounds",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect: Carol Rounds tradition",
-    objectPosition: "50% 40%"
-  },
-  connectCampfire: {
-    id: "ctc-connect-campfire",
-    src: connectCampfire,
-    alt: "Families and children gathered around a campfire at night, roasting marshmallows together",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
-    usage: "Connect: life together",
-    objectPosition: "50% 62%"
-  },
   sundaySchool: {
     id: "ctc-sunday-school",
     src: ministrySchool,
@@ -225,27 +138,25 @@ export const siteImages = {
     objectPosition: "center center"
   },
   churchPicnic: {
-    id: "ctc-church-picnic",
-    src: connectSummerPicnic,
-    alt: "Two lines of church members tossing a water balloon across the grass at the church picnic",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
+    id: "liviu-boldis-family-picnic",
+    src: "https://images.unsplash.com/photo-1719759336550-4fecc23ab176?auto=format&fit=crop&w=1200&q=80",
+    alt: "A family relaxing together on a picnic blanket",
+    creditName: "Liviu Boldis",
+    creditUrl: `https://unsplash.com/@livioart?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/4fecc23ab176",
     usage: "Church Picnic event",
-    objectPosition: "50% 55%"
+    objectPosition: "center center"
   },
-
   familyCamp: {
-    id: "ctc-family-camp-campfire",
-    src: connectCampfire,
-    alt: "Families and children gathered around a campfire at night during family camp",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
+    id: "kitera-dent-group-retreat",
+    src: "https://images.unsplash.com/photo-1597120590849-a1d5a743d155?auto=format&fit=crop&w=1200&q=80",
+    alt: "A group walking together along a wooded trail",
+    creditName: "Kitera Dent",
+    creditUrl: `https://unsplash.com/@kitera?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/a1d5a743d155",
     usage: "Family Camp event",
-    objectPosition: "50% 62%"
+    objectPosition: "center center"
   },
-
   kidsCraft: {
     id: "alan-rodriguez-kids-craft",
     src: "https://images.unsplash.com/photo-1617117206620-b01f2919ff86?auto=format&fit=crop&w=1200&q=80",
@@ -257,14 +168,13 @@ export const siteImages = {
     objectPosition: "center center"
   },
   fellowshipMeal: {
-    id: "ctc-fellowship-meal",
-    src: connectFellowshipMeal,
-    alt: "A church member leans in to talk with an elder as the church family shares a meal served on banana leaves",
-    creditName: "Christ Tamil Church",
-    creditUrl: "",
-    unsplashUrl: "",
+    id: "jonathan-borba-fellowship-meal",
+    src: "https://images.unsplash.com/photo-1558661092-f9ad8c1c63c1?auto=format&fit=crop&w=1200&q=80",
+    alt: "Friends sharing bread and a meal around a table",
+    creditName: "Jonathan Borba",
+    creditUrl: `https://unsplash.com/@jonathanborba?${utm}`,
+    unsplashUrl: "https://unsplash.com/photos/f9ad8c1c63c1",
     usage: "Fellowship Hour event",
-    objectPosition: "58% 50%"
+    objectPosition: "center center"
   },
-
 } satisfies Record<string, SiteImage>;

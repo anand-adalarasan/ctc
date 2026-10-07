@@ -100,6 +100,7 @@
 
 .connect-page .connect-hero {
   position: relative;
+  overflow: hidden;
   display: grid;
   align-items: center;
   min-height: 690px;
@@ -108,35 +109,15 @@
   border: 0;
 }
 
-.connect-hero-media {
+.connect-page .connect-hero::after {
   position: absolute;
-  inset: 0;
-  overflow: hidden;
+  inset: 0 0 0 52%;
+  background:
+    radial-gradient(circle at 58% 36%, rgba(141, 198, 63, .22), transparent 36%),
+    linear-gradient(135deg, transparent 49%, rgba(21, 61, 43, .055) 49.2%, transparent 49.5%);
+  content: "";
+  opacity: .7;
   pointer-events: none;
-}
-
-.connect-hero-bg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  user-select: none;
-  filter: saturate(.84) contrast(.96) brightness(1.02);
-  animation: connectHeroIn 1050ms var(--ease-out) 120ms both;
-}
-
-.connect-hero-wash {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    var(--canvas) 0%,
-    var(--canvas) 34%,
-    rgba(255, 254, 250, .94) 48%,
-    rgba(255, 254, 250, .62) 60%,
-    rgba(255, 254, 250, .16) 76%,
-    transparent 92%
-  );
 }
 
 .connect-hero-grid {
@@ -217,20 +198,8 @@
   background: rgba(255, 254, 250, .97);
   border: 1px solid var(--line);
   border-radius: 18px;
-  box-shadow: 0 28px 80px rgba(16, 37, 27, .24);
+  box-shadow: 0 28px 80px rgba(16, 37, 27, .16);
   animation: connectFadeUp 760ms 140ms var(--ease-out) both;
-}
-
-/* Desktop: the card hangs off the hero's lower edge so the photo's faces stay clear. */
-@media (min-width: 901px) {
-  .connect-sunday-card {
-    align-self: end;
-    margin-bottom: -230px;
-  }
-
-  .connect-fellowship {
-    padding-top: calc(clamp(72px, 8vw, 116px) + 120px);
-  }
 }
 
 .connect-card-label {
@@ -294,14 +263,29 @@
   margin: 0;
 }
 
+.connect-fellowship-photo::after {
+  position: absolute;
+  inset: 22px -22px -22px 22px;
+  z-index: -1;
+  background: var(--primary);
+  border-radius: 18px;
+  content: "";
+}
+
 .connect-fellowship-photo img {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3.3;
+  aspect-ratio: 4 / 4.2;
   object-fit: cover;
+  object-position: center;
   border-radius: 18px;
-  box-shadow: 0 28px 70px rgba(16, 37, 27, .16);
+  box-shadow: var(--shadow-card);
+  transition: filter var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-out);
+}
+
+.connect-fellowship-photo:hover img {
+  filter: saturate(1.05);
+  transform: scale(1.012);
 }
 
 .connect-fellowship-photo figcaption {
@@ -356,61 +340,6 @@
   margin: 24px 0 0;
 }
 
-.connect-tradition-frame {
-  position: relative;
-  margin: 40px 0 0;
-}
-
-.connect-tradition-frame-photos {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--sage);
-  border-radius: 18px;
-  box-shadow: 0 28px 70px rgba(16, 37, 27, .16);
-}
-
-.connect-tradition-frame-photos img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  filter: blur(8px) saturate(.9);
-  transform: scale(1.05);
-  transition:
-    opacity 700ms var(--ease-out),
-    filter 700ms var(--ease-out),
-    transform 1400ms var(--ease-out);
-}
-
-.connect-tradition-frame-photos img.is-shown {
-  opacity: 1;
-  filter: none;
-  transform: none;
-}
-
-.connect-tradition-frame figcaption {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  padding: 9px 13px;
-  color: var(--ink);
-  background: rgba(255, 254, 250, .92);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  animation: connectFadeUp 520ms var(--ease-out) both;
-}
-
-.connect-tradition-inline-photo {
-  display: none;
-}
-
 .connect-tradition-list {
   border-top: 1px solid var(--line);
 }
@@ -441,11 +370,11 @@
   position: relative;
 }
 
-.connect-tradition-list article:is(:hover, .is-active) {
+.connect-tradition-list article:hover {
   padding-left: 24px;
 }
 
-.connect-tradition-list article:is(:hover, .is-active)::before {
+.connect-tradition-list article:hover::before {
   transform: scaleY(1);
 }
 
@@ -477,7 +406,7 @@
   transition: color var(--motion-base) var(--ease-out), transform var(--motion-base) var(--ease-out);
 }
 
-.connect-tradition-list article:is(:hover, .is-active) h3 {
+.connect-tradition-list article:hover h3 {
   color: var(--green-deep);
   font-style: italic;
   transform: translateX(6px);
@@ -526,28 +455,8 @@
   margin: 22px 0 0;
 }
 
-.connect-care-stage {
-  position: relative;
-}
-
-.connect-care-photo {
-  margin: 0;
-}
-
-.connect-care-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 18px;
-  box-shadow: 0 28px 80px rgba(16, 37, 27, .24);
-}
-
 .connect-care-invitation {
   position: relative;
-  width: min(100%, 470px);
-  margin: -150px 0 0 -84px;
   padding: clamp(34px, 4.5vw, 54px);
   background: rgba(255, 254, 250, .94);
   border: 1px solid var(--line);
@@ -580,11 +489,6 @@
   margin: 20px 0 28px;
 }
 
-@keyframes connectHeroIn {
-  from { opacity: 0; transform: scale(1.035); }
-  to { opacity: 1; transform: none; }
-}
-
 @keyframes connectFadeUp {
   from { opacity: 0; transform: translateY(22px); }
   to { opacity: 1; transform: none; }
@@ -601,13 +505,8 @@
     gap: 48px;
   }
 
-  .connect-care-stage {
-    max-width: 760px;
-  }
-
   .connect-care-invitation {
-    width: min(calc(100% - 32px), 540px);
-    margin: -110px 0 0 32px;
+    max-width: 680px;
   }
 }
 
@@ -629,22 +528,6 @@
 
   .connect-sunday-card {
     max-width: 560px;
-    margin-top: clamp(170px, 34vw, 280px);
-  }
-
-  .connect-hero-bg {
-    object-position: center 62% !important;
-  }
-
-  .connect-hero-wash {
-    background: linear-gradient(
-      180deg,
-      var(--canvas) 0%,
-      var(--canvas) 30%,
-      rgba(255, 254, 250, .82) 42%,
-      rgba(255, 254, 250, .3) 54%,
-      transparent 66%
-    );
   }
 
   .connect-fellowship-grid,
@@ -658,21 +541,6 @@
 
   .connect-traditions .connect-heading {
     position: static;
-  }
-
-  .connect-tradition-frame {
-    display: none;
-  }
-
-  .connect-tradition-inline-photo {
-    display: block;
-    width: 100%;
-    max-width: 560px;
-    aspect-ratio: 4 / 3;
-    margin-top: 20px;
-    object-fit: cover;
-    border-radius: 14px;
-    box-shadow: var(--shadow-card);
   }
 }
 
@@ -702,7 +570,7 @@
   }
 
   .connect-fellowship-photo {
-    width: 100%;
+    width: calc(100% - 22px);
   }
 
   .connect-fellowship-photo figcaption {
@@ -720,8 +588,6 @@
   }
 
   .connect-care-invitation {
-    width: auto;
-    margin: -56px 12px 0;
     padding: 28px 24px;
   }
 }
