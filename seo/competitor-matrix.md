@@ -43,7 +43,7 @@ Another congregation is literally named **Chicago Tamil Church** and owns the ex
 
 1. **Morning service with English included.** Our 10:30 AM bilingual service fits families who don't want a 12:30 or 2:30 start, and it suits spouses and kids who prefer English.
 2. **The best children's program among Tamil churches.** Kids Circle, B.L.A.S.T. Sunday School and VBS, with 40 kids' and VBS videos as proof.
-3. **A church you can join every week, not just on Sunday.** Wednesday Bible study, Mon–Thu prayer and monthly fasting prayer.
+3. **A church you can join every week, not just on Sunday.** Friday Bible study, Mon–Thu prayer and monthly fasting prayer.
 4. **Raising the next generation in Tamil faith and culture.** This is stated in the mission, and no competitor says it this clearly.
 5. **You can see us before you visit.** 160+ videos let a newcomer watch a real service first.
 6. **DuPage location.** Closer than Westchester or Hickory Hills for Naperville, Lisle, Woodridge, Bolingbrook, Aurora and Wheaton.

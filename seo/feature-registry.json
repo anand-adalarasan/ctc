@@ -173,7 +173,7 @@
     {
       "id": "bible-study",
       "name": "Bible Study & Prayer",
-      "schedule": "Wednesday 7:30 PM",
+      "schedule": "Friday 7:30 PM",
       "route": "/grow/bible-study-prayer",
       "status": "verified-in-repo"
     },
@@ -182,7 +182,8 @@
       "name": "Prayer Conference",
       "schedule": "Monday to Thursday 7:00 PM",
       "route": "/events",
-      "status": "verified-in-repo"
+      "status": "verified-in-repo",
+      "location": "UberConference (online)"
     },
     {
       "id": "fasting-prayer",
@@ -206,9 +207,9 @@
       "status": "verified-in-repo"
     },
     {
-      "id": "womens-conference",
-      "name": "Women's Conference / Women's Fellowship",
-      "schedule": "Annual / periodic",
+      "id": "womens-fellowship",
+      "name": "Women's Fellowship",
+      "schedule": "Periodic",
       "route": "/events",
       "status": "verified-in-repo"
     },
@@ -318,7 +319,7 @@
     },
     {
       "id": "D3",
-      "claim": "Some of the most frequent weekday gatherings among Chicago Tamil churches: Wednesday Bible study, Mon–Thu prayer, monthly fasting prayer",
+      "claim": "Some of the most frequent weekday gatherings among Chicago Tamil churches: Friday Bible study, Mon–Thu prayer, monthly fasting prayer",
       "evidence": "churchEvents"
     },
     {
