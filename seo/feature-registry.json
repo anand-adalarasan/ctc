@@ -60,7 +60,7 @@
     "region": "IL",
     "postal_code": "60516",
     "country": "US",
-    "phone": "(773) 936-3697",
+    "phone": "(773) 936-3097",
     "email": "info@christtamilchurch.com",
     "maps_url": "https://www.google.com/maps/search/?api=1&query=1330%2063rd%20St%20Downers%20Grove%20IL%2060516",
     "geo": {
@@ -86,9 +86,9 @@
       },
       {
         "field": "phone",
-        "value": "(773) 936-3697",
+        "value": "(773) 936-3097",
         "status": "verified-by-leadership",
-        "action": "Fix any listing (old .com site, directories) that shows 773-936-3097."
+        "action": "Fix any listing (old .com site, directories) that shows the old number 773-936-3697."
       }
     ]
   },
